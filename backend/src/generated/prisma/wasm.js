@@ -195,7 +195,6 @@ exports.Prisma.CvDocumentScalarFieldEnum = {
   importedFrom: 'importedFrom',
   parseStatus: 'parseStatus',
   parsedText: 'parsedText',
-  extractedSkillsRaw: 'extractedSkillsRaw',
   retryCount: 'retryCount',
   lastAttemptAt: 'lastAttemptAt',
   createdAt: 'createdAt',
@@ -314,36 +313,36 @@ exports.Prisma.JsonNullValueFilter = {
   AnyNull: Prisma.AnyNull
 };
 exports.Role = exports.$Enums.Role = {
-  CANDIDATE: 'CANDIDATE',
-  RECRUITER: 'RECRUITER',
-  ADMIN: 'ADMIN'
+  candidate: 'candidate',
+  recruiter: 'recruiter',
+  admin: 'admin'
 };
 
 exports.ImportedFrom = exports.$Enums.ImportedFrom = {
-  UPLOAD: 'UPLOAD',
-  JSON: 'JSON',
-  GITHUB: 'GITHUB'
+  upload: 'upload',
+  json: 'json',
+  github: 'github'
 };
 
 exports.ParseStatus = exports.$Enums.ParseStatus = {
-  PENDING: 'PENDING',
-  PROCESSING: 'PROCESSING',
-  DONE: 'DONE',
-  FAILED: 'FAILED'
+  pending: 'pending',
+  processing: 'processing',
+  done: 'done',
+  failed: 'failed'
 };
 
 exports.OfferStatus = exports.$Enums.OfferStatus = {
-  DRAFT: 'DRAFT',
-  PUBLISHED: 'PUBLISHED',
-  ARCHIVED: 'ARCHIVED'
+  draft: 'draft',
+  published: 'published',
+  archived: 'archived'
 };
 
 exports.ApplicationStatus = exports.$Enums.ApplicationStatus = {
-  PENDING: 'PENDING',
-  INTERVIEW: 'INTERVIEW',
-  ACCEPTED: 'ACCEPTED',
-  REJECTED: 'REJECTED',
-  WITHDRAWN: 'WITHDRAWN'
+  pending: 'pending',
+  interview: 'interview',
+  accepted: 'accepted',
+  rejected: 'rejected',
+  withdrawn: 'withdrawn'
 };
 
 exports.Prisma.ModelName = {

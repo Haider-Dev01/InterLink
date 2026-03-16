@@ -1,0 +1,105 @@
+2026-03-16 01:15:22:1522 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [[39m
+[31m  {[39m
+[31m    "code": "invalid_value",[39m
+[31m    "values": [[39m
+[31m      "CANDIDATE",[39m
+[31m      "RECRUITER",[39m
+[31m      "ADMIN"[39m
+[31m    ],[39m
+[31m    "path": [[39m
+[31m      "role"[39m
+[31m    ],[39m
+[31m    "message": "Invalid option: expected one of \"CANDIDATE\"|\"RECRUITER\"|\"ADMIN\""[39m
+[31m  }[39m
+[31m][39m
+2026-03-16 01:16:44:1644 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [[39m
+[31m  {[39m
+[31m    "code": "invalid_value",[39m
+[31m    "values": [[39m
+[31m      "CANDIDATE",[39m
+[31m      "RECRUITER",[39m
+[31m      "ADMIN"[39m
+[31m    ],[39m
+[31m    "path": [[39m
+[31m      "role"[39m
+[31m    ],[39m
+[31m    "message": "Invalid option: expected one of \"CANDIDATE\"|\"RECRUITER\"|\"ADMIN\""[39m
+[31m  }[39m
+[31m][39m
+2026-03-16 01:16:48:1648 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [[39m
+[31m  {[39m
+[31m    "code": "invalid_value",[39m
+[31m    "values": [[39m
+[31m      "CANDIDATE",[39m
+[31m      "RECRUITER",[39m
+[31m      "ADMIN"[39m
+[31m    ],[39m
+[31m    "path": [[39m
+[31m      "role"[39m
+[31m    ],[39m
+[31m    "message": "Invalid option: expected one of \"CANDIDATE\"|\"RECRUITER\"|\"ADMIN\""[39m
+[31m  }[39m
+[31m][39m
+2026-03-16 01:18:21:1821 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [39m
+[31mInvalid `prisma.user.findUnique()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\auth\auth.repository.ts:6:24[39m
+
+[31m  3 [39m
+[31m  4 export class AuthRepository {[39m
+[31m  5   async findUserByEmail(email: string) {[39m
+[31m→ 6     return prisma.user.findUnique([39m
+[31mThe table `(not available)` does not exist in the current database.[39m
+2026-03-16 01:21:37:2137 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [39m
+[31mInvalid `prisma.user.findUnique()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\auth\auth.repository.ts:6:24[39m
+
+[31m  3 [39m
+[31m  4 export class AuthRepository {[39m
+[31m  5   async findUserByEmail(email: string) {[39m
+[31m→ 6     return prisma.user.findUnique([39m
+[31mThe table `(not available)` does not exist in the current database.[39m
+2026-03-16 01:21:38:2138 [31merror[39m: [31m[RateLimit] Erreur auto-log: [39m
+[31mInvalid `prisma.auditLog.create()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\shared\middleware\rateLimiter.ts:17:21[39m
+
+[31m  14 logger.warn(`[RateLimit] Blocage auth pour IP: ${ip}, Email: ${email}`);[39m
+[31m  15 [39m
+[31m  16 // Audit log as requested (D08)[39m
+[31m→ 17 prisma.auditLog.create([39m
+[31mThe table `(not available)` does not exist in the current database.[39m
+2026-03-16 01:21:39:2139 [31merror[39m: [31m[RateLimit] Erreur auto-log: [39m
+[31mInvalid `prisma.auditLog.create()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\shared\middleware\rateLimiter.ts:17:21[39m
+
+[31m  14 logger.warn(`[RateLimit] Blocage auth pour IP: ${ip}, Email: ${email}`);[39m
+[31m  15 [39m
+[31m  16 // Audit log as requested (D08)[39m
+[31m→ 17 prisma.auditLog.create([39m
+[31mThe table `(not available)` does not exist in the current database.[39m
+2026-03-16 07:02:57:257 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [39m
+[31mInvalid `prisma.user.findUnique()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\auth\auth.repository.ts:6:24[39m
+
+[31m  3 [39m
+[31m  4 export class AuthRepository {[39m
+[31m  5   async findUserByEmail(email: string) {[39m
+[31m→ 6     return prisma.user.findUnique([39m
+[31mThe table `(not available)` does not exist in the current database.[39m
+2026-03-16 07:23:34:2334 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [39m
+[31mInvalid `prisma.user.findUnique()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\auth\auth.repository.ts:6:24[39m
+
+[31m  3 [39m
+[31m  4 export class AuthRepository {[39m
+[31m  5   async findUserByEmail(email: string) {[39m
+[31m→ 6     return prisma.user.findUnique([39m
+[31mThe table `(not available)` does not exist in the current database.[39m
+2026-03-16 07:24:08:248 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [39m
+[31mInvalid `prisma.user.findUnique()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\auth\auth.repository.ts:6:24[39m
+
+[31m  3 [39m
+[31m  4 export class AuthRepository {[39m
+[31m  5   async findUserByEmail(email: string) {[39m
+[31m→ 6     return prisma.user.findUnique([39m
+[31mThe table `(not available)` does not exist in the current database.[39m

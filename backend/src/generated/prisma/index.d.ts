@@ -94,48 +94,48 @@ export type AuditLog = $Result.DefaultSelection<Prisma.$AuditLogPayload>
  */
 export namespace $Enums {
   export const Role: {
-  CANDIDATE: 'CANDIDATE',
-  RECRUITER: 'RECRUITER',
-  ADMIN: 'ADMIN'
+  candidate: 'candidate',
+  recruiter: 'recruiter',
+  admin: 'admin'
 };
 
 export type Role = (typeof Role)[keyof typeof Role]
 
 
 export const ImportedFrom: {
-  UPLOAD: 'UPLOAD',
-  JSON: 'JSON',
-  GITHUB: 'GITHUB'
+  upload: 'upload',
+  json: 'json',
+  github: 'github'
 };
 
 export type ImportedFrom = (typeof ImportedFrom)[keyof typeof ImportedFrom]
 
 
 export const ParseStatus: {
-  PENDING: 'PENDING',
-  PROCESSING: 'PROCESSING',
-  DONE: 'DONE',
-  FAILED: 'FAILED'
+  pending: 'pending',
+  processing: 'processing',
+  done: 'done',
+  failed: 'failed'
 };
 
 export type ParseStatus = (typeof ParseStatus)[keyof typeof ParseStatus]
 
 
 export const OfferStatus: {
-  DRAFT: 'DRAFT',
-  PUBLISHED: 'PUBLISHED',
-  ARCHIVED: 'ARCHIVED'
+  draft: 'draft',
+  published: 'published',
+  archived: 'archived'
 };
 
 export type OfferStatus = (typeof OfferStatus)[keyof typeof OfferStatus]
 
 
 export const ApplicationStatus: {
-  PENDING: 'PENDING',
-  INTERVIEW: 'INTERVIEW',
-  ACCEPTED: 'ACCEPTED',
-  REJECTED: 'REJECTED',
-  WITHDRAWN: 'WITHDRAWN'
+  pending: 'pending',
+  interview: 'interview',
+  accepted: 'accepted',
+  rejected: 'rejected',
+  withdrawn: 'withdrawn'
 };
 
 export type ApplicationStatus = (typeof ApplicationStatus)[keyof typeof ApplicationStatus]
@@ -2120,25 +2120,27 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    refreshTokens: number
-    cvDocuments: number
     applications: number
-    notifications: number
-    sentMessages: number
-    receivedMessages: number
     auditLogs: number
+    cvDocuments: number
     jobOffers: number
+    match_scores: number
+    receivedMessages: number
+    sentMessages: number
+    notifications: number
+    refreshTokens: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
-    cvDocuments?: boolean | UserCountOutputTypeCountCvDocumentsArgs
     applications?: boolean | UserCountOutputTypeCountApplicationsArgs
-    notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
-    sentMessages?: boolean | UserCountOutputTypeCountSentMessagesArgs
-    receivedMessages?: boolean | UserCountOutputTypeCountReceivedMessagesArgs
     auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
+    cvDocuments?: boolean | UserCountOutputTypeCountCvDocumentsArgs
     jobOffers?: boolean | UserCountOutputTypeCountJobOffersArgs
+    match_scores?: boolean | UserCountOutputTypeCountMatch_scoresArgs
+    receivedMessages?: boolean | UserCountOutputTypeCountReceivedMessagesArgs
+    sentMessages?: boolean | UserCountOutputTypeCountSentMessagesArgs
+    notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+    refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
   }
 
   // Custom InputTypes
@@ -2155,43 +2157,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountRefreshTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RefreshTokenWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountCvDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CvDocumentWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
   export type UserCountOutputTypeCountApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ApplicationWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: NotificationWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountSentMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MessageWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountReceivedMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MessageWhereInput
   }
 
   /**
@@ -2204,8 +2171,50 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
+  export type UserCountOutputTypeCountCvDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CvDocumentWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
   export type UserCountOutputTypeCountJobOffersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: JobOfferWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMatch_scoresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MatchScoreWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountReceivedMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSentMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRefreshTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RefreshTokenWhereInput
   }
 
 
@@ -2214,13 +2223,13 @@ export namespace Prisma {
    */
 
   export type CompanyCountOutputType = {
-    profiles: number
     jobOffers: number
+    profiles: number
   }
 
   export type CompanyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    profiles?: boolean | CompanyCountOutputTypeCountProfilesArgs
     jobOffers?: boolean | CompanyCountOutputTypeCountJobOffersArgs
+    profiles?: boolean | CompanyCountOutputTypeCountProfilesArgs
   }
 
   // Custom InputTypes
@@ -2237,15 +2246,15 @@ export namespace Prisma {
   /**
    * CompanyCountOutputType without action
    */
-  export type CompanyCountOutputTypeCountProfilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ProfileWhereInput
+  export type CompanyCountOutputTypeCountJobOffersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JobOfferWhereInput
   }
 
   /**
    * CompanyCountOutputType without action
    */
-  export type CompanyCountOutputTypeCountJobOffersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: JobOfferWhereInput
+  export type CompanyCountOutputTypeCountProfilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProfileWhereInput
   }
 
 
@@ -2365,15 +2374,15 @@ export namespace Prisma {
    */
 
   export type JobOfferCountOutputType = {
-    offerSkills: number
     applications: number
     matchScores: number
+    offerSkills: number
   }
 
   export type JobOfferCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    offerSkills?: boolean | JobOfferCountOutputTypeCountOfferSkillsArgs
     applications?: boolean | JobOfferCountOutputTypeCountApplicationsArgs
     matchScores?: boolean | JobOfferCountOutputTypeCountMatchScoresArgs
+    offerSkills?: boolean | JobOfferCountOutputTypeCountOfferSkillsArgs
   }
 
   // Custom InputTypes
@@ -2390,13 +2399,6 @@ export namespace Prisma {
   /**
    * JobOfferCountOutputType without action
    */
-  export type JobOfferCountOutputTypeCountOfferSkillsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: OfferSkillWhereInput
-  }
-
-  /**
-   * JobOfferCountOutputType without action
-   */
   export type JobOfferCountOutputTypeCountApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ApplicationWhereInput
   }
@@ -2406,6 +2408,13 @@ export namespace Prisma {
    */
   export type JobOfferCountOutputTypeCountMatchScoresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MatchScoreWhereInput
+  }
+
+  /**
+   * JobOfferCountOutputType without action
+   */
+  export type JobOfferCountOutputTypeCountOfferSkillsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OfferSkillWhereInput
   }
 
 
@@ -2682,16 +2691,17 @@ export namespace Prisma {
     availabilityMonths?: boolean
     createdAt?: boolean
     deletedAt?: boolean
-    profile?: boolean | User$profileArgs<ExtArgs>
-    company?: boolean | User$companyArgs<ExtArgs>
-    refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
-    cvDocuments?: boolean | User$cvDocumentsArgs<ExtArgs>
     applications?: boolean | User$applicationsArgs<ExtArgs>
-    notifications?: boolean | User$notificationsArgs<ExtArgs>
-    sentMessages?: boolean | User$sentMessagesArgs<ExtArgs>
-    receivedMessages?: boolean | User$receivedMessagesArgs<ExtArgs>
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
+    company?: boolean | User$companyArgs<ExtArgs>
+    cvDocuments?: boolean | User$cvDocumentsArgs<ExtArgs>
     jobOffers?: boolean | User$jobOffersArgs<ExtArgs>
+    match_scores?: boolean | User$match_scoresArgs<ExtArgs>
+    receivedMessages?: boolean | User$receivedMessagesArgs<ExtArgs>
+    sentMessages?: boolean | User$sentMessagesArgs<ExtArgs>
+    notifications?: boolean | User$notificationsArgs<ExtArgs>
+    profile?: boolean | User$profileArgs<ExtArgs>
+    refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2722,16 +2732,17 @@ export namespace Prisma {
   }
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    profile?: boolean | User$profileArgs<ExtArgs>
-    company?: boolean | User$companyArgs<ExtArgs>
-    refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
-    cvDocuments?: boolean | User$cvDocumentsArgs<ExtArgs>
     applications?: boolean | User$applicationsArgs<ExtArgs>
-    notifications?: boolean | User$notificationsArgs<ExtArgs>
-    sentMessages?: boolean | User$sentMessagesArgs<ExtArgs>
-    receivedMessages?: boolean | User$receivedMessagesArgs<ExtArgs>
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
+    company?: boolean | User$companyArgs<ExtArgs>
+    cvDocuments?: boolean | User$cvDocumentsArgs<ExtArgs>
     jobOffers?: boolean | User$jobOffersArgs<ExtArgs>
+    match_scores?: boolean | User$match_scoresArgs<ExtArgs>
+    receivedMessages?: boolean | User$receivedMessagesArgs<ExtArgs>
+    sentMessages?: boolean | User$sentMessagesArgs<ExtArgs>
+    notifications?: boolean | User$notificationsArgs<ExtArgs>
+    profile?: boolean | User$profileArgs<ExtArgs>
+    refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2739,16 +2750,17 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      profile: Prisma.$ProfilePayload<ExtArgs> | null
-      company: Prisma.$CompanyPayload<ExtArgs> | null
-      refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
-      cvDocuments: Prisma.$CvDocumentPayload<ExtArgs>[]
       applications: Prisma.$ApplicationPayload<ExtArgs>[]
-      notifications: Prisma.$NotificationPayload<ExtArgs>[]
-      sentMessages: Prisma.$MessagePayload<ExtArgs>[]
-      receivedMessages: Prisma.$MessagePayload<ExtArgs>[]
       auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
+      company: Prisma.$CompanyPayload<ExtArgs> | null
+      cvDocuments: Prisma.$CvDocumentPayload<ExtArgs>[]
       jobOffers: Prisma.$JobOfferPayload<ExtArgs>[]
+      match_scores: Prisma.$MatchScorePayload<ExtArgs>[]
+      receivedMessages: Prisma.$MessagePayload<ExtArgs>[]
+      sentMessages: Prisma.$MessagePayload<ExtArgs>[]
+      notifications: Prisma.$NotificationPayload<ExtArgs>[]
+      profile: Prisma.$ProfilePayload<ExtArgs> | null
+      refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3125,16 +3137,17 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    profile<T extends User$profileArgs<ExtArgs> = {}>(args?: Subset<T, User$profileArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
-    company<T extends User$companyArgs<ExtArgs> = {}>(args?: Subset<T, User$companyArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
-    refreshTokens<T extends User$refreshTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany"> | Null>
-    cvDocuments<T extends User$cvDocumentsArgs<ExtArgs> = {}>(args?: Subset<T, User$cvDocumentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CvDocumentPayload<ExtArgs>, T, "findMany"> | Null>
     applications<T extends User$applicationsArgs<ExtArgs> = {}>(args?: Subset<T, User$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findMany"> | Null>
-    notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany"> | Null>
-    sentMessages<T extends User$sentMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$sentMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany"> | Null>
-    receivedMessages<T extends User$receivedMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$receivedMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany"> | Null>
     auditLogs<T extends User$auditLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany"> | Null>
+    company<T extends User$companyArgs<ExtArgs> = {}>(args?: Subset<T, User$companyArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    cvDocuments<T extends User$cvDocumentsArgs<ExtArgs> = {}>(args?: Subset<T, User$cvDocumentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CvDocumentPayload<ExtArgs>, T, "findMany"> | Null>
     jobOffers<T extends User$jobOffersArgs<ExtArgs> = {}>(args?: Subset<T, User$jobOffersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobOfferPayload<ExtArgs>, T, "findMany"> | Null>
+    match_scores<T extends User$match_scoresArgs<ExtArgs> = {}>(args?: Subset<T, User$match_scoresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MatchScorePayload<ExtArgs>, T, "findMany"> | Null>
+    receivedMessages<T extends User$receivedMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$receivedMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany"> | Null>
+    sentMessages<T extends User$sentMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$sentMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany"> | Null>
+    notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany"> | Null>
+    profile<T extends User$profileArgs<ExtArgs> = {}>(args?: Subset<T, User$profileArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    refreshTokens<T extends User$refreshTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3488,76 +3501,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.profile
-   */
-  export type User$profileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Profile
-     */
-    select?: ProfileSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProfileInclude<ExtArgs> | null
-    where?: ProfileWhereInput
-  }
-
-  /**
-   * User.company
-   */
-  export type User$companyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Company
-     */
-    select?: CompanySelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CompanyInclude<ExtArgs> | null
-    where?: CompanyWhereInput
-  }
-
-  /**
-   * User.refreshTokens
-   */
-  export type User$refreshTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the RefreshToken
-     */
-    select?: RefreshTokenSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RefreshTokenInclude<ExtArgs> | null
-    where?: RefreshTokenWhereInput
-    orderBy?: RefreshTokenOrderByWithRelationInput | RefreshTokenOrderByWithRelationInput[]
-    cursor?: RefreshTokenWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: RefreshTokenScalarFieldEnum | RefreshTokenScalarFieldEnum[]
-  }
-
-  /**
-   * User.cvDocuments
-   */
-  export type User$cvDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CvDocument
-     */
-    select?: CvDocumentSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CvDocumentInclude<ExtArgs> | null
-    where?: CvDocumentWhereInput
-    orderBy?: CvDocumentOrderByWithRelationInput | CvDocumentOrderByWithRelationInput[]
-    cursor?: CvDocumentWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: CvDocumentScalarFieldEnum | CvDocumentScalarFieldEnum[]
-  }
-
-  /**
    * User.applications
    */
   export type User$applicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3575,66 +3518,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ApplicationScalarFieldEnum | ApplicationScalarFieldEnum[]
-  }
-
-  /**
-   * User.notifications
-   */
-  export type User$notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Notification
-     */
-    select?: NotificationSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: NotificationInclude<ExtArgs> | null
-    where?: NotificationWhereInput
-    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
-    cursor?: NotificationWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
-  }
-
-  /**
-   * User.sentMessages
-   */
-  export type User$sentMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Message
-     */
-    select?: MessageSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MessageInclude<ExtArgs> | null
-    where?: MessageWhereInput
-    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
-    cursor?: MessageWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
-  }
-
-  /**
-   * User.receivedMessages
-   */
-  export type User$receivedMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Message
-     */
-    select?: MessageSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MessageInclude<ExtArgs> | null
-    where?: MessageWhereInput
-    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
-    cursor?: MessageWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
   }
 
   /**
@@ -3658,6 +3541,41 @@ export namespace Prisma {
   }
 
   /**
+   * User.company
+   */
+  export type User$companyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    where?: CompanyWhereInput
+  }
+
+  /**
+   * User.cvDocuments
+   */
+  export type User$cvDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvDocument
+     */
+    select?: CvDocumentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvDocumentInclude<ExtArgs> | null
+    where?: CvDocumentWhereInput
+    orderBy?: CvDocumentOrderByWithRelationInput | CvDocumentOrderByWithRelationInput[]
+    cursor?: CvDocumentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CvDocumentScalarFieldEnum | CvDocumentScalarFieldEnum[]
+  }
+
+  /**
    * User.jobOffers
    */
   export type User$jobOffersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3675,6 +3593,121 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: JobOfferScalarFieldEnum | JobOfferScalarFieldEnum[]
+  }
+
+  /**
+   * User.match_scores
+   */
+  export type User$match_scoresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MatchScore
+     */
+    select?: MatchScoreSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MatchScoreInclude<ExtArgs> | null
+    where?: MatchScoreWhereInput
+    orderBy?: MatchScoreOrderByWithRelationInput | MatchScoreOrderByWithRelationInput[]
+    cursor?: MatchScoreWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MatchScoreScalarFieldEnum | MatchScoreScalarFieldEnum[]
+  }
+
+  /**
+   * User.receivedMessages
+   */
+  export type User$receivedMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    cursor?: MessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * User.sentMessages
+   */
+  export type User$sentMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    cursor?: MessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * User.notifications
+   */
+  export type User$notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    where?: NotificationWhereInput
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    cursor?: NotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * User.profile
+   */
+  export type User$profileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Profile
+     */
+    select?: ProfileSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfileInclude<ExtArgs> | null
+    where?: ProfileWhereInput
+  }
+
+  /**
+   * User.refreshTokens
+   */
+  export type User$refreshTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefreshTokenInclude<ExtArgs> | null
+    where?: RefreshTokenWhereInput
+    orderBy?: RefreshTokenOrderByWithRelationInput | RefreshTokenOrderByWithRelationInput[]
+    cursor?: RefreshTokenWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RefreshTokenScalarFieldEnum | RefreshTokenScalarFieldEnum[]
   }
 
   /**
@@ -4853,9 +4886,9 @@ export namespace Prisma {
     githubData?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     company?: boolean | Profile$companyArgs<ExtArgs>
     school?: boolean | Profile$schoolArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
 
   export type ProfileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4871,9 +4904,9 @@ export namespace Prisma {
     githubData?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     company?: boolean | Profile$companyArgs<ExtArgs>
     school?: boolean | Profile$schoolArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
 
   export type ProfileSelectScalar = {
@@ -4892,22 +4925,22 @@ export namespace Prisma {
   }
 
   export type ProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     company?: boolean | Profile$companyArgs<ExtArgs>
     school?: boolean | Profile$schoolArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type ProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     company?: boolean | Profile$companyArgs<ExtArgs>
     school?: boolean | Profile$schoolArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $ProfilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Profile"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       company: Prisma.$CompanyPayload<ExtArgs> | null
       school: Prisma.$SchoolPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5286,9 +5319,9 @@ export namespace Prisma {
    */
   export interface Prisma__ProfileClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     company<T extends Profile$companyArgs<ExtArgs> = {}>(args?: Subset<T, Profile$companyArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     school<T extends Profile$schoolArgs<ExtArgs> = {}>(args?: Subset<T, Profile$schoolArgs<ExtArgs>>): Prisma__SchoolClient<$Result.GetResult<Prisma.$SchoolPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5905,8 +5938,8 @@ export namespace Prisma {
     createdAt?: boolean
     deletedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    profiles?: boolean | Company$profilesArgs<ExtArgs>
     jobOffers?: boolean | Company$jobOffersArgs<ExtArgs>
+    profiles?: boolean | Company$profilesArgs<ExtArgs>
     _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["company"]>
 
@@ -5941,8 +5974,8 @@ export namespace Prisma {
 
   export type CompanyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    profiles?: boolean | Company$profilesArgs<ExtArgs>
     jobOffers?: boolean | Company$jobOffersArgs<ExtArgs>
+    profiles?: boolean | Company$profilesArgs<ExtArgs>
     _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CompanyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5953,8 +5986,8 @@ export namespace Prisma {
     name: "Company"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
-      profiles: Prisma.$ProfilePayload<ExtArgs>[]
       jobOffers: Prisma.$JobOfferPayload<ExtArgs>[]
+      profiles: Prisma.$ProfilePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6333,8 +6366,8 @@ export namespace Prisma {
   export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
-    profiles<T extends Company$profilesArgs<ExtArgs> = {}>(args?: Subset<T, Company$profilesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findMany"> | Null>
     jobOffers<T extends Company$jobOffersArgs<ExtArgs> = {}>(args?: Subset<T, Company$jobOffersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobOfferPayload<ExtArgs>, T, "findMany"> | Null>
+    profiles<T extends Company$profilesArgs<ExtArgs> = {}>(args?: Subset<T, Company$profilesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6693,26 +6726,6 @@ export namespace Prisma {
   }
 
   /**
-   * Company.profiles
-   */
-  export type Company$profilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Profile
-     */
-    select?: ProfileSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProfileInclude<ExtArgs> | null
-    where?: ProfileWhereInput
-    orderBy?: ProfileOrderByWithRelationInput | ProfileOrderByWithRelationInput[]
-    cursor?: ProfileWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ProfileScalarFieldEnum | ProfileScalarFieldEnum[]
-  }
-
-  /**
    * Company.jobOffers
    */
   export type Company$jobOffersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6730,6 +6743,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: JobOfferScalarFieldEnum | JobOfferScalarFieldEnum[]
+  }
+
+  /**
+   * Company.profiles
+   */
+  export type Company$profilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Profile
+     */
+    select?: ProfileSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfileInclude<ExtArgs> | null
+    where?: ProfileWhereInput
+    orderBy?: ProfileOrderByWithRelationInput | ProfileOrderByWithRelationInput[]
+    cursor?: ProfileWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProfileScalarFieldEnum | ProfileScalarFieldEnum[]
   }
 
   /**
@@ -8699,7 +8732,6 @@ export namespace Prisma {
     importedFrom: number
     parseStatus: number
     parsedText: number
-    extractedSkillsRaw: number
     retryCount: number
     lastAttemptAt: number
     createdAt: number
@@ -8752,7 +8784,6 @@ export namespace Prisma {
     importedFrom?: true
     parseStatus?: true
     parsedText?: true
-    extractedSkillsRaw?: true
     retryCount?: true
     lastAttemptAt?: true
     createdAt?: true
@@ -8854,7 +8885,6 @@ export namespace Prisma {
     importedFrom: $Enums.ImportedFrom
     parseStatus: $Enums.ParseStatus
     parsedText: string | null
-    extractedSkillsRaw: JsonValue | null
     retryCount: number
     lastAttemptAt: Date | null
     createdAt: Date
@@ -8888,7 +8918,6 @@ export namespace Prisma {
     importedFrom?: boolean
     parseStatus?: boolean
     parsedText?: boolean
-    extractedSkillsRaw?: boolean
     retryCount?: boolean
     lastAttemptAt?: boolean
     createdAt?: boolean
@@ -8907,7 +8936,6 @@ export namespace Prisma {
     importedFrom?: boolean
     parseStatus?: boolean
     parsedText?: boolean
-    extractedSkillsRaw?: boolean
     retryCount?: boolean
     lastAttemptAt?: boolean
     createdAt?: boolean
@@ -8923,7 +8951,6 @@ export namespace Prisma {
     importedFrom?: boolean
     parseStatus?: boolean
     parsedText?: boolean
-    extractedSkillsRaw?: boolean
     retryCount?: boolean
     lastAttemptAt?: boolean
     createdAt?: boolean
@@ -8955,7 +8982,6 @@ export namespace Prisma {
       importedFrom: $Enums.ImportedFrom
       parseStatus: $Enums.ParseStatus
       parsedText: string | null
-      extractedSkillsRaw: Prisma.JsonValue | null
       retryCount: number
       lastAttemptAt: Date | null
       createdAt: Date
@@ -9363,7 +9389,6 @@ export namespace Prisma {
     readonly importedFrom: FieldRef<"CvDocument", 'ImportedFrom'>
     readonly parseStatus: FieldRef<"CvDocument", 'ParseStatus'>
     readonly parsedText: FieldRef<"CvDocument", 'String'>
-    readonly extractedSkillsRaw: FieldRef<"CvDocument", 'Json'>
     readonly retryCount: FieldRef<"CvDocument", 'Int'>
     readonly lastAttemptAt: FieldRef<"CvDocument", 'DateTime'>
     readonly createdAt: FieldRef<"CvDocument", 'DateTime'>
@@ -10983,11 +11008,11 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    applications?: boolean | JobOffer$applicationsArgs<ExtArgs>
     company?: boolean | CompanyDefaultArgs<ExtArgs>
     recruiter?: boolean | UserDefaultArgs<ExtArgs>
-    offerSkills?: boolean | JobOffer$offerSkillsArgs<ExtArgs>
-    applications?: boolean | JobOffer$applicationsArgs<ExtArgs>
     matchScores?: boolean | JobOffer$matchScoresArgs<ExtArgs>
+    offerSkills?: boolean | JobOffer$offerSkillsArgs<ExtArgs>
     _count?: boolean | JobOfferCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["jobOffer"]>
 
@@ -11030,11 +11055,11 @@ export namespace Prisma {
   }
 
   export type JobOfferInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    applications?: boolean | JobOffer$applicationsArgs<ExtArgs>
     company?: boolean | CompanyDefaultArgs<ExtArgs>
     recruiter?: boolean | UserDefaultArgs<ExtArgs>
-    offerSkills?: boolean | JobOffer$offerSkillsArgs<ExtArgs>
-    applications?: boolean | JobOffer$applicationsArgs<ExtArgs>
     matchScores?: boolean | JobOffer$matchScoresArgs<ExtArgs>
+    offerSkills?: boolean | JobOffer$offerSkillsArgs<ExtArgs>
     _count?: boolean | JobOfferCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type JobOfferIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11045,11 +11070,11 @@ export namespace Prisma {
   export type $JobOfferPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "JobOffer"
     objects: {
+      applications: Prisma.$ApplicationPayload<ExtArgs>[]
       company: Prisma.$CompanyPayload<ExtArgs>
       recruiter: Prisma.$UserPayload<ExtArgs>
-      offerSkills: Prisma.$OfferSkillPayload<ExtArgs>[]
-      applications: Prisma.$ApplicationPayload<ExtArgs>[]
       matchScores: Prisma.$MatchScorePayload<ExtArgs>[]
+      offerSkills: Prisma.$OfferSkillPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11431,11 +11456,11 @@ export namespace Prisma {
    */
   export interface Prisma__JobOfferClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    applications<T extends JobOffer$applicationsArgs<ExtArgs> = {}>(args?: Subset<T, JobOffer$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findMany"> | Null>
     company<T extends CompanyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyDefaultArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     recruiter<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
-    offerSkills<T extends JobOffer$offerSkillsArgs<ExtArgs> = {}>(args?: Subset<T, JobOffer$offerSkillsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferSkillPayload<ExtArgs>, T, "findMany"> | Null>
-    applications<T extends JobOffer$applicationsArgs<ExtArgs> = {}>(args?: Subset<T, JobOffer$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findMany"> | Null>
     matchScores<T extends JobOffer$matchScoresArgs<ExtArgs> = {}>(args?: Subset<T, JobOffer$matchScoresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MatchScorePayload<ExtArgs>, T, "findMany"> | Null>
+    offerSkills<T extends JobOffer$offerSkillsArgs<ExtArgs> = {}>(args?: Subset<T, JobOffer$offerSkillsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferSkillPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11798,26 +11823,6 @@ export namespace Prisma {
   }
 
   /**
-   * JobOffer.offerSkills
-   */
-  export type JobOffer$offerSkillsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the OfferSkill
-     */
-    select?: OfferSkillSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: OfferSkillInclude<ExtArgs> | null
-    where?: OfferSkillWhereInput
-    orderBy?: OfferSkillOrderByWithRelationInput | OfferSkillOrderByWithRelationInput[]
-    cursor?: OfferSkillWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: OfferSkillScalarFieldEnum | OfferSkillScalarFieldEnum[]
-  }
-
-  /**
    * JobOffer.applications
    */
   export type JobOffer$applicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11855,6 +11860,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MatchScoreScalarFieldEnum | MatchScoreScalarFieldEnum[]
+  }
+
+  /**
+   * JobOffer.offerSkills
+   */
+  export type JobOffer$offerSkillsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfferSkill
+     */
+    select?: OfferSkillSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OfferSkillInclude<ExtArgs> | null
+    where?: OfferSkillWhereInput
+    orderBy?: OfferSkillOrderByWithRelationInput | OfferSkillOrderByWithRelationInput[]
+    cursor?: OfferSkillWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OfferSkillScalarFieldEnum | OfferSkillScalarFieldEnum[]
   }
 
   /**
@@ -13009,6 +13034,7 @@ export namespace Prisma {
     scoreFinal?: boolean
     breakdown?: boolean
     computedAt?: boolean
+    users?: boolean | UserDefaultArgs<ExtArgs>
     cvDocument?: boolean | CvDocumentDefaultArgs<ExtArgs>
     offer?: boolean | JobOfferDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["matchScore"]>
@@ -13022,6 +13048,7 @@ export namespace Prisma {
     scoreFinal?: boolean
     breakdown?: boolean
     computedAt?: boolean
+    users?: boolean | UserDefaultArgs<ExtArgs>
     cvDocument?: boolean | CvDocumentDefaultArgs<ExtArgs>
     offer?: boolean | JobOfferDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["matchScore"]>
@@ -13038,10 +13065,12 @@ export namespace Prisma {
   }
 
   export type MatchScoreInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | UserDefaultArgs<ExtArgs>
     cvDocument?: boolean | CvDocumentDefaultArgs<ExtArgs>
     offer?: boolean | JobOfferDefaultArgs<ExtArgs>
   }
   export type MatchScoreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | UserDefaultArgs<ExtArgs>
     cvDocument?: boolean | CvDocumentDefaultArgs<ExtArgs>
     offer?: boolean | JobOfferDefaultArgs<ExtArgs>
   }
@@ -13049,6 +13078,7 @@ export namespace Prisma {
   export type $MatchScorePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "MatchScore"
     objects: {
+      users: Prisma.$UserPayload<ExtArgs>
       cvDocument: Prisma.$CvDocumentPayload<ExtArgs>
       offer: Prisma.$JobOfferPayload<ExtArgs>
     }
@@ -13425,6 +13455,7 @@ export namespace Prisma {
    */
   export interface Prisma__MatchScoreClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    users<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     cvDocument<T extends CvDocumentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CvDocumentDefaultArgs<ExtArgs>>): Prisma__CvDocumentClient<$Result.GetResult<Prisma.$CvDocumentPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     offer<T extends JobOfferDefaultArgs<ExtArgs> = {}>(args?: Subset<T, JobOfferDefaultArgs<ExtArgs>>): Prisma__JobOfferClient<$Result.GetResult<Prisma.$JobOfferPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
@@ -14965,9 +14996,9 @@ export namespace Prisma {
     content?: boolean
     isRead?: boolean
     createdAt?: boolean
-    sender?: boolean | UserDefaultArgs<ExtArgs>
-    receiver?: boolean | UserDefaultArgs<ExtArgs>
     application?: boolean | Message$applicationArgs<ExtArgs>
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
 
   export type MessageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -14978,9 +15009,9 @@ export namespace Prisma {
     content?: boolean
     isRead?: boolean
     createdAt?: boolean
-    sender?: boolean | UserDefaultArgs<ExtArgs>
-    receiver?: boolean | UserDefaultArgs<ExtArgs>
     application?: boolean | Message$applicationArgs<ExtArgs>
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
 
   export type MessageSelectScalar = {
@@ -14994,22 +15025,22 @@ export namespace Prisma {
   }
 
   export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    sender?: boolean | UserDefaultArgs<ExtArgs>
-    receiver?: boolean | UserDefaultArgs<ExtArgs>
     application?: boolean | Message$applicationArgs<ExtArgs>
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type MessageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    sender?: boolean | UserDefaultArgs<ExtArgs>
-    receiver?: boolean | UserDefaultArgs<ExtArgs>
     application?: boolean | Message$applicationArgs<ExtArgs>
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $MessagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Message"
     objects: {
-      sender: Prisma.$UserPayload<ExtArgs>
-      receiver: Prisma.$UserPayload<ExtArgs>
       application: Prisma.$ApplicationPayload<ExtArgs> | null
+      receiver: Prisma.$UserPayload<ExtArgs>
+      sender: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -15383,9 +15414,9 @@ export namespace Prisma {
    */
   export interface Prisma__MessageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    sender<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
-    receiver<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     application<T extends Message$applicationArgs<ExtArgs> = {}>(args?: Subset<T, Message$applicationArgs<ExtArgs>>): Prisma__ApplicationClient<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    receiver<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    sender<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -17795,7 +17826,6 @@ export namespace Prisma {
     importedFrom: 'importedFrom',
     parseStatus: 'parseStatus',
     parsedText: 'parsedText',
-    extractedSkillsRaw: 'extractedSkillsRaw',
     retryCount: 'retryCount',
     lastAttemptAt: 'lastAttemptAt',
     createdAt: 'createdAt',
@@ -18121,16 +18151,17 @@ export namespace Prisma {
     availabilityMonths?: IntNullableFilter<"User"> | number | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
-    profile?: XOR<ProfileNullableRelationFilter, ProfileWhereInput> | null
-    company?: XOR<CompanyNullableRelationFilter, CompanyWhereInput> | null
-    refreshTokens?: RefreshTokenListRelationFilter
-    cvDocuments?: CvDocumentListRelationFilter
     applications?: ApplicationListRelationFilter
-    notifications?: NotificationListRelationFilter
-    sentMessages?: MessageListRelationFilter
-    receivedMessages?: MessageListRelationFilter
     auditLogs?: AuditLogListRelationFilter
+    company?: XOR<CompanyNullableRelationFilter, CompanyWhereInput> | null
+    cvDocuments?: CvDocumentListRelationFilter
     jobOffers?: JobOfferListRelationFilter
+    match_scores?: MatchScoreListRelationFilter
+    receivedMessages?: MessageListRelationFilter
+    sentMessages?: MessageListRelationFilter
+    notifications?: NotificationListRelationFilter
+    profile?: XOR<ProfileNullableRelationFilter, ProfileWhereInput> | null
+    refreshTokens?: RefreshTokenListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -18144,16 +18175,17 @@ export namespace Prisma {
     availabilityMonths?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
-    profile?: ProfileOrderByWithRelationInput
-    company?: CompanyOrderByWithRelationInput
-    refreshTokens?: RefreshTokenOrderByRelationAggregateInput
-    cvDocuments?: CvDocumentOrderByRelationAggregateInput
     applications?: ApplicationOrderByRelationAggregateInput
-    notifications?: NotificationOrderByRelationAggregateInput
-    sentMessages?: MessageOrderByRelationAggregateInput
-    receivedMessages?: MessageOrderByRelationAggregateInput
     auditLogs?: AuditLogOrderByRelationAggregateInput
+    company?: CompanyOrderByWithRelationInput
+    cvDocuments?: CvDocumentOrderByRelationAggregateInput
     jobOffers?: JobOfferOrderByRelationAggregateInput
+    match_scores?: MatchScoreOrderByRelationAggregateInput
+    receivedMessages?: MessageOrderByRelationAggregateInput
+    sentMessages?: MessageOrderByRelationAggregateInput
+    notifications?: NotificationOrderByRelationAggregateInput
+    profile?: ProfileOrderByWithRelationInput
+    refreshTokens?: RefreshTokenOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -18170,16 +18202,17 @@ export namespace Prisma {
     availabilityMonths?: IntNullableFilter<"User"> | number | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
-    profile?: XOR<ProfileNullableRelationFilter, ProfileWhereInput> | null
-    company?: XOR<CompanyNullableRelationFilter, CompanyWhereInput> | null
-    refreshTokens?: RefreshTokenListRelationFilter
-    cvDocuments?: CvDocumentListRelationFilter
     applications?: ApplicationListRelationFilter
-    notifications?: NotificationListRelationFilter
-    sentMessages?: MessageListRelationFilter
-    receivedMessages?: MessageListRelationFilter
     auditLogs?: AuditLogListRelationFilter
+    company?: XOR<CompanyNullableRelationFilter, CompanyWhereInput> | null
+    cvDocuments?: CvDocumentListRelationFilter
     jobOffers?: JobOfferListRelationFilter
+    match_scores?: MatchScoreListRelationFilter
+    receivedMessages?: MessageListRelationFilter
+    sentMessages?: MessageListRelationFilter
+    notifications?: NotificationListRelationFilter
+    profile?: XOR<ProfileNullableRelationFilter, ProfileWhereInput> | null
+    refreshTokens?: RefreshTokenListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -18292,9 +18325,9 @@ export namespace Prisma {
     githubData?: JsonNullableFilter<"Profile">
     createdAt?: DateTimeFilter<"Profile"> | Date | string
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
-    user?: XOR<UserRelationFilter, UserWhereInput>
     company?: XOR<CompanyNullableRelationFilter, CompanyWhereInput> | null
     school?: XOR<SchoolNullableRelationFilter, SchoolWhereInput> | null
+    user?: XOR<UserRelationFilter, UserWhereInput>
   }
 
   export type ProfileOrderByWithRelationInput = {
@@ -18310,9 +18343,9 @@ export namespace Prisma {
     githubData?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user?: UserOrderByWithRelationInput
     company?: CompanyOrderByWithRelationInput
     school?: SchoolOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type ProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -18331,9 +18364,9 @@ export namespace Prisma {
     githubData?: JsonNullableFilter<"Profile">
     createdAt?: DateTimeFilter<"Profile"> | Date | string
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
-    user?: XOR<UserRelationFilter, UserWhereInput>
     company?: XOR<CompanyNullableRelationFilter, CompanyWhereInput> | null
     school?: XOR<SchoolNullableRelationFilter, SchoolWhereInput> | null
+    user?: XOR<UserRelationFilter, UserWhereInput>
   }, "id" | "userId">
 
   export type ProfileOrderByWithAggregationInput = {
@@ -18388,8 +18421,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Company"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Company"> | Date | string | null
     user?: XOR<UserRelationFilter, UserWhereInput>
-    profiles?: ProfileListRelationFilter
     jobOffers?: JobOfferListRelationFilter
+    profiles?: ProfileListRelationFilter
   }
 
   export type CompanyOrderByWithRelationInput = {
@@ -18405,8 +18438,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
-    profiles?: ProfileOrderByRelationAggregateInput
     jobOffers?: JobOfferOrderByRelationAggregateInput
+    profiles?: ProfileOrderByRelationAggregateInput
   }
 
   export type CompanyWhereUniqueInput = Prisma.AtLeast<{
@@ -18425,8 +18458,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Company"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Company"> | Date | string | null
     user?: XOR<UserRelationFilter, UserWhereInput>
-    profiles?: ProfileListRelationFilter
     jobOffers?: JobOfferListRelationFilter
+    profiles?: ProfileListRelationFilter
   }, "id" | "userId">
 
   export type CompanyOrderByWithAggregationInput = {
@@ -18577,7 +18610,6 @@ export namespace Prisma {
     importedFrom?: EnumImportedFromFilter<"CvDocument"> | $Enums.ImportedFrom
     parseStatus?: EnumParseStatusFilter<"CvDocument"> | $Enums.ParseStatus
     parsedText?: StringNullableFilter<"CvDocument"> | string | null
-    extractedSkillsRaw?: JsonNullableFilter<"CvDocument">
     retryCount?: IntFilter<"CvDocument"> | number
     lastAttemptAt?: DateTimeNullableFilter<"CvDocument"> | Date | string | null
     createdAt?: DateTimeFilter<"CvDocument"> | Date | string
@@ -18595,7 +18627,6 @@ export namespace Prisma {
     importedFrom?: SortOrder
     parseStatus?: SortOrder
     parsedText?: SortOrderInput | SortOrder
-    extractedSkillsRaw?: SortOrderInput | SortOrder
     retryCount?: SortOrder
     lastAttemptAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -18616,7 +18647,6 @@ export namespace Prisma {
     importedFrom?: EnumImportedFromFilter<"CvDocument"> | $Enums.ImportedFrom
     parseStatus?: EnumParseStatusFilter<"CvDocument"> | $Enums.ParseStatus
     parsedText?: StringNullableFilter<"CvDocument"> | string | null
-    extractedSkillsRaw?: JsonNullableFilter<"CvDocument">
     retryCount?: IntFilter<"CvDocument"> | number
     lastAttemptAt?: DateTimeNullableFilter<"CvDocument"> | Date | string | null
     createdAt?: DateTimeFilter<"CvDocument"> | Date | string
@@ -18634,7 +18664,6 @@ export namespace Prisma {
     importedFrom?: SortOrder
     parseStatus?: SortOrder
     parsedText?: SortOrderInput | SortOrder
-    extractedSkillsRaw?: SortOrderInput | SortOrder
     retryCount?: SortOrder
     lastAttemptAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -18657,7 +18686,6 @@ export namespace Prisma {
     importedFrom?: EnumImportedFromWithAggregatesFilter<"CvDocument"> | $Enums.ImportedFrom
     parseStatus?: EnumParseStatusWithAggregatesFilter<"CvDocument"> | $Enums.ParseStatus
     parsedText?: StringNullableWithAggregatesFilter<"CvDocument"> | string | null
-    extractedSkillsRaw?: JsonNullableWithAggregatesFilter<"CvDocument">
     retryCount?: IntWithAggregatesFilter<"CvDocument"> | number
     lastAttemptAt?: DateTimeNullableWithAggregatesFilter<"CvDocument"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"CvDocument"> | Date | string
@@ -18739,11 +18767,11 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"JobOffer"> | Date | string
     updatedAt?: DateTimeFilter<"JobOffer"> | Date | string
     deletedAt?: DateTimeNullableFilter<"JobOffer"> | Date | string | null
+    applications?: ApplicationListRelationFilter
     company?: XOR<CompanyRelationFilter, CompanyWhereInput>
     recruiter?: XOR<UserRelationFilter, UserWhereInput>
-    offerSkills?: OfferSkillListRelationFilter
-    applications?: ApplicationListRelationFilter
     matchScores?: MatchScoreListRelationFilter
+    offerSkills?: OfferSkillListRelationFilter
   }
 
   export type JobOfferOrderByWithRelationInput = {
@@ -18762,11 +18790,11 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    applications?: ApplicationOrderByRelationAggregateInput
     company?: CompanyOrderByWithRelationInput
     recruiter?: UserOrderByWithRelationInput
-    offerSkills?: OfferSkillOrderByRelationAggregateInput
-    applications?: ApplicationOrderByRelationAggregateInput
     matchScores?: MatchScoreOrderByRelationAggregateInput
+    offerSkills?: OfferSkillOrderByRelationAggregateInput
   }
 
   export type JobOfferWhereUniqueInput = Prisma.AtLeast<{
@@ -18788,11 +18816,11 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"JobOffer"> | Date | string
     updatedAt?: DateTimeFilter<"JobOffer"> | Date | string
     deletedAt?: DateTimeNullableFilter<"JobOffer"> | Date | string | null
+    applications?: ApplicationListRelationFilter
     company?: XOR<CompanyRelationFilter, CompanyWhereInput>
     recruiter?: XOR<UserRelationFilter, UserWhereInput>
-    offerSkills?: OfferSkillListRelationFilter
-    applications?: ApplicationListRelationFilter
     matchScores?: MatchScoreListRelationFilter
+    offerSkills?: OfferSkillListRelationFilter
   }, "id">
 
   export type JobOfferOrderByWithAggregationInput = {
@@ -18900,6 +18928,7 @@ export namespace Prisma {
     scoreFinal?: FloatFilter<"MatchScore"> | number
     breakdown?: JsonFilter<"MatchScore">
     computedAt?: DateTimeFilter<"MatchScore"> | Date | string
+    users?: XOR<UserRelationFilter, UserWhereInput>
     cvDocument?: XOR<CvDocumentRelationFilter, CvDocumentWhereInput>
     offer?: XOR<JobOfferRelationFilter, JobOfferWhereInput>
   }
@@ -18913,6 +18942,7 @@ export namespace Prisma {
     scoreFinal?: SortOrder
     breakdown?: SortOrder
     computedAt?: SortOrder
+    users?: UserOrderByWithRelationInput
     cvDocument?: CvDocumentOrderByWithRelationInput
     offer?: JobOfferOrderByWithRelationInput
   }
@@ -18930,6 +18960,7 @@ export namespace Prisma {
     scoreFinal?: FloatFilter<"MatchScore"> | number
     breakdown?: JsonFilter<"MatchScore">
     computedAt?: DateTimeFilter<"MatchScore"> | Date | string
+    users?: XOR<UserRelationFilter, UserWhereInput>
     cvDocument?: XOR<CvDocumentRelationFilter, CvDocumentWhereInput>
     offer?: XOR<JobOfferRelationFilter, JobOfferWhereInput>
   }, "id" | "candidateId_offerId">
@@ -19047,9 +19078,9 @@ export namespace Prisma {
     content?: StringFilter<"Message"> | string
     isRead?: BoolFilter<"Message"> | boolean
     createdAt?: DateTimeFilter<"Message"> | Date | string
-    sender?: XOR<UserRelationFilter, UserWhereInput>
-    receiver?: XOR<UserRelationFilter, UserWhereInput>
     application?: XOR<ApplicationNullableRelationFilter, ApplicationWhereInput> | null
+    receiver?: XOR<UserRelationFilter, UserWhereInput>
+    sender?: XOR<UserRelationFilter, UserWhereInput>
   }
 
   export type MessageOrderByWithRelationInput = {
@@ -19060,9 +19091,9 @@ export namespace Prisma {
     content?: SortOrder
     isRead?: SortOrder
     createdAt?: SortOrder
-    sender?: UserOrderByWithRelationInput
-    receiver?: UserOrderByWithRelationInput
     application?: ApplicationOrderByWithRelationInput
+    receiver?: UserOrderByWithRelationInput
+    sender?: UserOrderByWithRelationInput
   }
 
   export type MessageWhereUniqueInput = Prisma.AtLeast<{
@@ -19076,9 +19107,9 @@ export namespace Prisma {
     content?: StringFilter<"Message"> | string
     isRead?: BoolFilter<"Message"> | boolean
     createdAt?: DateTimeFilter<"Message"> | Date | string
-    sender?: XOR<UserRelationFilter, UserWhereInput>
-    receiver?: XOR<UserRelationFilter, UserWhereInput>
     application?: XOR<ApplicationNullableRelationFilter, ApplicationWhereInput> | null
+    receiver?: XOR<UserRelationFilter, UserWhereInput>
+    sender?: XOR<UserRelationFilter, UserWhereInput>
   }, "id">
 
   export type MessageOrderByWithAggregationInput = {
@@ -19241,46 +19272,48 @@ export namespace Prisma {
     id?: string
     email: string
     passwordHash: string
-    role?: $Enums.Role
+    role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
-    profile?: ProfileCreateNestedOneWithoutUserInput
-    company?: CompanyCreateNestedOneWithoutUserInput
-    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
-    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
     applications?: ApplicationCreateNestedManyWithoutCandidateInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentMessages?: MessageCreateNestedManyWithoutSenderInput
-    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    company?: CompanyCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: string
     email: string
     passwordHash: string
-    role?: $Enums.Role
+    role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
-    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
-    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
-    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -19294,16 +19327,17 @@ export namespace Prisma {
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    profile?: ProfileUpdateOneWithoutUserNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
-    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
-    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
     applications?: ApplicationUpdateManyWithoutCandidateNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
-    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -19317,23 +19351,24 @@ export namespace Prisma {
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
-    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
-    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
     id?: string
     email: string
     passwordHash: string
-    role?: $Enums.Role
+    role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
     location?: string | null
@@ -19440,9 +19475,9 @@ export namespace Prisma {
     githubData?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutProfileInput
     company?: CompanyCreateNestedOneWithoutProfilesInput
     school?: SchoolCreateNestedOneWithoutProfilesInput
+    user: UserCreateNestedOneWithoutProfileInput
   }
 
   export type ProfileUncheckedCreateInput = {
@@ -19470,9 +19505,9 @@ export namespace Prisma {
     githubData?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutProfileNestedInput
     company?: CompanyUpdateOneWithoutProfilesNestedInput
     school?: SchoolUpdateOneWithoutProfilesNestedInput
+    user?: UserUpdateOneRequiredWithoutProfileNestedInput
   }
 
   export type ProfileUncheckedUpdateInput = {
@@ -19544,8 +19579,8 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     user: UserCreateNestedOneWithoutCompanyInput
-    profiles?: ProfileCreateNestedManyWithoutCompanyInput
     jobOffers?: JobOfferCreateNestedManyWithoutCompanyInput
+    profiles?: ProfileCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyUncheckedCreateInput = {
@@ -19560,8 +19595,8 @@ export namespace Prisma {
     validatedAt?: Date | string | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
-    profiles?: ProfileUncheckedCreateNestedManyWithoutCompanyInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutCompanyInput
+    profiles?: ProfileUncheckedCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyUpdateInput = {
@@ -19576,8 +19611,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutCompanyNestedInput
-    profiles?: ProfileUpdateManyWithoutCompanyNestedInput
     jobOffers?: JobOfferUpdateManyWithoutCompanyNestedInput
+    profiles?: ProfileUpdateManyWithoutCompanyNestedInput
   }
 
   export type CompanyUncheckedUpdateInput = {
@@ -19592,8 +19627,8 @@ export namespace Prisma {
     validatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    profiles?: ProfileUncheckedUpdateManyWithoutCompanyNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutCompanyNestedInput
+    profiles?: ProfileUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
   export type CompanyCreateManyInput = {
@@ -19754,7 +19789,6 @@ export namespace Prisma {
     importedFrom?: $Enums.ImportedFrom
     parseStatus?: $Enums.ParseStatus
     parsedText?: string | null
-    extractedSkillsRaw?: NullableJsonNullValueInput | InputJsonValue
     retryCount?: number
     lastAttemptAt?: Date | string | null
     createdAt?: Date | string
@@ -19772,7 +19806,6 @@ export namespace Prisma {
     importedFrom?: $Enums.ImportedFrom
     parseStatus?: $Enums.ParseStatus
     parsedText?: string | null
-    extractedSkillsRaw?: NullableJsonNullValueInput | InputJsonValue
     retryCount?: number
     lastAttemptAt?: Date | string | null
     createdAt?: Date | string
@@ -19788,7 +19821,6 @@ export namespace Prisma {
     importedFrom?: EnumImportedFromFieldUpdateOperationsInput | $Enums.ImportedFrom
     parseStatus?: EnumParseStatusFieldUpdateOperationsInput | $Enums.ParseStatus
     parsedText?: NullableStringFieldUpdateOperationsInput | string | null
-    extractedSkillsRaw?: NullableJsonNullValueInput | InputJsonValue
     retryCount?: IntFieldUpdateOperationsInput | number
     lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19806,7 +19838,6 @@ export namespace Prisma {
     importedFrom?: EnumImportedFromFieldUpdateOperationsInput | $Enums.ImportedFrom
     parseStatus?: EnumParseStatusFieldUpdateOperationsInput | $Enums.ParseStatus
     parsedText?: NullableStringFieldUpdateOperationsInput | string | null
-    extractedSkillsRaw?: NullableJsonNullValueInput | InputJsonValue
     retryCount?: IntFieldUpdateOperationsInput | number
     lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19823,7 +19854,6 @@ export namespace Prisma {
     importedFrom?: $Enums.ImportedFrom
     parseStatus?: $Enums.ParseStatus
     parsedText?: string | null
-    extractedSkillsRaw?: NullableJsonNullValueInput | InputJsonValue
     retryCount?: number
     lastAttemptAt?: Date | string | null
     createdAt?: Date | string
@@ -19837,7 +19867,6 @@ export namespace Prisma {
     importedFrom?: EnumImportedFromFieldUpdateOperationsInput | $Enums.ImportedFrom
     parseStatus?: EnumParseStatusFieldUpdateOperationsInput | $Enums.ParseStatus
     parsedText?: NullableStringFieldUpdateOperationsInput | string | null
-    extractedSkillsRaw?: NullableJsonNullValueInput | InputJsonValue
     retryCount?: IntFieldUpdateOperationsInput | number
     lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19852,7 +19881,6 @@ export namespace Prisma {
     importedFrom?: EnumImportedFromFieldUpdateOperationsInput | $Enums.ImportedFrom
     parseStatus?: EnumParseStatusFieldUpdateOperationsInput | $Enums.ParseStatus
     parsedText?: NullableStringFieldUpdateOperationsInput | string | null
-    extractedSkillsRaw?: NullableJsonNullValueInput | InputJsonValue
     retryCount?: IntFieldUpdateOperationsInput | number
     lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19920,11 +19948,11 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    applications?: ApplicationCreateNestedManyWithoutOfferInput
     company: CompanyCreateNestedOneWithoutJobOffersInput
     recruiter: UserCreateNestedOneWithoutJobOffersInput
-    offerSkills?: OfferSkillCreateNestedManyWithoutOfferInput
-    applications?: ApplicationCreateNestedManyWithoutOfferInput
     matchScores?: MatchScoreCreateNestedManyWithoutOfferInput
+    offerSkills?: OfferSkillCreateNestedManyWithoutOfferInput
   }
 
   export type JobOfferUncheckedCreateInput = {
@@ -19943,9 +19971,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    offerSkills?: OfferSkillUncheckedCreateNestedManyWithoutOfferInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutOfferInput
     matchScores?: MatchScoreUncheckedCreateNestedManyWithoutOfferInput
+    offerSkills?: OfferSkillUncheckedCreateNestedManyWithoutOfferInput
   }
 
   export type JobOfferUpdateInput = {
@@ -19962,11 +19990,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUpdateManyWithoutOfferNestedInput
     company?: CompanyUpdateOneRequiredWithoutJobOffersNestedInput
     recruiter?: UserUpdateOneRequiredWithoutJobOffersNestedInput
-    offerSkills?: OfferSkillUpdateManyWithoutOfferNestedInput
-    applications?: ApplicationUpdateManyWithoutOfferNestedInput
     matchScores?: MatchScoreUpdateManyWithoutOfferNestedInput
+    offerSkills?: OfferSkillUpdateManyWithoutOfferNestedInput
   }
 
   export type JobOfferUncheckedUpdateInput = {
@@ -19985,9 +20013,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    offerSkills?: OfferSkillUncheckedUpdateManyWithoutOfferNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutOfferNestedInput
     matchScores?: MatchScoreUncheckedUpdateManyWithoutOfferNestedInput
+    offerSkills?: OfferSkillUncheckedUpdateManyWithoutOfferNestedInput
   }
 
   export type JobOfferCreateManyInput = {
@@ -20084,11 +20112,11 @@ export namespace Prisma {
 
   export type MatchScoreCreateInput = {
     id?: string
-    candidateId: string
     scoreCosinus: number
     scoreFinal: number
     breakdown: JsonNullValueInput | InputJsonValue
     computedAt?: Date | string
+    users: UserCreateNestedOneWithoutMatch_scoresInput
     cvDocument: CvDocumentCreateNestedOneWithoutMatchScoresInput
     offer: JobOfferCreateNestedOneWithoutMatchScoresInput
   }
@@ -20106,11 +20134,11 @@ export namespace Prisma {
 
   export type MatchScoreUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    candidateId?: StringFieldUpdateOperationsInput | string
     scoreCosinus?: FloatFieldUpdateOperationsInput | number
     scoreFinal?: FloatFieldUpdateOperationsInput | number
     breakdown?: JsonNullValueInput | InputJsonValue
     computedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateOneRequiredWithoutMatch_scoresNestedInput
     cvDocument?: CvDocumentUpdateOneRequiredWithoutMatchScoresNestedInput
     offer?: JobOfferUpdateOneRequiredWithoutMatchScoresNestedInput
   }
@@ -20139,7 +20167,6 @@ export namespace Prisma {
 
   export type MatchScoreUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    candidateId?: StringFieldUpdateOperationsInput | string
     scoreCosinus?: FloatFieldUpdateOperationsInput | number
     scoreFinal?: FloatFieldUpdateOperationsInput | number
     breakdown?: JsonNullValueInput | InputJsonValue
@@ -20234,9 +20261,9 @@ export namespace Prisma {
     content: string
     isRead?: boolean
     createdAt?: Date | string
-    sender: UserCreateNestedOneWithoutSentMessagesInput
-    receiver: UserCreateNestedOneWithoutReceivedMessagesInput
     application?: ApplicationCreateNestedOneWithoutMessagesInput
+    receiver: UserCreateNestedOneWithoutReceivedMessagesInput
+    sender: UserCreateNestedOneWithoutSentMessagesInput
   }
 
   export type MessageUncheckedCreateInput = {
@@ -20254,9 +20281,9 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sender?: UserUpdateOneRequiredWithoutSentMessagesNestedInput
-    receiver?: UserUpdateOneRequiredWithoutReceivedMessagesNestedInput
     application?: ApplicationUpdateOneWithoutMessagesNestedInput
+    receiver?: UserUpdateOneRequiredWithoutReceivedMessagesNestedInput
+    sender?: UserUpdateOneRequiredWithoutSentMessagesNestedInput
   }
 
   export type MessageUncheckedUpdateInput = {
@@ -20509,44 +20536,10 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type ProfileNullableRelationFilter = {
-    is?: ProfileWhereInput | null
-    isNot?: ProfileWhereInput | null
-  }
-
-  export type CompanyNullableRelationFilter = {
-    is?: CompanyWhereInput | null
-    isNot?: CompanyWhereInput | null
-  }
-
-  export type RefreshTokenListRelationFilter = {
-    every?: RefreshTokenWhereInput
-    some?: RefreshTokenWhereInput
-    none?: RefreshTokenWhereInput
-  }
-
-  export type CvDocumentListRelationFilter = {
-    every?: CvDocumentWhereInput
-    some?: CvDocumentWhereInput
-    none?: CvDocumentWhereInput
-  }
-
   export type ApplicationListRelationFilter = {
     every?: ApplicationWhereInput
     some?: ApplicationWhereInput
     none?: ApplicationWhereInput
-  }
-
-  export type NotificationListRelationFilter = {
-    every?: NotificationWhereInput
-    some?: NotificationWhereInput
-    none?: NotificationWhereInput
-  }
-
-  export type MessageListRelationFilter = {
-    every?: MessageWhereInput
-    some?: MessageWhereInput
-    none?: MessageWhereInput
   }
 
   export type AuditLogListRelationFilter = {
@@ -20555,10 +20548,50 @@ export namespace Prisma {
     none?: AuditLogWhereInput
   }
 
+  export type CompanyNullableRelationFilter = {
+    is?: CompanyWhereInput | null
+    isNot?: CompanyWhereInput | null
+  }
+
+  export type CvDocumentListRelationFilter = {
+    every?: CvDocumentWhereInput
+    some?: CvDocumentWhereInput
+    none?: CvDocumentWhereInput
+  }
+
   export type JobOfferListRelationFilter = {
     every?: JobOfferWhereInput
     some?: JobOfferWhereInput
     none?: JobOfferWhereInput
+  }
+
+  export type MatchScoreListRelationFilter = {
+    every?: MatchScoreWhereInput
+    some?: MatchScoreWhereInput
+    none?: MatchScoreWhereInput
+  }
+
+  export type MessageListRelationFilter = {
+    every?: MessageWhereInput
+    some?: MessageWhereInput
+    none?: MessageWhereInput
+  }
+
+  export type NotificationListRelationFilter = {
+    every?: NotificationWhereInput
+    some?: NotificationWhereInput
+    none?: NotificationWhereInput
+  }
+
+  export type ProfileNullableRelationFilter = {
+    is?: ProfileWhereInput | null
+    isNot?: ProfileWhereInput | null
+  }
+
+  export type RefreshTokenListRelationFilter = {
+    every?: RefreshTokenWhereInput
+    some?: RefreshTokenWhereInput
+    none?: RefreshTokenWhereInput
   }
 
   export type SortOrderInput = {
@@ -20566,23 +20599,7 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
-  export type RefreshTokenOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type CvDocumentOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type ApplicationOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type NotificationOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type MessageOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -20590,7 +20607,27 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type CvDocumentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type JobOfferOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MatchScoreOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MessageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type NotificationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RefreshTokenOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -21005,16 +21042,6 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type MatchScoreListRelationFilter = {
-    every?: MatchScoreWhereInput
-    some?: MatchScoreWhereInput
-    none?: MatchScoreWhereInput
-  }
-
-  export type MatchScoreOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type CvDocumentCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -21023,7 +21050,6 @@ export namespace Prisma {
     importedFrom?: SortOrder
     parseStatus?: SortOrder
     parsedText?: SortOrder
-    extractedSkillsRaw?: SortOrder
     retryCount?: SortOrder
     lastAttemptAt?: SortOrder
     createdAt?: SortOrder
@@ -21555,58 +21581,11 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type ProfileCreateNestedOneWithoutUserInput = {
-    create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
-    connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
-    connect?: ProfileWhereUniqueInput
-  }
-
-  export type CompanyCreateNestedOneWithoutUserInput = {
-    create?: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
-    connectOrCreate?: CompanyCreateOrConnectWithoutUserInput
-    connect?: CompanyWhereUniqueInput
-  }
-
-  export type RefreshTokenCreateNestedManyWithoutUserInput = {
-    create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
-    createMany?: RefreshTokenCreateManyUserInputEnvelope
-    connect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
-  }
-
-  export type CvDocumentCreateNestedManyWithoutUserInput = {
-    create?: XOR<CvDocumentCreateWithoutUserInput, CvDocumentUncheckedCreateWithoutUserInput> | CvDocumentCreateWithoutUserInput[] | CvDocumentUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: CvDocumentCreateOrConnectWithoutUserInput | CvDocumentCreateOrConnectWithoutUserInput[]
-    createMany?: CvDocumentCreateManyUserInputEnvelope
-    connect?: CvDocumentWhereUniqueInput | CvDocumentWhereUniqueInput[]
-  }
-
   export type ApplicationCreateNestedManyWithoutCandidateInput = {
     create?: XOR<ApplicationCreateWithoutCandidateInput, ApplicationUncheckedCreateWithoutCandidateInput> | ApplicationCreateWithoutCandidateInput[] | ApplicationUncheckedCreateWithoutCandidateInput[]
     connectOrCreate?: ApplicationCreateOrConnectWithoutCandidateInput | ApplicationCreateOrConnectWithoutCandidateInput[]
     createMany?: ApplicationCreateManyCandidateInputEnvelope
     connect?: ApplicationWhereUniqueInput | ApplicationWhereUniqueInput[]
-  }
-
-  export type NotificationCreateNestedManyWithoutUserInput = {
-    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
-    createMany?: NotificationCreateManyUserInputEnvelope
-    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-  }
-
-  export type MessageCreateNestedManyWithoutSenderInput = {
-    create?: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput> | MessageCreateWithoutSenderInput[] | MessageUncheckedCreateWithoutSenderInput[]
-    connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
-    createMany?: MessageCreateManySenderInputEnvelope
-    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
-  }
-
-  export type MessageCreateNestedManyWithoutReceiverInput = {
-    create?: XOR<MessageCreateWithoutReceiverInput, MessageUncheckedCreateWithoutReceiverInput> | MessageCreateWithoutReceiverInput[] | MessageUncheckedCreateWithoutReceiverInput[]
-    connectOrCreate?: MessageCreateOrConnectWithoutReceiverInput | MessageCreateOrConnectWithoutReceiverInput[]
-    createMany?: MessageCreateManyReceiverInputEnvelope
-    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
   }
 
   export type AuditLogCreateNestedManyWithoutActorInput = {
@@ -21616,6 +21595,19 @@ export namespace Prisma {
     connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
   }
 
+  export type CompanyCreateNestedOneWithoutUserInput = {
+    create?: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutUserInput
+    connect?: CompanyWhereUniqueInput
+  }
+
+  export type CvDocumentCreateNestedManyWithoutUserInput = {
+    create?: XOR<CvDocumentCreateWithoutUserInput, CvDocumentUncheckedCreateWithoutUserInput> | CvDocumentCreateWithoutUserInput[] | CvDocumentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CvDocumentCreateOrConnectWithoutUserInput | CvDocumentCreateOrConnectWithoutUserInput[]
+    createMany?: CvDocumentCreateManyUserInputEnvelope
+    connect?: CvDocumentWhereUniqueInput | CvDocumentWhereUniqueInput[]
+  }
+
   export type JobOfferCreateNestedManyWithoutRecruiterInput = {
     create?: XOR<JobOfferCreateWithoutRecruiterInput, JobOfferUncheckedCreateWithoutRecruiterInput> | JobOfferCreateWithoutRecruiterInput[] | JobOfferUncheckedCreateWithoutRecruiterInput[]
     connectOrCreate?: JobOfferCreateOrConnectWithoutRecruiterInput | JobOfferCreateOrConnectWithoutRecruiterInput[]
@@ -21623,30 +21615,45 @@ export namespace Prisma {
     connect?: JobOfferWhereUniqueInput | JobOfferWhereUniqueInput[]
   }
 
-  export type ProfileUncheckedCreateNestedOneWithoutUserInput = {
+  export type MatchScoreCreateNestedManyWithoutUsersInput = {
+    create?: XOR<MatchScoreCreateWithoutUsersInput, MatchScoreUncheckedCreateWithoutUsersInput> | MatchScoreCreateWithoutUsersInput[] | MatchScoreUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: MatchScoreCreateOrConnectWithoutUsersInput | MatchScoreCreateOrConnectWithoutUsersInput[]
+    createMany?: MatchScoreCreateManyUsersInputEnvelope
+    connect?: MatchScoreWhereUniqueInput | MatchScoreWhereUniqueInput[]
+  }
+
+  export type MessageCreateNestedManyWithoutReceiverInput = {
+    create?: XOR<MessageCreateWithoutReceiverInput, MessageUncheckedCreateWithoutReceiverInput> | MessageCreateWithoutReceiverInput[] | MessageUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutReceiverInput | MessageCreateOrConnectWithoutReceiverInput[]
+    createMany?: MessageCreateManyReceiverInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type MessageCreateNestedManyWithoutSenderInput = {
+    create?: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput> | MessageCreateWithoutSenderInput[] | MessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
+    createMany?: MessageCreateManySenderInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type NotificationCreateNestedManyWithoutUserInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type ProfileCreateNestedOneWithoutUserInput = {
     create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
     connect?: ProfileWhereUniqueInput
   }
 
-  export type CompanyUncheckedCreateNestedOneWithoutUserInput = {
-    create?: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
-    connectOrCreate?: CompanyCreateOrConnectWithoutUserInput
-    connect?: CompanyWhereUniqueInput
-  }
-
-  export type RefreshTokenUncheckedCreateNestedManyWithoutUserInput = {
+  export type RefreshTokenCreateNestedManyWithoutUserInput = {
     create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
     createMany?: RefreshTokenCreateManyUserInputEnvelope
     connect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
-  }
-
-  export type CvDocumentUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<CvDocumentCreateWithoutUserInput, CvDocumentUncheckedCreateWithoutUserInput> | CvDocumentCreateWithoutUserInput[] | CvDocumentUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: CvDocumentCreateOrConnectWithoutUserInput | CvDocumentCreateOrConnectWithoutUserInput[]
-    createMany?: CvDocumentCreateManyUserInputEnvelope
-    connect?: CvDocumentWhereUniqueInput | CvDocumentWhereUniqueInput[]
   }
 
   export type ApplicationUncheckedCreateNestedManyWithoutCandidateInput = {
@@ -21656,18 +21663,38 @@ export namespace Prisma {
     connect?: ApplicationWhereUniqueInput | ApplicationWhereUniqueInput[]
   }
 
-  export type NotificationUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
-    createMany?: NotificationCreateManyUserInputEnvelope
-    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  export type AuditLogUncheckedCreateNestedManyWithoutActorInput = {
+    create?: XOR<AuditLogCreateWithoutActorInput, AuditLogUncheckedCreateWithoutActorInput> | AuditLogCreateWithoutActorInput[] | AuditLogUncheckedCreateWithoutActorInput[]
+    connectOrCreate?: AuditLogCreateOrConnectWithoutActorInput | AuditLogCreateOrConnectWithoutActorInput[]
+    createMany?: AuditLogCreateManyActorInputEnvelope
+    connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
   }
 
-  export type MessageUncheckedCreateNestedManyWithoutSenderInput = {
-    create?: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput> | MessageCreateWithoutSenderInput[] | MessageUncheckedCreateWithoutSenderInput[]
-    connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
-    createMany?: MessageCreateManySenderInputEnvelope
-    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  export type CompanyUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutUserInput
+    connect?: CompanyWhereUniqueInput
+  }
+
+  export type CvDocumentUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CvDocumentCreateWithoutUserInput, CvDocumentUncheckedCreateWithoutUserInput> | CvDocumentCreateWithoutUserInput[] | CvDocumentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CvDocumentCreateOrConnectWithoutUserInput | CvDocumentCreateOrConnectWithoutUserInput[]
+    createMany?: CvDocumentCreateManyUserInputEnvelope
+    connect?: CvDocumentWhereUniqueInput | CvDocumentWhereUniqueInput[]
+  }
+
+  export type JobOfferUncheckedCreateNestedManyWithoutRecruiterInput = {
+    create?: XOR<JobOfferCreateWithoutRecruiterInput, JobOfferUncheckedCreateWithoutRecruiterInput> | JobOfferCreateWithoutRecruiterInput[] | JobOfferUncheckedCreateWithoutRecruiterInput[]
+    connectOrCreate?: JobOfferCreateOrConnectWithoutRecruiterInput | JobOfferCreateOrConnectWithoutRecruiterInput[]
+    createMany?: JobOfferCreateManyRecruiterInputEnvelope
+    connect?: JobOfferWhereUniqueInput | JobOfferWhereUniqueInput[]
+  }
+
+  export type MatchScoreUncheckedCreateNestedManyWithoutUsersInput = {
+    create?: XOR<MatchScoreCreateWithoutUsersInput, MatchScoreUncheckedCreateWithoutUsersInput> | MatchScoreCreateWithoutUsersInput[] | MatchScoreUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: MatchScoreCreateOrConnectWithoutUsersInput | MatchScoreCreateOrConnectWithoutUsersInput[]
+    createMany?: MatchScoreCreateManyUsersInputEnvelope
+    connect?: MatchScoreWhereUniqueInput | MatchScoreWhereUniqueInput[]
   }
 
   export type MessageUncheckedCreateNestedManyWithoutReceiverInput = {
@@ -21677,18 +21704,31 @@ export namespace Prisma {
     connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
   }
 
-  export type AuditLogUncheckedCreateNestedManyWithoutActorInput = {
-    create?: XOR<AuditLogCreateWithoutActorInput, AuditLogUncheckedCreateWithoutActorInput> | AuditLogCreateWithoutActorInput[] | AuditLogUncheckedCreateWithoutActorInput[]
-    connectOrCreate?: AuditLogCreateOrConnectWithoutActorInput | AuditLogCreateOrConnectWithoutActorInput[]
-    createMany?: AuditLogCreateManyActorInputEnvelope
-    connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+  export type MessageUncheckedCreateNestedManyWithoutSenderInput = {
+    create?: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput> | MessageCreateWithoutSenderInput[] | MessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
+    createMany?: MessageCreateManySenderInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
   }
 
-  export type JobOfferUncheckedCreateNestedManyWithoutRecruiterInput = {
-    create?: XOR<JobOfferCreateWithoutRecruiterInput, JobOfferUncheckedCreateWithoutRecruiterInput> | JobOfferCreateWithoutRecruiterInput[] | JobOfferUncheckedCreateWithoutRecruiterInput[]
-    connectOrCreate?: JobOfferCreateOrConnectWithoutRecruiterInput | JobOfferCreateOrConnectWithoutRecruiterInput[]
-    createMany?: JobOfferCreateManyRecruiterInputEnvelope
-    connect?: JobOfferWhereUniqueInput | JobOfferWhereUniqueInput[]
+  export type NotificationUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type ProfileUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
+    connect?: ProfileWhereUniqueInput
+  }
+
+  export type RefreshTokenUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
+    createMany?: RefreshTokenCreateManyUserInputEnvelope
+    connect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -21723,54 +21763,6 @@ export namespace Prisma {
     set?: Date | string | null
   }
 
-  export type ProfileUpdateOneWithoutUserNestedInput = {
-    create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
-    connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
-    upsert?: ProfileUpsertWithoutUserInput
-    disconnect?: ProfileWhereInput | boolean
-    delete?: ProfileWhereInput | boolean
-    connect?: ProfileWhereUniqueInput
-    update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutUserInput, ProfileUpdateWithoutUserInput>, ProfileUncheckedUpdateWithoutUserInput>
-  }
-
-  export type CompanyUpdateOneWithoutUserNestedInput = {
-    create?: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
-    connectOrCreate?: CompanyCreateOrConnectWithoutUserInput
-    upsert?: CompanyUpsertWithoutUserInput
-    disconnect?: CompanyWhereInput | boolean
-    delete?: CompanyWhereInput | boolean
-    connect?: CompanyWhereUniqueInput
-    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutUserInput, CompanyUpdateWithoutUserInput>, CompanyUncheckedUpdateWithoutUserInput>
-  }
-
-  export type RefreshTokenUpdateManyWithoutUserNestedInput = {
-    create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
-    upsert?: RefreshTokenUpsertWithWhereUniqueWithoutUserInput | RefreshTokenUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: RefreshTokenCreateManyUserInputEnvelope
-    set?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
-    disconnect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
-    delete?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
-    connect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
-    update?: RefreshTokenUpdateWithWhereUniqueWithoutUserInput | RefreshTokenUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: RefreshTokenUpdateManyWithWhereWithoutUserInput | RefreshTokenUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: RefreshTokenScalarWhereInput | RefreshTokenScalarWhereInput[]
-  }
-
-  export type CvDocumentUpdateManyWithoutUserNestedInput = {
-    create?: XOR<CvDocumentCreateWithoutUserInput, CvDocumentUncheckedCreateWithoutUserInput> | CvDocumentCreateWithoutUserInput[] | CvDocumentUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: CvDocumentCreateOrConnectWithoutUserInput | CvDocumentCreateOrConnectWithoutUserInput[]
-    upsert?: CvDocumentUpsertWithWhereUniqueWithoutUserInput | CvDocumentUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: CvDocumentCreateManyUserInputEnvelope
-    set?: CvDocumentWhereUniqueInput | CvDocumentWhereUniqueInput[]
-    disconnect?: CvDocumentWhereUniqueInput | CvDocumentWhereUniqueInput[]
-    delete?: CvDocumentWhereUniqueInput | CvDocumentWhereUniqueInput[]
-    connect?: CvDocumentWhereUniqueInput | CvDocumentWhereUniqueInput[]
-    update?: CvDocumentUpdateWithWhereUniqueWithoutUserInput | CvDocumentUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: CvDocumentUpdateManyWithWhereWithoutUserInput | CvDocumentUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: CvDocumentScalarWhereInput | CvDocumentScalarWhereInput[]
-  }
-
   export type ApplicationUpdateManyWithoutCandidateNestedInput = {
     create?: XOR<ApplicationCreateWithoutCandidateInput, ApplicationUncheckedCreateWithoutCandidateInput> | ApplicationCreateWithoutCandidateInput[] | ApplicationUncheckedCreateWithoutCandidateInput[]
     connectOrCreate?: ApplicationCreateOrConnectWithoutCandidateInput | ApplicationCreateOrConnectWithoutCandidateInput[]
@@ -21783,48 +21775,6 @@ export namespace Prisma {
     update?: ApplicationUpdateWithWhereUniqueWithoutCandidateInput | ApplicationUpdateWithWhereUniqueWithoutCandidateInput[]
     updateMany?: ApplicationUpdateManyWithWhereWithoutCandidateInput | ApplicationUpdateManyWithWhereWithoutCandidateInput[]
     deleteMany?: ApplicationScalarWhereInput | ApplicationScalarWhereInput[]
-  }
-
-  export type NotificationUpdateManyWithoutUserNestedInput = {
-    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
-    upsert?: NotificationUpsertWithWhereUniqueWithoutUserInput | NotificationUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: NotificationCreateManyUserInputEnvelope
-    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
-  }
-
-  export type MessageUpdateManyWithoutSenderNestedInput = {
-    create?: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput> | MessageCreateWithoutSenderInput[] | MessageUncheckedCreateWithoutSenderInput[]
-    connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
-    upsert?: MessageUpsertWithWhereUniqueWithoutSenderInput | MessageUpsertWithWhereUniqueWithoutSenderInput[]
-    createMany?: MessageCreateManySenderInputEnvelope
-    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
-    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
-    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
-    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
-    update?: MessageUpdateWithWhereUniqueWithoutSenderInput | MessageUpdateWithWhereUniqueWithoutSenderInput[]
-    updateMany?: MessageUpdateManyWithWhereWithoutSenderInput | MessageUpdateManyWithWhereWithoutSenderInput[]
-    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
-  }
-
-  export type MessageUpdateManyWithoutReceiverNestedInput = {
-    create?: XOR<MessageCreateWithoutReceiverInput, MessageUncheckedCreateWithoutReceiverInput> | MessageCreateWithoutReceiverInput[] | MessageUncheckedCreateWithoutReceiverInput[]
-    connectOrCreate?: MessageCreateOrConnectWithoutReceiverInput | MessageCreateOrConnectWithoutReceiverInput[]
-    upsert?: MessageUpsertWithWhereUniqueWithoutReceiverInput | MessageUpsertWithWhereUniqueWithoutReceiverInput[]
-    createMany?: MessageCreateManyReceiverInputEnvelope
-    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
-    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
-    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
-    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
-    update?: MessageUpdateWithWhereUniqueWithoutReceiverInput | MessageUpdateWithWhereUniqueWithoutReceiverInput[]
-    updateMany?: MessageUpdateManyWithWhereWithoutReceiverInput | MessageUpdateManyWithWhereWithoutReceiverInput[]
-    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
   }
 
   export type AuditLogUpdateManyWithoutActorNestedInput = {
@@ -21841,6 +21791,30 @@ export namespace Prisma {
     deleteMany?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
   }
 
+  export type CompanyUpdateOneWithoutUserNestedInput = {
+    create?: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutUserInput
+    upsert?: CompanyUpsertWithoutUserInput
+    disconnect?: CompanyWhereInput | boolean
+    delete?: CompanyWhereInput | boolean
+    connect?: CompanyWhereUniqueInput
+    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutUserInput, CompanyUpdateWithoutUserInput>, CompanyUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CvDocumentUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CvDocumentCreateWithoutUserInput, CvDocumentUncheckedCreateWithoutUserInput> | CvDocumentCreateWithoutUserInput[] | CvDocumentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CvDocumentCreateOrConnectWithoutUserInput | CvDocumentCreateOrConnectWithoutUserInput[]
+    upsert?: CvDocumentUpsertWithWhereUniqueWithoutUserInput | CvDocumentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CvDocumentCreateManyUserInputEnvelope
+    set?: CvDocumentWhereUniqueInput | CvDocumentWhereUniqueInput[]
+    disconnect?: CvDocumentWhereUniqueInput | CvDocumentWhereUniqueInput[]
+    delete?: CvDocumentWhereUniqueInput | CvDocumentWhereUniqueInput[]
+    connect?: CvDocumentWhereUniqueInput | CvDocumentWhereUniqueInput[]
+    update?: CvDocumentUpdateWithWhereUniqueWithoutUserInput | CvDocumentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CvDocumentUpdateManyWithWhereWithoutUserInput | CvDocumentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CvDocumentScalarWhereInput | CvDocumentScalarWhereInput[]
+  }
+
   export type JobOfferUpdateManyWithoutRecruiterNestedInput = {
     create?: XOR<JobOfferCreateWithoutRecruiterInput, JobOfferUncheckedCreateWithoutRecruiterInput> | JobOfferCreateWithoutRecruiterInput[] | JobOfferUncheckedCreateWithoutRecruiterInput[]
     connectOrCreate?: JobOfferCreateOrConnectWithoutRecruiterInput | JobOfferCreateOrConnectWithoutRecruiterInput[]
@@ -21855,7 +21829,63 @@ export namespace Prisma {
     deleteMany?: JobOfferScalarWhereInput | JobOfferScalarWhereInput[]
   }
 
-  export type ProfileUncheckedUpdateOneWithoutUserNestedInput = {
+  export type MatchScoreUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<MatchScoreCreateWithoutUsersInput, MatchScoreUncheckedCreateWithoutUsersInput> | MatchScoreCreateWithoutUsersInput[] | MatchScoreUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: MatchScoreCreateOrConnectWithoutUsersInput | MatchScoreCreateOrConnectWithoutUsersInput[]
+    upsert?: MatchScoreUpsertWithWhereUniqueWithoutUsersInput | MatchScoreUpsertWithWhereUniqueWithoutUsersInput[]
+    createMany?: MatchScoreCreateManyUsersInputEnvelope
+    set?: MatchScoreWhereUniqueInput | MatchScoreWhereUniqueInput[]
+    disconnect?: MatchScoreWhereUniqueInput | MatchScoreWhereUniqueInput[]
+    delete?: MatchScoreWhereUniqueInput | MatchScoreWhereUniqueInput[]
+    connect?: MatchScoreWhereUniqueInput | MatchScoreWhereUniqueInput[]
+    update?: MatchScoreUpdateWithWhereUniqueWithoutUsersInput | MatchScoreUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: MatchScoreUpdateManyWithWhereWithoutUsersInput | MatchScoreUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: MatchScoreScalarWhereInput | MatchScoreScalarWhereInput[]
+  }
+
+  export type MessageUpdateManyWithoutReceiverNestedInput = {
+    create?: XOR<MessageCreateWithoutReceiverInput, MessageUncheckedCreateWithoutReceiverInput> | MessageCreateWithoutReceiverInput[] | MessageUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutReceiverInput | MessageCreateOrConnectWithoutReceiverInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutReceiverInput | MessageUpsertWithWhereUniqueWithoutReceiverInput[]
+    createMany?: MessageCreateManyReceiverInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutReceiverInput | MessageUpdateWithWhereUniqueWithoutReceiverInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutReceiverInput | MessageUpdateManyWithWhereWithoutReceiverInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type MessageUpdateManyWithoutSenderNestedInput = {
+    create?: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput> | MessageCreateWithoutSenderInput[] | MessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutSenderInput | MessageUpsertWithWhereUniqueWithoutSenderInput[]
+    createMany?: MessageCreateManySenderInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutSenderInput | MessageUpdateWithWhereUniqueWithoutSenderInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutSenderInput | MessageUpdateManyWithWhereWithoutSenderInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type NotificationUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutUserInput | NotificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type ProfileUpdateOneWithoutUserNestedInput = {
     create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
     upsert?: ProfileUpsertWithoutUserInput
@@ -21865,17 +21895,7 @@ export namespace Prisma {
     update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutUserInput, ProfileUpdateWithoutUserInput>, ProfileUncheckedUpdateWithoutUserInput>
   }
 
-  export type CompanyUncheckedUpdateOneWithoutUserNestedInput = {
-    create?: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
-    connectOrCreate?: CompanyCreateOrConnectWithoutUserInput
-    upsert?: CompanyUpsertWithoutUserInput
-    disconnect?: CompanyWhereInput | boolean
-    delete?: CompanyWhereInput | boolean
-    connect?: CompanyWhereUniqueInput
-    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutUserInput, CompanyUpdateWithoutUserInput>, CompanyUncheckedUpdateWithoutUserInput>
-  }
-
-  export type RefreshTokenUncheckedUpdateManyWithoutUserNestedInput = {
+  export type RefreshTokenUpdateManyWithoutUserNestedInput = {
     create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
     upsert?: RefreshTokenUpsertWithWhereUniqueWithoutUserInput | RefreshTokenUpsertWithWhereUniqueWithoutUserInput[]
@@ -21887,20 +21907,6 @@ export namespace Prisma {
     update?: RefreshTokenUpdateWithWhereUniqueWithoutUserInput | RefreshTokenUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: RefreshTokenUpdateManyWithWhereWithoutUserInput | RefreshTokenUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: RefreshTokenScalarWhereInput | RefreshTokenScalarWhereInput[]
-  }
-
-  export type CvDocumentUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<CvDocumentCreateWithoutUserInput, CvDocumentUncheckedCreateWithoutUserInput> | CvDocumentCreateWithoutUserInput[] | CvDocumentUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: CvDocumentCreateOrConnectWithoutUserInput | CvDocumentCreateOrConnectWithoutUserInput[]
-    upsert?: CvDocumentUpsertWithWhereUniqueWithoutUserInput | CvDocumentUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: CvDocumentCreateManyUserInputEnvelope
-    set?: CvDocumentWhereUniqueInput | CvDocumentWhereUniqueInput[]
-    disconnect?: CvDocumentWhereUniqueInput | CvDocumentWhereUniqueInput[]
-    delete?: CvDocumentWhereUniqueInput | CvDocumentWhereUniqueInput[]
-    connect?: CvDocumentWhereUniqueInput | CvDocumentWhereUniqueInput[]
-    update?: CvDocumentUpdateWithWhereUniqueWithoutUserInput | CvDocumentUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: CvDocumentUpdateManyWithWhereWithoutUserInput | CvDocumentUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: CvDocumentScalarWhereInput | CvDocumentScalarWhereInput[]
   }
 
   export type ApplicationUncheckedUpdateManyWithoutCandidateNestedInput = {
@@ -21917,48 +21923,6 @@ export namespace Prisma {
     deleteMany?: ApplicationScalarWhereInput | ApplicationScalarWhereInput[]
   }
 
-  export type NotificationUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
-    upsert?: NotificationUpsertWithWhereUniqueWithoutUserInput | NotificationUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: NotificationCreateManyUserInputEnvelope
-    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
-  }
-
-  export type MessageUncheckedUpdateManyWithoutSenderNestedInput = {
-    create?: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput> | MessageCreateWithoutSenderInput[] | MessageUncheckedCreateWithoutSenderInput[]
-    connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
-    upsert?: MessageUpsertWithWhereUniqueWithoutSenderInput | MessageUpsertWithWhereUniqueWithoutSenderInput[]
-    createMany?: MessageCreateManySenderInputEnvelope
-    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
-    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
-    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
-    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
-    update?: MessageUpdateWithWhereUniqueWithoutSenderInput | MessageUpdateWithWhereUniqueWithoutSenderInput[]
-    updateMany?: MessageUpdateManyWithWhereWithoutSenderInput | MessageUpdateManyWithWhereWithoutSenderInput[]
-    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
-  }
-
-  export type MessageUncheckedUpdateManyWithoutReceiverNestedInput = {
-    create?: XOR<MessageCreateWithoutReceiverInput, MessageUncheckedCreateWithoutReceiverInput> | MessageCreateWithoutReceiverInput[] | MessageUncheckedCreateWithoutReceiverInput[]
-    connectOrCreate?: MessageCreateOrConnectWithoutReceiverInput | MessageCreateOrConnectWithoutReceiverInput[]
-    upsert?: MessageUpsertWithWhereUniqueWithoutReceiverInput | MessageUpsertWithWhereUniqueWithoutReceiverInput[]
-    createMany?: MessageCreateManyReceiverInputEnvelope
-    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
-    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
-    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
-    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
-    update?: MessageUpdateWithWhereUniqueWithoutReceiverInput | MessageUpdateWithWhereUniqueWithoutReceiverInput[]
-    updateMany?: MessageUpdateManyWithWhereWithoutReceiverInput | MessageUpdateManyWithWhereWithoutReceiverInput[]
-    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
-  }
-
   export type AuditLogUncheckedUpdateManyWithoutActorNestedInput = {
     create?: XOR<AuditLogCreateWithoutActorInput, AuditLogUncheckedCreateWithoutActorInput> | AuditLogCreateWithoutActorInput[] | AuditLogUncheckedCreateWithoutActorInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutActorInput | AuditLogCreateOrConnectWithoutActorInput[]
@@ -21971,6 +21935,30 @@ export namespace Prisma {
     update?: AuditLogUpdateWithWhereUniqueWithoutActorInput | AuditLogUpdateWithWhereUniqueWithoutActorInput[]
     updateMany?: AuditLogUpdateManyWithWhereWithoutActorInput | AuditLogUpdateManyWithWhereWithoutActorInput[]
     deleteMany?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
+  }
+
+  export type CompanyUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutUserInput
+    upsert?: CompanyUpsertWithoutUserInput
+    disconnect?: CompanyWhereInput | boolean
+    delete?: CompanyWhereInput | boolean
+    connect?: CompanyWhereUniqueInput
+    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutUserInput, CompanyUpdateWithoutUserInput>, CompanyUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CvDocumentUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CvDocumentCreateWithoutUserInput, CvDocumentUncheckedCreateWithoutUserInput> | CvDocumentCreateWithoutUserInput[] | CvDocumentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CvDocumentCreateOrConnectWithoutUserInput | CvDocumentCreateOrConnectWithoutUserInput[]
+    upsert?: CvDocumentUpsertWithWhereUniqueWithoutUserInput | CvDocumentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CvDocumentCreateManyUserInputEnvelope
+    set?: CvDocumentWhereUniqueInput | CvDocumentWhereUniqueInput[]
+    disconnect?: CvDocumentWhereUniqueInput | CvDocumentWhereUniqueInput[]
+    delete?: CvDocumentWhereUniqueInput | CvDocumentWhereUniqueInput[]
+    connect?: CvDocumentWhereUniqueInput | CvDocumentWhereUniqueInput[]
+    update?: CvDocumentUpdateWithWhereUniqueWithoutUserInput | CvDocumentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CvDocumentUpdateManyWithWhereWithoutUserInput | CvDocumentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CvDocumentScalarWhereInput | CvDocumentScalarWhereInput[]
   }
 
   export type JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput = {
@@ -21987,6 +21975,86 @@ export namespace Prisma {
     deleteMany?: JobOfferScalarWhereInput | JobOfferScalarWhereInput[]
   }
 
+  export type MatchScoreUncheckedUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<MatchScoreCreateWithoutUsersInput, MatchScoreUncheckedCreateWithoutUsersInput> | MatchScoreCreateWithoutUsersInput[] | MatchScoreUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: MatchScoreCreateOrConnectWithoutUsersInput | MatchScoreCreateOrConnectWithoutUsersInput[]
+    upsert?: MatchScoreUpsertWithWhereUniqueWithoutUsersInput | MatchScoreUpsertWithWhereUniqueWithoutUsersInput[]
+    createMany?: MatchScoreCreateManyUsersInputEnvelope
+    set?: MatchScoreWhereUniqueInput | MatchScoreWhereUniqueInput[]
+    disconnect?: MatchScoreWhereUniqueInput | MatchScoreWhereUniqueInput[]
+    delete?: MatchScoreWhereUniqueInput | MatchScoreWhereUniqueInput[]
+    connect?: MatchScoreWhereUniqueInput | MatchScoreWhereUniqueInput[]
+    update?: MatchScoreUpdateWithWhereUniqueWithoutUsersInput | MatchScoreUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: MatchScoreUpdateManyWithWhereWithoutUsersInput | MatchScoreUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: MatchScoreScalarWhereInput | MatchScoreScalarWhereInput[]
+  }
+
+  export type MessageUncheckedUpdateManyWithoutReceiverNestedInput = {
+    create?: XOR<MessageCreateWithoutReceiverInput, MessageUncheckedCreateWithoutReceiverInput> | MessageCreateWithoutReceiverInput[] | MessageUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutReceiverInput | MessageCreateOrConnectWithoutReceiverInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutReceiverInput | MessageUpsertWithWhereUniqueWithoutReceiverInput[]
+    createMany?: MessageCreateManyReceiverInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutReceiverInput | MessageUpdateWithWhereUniqueWithoutReceiverInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutReceiverInput | MessageUpdateManyWithWhereWithoutReceiverInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type MessageUncheckedUpdateManyWithoutSenderNestedInput = {
+    create?: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput> | MessageCreateWithoutSenderInput[] | MessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutSenderInput | MessageUpsertWithWhereUniqueWithoutSenderInput[]
+    createMany?: MessageCreateManySenderInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutSenderInput | MessageUpdateWithWhereUniqueWithoutSenderInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutSenderInput | MessageUpdateManyWithWhereWithoutSenderInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutUserInput | NotificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type ProfileUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
+    upsert?: ProfileUpsertWithoutUserInput
+    disconnect?: ProfileWhereInput | boolean
+    delete?: ProfileWhereInput | boolean
+    connect?: ProfileWhereUniqueInput
+    update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutUserInput, ProfileUpdateWithoutUserInput>, ProfileUncheckedUpdateWithoutUserInput>
+  }
+
+  export type RefreshTokenUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
+    upsert?: RefreshTokenUpsertWithWhereUniqueWithoutUserInput | RefreshTokenUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RefreshTokenCreateManyUserInputEnvelope
+    set?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
+    disconnect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
+    delete?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
+    connect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
+    update?: RefreshTokenUpdateWithWhereUniqueWithoutUserInput | RefreshTokenUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RefreshTokenUpdateManyWithWhereWithoutUserInput | RefreshTokenUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RefreshTokenScalarWhereInput | RefreshTokenScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutRefreshTokensInput = {
     create?: XOR<UserCreateWithoutRefreshTokensInput, UserUncheckedCreateWithoutRefreshTokensInput>
     connectOrCreate?: UserCreateOrConnectWithoutRefreshTokensInput
@@ -22001,12 +22069,6 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRefreshTokensInput, UserUpdateWithoutRefreshTokensInput>, UserUncheckedUpdateWithoutRefreshTokensInput>
   }
 
-  export type UserCreateNestedOneWithoutProfileInput = {
-    create?: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
-    connectOrCreate?: UserCreateOrConnectWithoutProfileInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type CompanyCreateNestedOneWithoutProfilesInput = {
     create?: XOR<CompanyCreateWithoutProfilesInput, CompanyUncheckedCreateWithoutProfilesInput>
     connectOrCreate?: CompanyCreateOrConnectWithoutProfilesInput
@@ -22019,12 +22081,10 @@ export namespace Prisma {
     connect?: SchoolWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutProfileNestedInput = {
+  export type UserCreateNestedOneWithoutProfileInput = {
     create?: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
     connectOrCreate?: UserCreateOrConnectWithoutProfileInput
-    upsert?: UserUpsertWithoutProfileInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProfileInput, UserUpdateWithoutProfileInput>, UserUncheckedUpdateWithoutProfileInput>
   }
 
   export type CompanyUpdateOneWithoutProfilesNestedInput = {
@@ -22047,17 +22107,18 @@ export namespace Prisma {
     update?: XOR<XOR<SchoolUpdateToOneWithWhereWithoutProfilesInput, SchoolUpdateWithoutProfilesInput>, SchoolUncheckedUpdateWithoutProfilesInput>
   }
 
+  export type UserUpdateOneRequiredWithoutProfileNestedInput = {
+    create?: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
+    connectOrCreate?: UserCreateOrConnectWithoutProfileInput
+    upsert?: UserUpsertWithoutProfileInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProfileInput, UserUpdateWithoutProfileInput>, UserUncheckedUpdateWithoutProfileInput>
+  }
+
   export type UserCreateNestedOneWithoutCompanyInput = {
     create?: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput>
     connectOrCreate?: UserCreateOrConnectWithoutCompanyInput
     connect?: UserWhereUniqueInput
-  }
-
-  export type ProfileCreateNestedManyWithoutCompanyInput = {
-    create?: XOR<ProfileCreateWithoutCompanyInput, ProfileUncheckedCreateWithoutCompanyInput> | ProfileCreateWithoutCompanyInput[] | ProfileUncheckedCreateWithoutCompanyInput[]
-    connectOrCreate?: ProfileCreateOrConnectWithoutCompanyInput | ProfileCreateOrConnectWithoutCompanyInput[]
-    createMany?: ProfileCreateManyCompanyInputEnvelope
-    connect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
   }
 
   export type JobOfferCreateNestedManyWithoutCompanyInput = {
@@ -22067,7 +22128,7 @@ export namespace Prisma {
     connect?: JobOfferWhereUniqueInput | JobOfferWhereUniqueInput[]
   }
 
-  export type ProfileUncheckedCreateNestedManyWithoutCompanyInput = {
+  export type ProfileCreateNestedManyWithoutCompanyInput = {
     create?: XOR<ProfileCreateWithoutCompanyInput, ProfileUncheckedCreateWithoutCompanyInput> | ProfileCreateWithoutCompanyInput[] | ProfileUncheckedCreateWithoutCompanyInput[]
     connectOrCreate?: ProfileCreateOrConnectWithoutCompanyInput | ProfileCreateOrConnectWithoutCompanyInput[]
     createMany?: ProfileCreateManyCompanyInputEnvelope
@@ -22081,26 +22142,19 @@ export namespace Prisma {
     connect?: JobOfferWhereUniqueInput | JobOfferWhereUniqueInput[]
   }
 
+  export type ProfileUncheckedCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<ProfileCreateWithoutCompanyInput, ProfileUncheckedCreateWithoutCompanyInput> | ProfileCreateWithoutCompanyInput[] | ProfileUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: ProfileCreateOrConnectWithoutCompanyInput | ProfileCreateOrConnectWithoutCompanyInput[]
+    createMany?: ProfileCreateManyCompanyInputEnvelope
+    connect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
+  }
+
   export type UserUpdateOneRequiredWithoutCompanyNestedInput = {
     create?: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput>
     connectOrCreate?: UserCreateOrConnectWithoutCompanyInput
     upsert?: UserUpsertWithoutCompanyInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCompanyInput, UserUpdateWithoutCompanyInput>, UserUncheckedUpdateWithoutCompanyInput>
-  }
-
-  export type ProfileUpdateManyWithoutCompanyNestedInput = {
-    create?: XOR<ProfileCreateWithoutCompanyInput, ProfileUncheckedCreateWithoutCompanyInput> | ProfileCreateWithoutCompanyInput[] | ProfileUncheckedCreateWithoutCompanyInput[]
-    connectOrCreate?: ProfileCreateOrConnectWithoutCompanyInput | ProfileCreateOrConnectWithoutCompanyInput[]
-    upsert?: ProfileUpsertWithWhereUniqueWithoutCompanyInput | ProfileUpsertWithWhereUniqueWithoutCompanyInput[]
-    createMany?: ProfileCreateManyCompanyInputEnvelope
-    set?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
-    disconnect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
-    delete?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
-    connect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
-    update?: ProfileUpdateWithWhereUniqueWithoutCompanyInput | ProfileUpdateWithWhereUniqueWithoutCompanyInput[]
-    updateMany?: ProfileUpdateManyWithWhereWithoutCompanyInput | ProfileUpdateManyWithWhereWithoutCompanyInput[]
-    deleteMany?: ProfileScalarWhereInput | ProfileScalarWhereInput[]
   }
 
   export type JobOfferUpdateManyWithoutCompanyNestedInput = {
@@ -22117,7 +22171,7 @@ export namespace Prisma {
     deleteMany?: JobOfferScalarWhereInput | JobOfferScalarWhereInput[]
   }
 
-  export type ProfileUncheckedUpdateManyWithoutCompanyNestedInput = {
+  export type ProfileUpdateManyWithoutCompanyNestedInput = {
     create?: XOR<ProfileCreateWithoutCompanyInput, ProfileUncheckedCreateWithoutCompanyInput> | ProfileCreateWithoutCompanyInput[] | ProfileUncheckedCreateWithoutCompanyInput[]
     connectOrCreate?: ProfileCreateOrConnectWithoutCompanyInput | ProfileCreateOrConnectWithoutCompanyInput[]
     upsert?: ProfileUpsertWithWhereUniqueWithoutCompanyInput | ProfileUpsertWithWhereUniqueWithoutCompanyInput[]
@@ -22143,6 +22197,20 @@ export namespace Prisma {
     update?: JobOfferUpdateWithWhereUniqueWithoutCompanyInput | JobOfferUpdateWithWhereUniqueWithoutCompanyInput[]
     updateMany?: JobOfferUpdateManyWithWhereWithoutCompanyInput | JobOfferUpdateManyWithWhereWithoutCompanyInput[]
     deleteMany?: JobOfferScalarWhereInput | JobOfferScalarWhereInput[]
+  }
+
+  export type ProfileUncheckedUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<ProfileCreateWithoutCompanyInput, ProfileUncheckedCreateWithoutCompanyInput> | ProfileCreateWithoutCompanyInput[] | ProfileUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: ProfileCreateOrConnectWithoutCompanyInput | ProfileCreateOrConnectWithoutCompanyInput[]
+    upsert?: ProfileUpsertWithWhereUniqueWithoutCompanyInput | ProfileUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: ProfileCreateManyCompanyInputEnvelope
+    set?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
+    disconnect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
+    delete?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
+    connect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
+    update?: ProfileUpdateWithWhereUniqueWithoutCompanyInput | ProfileUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: ProfileUpdateManyWithWhereWithoutCompanyInput | ProfileUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: ProfileScalarWhereInput | ProfileScalarWhereInput[]
   }
 
   export type ProfileCreateNestedManyWithoutSchoolInput = {
@@ -22421,6 +22489,13 @@ export namespace Prisma {
     update?: XOR<XOR<SkillUpdateToOneWithWhereWithoutExtractedSkillsInput, SkillUpdateWithoutExtractedSkillsInput>, SkillUncheckedUpdateWithoutExtractedSkillsInput>
   }
 
+  export type ApplicationCreateNestedManyWithoutOfferInput = {
+    create?: XOR<ApplicationCreateWithoutOfferInput, ApplicationUncheckedCreateWithoutOfferInput> | ApplicationCreateWithoutOfferInput[] | ApplicationUncheckedCreateWithoutOfferInput[]
+    connectOrCreate?: ApplicationCreateOrConnectWithoutOfferInput | ApplicationCreateOrConnectWithoutOfferInput[]
+    createMany?: ApplicationCreateManyOfferInputEnvelope
+    connect?: ApplicationWhereUniqueInput | ApplicationWhereUniqueInput[]
+  }
+
   export type CompanyCreateNestedOneWithoutJobOffersInput = {
     create?: XOR<CompanyCreateWithoutJobOffersInput, CompanyUncheckedCreateWithoutJobOffersInput>
     connectOrCreate?: CompanyCreateOrConnectWithoutJobOffersInput
@@ -22433,20 +22508,6 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type OfferSkillCreateNestedManyWithoutOfferInput = {
-    create?: XOR<OfferSkillCreateWithoutOfferInput, OfferSkillUncheckedCreateWithoutOfferInput> | OfferSkillCreateWithoutOfferInput[] | OfferSkillUncheckedCreateWithoutOfferInput[]
-    connectOrCreate?: OfferSkillCreateOrConnectWithoutOfferInput | OfferSkillCreateOrConnectWithoutOfferInput[]
-    createMany?: OfferSkillCreateManyOfferInputEnvelope
-    connect?: OfferSkillWhereUniqueInput | OfferSkillWhereUniqueInput[]
-  }
-
-  export type ApplicationCreateNestedManyWithoutOfferInput = {
-    create?: XOR<ApplicationCreateWithoutOfferInput, ApplicationUncheckedCreateWithoutOfferInput> | ApplicationCreateWithoutOfferInput[] | ApplicationUncheckedCreateWithoutOfferInput[]
-    connectOrCreate?: ApplicationCreateOrConnectWithoutOfferInput | ApplicationCreateOrConnectWithoutOfferInput[]
-    createMany?: ApplicationCreateManyOfferInputEnvelope
-    connect?: ApplicationWhereUniqueInput | ApplicationWhereUniqueInput[]
-  }
-
   export type MatchScoreCreateNestedManyWithoutOfferInput = {
     create?: XOR<MatchScoreCreateWithoutOfferInput, MatchScoreUncheckedCreateWithoutOfferInput> | MatchScoreCreateWithoutOfferInput[] | MatchScoreUncheckedCreateWithoutOfferInput[]
     connectOrCreate?: MatchScoreCreateOrConnectWithoutOfferInput | MatchScoreCreateOrConnectWithoutOfferInput[]
@@ -22454,7 +22515,7 @@ export namespace Prisma {
     connect?: MatchScoreWhereUniqueInput | MatchScoreWhereUniqueInput[]
   }
 
-  export type OfferSkillUncheckedCreateNestedManyWithoutOfferInput = {
+  export type OfferSkillCreateNestedManyWithoutOfferInput = {
     create?: XOR<OfferSkillCreateWithoutOfferInput, OfferSkillUncheckedCreateWithoutOfferInput> | OfferSkillCreateWithoutOfferInput[] | OfferSkillUncheckedCreateWithoutOfferInput[]
     connectOrCreate?: OfferSkillCreateOrConnectWithoutOfferInput | OfferSkillCreateOrConnectWithoutOfferInput[]
     createMany?: OfferSkillCreateManyOfferInputEnvelope
@@ -22475,8 +22536,29 @@ export namespace Prisma {
     connect?: MatchScoreWhereUniqueInput | MatchScoreWhereUniqueInput[]
   }
 
+  export type OfferSkillUncheckedCreateNestedManyWithoutOfferInput = {
+    create?: XOR<OfferSkillCreateWithoutOfferInput, OfferSkillUncheckedCreateWithoutOfferInput> | OfferSkillCreateWithoutOfferInput[] | OfferSkillUncheckedCreateWithoutOfferInput[]
+    connectOrCreate?: OfferSkillCreateOrConnectWithoutOfferInput | OfferSkillCreateOrConnectWithoutOfferInput[]
+    createMany?: OfferSkillCreateManyOfferInputEnvelope
+    connect?: OfferSkillWhereUniqueInput | OfferSkillWhereUniqueInput[]
+  }
+
   export type EnumOfferStatusFieldUpdateOperationsInput = {
     set?: $Enums.OfferStatus
+  }
+
+  export type ApplicationUpdateManyWithoutOfferNestedInput = {
+    create?: XOR<ApplicationCreateWithoutOfferInput, ApplicationUncheckedCreateWithoutOfferInput> | ApplicationCreateWithoutOfferInput[] | ApplicationUncheckedCreateWithoutOfferInput[]
+    connectOrCreate?: ApplicationCreateOrConnectWithoutOfferInput | ApplicationCreateOrConnectWithoutOfferInput[]
+    upsert?: ApplicationUpsertWithWhereUniqueWithoutOfferInput | ApplicationUpsertWithWhereUniqueWithoutOfferInput[]
+    createMany?: ApplicationCreateManyOfferInputEnvelope
+    set?: ApplicationWhereUniqueInput | ApplicationWhereUniqueInput[]
+    disconnect?: ApplicationWhereUniqueInput | ApplicationWhereUniqueInput[]
+    delete?: ApplicationWhereUniqueInput | ApplicationWhereUniqueInput[]
+    connect?: ApplicationWhereUniqueInput | ApplicationWhereUniqueInput[]
+    update?: ApplicationUpdateWithWhereUniqueWithoutOfferInput | ApplicationUpdateWithWhereUniqueWithoutOfferInput[]
+    updateMany?: ApplicationUpdateManyWithWhereWithoutOfferInput | ApplicationUpdateManyWithWhereWithoutOfferInput[]
+    deleteMany?: ApplicationScalarWhereInput | ApplicationScalarWhereInput[]
   }
 
   export type CompanyUpdateOneRequiredWithoutJobOffersNestedInput = {
@@ -22495,34 +22577,6 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutJobOffersInput, UserUpdateWithoutJobOffersInput>, UserUncheckedUpdateWithoutJobOffersInput>
   }
 
-  export type OfferSkillUpdateManyWithoutOfferNestedInput = {
-    create?: XOR<OfferSkillCreateWithoutOfferInput, OfferSkillUncheckedCreateWithoutOfferInput> | OfferSkillCreateWithoutOfferInput[] | OfferSkillUncheckedCreateWithoutOfferInput[]
-    connectOrCreate?: OfferSkillCreateOrConnectWithoutOfferInput | OfferSkillCreateOrConnectWithoutOfferInput[]
-    upsert?: OfferSkillUpsertWithWhereUniqueWithoutOfferInput | OfferSkillUpsertWithWhereUniqueWithoutOfferInput[]
-    createMany?: OfferSkillCreateManyOfferInputEnvelope
-    set?: OfferSkillWhereUniqueInput | OfferSkillWhereUniqueInput[]
-    disconnect?: OfferSkillWhereUniqueInput | OfferSkillWhereUniqueInput[]
-    delete?: OfferSkillWhereUniqueInput | OfferSkillWhereUniqueInput[]
-    connect?: OfferSkillWhereUniqueInput | OfferSkillWhereUniqueInput[]
-    update?: OfferSkillUpdateWithWhereUniqueWithoutOfferInput | OfferSkillUpdateWithWhereUniqueWithoutOfferInput[]
-    updateMany?: OfferSkillUpdateManyWithWhereWithoutOfferInput | OfferSkillUpdateManyWithWhereWithoutOfferInput[]
-    deleteMany?: OfferSkillScalarWhereInput | OfferSkillScalarWhereInput[]
-  }
-
-  export type ApplicationUpdateManyWithoutOfferNestedInput = {
-    create?: XOR<ApplicationCreateWithoutOfferInput, ApplicationUncheckedCreateWithoutOfferInput> | ApplicationCreateWithoutOfferInput[] | ApplicationUncheckedCreateWithoutOfferInput[]
-    connectOrCreate?: ApplicationCreateOrConnectWithoutOfferInput | ApplicationCreateOrConnectWithoutOfferInput[]
-    upsert?: ApplicationUpsertWithWhereUniqueWithoutOfferInput | ApplicationUpsertWithWhereUniqueWithoutOfferInput[]
-    createMany?: ApplicationCreateManyOfferInputEnvelope
-    set?: ApplicationWhereUniqueInput | ApplicationWhereUniqueInput[]
-    disconnect?: ApplicationWhereUniqueInput | ApplicationWhereUniqueInput[]
-    delete?: ApplicationWhereUniqueInput | ApplicationWhereUniqueInput[]
-    connect?: ApplicationWhereUniqueInput | ApplicationWhereUniqueInput[]
-    update?: ApplicationUpdateWithWhereUniqueWithoutOfferInput | ApplicationUpdateWithWhereUniqueWithoutOfferInput[]
-    updateMany?: ApplicationUpdateManyWithWhereWithoutOfferInput | ApplicationUpdateManyWithWhereWithoutOfferInput[]
-    deleteMany?: ApplicationScalarWhereInput | ApplicationScalarWhereInput[]
-  }
-
   export type MatchScoreUpdateManyWithoutOfferNestedInput = {
     create?: XOR<MatchScoreCreateWithoutOfferInput, MatchScoreUncheckedCreateWithoutOfferInput> | MatchScoreCreateWithoutOfferInput[] | MatchScoreUncheckedCreateWithoutOfferInput[]
     connectOrCreate?: MatchScoreCreateOrConnectWithoutOfferInput | MatchScoreCreateOrConnectWithoutOfferInput[]
@@ -22537,7 +22591,7 @@ export namespace Prisma {
     deleteMany?: MatchScoreScalarWhereInput | MatchScoreScalarWhereInput[]
   }
 
-  export type OfferSkillUncheckedUpdateManyWithoutOfferNestedInput = {
+  export type OfferSkillUpdateManyWithoutOfferNestedInput = {
     create?: XOR<OfferSkillCreateWithoutOfferInput, OfferSkillUncheckedCreateWithoutOfferInput> | OfferSkillCreateWithoutOfferInput[] | OfferSkillUncheckedCreateWithoutOfferInput[]
     connectOrCreate?: OfferSkillCreateOrConnectWithoutOfferInput | OfferSkillCreateOrConnectWithoutOfferInput[]
     upsert?: OfferSkillUpsertWithWhereUniqueWithoutOfferInput | OfferSkillUpsertWithWhereUniqueWithoutOfferInput[]
@@ -22579,6 +22633,20 @@ export namespace Prisma {
     deleteMany?: MatchScoreScalarWhereInput | MatchScoreScalarWhereInput[]
   }
 
+  export type OfferSkillUncheckedUpdateManyWithoutOfferNestedInput = {
+    create?: XOR<OfferSkillCreateWithoutOfferInput, OfferSkillUncheckedCreateWithoutOfferInput> | OfferSkillCreateWithoutOfferInput[] | OfferSkillUncheckedCreateWithoutOfferInput[]
+    connectOrCreate?: OfferSkillCreateOrConnectWithoutOfferInput | OfferSkillCreateOrConnectWithoutOfferInput[]
+    upsert?: OfferSkillUpsertWithWhereUniqueWithoutOfferInput | OfferSkillUpsertWithWhereUniqueWithoutOfferInput[]
+    createMany?: OfferSkillCreateManyOfferInputEnvelope
+    set?: OfferSkillWhereUniqueInput | OfferSkillWhereUniqueInput[]
+    disconnect?: OfferSkillWhereUniqueInput | OfferSkillWhereUniqueInput[]
+    delete?: OfferSkillWhereUniqueInput | OfferSkillWhereUniqueInput[]
+    connect?: OfferSkillWhereUniqueInput | OfferSkillWhereUniqueInput[]
+    update?: OfferSkillUpdateWithWhereUniqueWithoutOfferInput | OfferSkillUpdateWithWhereUniqueWithoutOfferInput[]
+    updateMany?: OfferSkillUpdateManyWithWhereWithoutOfferInput | OfferSkillUpdateManyWithWhereWithoutOfferInput[]
+    deleteMany?: OfferSkillScalarWhereInput | OfferSkillScalarWhereInput[]
+  }
+
   export type JobOfferCreateNestedOneWithoutOfferSkillsInput = {
     create?: XOR<JobOfferCreateWithoutOfferSkillsInput, JobOfferUncheckedCreateWithoutOfferSkillsInput>
     connectOrCreate?: JobOfferCreateOrConnectWithoutOfferSkillsInput
@@ -22607,6 +22675,12 @@ export namespace Prisma {
     update?: XOR<XOR<SkillUpdateToOneWithWhereWithoutOfferSkillsInput, SkillUpdateWithoutOfferSkillsInput>, SkillUncheckedUpdateWithoutOfferSkillsInput>
   }
 
+  export type UserCreateNestedOneWithoutMatch_scoresInput = {
+    create?: XOR<UserCreateWithoutMatch_scoresInput, UserUncheckedCreateWithoutMatch_scoresInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMatch_scoresInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type CvDocumentCreateNestedOneWithoutMatchScoresInput = {
     create?: XOR<CvDocumentCreateWithoutMatchScoresInput, CvDocumentUncheckedCreateWithoutMatchScoresInput>
     connectOrCreate?: CvDocumentCreateOrConnectWithoutMatchScoresInput
@@ -22625,6 +22699,14 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutMatch_scoresNestedInput = {
+    create?: XOR<UserCreateWithoutMatch_scoresInput, UserUncheckedCreateWithoutMatch_scoresInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMatch_scoresInput
+    upsert?: UserUpsertWithoutMatch_scoresInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMatch_scoresInput, UserUpdateWithoutMatch_scoresInput>, UserUncheckedUpdateWithoutMatch_scoresInput>
   }
 
   export type CvDocumentUpdateOneRequiredWithoutMatchScoresNestedInput = {
@@ -22717,10 +22799,10 @@ export namespace Prisma {
     deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutSentMessagesInput = {
-    create?: XOR<UserCreateWithoutSentMessagesInput, UserUncheckedCreateWithoutSentMessagesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutSentMessagesInput
-    connect?: UserWhereUniqueInput
+  export type ApplicationCreateNestedOneWithoutMessagesInput = {
+    create?: XOR<ApplicationCreateWithoutMessagesInput, ApplicationUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: ApplicationCreateOrConnectWithoutMessagesInput
+    connect?: ApplicationWhereUniqueInput
   }
 
   export type UserCreateNestedOneWithoutReceivedMessagesInput = {
@@ -22729,26 +22811,10 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type ApplicationCreateNestedOneWithoutMessagesInput = {
-    create?: XOR<ApplicationCreateWithoutMessagesInput, ApplicationUncheckedCreateWithoutMessagesInput>
-    connectOrCreate?: ApplicationCreateOrConnectWithoutMessagesInput
-    connect?: ApplicationWhereUniqueInput
-  }
-
-  export type UserUpdateOneRequiredWithoutSentMessagesNestedInput = {
+  export type UserCreateNestedOneWithoutSentMessagesInput = {
     create?: XOR<UserCreateWithoutSentMessagesInput, UserUncheckedCreateWithoutSentMessagesInput>
     connectOrCreate?: UserCreateOrConnectWithoutSentMessagesInput
-    upsert?: UserUpsertWithoutSentMessagesInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSentMessagesInput, UserUpdateWithoutSentMessagesInput>, UserUncheckedUpdateWithoutSentMessagesInput>
-  }
-
-  export type UserUpdateOneRequiredWithoutReceivedMessagesNestedInput = {
-    create?: XOR<UserCreateWithoutReceivedMessagesInput, UserUncheckedCreateWithoutReceivedMessagesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutReceivedMessagesInput
-    upsert?: UserUpsertWithoutReceivedMessagesInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReceivedMessagesInput, UserUpdateWithoutReceivedMessagesInput>, UserUncheckedUpdateWithoutReceivedMessagesInput>
   }
 
   export type ApplicationUpdateOneWithoutMessagesNestedInput = {
@@ -22759,6 +22825,22 @@ export namespace Prisma {
     delete?: ApplicationWhereInput | boolean
     connect?: ApplicationWhereUniqueInput
     update?: XOR<XOR<ApplicationUpdateToOneWithWhereWithoutMessagesInput, ApplicationUpdateWithoutMessagesInput>, ApplicationUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutReceivedMessagesNestedInput = {
+    create?: XOR<UserCreateWithoutReceivedMessagesInput, UserUncheckedCreateWithoutReceivedMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReceivedMessagesInput
+    upsert?: UserUpsertWithoutReceivedMessagesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReceivedMessagesInput, UserUpdateWithoutReceivedMessagesInput>, UserUncheckedUpdateWithoutReceivedMessagesInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutSentMessagesNestedInput = {
+    create?: XOR<UserCreateWithoutSentMessagesInput, UserUncheckedCreateWithoutSentMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSentMessagesInput
+    upsert?: UserUpsertWithoutSentMessagesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSentMessagesInput, UserUpdateWithoutSentMessagesInput>, UserUncheckedUpdateWithoutSentMessagesInput>
   }
 
   export type UserCreateNestedOneWithoutNotificationsInput = {
@@ -23153,6 +23235,303 @@ export namespace Prisma {
     _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
   }
 
+  export type ApplicationCreateWithoutCandidateInput = {
+    id?: string
+    applicationStatus?: $Enums.ApplicationStatus
+    coverLetter?: string | null
+    appliedAt?: Date | string
+    updatedAt?: Date | string
+    offer: JobOfferCreateNestedOneWithoutApplicationsInput
+    messages?: MessageCreateNestedManyWithoutApplicationInput
+  }
+
+  export type ApplicationUncheckedCreateWithoutCandidateInput = {
+    id?: string
+    offerId: string
+    applicationStatus?: $Enums.ApplicationStatus
+    coverLetter?: string | null
+    appliedAt?: Date | string
+    updatedAt?: Date | string
+    messages?: MessageUncheckedCreateNestedManyWithoutApplicationInput
+  }
+
+  export type ApplicationCreateOrConnectWithoutCandidateInput = {
+    where: ApplicationWhereUniqueInput
+    create: XOR<ApplicationCreateWithoutCandidateInput, ApplicationUncheckedCreateWithoutCandidateInput>
+  }
+
+  export type ApplicationCreateManyCandidateInputEnvelope = {
+    data: ApplicationCreateManyCandidateInput | ApplicationCreateManyCandidateInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AuditLogCreateWithoutActorInput = {
+    id?: string
+    action: string
+    entityType: string
+    entityId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type AuditLogUncheckedCreateWithoutActorInput = {
+    id?: string
+    action: string
+    entityType: string
+    entityId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type AuditLogCreateOrConnectWithoutActorInput = {
+    where: AuditLogWhereUniqueInput
+    create: XOR<AuditLogCreateWithoutActorInput, AuditLogUncheckedCreateWithoutActorInput>
+  }
+
+  export type AuditLogCreateManyActorInputEnvelope = {
+    data: AuditLogCreateManyActorInput | AuditLogCreateManyActorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CompanyCreateWithoutUserInput = {
+    id?: string
+    name: string
+    industry?: string | null
+    siteWeb?: string | null
+    isVerified?: boolean
+    isRejected?: boolean
+    rejectedReason?: string | null
+    validatedAt?: Date | string | null
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    jobOffers?: JobOfferCreateNestedManyWithoutCompanyInput
+    profiles?: ProfileCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyUncheckedCreateWithoutUserInput = {
+    id?: string
+    name: string
+    industry?: string | null
+    siteWeb?: string | null
+    isVerified?: boolean
+    isRejected?: boolean
+    rejectedReason?: string | null
+    validatedAt?: Date | string | null
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    jobOffers?: JobOfferUncheckedCreateNestedManyWithoutCompanyInput
+    profiles?: ProfileUncheckedCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyCreateOrConnectWithoutUserInput = {
+    where: CompanyWhereUniqueInput
+    create: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
+  }
+
+  export type CvDocumentCreateWithoutUserInput = {
+    id?: string
+    fileUrl: string
+    isActive?: boolean
+    importedFrom?: $Enums.ImportedFrom
+    parseStatus?: $Enums.ParseStatus
+    parsedText?: string | null
+    retryCount?: number
+    lastAttemptAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    extractedSkills?: ExtractedSkillCreateNestedManyWithoutCvDocumentInput
+    matchScores?: MatchScoreCreateNestedManyWithoutCvDocumentInput
+  }
+
+  export type CvDocumentUncheckedCreateWithoutUserInput = {
+    id?: string
+    fileUrl: string
+    isActive?: boolean
+    importedFrom?: $Enums.ImportedFrom
+    parseStatus?: $Enums.ParseStatus
+    parsedText?: string | null
+    retryCount?: number
+    lastAttemptAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    extractedSkills?: ExtractedSkillUncheckedCreateNestedManyWithoutCvDocumentInput
+    matchScores?: MatchScoreUncheckedCreateNestedManyWithoutCvDocumentInput
+  }
+
+  export type CvDocumentCreateOrConnectWithoutUserInput = {
+    where: CvDocumentWhereUniqueInput
+    create: XOR<CvDocumentCreateWithoutUserInput, CvDocumentUncheckedCreateWithoutUserInput>
+  }
+
+  export type CvDocumentCreateManyUserInputEnvelope = {
+    data: CvDocumentCreateManyUserInput | CvDocumentCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type JobOfferCreateWithoutRecruiterInput = {
+    id?: string
+    title: string
+    description: string
+    location?: string | null
+    durationMonths?: number | null
+    remote?: boolean
+    offerStatus?: $Enums.OfferStatus
+    viewCount?: number
+    publishedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    applications?: ApplicationCreateNestedManyWithoutOfferInput
+    company: CompanyCreateNestedOneWithoutJobOffersInput
+    matchScores?: MatchScoreCreateNestedManyWithoutOfferInput
+    offerSkills?: OfferSkillCreateNestedManyWithoutOfferInput
+  }
+
+  export type JobOfferUncheckedCreateWithoutRecruiterInput = {
+    id?: string
+    companyId: string
+    title: string
+    description: string
+    location?: string | null
+    durationMonths?: number | null
+    remote?: boolean
+    offerStatus?: $Enums.OfferStatus
+    viewCount?: number
+    publishedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    applications?: ApplicationUncheckedCreateNestedManyWithoutOfferInput
+    matchScores?: MatchScoreUncheckedCreateNestedManyWithoutOfferInput
+    offerSkills?: OfferSkillUncheckedCreateNestedManyWithoutOfferInput
+  }
+
+  export type JobOfferCreateOrConnectWithoutRecruiterInput = {
+    where: JobOfferWhereUniqueInput
+    create: XOR<JobOfferCreateWithoutRecruiterInput, JobOfferUncheckedCreateWithoutRecruiterInput>
+  }
+
+  export type JobOfferCreateManyRecruiterInputEnvelope = {
+    data: JobOfferCreateManyRecruiterInput | JobOfferCreateManyRecruiterInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MatchScoreCreateWithoutUsersInput = {
+    id?: string
+    scoreCosinus: number
+    scoreFinal: number
+    breakdown: JsonNullValueInput | InputJsonValue
+    computedAt?: Date | string
+    cvDocument: CvDocumentCreateNestedOneWithoutMatchScoresInput
+    offer: JobOfferCreateNestedOneWithoutMatchScoresInput
+  }
+
+  export type MatchScoreUncheckedCreateWithoutUsersInput = {
+    id?: string
+    offerId: string
+    cvDocumentId: string
+    scoreCosinus: number
+    scoreFinal: number
+    breakdown: JsonNullValueInput | InputJsonValue
+    computedAt?: Date | string
+  }
+
+  export type MatchScoreCreateOrConnectWithoutUsersInput = {
+    where: MatchScoreWhereUniqueInput
+    create: XOR<MatchScoreCreateWithoutUsersInput, MatchScoreUncheckedCreateWithoutUsersInput>
+  }
+
+  export type MatchScoreCreateManyUsersInputEnvelope = {
+    data: MatchScoreCreateManyUsersInput | MatchScoreCreateManyUsersInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MessageCreateWithoutReceiverInput = {
+    id?: string
+    content: string
+    isRead?: boolean
+    createdAt?: Date | string
+    application?: ApplicationCreateNestedOneWithoutMessagesInput
+    sender: UserCreateNestedOneWithoutSentMessagesInput
+  }
+
+  export type MessageUncheckedCreateWithoutReceiverInput = {
+    id?: string
+    senderId: string
+    applicationId?: string | null
+    content: string
+    isRead?: boolean
+    createdAt?: Date | string
+  }
+
+  export type MessageCreateOrConnectWithoutReceiverInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutReceiverInput, MessageUncheckedCreateWithoutReceiverInput>
+  }
+
+  export type MessageCreateManyReceiverInputEnvelope = {
+    data: MessageCreateManyReceiverInput | MessageCreateManyReceiverInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MessageCreateWithoutSenderInput = {
+    id?: string
+    content: string
+    isRead?: boolean
+    createdAt?: Date | string
+    application?: ApplicationCreateNestedOneWithoutMessagesInput
+    receiver: UserCreateNestedOneWithoutReceivedMessagesInput
+  }
+
+  export type MessageUncheckedCreateWithoutSenderInput = {
+    id?: string
+    receiverId: string
+    applicationId?: string | null
+    content: string
+    isRead?: boolean
+    createdAt?: Date | string
+  }
+
+  export type MessageCreateOrConnectWithoutSenderInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput>
+  }
+
+  export type MessageCreateManySenderInputEnvelope = {
+    data: MessageCreateManySenderInput | MessageCreateManySenderInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type NotificationCreateWithoutUserInput = {
+    id?: string
+    type: string
+    title: string
+    payload: JsonNullValueInput | InputJsonValue
+    isRead?: boolean
+    createdAt?: Date | string
+  }
+
+  export type NotificationUncheckedCreateWithoutUserInput = {
+    id?: string
+    type: string
+    title: string
+    payload: JsonNullValueInput | InputJsonValue
+    isRead?: boolean
+    createdAt?: Date | string
+  }
+
+  export type NotificationCreateOrConnectWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type NotificationCreateManyUserInputEnvelope = {
+    data: NotificationCreateManyUserInput | NotificationCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ProfileCreateWithoutUserInput = {
     id?: string
     firstName: string
@@ -23186,41 +23565,6 @@ export namespace Prisma {
     create: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
   }
 
-  export type CompanyCreateWithoutUserInput = {
-    id?: string
-    name: string
-    industry?: string | null
-    siteWeb?: string | null
-    isVerified?: boolean
-    isRejected?: boolean
-    rejectedReason?: string | null
-    validatedAt?: Date | string | null
-    createdAt?: Date | string
-    deletedAt?: Date | string | null
-    profiles?: ProfileCreateNestedManyWithoutCompanyInput
-    jobOffers?: JobOfferCreateNestedManyWithoutCompanyInput
-  }
-
-  export type CompanyUncheckedCreateWithoutUserInput = {
-    id?: string
-    name: string
-    industry?: string | null
-    siteWeb?: string | null
-    isVerified?: boolean
-    isRejected?: boolean
-    rejectedReason?: string | null
-    validatedAt?: Date | string | null
-    createdAt?: Date | string
-    deletedAt?: Date | string | null
-    profiles?: ProfileUncheckedCreateNestedManyWithoutCompanyInput
-    jobOffers?: JobOfferUncheckedCreateNestedManyWithoutCompanyInput
-  }
-
-  export type CompanyCreateOrConnectWithoutUserInput = {
-    where: CompanyWhereUniqueInput
-    create: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
-  }
-
   export type RefreshTokenCreateWithoutUserInput = {
     id?: string
     tokenHash: string
@@ -23247,238 +23591,277 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type CvDocumentCreateWithoutUserInput = {
-    id?: string
-    fileUrl: string
-    isActive?: boolean
-    importedFrom?: $Enums.ImportedFrom
-    parseStatus?: $Enums.ParseStatus
-    parsedText?: string | null
-    extractedSkillsRaw?: NullableJsonNullValueInput | InputJsonValue
-    retryCount?: number
-    lastAttemptAt?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    extractedSkills?: ExtractedSkillCreateNestedManyWithoutCvDocumentInput
-    matchScores?: MatchScoreCreateNestedManyWithoutCvDocumentInput
-  }
-
-  export type CvDocumentUncheckedCreateWithoutUserInput = {
-    id?: string
-    fileUrl: string
-    isActive?: boolean
-    importedFrom?: $Enums.ImportedFrom
-    parseStatus?: $Enums.ParseStatus
-    parsedText?: string | null
-    extractedSkillsRaw?: NullableJsonNullValueInput | InputJsonValue
-    retryCount?: number
-    lastAttemptAt?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    extractedSkills?: ExtractedSkillUncheckedCreateNestedManyWithoutCvDocumentInput
-    matchScores?: MatchScoreUncheckedCreateNestedManyWithoutCvDocumentInput
-  }
-
-  export type CvDocumentCreateOrConnectWithoutUserInput = {
-    where: CvDocumentWhereUniqueInput
-    create: XOR<CvDocumentCreateWithoutUserInput, CvDocumentUncheckedCreateWithoutUserInput>
-  }
-
-  export type CvDocumentCreateManyUserInputEnvelope = {
-    data: CvDocumentCreateManyUserInput | CvDocumentCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ApplicationCreateWithoutCandidateInput = {
-    id?: string
-    applicationStatus?: $Enums.ApplicationStatus
-    coverLetter?: string | null
-    appliedAt?: Date | string
-    updatedAt?: Date | string
-    offer: JobOfferCreateNestedOneWithoutApplicationsInput
-    messages?: MessageCreateNestedManyWithoutApplicationInput
-  }
-
-  export type ApplicationUncheckedCreateWithoutCandidateInput = {
-    id?: string
-    offerId: string
-    applicationStatus?: $Enums.ApplicationStatus
-    coverLetter?: string | null
-    appliedAt?: Date | string
-    updatedAt?: Date | string
-    messages?: MessageUncheckedCreateNestedManyWithoutApplicationInput
-  }
-
-  export type ApplicationCreateOrConnectWithoutCandidateInput = {
+  export type ApplicationUpsertWithWhereUniqueWithoutCandidateInput = {
     where: ApplicationWhereUniqueInput
+    update: XOR<ApplicationUpdateWithoutCandidateInput, ApplicationUncheckedUpdateWithoutCandidateInput>
     create: XOR<ApplicationCreateWithoutCandidateInput, ApplicationUncheckedCreateWithoutCandidateInput>
   }
 
-  export type ApplicationCreateManyCandidateInputEnvelope = {
-    data: ApplicationCreateManyCandidateInput | ApplicationCreateManyCandidateInput[]
-    skipDuplicates?: boolean
+  export type ApplicationUpdateWithWhereUniqueWithoutCandidateInput = {
+    where: ApplicationWhereUniqueInput
+    data: XOR<ApplicationUpdateWithoutCandidateInput, ApplicationUncheckedUpdateWithoutCandidateInput>
   }
 
-  export type NotificationCreateWithoutUserInput = {
-    id?: string
-    type: string
-    title: string
-    payload: JsonNullValueInput | InputJsonValue
-    isRead?: boolean
-    createdAt?: Date | string
+  export type ApplicationUpdateManyWithWhereWithoutCandidateInput = {
+    where: ApplicationScalarWhereInput
+    data: XOR<ApplicationUpdateManyMutationInput, ApplicationUncheckedUpdateManyWithoutCandidateInput>
   }
 
-  export type NotificationUncheckedCreateWithoutUserInput = {
-    id?: string
-    type: string
-    title: string
-    payload: JsonNullValueInput | InputJsonValue
-    isRead?: boolean
-    createdAt?: Date | string
+  export type ApplicationScalarWhereInput = {
+    AND?: ApplicationScalarWhereInput | ApplicationScalarWhereInput[]
+    OR?: ApplicationScalarWhereInput[]
+    NOT?: ApplicationScalarWhereInput | ApplicationScalarWhereInput[]
+    id?: StringFilter<"Application"> | string
+    candidateId?: StringFilter<"Application"> | string
+    offerId?: StringFilter<"Application"> | string
+    applicationStatus?: EnumApplicationStatusFilter<"Application"> | $Enums.ApplicationStatus
+    coverLetter?: StringNullableFilter<"Application"> | string | null
+    appliedAt?: DateTimeFilter<"Application"> | Date | string
+    updatedAt?: DateTimeFilter<"Application"> | Date | string
   }
 
-  export type NotificationCreateOrConnectWithoutUserInput = {
-    where: NotificationWhereUniqueInput
-    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
-  }
-
-  export type NotificationCreateManyUserInputEnvelope = {
-    data: NotificationCreateManyUserInput | NotificationCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type MessageCreateWithoutSenderInput = {
-    id?: string
-    content: string
-    isRead?: boolean
-    createdAt?: Date | string
-    receiver: UserCreateNestedOneWithoutReceivedMessagesInput
-    application?: ApplicationCreateNestedOneWithoutMessagesInput
-  }
-
-  export type MessageUncheckedCreateWithoutSenderInput = {
-    id?: string
-    receiverId: string
-    applicationId?: string | null
-    content: string
-    isRead?: boolean
-    createdAt?: Date | string
-  }
-
-  export type MessageCreateOrConnectWithoutSenderInput = {
-    where: MessageWhereUniqueInput
-    create: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput>
-  }
-
-  export type MessageCreateManySenderInputEnvelope = {
-    data: MessageCreateManySenderInput | MessageCreateManySenderInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type MessageCreateWithoutReceiverInput = {
-    id?: string
-    content: string
-    isRead?: boolean
-    createdAt?: Date | string
-    sender: UserCreateNestedOneWithoutSentMessagesInput
-    application?: ApplicationCreateNestedOneWithoutMessagesInput
-  }
-
-  export type MessageUncheckedCreateWithoutReceiverInput = {
-    id?: string
-    senderId: string
-    applicationId?: string | null
-    content: string
-    isRead?: boolean
-    createdAt?: Date | string
-  }
-
-  export type MessageCreateOrConnectWithoutReceiverInput = {
-    where: MessageWhereUniqueInput
-    create: XOR<MessageCreateWithoutReceiverInput, MessageUncheckedCreateWithoutReceiverInput>
-  }
-
-  export type MessageCreateManyReceiverInputEnvelope = {
-    data: MessageCreateManyReceiverInput | MessageCreateManyReceiverInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type AuditLogCreateWithoutActorInput = {
-    id?: string
-    action: string
-    entityType: string
-    entityId?: string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-  }
-
-  export type AuditLogUncheckedCreateWithoutActorInput = {
-    id?: string
-    action: string
-    entityType: string
-    entityId?: string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-  }
-
-  export type AuditLogCreateOrConnectWithoutActorInput = {
+  export type AuditLogUpsertWithWhereUniqueWithoutActorInput = {
     where: AuditLogWhereUniqueInput
+    update: XOR<AuditLogUpdateWithoutActorInput, AuditLogUncheckedUpdateWithoutActorInput>
     create: XOR<AuditLogCreateWithoutActorInput, AuditLogUncheckedCreateWithoutActorInput>
   }
 
-  export type AuditLogCreateManyActorInputEnvelope = {
-    data: AuditLogCreateManyActorInput | AuditLogCreateManyActorInput[]
-    skipDuplicates?: boolean
+  export type AuditLogUpdateWithWhereUniqueWithoutActorInput = {
+    where: AuditLogWhereUniqueInput
+    data: XOR<AuditLogUpdateWithoutActorInput, AuditLogUncheckedUpdateWithoutActorInput>
   }
 
-  export type JobOfferCreateWithoutRecruiterInput = {
-    id?: string
-    title: string
-    description: string
-    location?: string | null
-    durationMonths?: number | null
-    remote?: boolean
-    offerStatus?: $Enums.OfferStatus
-    viewCount?: number
-    publishedAt?: Date | string | null
-    expiresAt?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    company: CompanyCreateNestedOneWithoutJobOffersInput
-    offerSkills?: OfferSkillCreateNestedManyWithoutOfferInput
-    applications?: ApplicationCreateNestedManyWithoutOfferInput
-    matchScores?: MatchScoreCreateNestedManyWithoutOfferInput
+  export type AuditLogUpdateManyWithWhereWithoutActorInput = {
+    where: AuditLogScalarWhereInput
+    data: XOR<AuditLogUpdateManyMutationInput, AuditLogUncheckedUpdateManyWithoutActorInput>
   }
 
-  export type JobOfferUncheckedCreateWithoutRecruiterInput = {
-    id?: string
-    companyId: string
-    title: string
-    description: string
-    location?: string | null
-    durationMonths?: number | null
-    remote?: boolean
-    offerStatus?: $Enums.OfferStatus
-    viewCount?: number
-    publishedAt?: Date | string | null
-    expiresAt?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    offerSkills?: OfferSkillUncheckedCreateNestedManyWithoutOfferInput
-    applications?: ApplicationUncheckedCreateNestedManyWithoutOfferInput
-    matchScores?: MatchScoreUncheckedCreateNestedManyWithoutOfferInput
+  export type AuditLogScalarWhereInput = {
+    AND?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
+    OR?: AuditLogScalarWhereInput[]
+    NOT?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
+    id?: StringFilter<"AuditLog"> | string
+    actorId?: StringNullableFilter<"AuditLog"> | string | null
+    action?: StringFilter<"AuditLog"> | string
+    entityType?: StringFilter<"AuditLog"> | string
+    entityId?: StringNullableFilter<"AuditLog"> | string | null
+    metadata?: JsonNullableFilter<"AuditLog">
+    createdAt?: DateTimeFilter<"AuditLog"> | Date | string
   }
 
-  export type JobOfferCreateOrConnectWithoutRecruiterInput = {
+  export type CompanyUpsertWithoutUserInput = {
+    update: XOR<CompanyUpdateWithoutUserInput, CompanyUncheckedUpdateWithoutUserInput>
+    create: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
+    where?: CompanyWhereInput
+  }
+
+  export type CompanyUpdateToOneWithWhereWithoutUserInput = {
+    where?: CompanyWhereInput
+    data: XOR<CompanyUpdateWithoutUserInput, CompanyUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CompanyUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    siteWeb?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isRejected?: BoolFieldUpdateOperationsInput | boolean
+    rejectedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    validatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jobOffers?: JobOfferUpdateManyWithoutCompanyNestedInput
+    profiles?: ProfileUpdateManyWithoutCompanyNestedInput
+  }
+
+  export type CompanyUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    siteWeb?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isRejected?: BoolFieldUpdateOperationsInput | boolean
+    rejectedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    validatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jobOffers?: JobOfferUncheckedUpdateManyWithoutCompanyNestedInput
+    profiles?: ProfileUncheckedUpdateManyWithoutCompanyNestedInput
+  }
+
+  export type CvDocumentUpsertWithWhereUniqueWithoutUserInput = {
+    where: CvDocumentWhereUniqueInput
+    update: XOR<CvDocumentUpdateWithoutUserInput, CvDocumentUncheckedUpdateWithoutUserInput>
+    create: XOR<CvDocumentCreateWithoutUserInput, CvDocumentUncheckedCreateWithoutUserInput>
+  }
+
+  export type CvDocumentUpdateWithWhereUniqueWithoutUserInput = {
+    where: CvDocumentWhereUniqueInput
+    data: XOR<CvDocumentUpdateWithoutUserInput, CvDocumentUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CvDocumentUpdateManyWithWhereWithoutUserInput = {
+    where: CvDocumentScalarWhereInput
+    data: XOR<CvDocumentUpdateManyMutationInput, CvDocumentUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CvDocumentScalarWhereInput = {
+    AND?: CvDocumentScalarWhereInput | CvDocumentScalarWhereInput[]
+    OR?: CvDocumentScalarWhereInput[]
+    NOT?: CvDocumentScalarWhereInput | CvDocumentScalarWhereInput[]
+    id?: StringFilter<"CvDocument"> | string
+    userId?: StringFilter<"CvDocument"> | string
+    fileUrl?: StringFilter<"CvDocument"> | string
+    isActive?: BoolFilter<"CvDocument"> | boolean
+    importedFrom?: EnumImportedFromFilter<"CvDocument"> | $Enums.ImportedFrom
+    parseStatus?: EnumParseStatusFilter<"CvDocument"> | $Enums.ParseStatus
+    parsedText?: StringNullableFilter<"CvDocument"> | string | null
+    retryCount?: IntFilter<"CvDocument"> | number
+    lastAttemptAt?: DateTimeNullableFilter<"CvDocument"> | Date | string | null
+    createdAt?: DateTimeFilter<"CvDocument"> | Date | string
+    updatedAt?: DateTimeFilter<"CvDocument"> | Date | string
+  }
+
+  export type JobOfferUpsertWithWhereUniqueWithoutRecruiterInput = {
     where: JobOfferWhereUniqueInput
+    update: XOR<JobOfferUpdateWithoutRecruiterInput, JobOfferUncheckedUpdateWithoutRecruiterInput>
     create: XOR<JobOfferCreateWithoutRecruiterInput, JobOfferUncheckedCreateWithoutRecruiterInput>
   }
 
-  export type JobOfferCreateManyRecruiterInputEnvelope = {
-    data: JobOfferCreateManyRecruiterInput | JobOfferCreateManyRecruiterInput[]
-    skipDuplicates?: boolean
+  export type JobOfferUpdateWithWhereUniqueWithoutRecruiterInput = {
+    where: JobOfferWhereUniqueInput
+    data: XOR<JobOfferUpdateWithoutRecruiterInput, JobOfferUncheckedUpdateWithoutRecruiterInput>
+  }
+
+  export type JobOfferUpdateManyWithWhereWithoutRecruiterInput = {
+    where: JobOfferScalarWhereInput
+    data: XOR<JobOfferUpdateManyMutationInput, JobOfferUncheckedUpdateManyWithoutRecruiterInput>
+  }
+
+  export type JobOfferScalarWhereInput = {
+    AND?: JobOfferScalarWhereInput | JobOfferScalarWhereInput[]
+    OR?: JobOfferScalarWhereInput[]
+    NOT?: JobOfferScalarWhereInput | JobOfferScalarWhereInput[]
+    id?: StringFilter<"JobOffer"> | string
+    companyId?: StringFilter<"JobOffer"> | string
+    recruiterId?: StringFilter<"JobOffer"> | string
+    title?: StringFilter<"JobOffer"> | string
+    description?: StringFilter<"JobOffer"> | string
+    location?: StringNullableFilter<"JobOffer"> | string | null
+    durationMonths?: IntNullableFilter<"JobOffer"> | number | null
+    remote?: BoolFilter<"JobOffer"> | boolean
+    offerStatus?: EnumOfferStatusFilter<"JobOffer"> | $Enums.OfferStatus
+    viewCount?: IntFilter<"JobOffer"> | number
+    publishedAt?: DateTimeNullableFilter<"JobOffer"> | Date | string | null
+    expiresAt?: DateTimeNullableFilter<"JobOffer"> | Date | string | null
+    createdAt?: DateTimeFilter<"JobOffer"> | Date | string
+    updatedAt?: DateTimeFilter<"JobOffer"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"JobOffer"> | Date | string | null
+  }
+
+  export type MatchScoreUpsertWithWhereUniqueWithoutUsersInput = {
+    where: MatchScoreWhereUniqueInput
+    update: XOR<MatchScoreUpdateWithoutUsersInput, MatchScoreUncheckedUpdateWithoutUsersInput>
+    create: XOR<MatchScoreCreateWithoutUsersInput, MatchScoreUncheckedCreateWithoutUsersInput>
+  }
+
+  export type MatchScoreUpdateWithWhereUniqueWithoutUsersInput = {
+    where: MatchScoreWhereUniqueInput
+    data: XOR<MatchScoreUpdateWithoutUsersInput, MatchScoreUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type MatchScoreUpdateManyWithWhereWithoutUsersInput = {
+    where: MatchScoreScalarWhereInput
+    data: XOR<MatchScoreUpdateManyMutationInput, MatchScoreUncheckedUpdateManyWithoutUsersInput>
+  }
+
+  export type MatchScoreScalarWhereInput = {
+    AND?: MatchScoreScalarWhereInput | MatchScoreScalarWhereInput[]
+    OR?: MatchScoreScalarWhereInput[]
+    NOT?: MatchScoreScalarWhereInput | MatchScoreScalarWhereInput[]
+    id?: StringFilter<"MatchScore"> | string
+    candidateId?: StringFilter<"MatchScore"> | string
+    offerId?: StringFilter<"MatchScore"> | string
+    cvDocumentId?: StringFilter<"MatchScore"> | string
+    scoreCosinus?: FloatFilter<"MatchScore"> | number
+    scoreFinal?: FloatFilter<"MatchScore"> | number
+    breakdown?: JsonFilter<"MatchScore">
+    computedAt?: DateTimeFilter<"MatchScore"> | Date | string
+  }
+
+  export type MessageUpsertWithWhereUniqueWithoutReceiverInput = {
+    where: MessageWhereUniqueInput
+    update: XOR<MessageUpdateWithoutReceiverInput, MessageUncheckedUpdateWithoutReceiverInput>
+    create: XOR<MessageCreateWithoutReceiverInput, MessageUncheckedCreateWithoutReceiverInput>
+  }
+
+  export type MessageUpdateWithWhereUniqueWithoutReceiverInput = {
+    where: MessageWhereUniqueInput
+    data: XOR<MessageUpdateWithoutReceiverInput, MessageUncheckedUpdateWithoutReceiverInput>
+  }
+
+  export type MessageUpdateManyWithWhereWithoutReceiverInput = {
+    where: MessageScalarWhereInput
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutReceiverInput>
+  }
+
+  export type MessageScalarWhereInput = {
+    AND?: MessageScalarWhereInput | MessageScalarWhereInput[]
+    OR?: MessageScalarWhereInput[]
+    NOT?: MessageScalarWhereInput | MessageScalarWhereInput[]
+    id?: StringFilter<"Message"> | string
+    senderId?: StringFilter<"Message"> | string
+    receiverId?: StringFilter<"Message"> | string
+    applicationId?: StringNullableFilter<"Message"> | string | null
+    content?: StringFilter<"Message"> | string
+    isRead?: BoolFilter<"Message"> | boolean
+    createdAt?: DateTimeFilter<"Message"> | Date | string
+  }
+
+  export type MessageUpsertWithWhereUniqueWithoutSenderInput = {
+    where: MessageWhereUniqueInput
+    update: XOR<MessageUpdateWithoutSenderInput, MessageUncheckedUpdateWithoutSenderInput>
+    create: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput>
+  }
+
+  export type MessageUpdateWithWhereUniqueWithoutSenderInput = {
+    where: MessageWhereUniqueInput
+    data: XOR<MessageUpdateWithoutSenderInput, MessageUncheckedUpdateWithoutSenderInput>
+  }
+
+  export type MessageUpdateManyWithWhereWithoutSenderInput = {
+    where: MessageScalarWhereInput
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutSenderInput>
+  }
+
+  export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    update: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
+    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type NotificationUpdateWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    data: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type NotificationUpdateManyWithWhereWithoutUserInput = {
+    where: NotificationScalarWhereInput
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type NotificationScalarWhereInput = {
+    AND?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    OR?: NotificationScalarWhereInput[]
+    NOT?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    id?: StringFilter<"Notification"> | string
+    userId?: StringFilter<"Notification"> | string
+    type?: StringFilter<"Notification"> | string
+    title?: StringFilter<"Notification"> | string
+    payload?: JsonFilter<"Notification">
+    isRead?: BoolFilter<"Notification"> | boolean
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
   }
 
   export type ProfileUpsertWithoutUserInput = {
@@ -23520,47 +23903,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type CompanyUpsertWithoutUserInput = {
-    update: XOR<CompanyUpdateWithoutUserInput, CompanyUncheckedUpdateWithoutUserInput>
-    create: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
-    where?: CompanyWhereInput
-  }
-
-  export type CompanyUpdateToOneWithWhereWithoutUserInput = {
-    where?: CompanyWhereInput
-    data: XOR<CompanyUpdateWithoutUserInput, CompanyUncheckedUpdateWithoutUserInput>
-  }
-
-  export type CompanyUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    industry?: NullableStringFieldUpdateOperationsInput | string | null
-    siteWeb?: NullableStringFieldUpdateOperationsInput | string | null
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isRejected?: BoolFieldUpdateOperationsInput | boolean
-    rejectedReason?: NullableStringFieldUpdateOperationsInput | string | null
-    validatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    profiles?: ProfileUpdateManyWithoutCompanyNestedInput
-    jobOffers?: JobOfferUpdateManyWithoutCompanyNestedInput
-  }
-
-  export type CompanyUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    industry?: NullableStringFieldUpdateOperationsInput | string | null
-    siteWeb?: NullableStringFieldUpdateOperationsInput | string | null
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isRejected?: BoolFieldUpdateOperationsInput | boolean
-    rejectedReason?: NullableStringFieldUpdateOperationsInput | string | null
-    validatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    profiles?: ProfileUncheckedUpdateManyWithoutCompanyNestedInput
-    jobOffers?: JobOfferUncheckedUpdateManyWithoutCompanyNestedInput
-  }
-
   export type RefreshTokenUpsertWithWhereUniqueWithoutUserInput = {
     where: RefreshTokenWhereUniqueInput
     update: XOR<RefreshTokenUpdateWithoutUserInput, RefreshTokenUncheckedUpdateWithoutUserInput>
@@ -23589,251 +23931,50 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"RefreshToken"> | Date | string
   }
 
-  export type CvDocumentUpsertWithWhereUniqueWithoutUserInput = {
-    where: CvDocumentWhereUniqueInput
-    update: XOR<CvDocumentUpdateWithoutUserInput, CvDocumentUncheckedUpdateWithoutUserInput>
-    create: XOR<CvDocumentCreateWithoutUserInput, CvDocumentUncheckedCreateWithoutUserInput>
-  }
-
-  export type CvDocumentUpdateWithWhereUniqueWithoutUserInput = {
-    where: CvDocumentWhereUniqueInput
-    data: XOR<CvDocumentUpdateWithoutUserInput, CvDocumentUncheckedUpdateWithoutUserInput>
-  }
-
-  export type CvDocumentUpdateManyWithWhereWithoutUserInput = {
-    where: CvDocumentScalarWhereInput
-    data: XOR<CvDocumentUpdateManyMutationInput, CvDocumentUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type CvDocumentScalarWhereInput = {
-    AND?: CvDocumentScalarWhereInput | CvDocumentScalarWhereInput[]
-    OR?: CvDocumentScalarWhereInput[]
-    NOT?: CvDocumentScalarWhereInput | CvDocumentScalarWhereInput[]
-    id?: StringFilter<"CvDocument"> | string
-    userId?: StringFilter<"CvDocument"> | string
-    fileUrl?: StringFilter<"CvDocument"> | string
-    isActive?: BoolFilter<"CvDocument"> | boolean
-    importedFrom?: EnumImportedFromFilter<"CvDocument"> | $Enums.ImportedFrom
-    parseStatus?: EnumParseStatusFilter<"CvDocument"> | $Enums.ParseStatus
-    parsedText?: StringNullableFilter<"CvDocument"> | string | null
-    extractedSkillsRaw?: JsonNullableFilter<"CvDocument">
-    retryCount?: IntFilter<"CvDocument"> | number
-    lastAttemptAt?: DateTimeNullableFilter<"CvDocument"> | Date | string | null
-    createdAt?: DateTimeFilter<"CvDocument"> | Date | string
-    updatedAt?: DateTimeFilter<"CvDocument"> | Date | string
-  }
-
-  export type ApplicationUpsertWithWhereUniqueWithoutCandidateInput = {
-    where: ApplicationWhereUniqueInput
-    update: XOR<ApplicationUpdateWithoutCandidateInput, ApplicationUncheckedUpdateWithoutCandidateInput>
-    create: XOR<ApplicationCreateWithoutCandidateInput, ApplicationUncheckedCreateWithoutCandidateInput>
-  }
-
-  export type ApplicationUpdateWithWhereUniqueWithoutCandidateInput = {
-    where: ApplicationWhereUniqueInput
-    data: XOR<ApplicationUpdateWithoutCandidateInput, ApplicationUncheckedUpdateWithoutCandidateInput>
-  }
-
-  export type ApplicationUpdateManyWithWhereWithoutCandidateInput = {
-    where: ApplicationScalarWhereInput
-    data: XOR<ApplicationUpdateManyMutationInput, ApplicationUncheckedUpdateManyWithoutCandidateInput>
-  }
-
-  export type ApplicationScalarWhereInput = {
-    AND?: ApplicationScalarWhereInput | ApplicationScalarWhereInput[]
-    OR?: ApplicationScalarWhereInput[]
-    NOT?: ApplicationScalarWhereInput | ApplicationScalarWhereInput[]
-    id?: StringFilter<"Application"> | string
-    candidateId?: StringFilter<"Application"> | string
-    offerId?: StringFilter<"Application"> | string
-    applicationStatus?: EnumApplicationStatusFilter<"Application"> | $Enums.ApplicationStatus
-    coverLetter?: StringNullableFilter<"Application"> | string | null
-    appliedAt?: DateTimeFilter<"Application"> | Date | string
-    updatedAt?: DateTimeFilter<"Application"> | Date | string
-  }
-
-  export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
-    where: NotificationWhereUniqueInput
-    update: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
-    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
-  }
-
-  export type NotificationUpdateWithWhereUniqueWithoutUserInput = {
-    where: NotificationWhereUniqueInput
-    data: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
-  }
-
-  export type NotificationUpdateManyWithWhereWithoutUserInput = {
-    where: NotificationScalarWhereInput
-    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type NotificationScalarWhereInput = {
-    AND?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
-    OR?: NotificationScalarWhereInput[]
-    NOT?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
-    id?: StringFilter<"Notification"> | string
-    userId?: StringFilter<"Notification"> | string
-    type?: StringFilter<"Notification"> | string
-    title?: StringFilter<"Notification"> | string
-    payload?: JsonFilter<"Notification">
-    isRead?: BoolFilter<"Notification"> | boolean
-    createdAt?: DateTimeFilter<"Notification"> | Date | string
-  }
-
-  export type MessageUpsertWithWhereUniqueWithoutSenderInput = {
-    where: MessageWhereUniqueInput
-    update: XOR<MessageUpdateWithoutSenderInput, MessageUncheckedUpdateWithoutSenderInput>
-    create: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput>
-  }
-
-  export type MessageUpdateWithWhereUniqueWithoutSenderInput = {
-    where: MessageWhereUniqueInput
-    data: XOR<MessageUpdateWithoutSenderInput, MessageUncheckedUpdateWithoutSenderInput>
-  }
-
-  export type MessageUpdateManyWithWhereWithoutSenderInput = {
-    where: MessageScalarWhereInput
-    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutSenderInput>
-  }
-
-  export type MessageScalarWhereInput = {
-    AND?: MessageScalarWhereInput | MessageScalarWhereInput[]
-    OR?: MessageScalarWhereInput[]
-    NOT?: MessageScalarWhereInput | MessageScalarWhereInput[]
-    id?: StringFilter<"Message"> | string
-    senderId?: StringFilter<"Message"> | string
-    receiverId?: StringFilter<"Message"> | string
-    applicationId?: StringNullableFilter<"Message"> | string | null
-    content?: StringFilter<"Message"> | string
-    isRead?: BoolFilter<"Message"> | boolean
-    createdAt?: DateTimeFilter<"Message"> | Date | string
-  }
-
-  export type MessageUpsertWithWhereUniqueWithoutReceiverInput = {
-    where: MessageWhereUniqueInput
-    update: XOR<MessageUpdateWithoutReceiverInput, MessageUncheckedUpdateWithoutReceiverInput>
-    create: XOR<MessageCreateWithoutReceiverInput, MessageUncheckedCreateWithoutReceiverInput>
-  }
-
-  export type MessageUpdateWithWhereUniqueWithoutReceiverInput = {
-    where: MessageWhereUniqueInput
-    data: XOR<MessageUpdateWithoutReceiverInput, MessageUncheckedUpdateWithoutReceiverInput>
-  }
-
-  export type MessageUpdateManyWithWhereWithoutReceiverInput = {
-    where: MessageScalarWhereInput
-    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutReceiverInput>
-  }
-
-  export type AuditLogUpsertWithWhereUniqueWithoutActorInput = {
-    where: AuditLogWhereUniqueInput
-    update: XOR<AuditLogUpdateWithoutActorInput, AuditLogUncheckedUpdateWithoutActorInput>
-    create: XOR<AuditLogCreateWithoutActorInput, AuditLogUncheckedCreateWithoutActorInput>
-  }
-
-  export type AuditLogUpdateWithWhereUniqueWithoutActorInput = {
-    where: AuditLogWhereUniqueInput
-    data: XOR<AuditLogUpdateWithoutActorInput, AuditLogUncheckedUpdateWithoutActorInput>
-  }
-
-  export type AuditLogUpdateManyWithWhereWithoutActorInput = {
-    where: AuditLogScalarWhereInput
-    data: XOR<AuditLogUpdateManyMutationInput, AuditLogUncheckedUpdateManyWithoutActorInput>
-  }
-
-  export type AuditLogScalarWhereInput = {
-    AND?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
-    OR?: AuditLogScalarWhereInput[]
-    NOT?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
-    id?: StringFilter<"AuditLog"> | string
-    actorId?: StringNullableFilter<"AuditLog"> | string | null
-    action?: StringFilter<"AuditLog"> | string
-    entityType?: StringFilter<"AuditLog"> | string
-    entityId?: StringNullableFilter<"AuditLog"> | string | null
-    metadata?: JsonNullableFilter<"AuditLog">
-    createdAt?: DateTimeFilter<"AuditLog"> | Date | string
-  }
-
-  export type JobOfferUpsertWithWhereUniqueWithoutRecruiterInput = {
-    where: JobOfferWhereUniqueInput
-    update: XOR<JobOfferUpdateWithoutRecruiterInput, JobOfferUncheckedUpdateWithoutRecruiterInput>
-    create: XOR<JobOfferCreateWithoutRecruiterInput, JobOfferUncheckedCreateWithoutRecruiterInput>
-  }
-
-  export type JobOfferUpdateWithWhereUniqueWithoutRecruiterInput = {
-    where: JobOfferWhereUniqueInput
-    data: XOR<JobOfferUpdateWithoutRecruiterInput, JobOfferUncheckedUpdateWithoutRecruiterInput>
-  }
-
-  export type JobOfferUpdateManyWithWhereWithoutRecruiterInput = {
-    where: JobOfferScalarWhereInput
-    data: XOR<JobOfferUpdateManyMutationInput, JobOfferUncheckedUpdateManyWithoutRecruiterInput>
-  }
-
-  export type JobOfferScalarWhereInput = {
-    AND?: JobOfferScalarWhereInput | JobOfferScalarWhereInput[]
-    OR?: JobOfferScalarWhereInput[]
-    NOT?: JobOfferScalarWhereInput | JobOfferScalarWhereInput[]
-    id?: StringFilter<"JobOffer"> | string
-    companyId?: StringFilter<"JobOffer"> | string
-    recruiterId?: StringFilter<"JobOffer"> | string
-    title?: StringFilter<"JobOffer"> | string
-    description?: StringFilter<"JobOffer"> | string
-    location?: StringNullableFilter<"JobOffer"> | string | null
-    durationMonths?: IntNullableFilter<"JobOffer"> | number | null
-    remote?: BoolFilter<"JobOffer"> | boolean
-    offerStatus?: EnumOfferStatusFilter<"JobOffer"> | $Enums.OfferStatus
-    viewCount?: IntFilter<"JobOffer"> | number
-    publishedAt?: DateTimeNullableFilter<"JobOffer"> | Date | string | null
-    expiresAt?: DateTimeNullableFilter<"JobOffer"> | Date | string | null
-    createdAt?: DateTimeFilter<"JobOffer"> | Date | string
-    updatedAt?: DateTimeFilter<"JobOffer"> | Date | string
-    deletedAt?: DateTimeNullableFilter<"JobOffer"> | Date | string | null
-  }
-
   export type UserCreateWithoutRefreshTokensInput = {
     id?: string
     email: string
     passwordHash: string
-    role?: $Enums.Role
+    role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
-    profile?: ProfileCreateNestedOneWithoutUserInput
+    applications?: ApplicationCreateNestedManyWithoutCandidateInput
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     company?: CompanyCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
-    applications?: ApplicationCreateNestedManyWithoutCandidateInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentMessages?: MessageCreateNestedManyWithoutSenderInput
-    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
-    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRefreshTokensInput = {
     id?: string
     email: string
     passwordHash: string
-    role?: $Enums.Role
+    role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
-    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
-    applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
-    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
-    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -23863,15 +24004,16 @@ export namespace Prisma {
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    profile?: ProfileUpdateOneWithoutUserNestedInput
+    applications?: ApplicationUpdateManyWithoutCandidateNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     company?: CompanyUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
-    applications?: ApplicationUpdateManyWithoutCandidateNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
-    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
-    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -23885,64 +24027,16 @@ export namespace Prisma {
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
-    applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
-    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
-    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
-  }
-
-  export type UserCreateWithoutProfileInput = {
-    id?: string
-    email: string
-    passwordHash: string
-    role?: $Enums.Role
-    isVerified?: boolean
-    isBanned?: boolean
-    location?: string | null
-    availabilityMonths?: number | null
-    createdAt?: Date | string
-    deletedAt?: Date | string | null
-    company?: CompanyCreateNestedOneWithoutUserInput
-    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
-    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
-    applications?: ApplicationCreateNestedManyWithoutCandidateInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentMessages?: MessageCreateNestedManyWithoutSenderInput
-    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
-    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
-    jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
-  }
-
-  export type UserUncheckedCreateWithoutProfileInput = {
-    id?: string
-    email: string
-    passwordHash: string
-    role?: $Enums.Role
-    isVerified?: boolean
-    isBanned?: boolean
-    location?: string | null
-    availabilityMonths?: number | null
-    createdAt?: Date | string
-    deletedAt?: Date | string | null
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
-    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
-    applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
-    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
-    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
-    jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
-  }
-
-  export type UserCreateOrConnectWithoutProfileInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
+    match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type CompanyCreateWithoutProfilesInput = {
@@ -23999,59 +24093,55 @@ export namespace Prisma {
     create: XOR<SchoolCreateWithoutProfilesInput, SchoolUncheckedCreateWithoutProfilesInput>
   }
 
-  export type UserUpsertWithoutProfileInput = {
-    update: XOR<UserUpdateWithoutProfileInput, UserUncheckedUpdateWithoutProfileInput>
+  export type UserCreateWithoutProfileInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role: $Enums.Role
+    isVerified?: boolean
+    isBanned?: boolean
+    location?: string | null
+    availabilityMonths?: number | null
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    applications?: ApplicationCreateNestedManyWithoutCandidateInput
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    company?: CompanyCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
+    jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutProfileInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role: $Enums.Role
+    isVerified?: boolean
+    isBanned?: boolean
+    location?: string | null
+    availabilityMonths?: number | null
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
+    jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutProfileInput = {
+    where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutProfileInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutProfileInput, UserUncheckedUpdateWithoutProfileInput>
-  }
-
-  export type UserUpdateWithoutProfileInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isBanned?: BoolFieldUpdateOperationsInput | boolean
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    company?: CompanyUpdateOneWithoutUserNestedInput
-    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
-    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
-    applications?: ApplicationUpdateManyWithoutCandidateNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
-    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
-    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
-    jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutProfileInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isBanned?: BoolFieldUpdateOperationsInput | boolean
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
-    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
-    applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
-    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
-    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
-    jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
   }
 
   export type CompanyUpsertWithoutProfilesInput = {
@@ -24120,53 +24210,162 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserUpsertWithoutProfileInput = {
+    update: XOR<UserUpdateWithoutProfileInput, UserUncheckedUpdateWithoutProfileInput>
+    create: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutProfileInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutProfileInput, UserUncheckedUpdateWithoutProfileInput>
+  }
+
+  export type UserUpdateWithoutProfileInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUpdateManyWithoutCandidateNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
+    jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutProfileInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
+    jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutCompanyInput = {
     id?: string
     email: string
     passwordHash: string
-    role?: $Enums.Role
+    role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
+    applications?: ApplicationCreateNestedManyWithoutCandidateInput
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
+    jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
-    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
-    applications?: ApplicationCreateNestedManyWithoutCandidateInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentMessages?: MessageCreateNestedManyWithoutSenderInput
-    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
-    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
-    jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
   }
 
   export type UserUncheckedCreateWithoutCompanyInput = {
     id?: string
     email: string
     passwordHash: string
-    role?: $Enums.Role
+    role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
+    applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
+    jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
-    applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
-    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
-    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
-    jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
   }
 
   export type UserCreateOrConnectWithoutCompanyInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type JobOfferCreateWithoutCompanyInput = {
+    id?: string
+    title: string
+    description: string
+    location?: string | null
+    durationMonths?: number | null
+    remote?: boolean
+    offerStatus?: $Enums.OfferStatus
+    viewCount?: number
+    publishedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    applications?: ApplicationCreateNestedManyWithoutOfferInput
+    recruiter: UserCreateNestedOneWithoutJobOffersInput
+    matchScores?: MatchScoreCreateNestedManyWithoutOfferInput
+    offerSkills?: OfferSkillCreateNestedManyWithoutOfferInput
+  }
+
+  export type JobOfferUncheckedCreateWithoutCompanyInput = {
+    id?: string
+    recruiterId: string
+    title: string
+    description: string
+    location?: string | null
+    durationMonths?: number | null
+    remote?: boolean
+    offerStatus?: $Enums.OfferStatus
+    viewCount?: number
+    publishedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    applications?: ApplicationUncheckedCreateNestedManyWithoutOfferInput
+    matchScores?: MatchScoreUncheckedCreateNestedManyWithoutOfferInput
+    offerSkills?: OfferSkillUncheckedCreateNestedManyWithoutOfferInput
+  }
+
+  export type JobOfferCreateOrConnectWithoutCompanyInput = {
+    where: JobOfferWhereUniqueInput
+    create: XOR<JobOfferCreateWithoutCompanyInput, JobOfferUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type JobOfferCreateManyCompanyInputEnvelope = {
+    data: JobOfferCreateManyCompanyInput | JobOfferCreateManyCompanyInput[]
+    skipDuplicates?: boolean
   }
 
   export type ProfileCreateWithoutCompanyInput = {
@@ -24179,8 +24378,8 @@ export namespace Prisma {
     githubData?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutProfileInput
     school?: SchoolCreateNestedOneWithoutProfilesInput
+    user: UserCreateNestedOneWithoutProfileInput
   }
 
   export type ProfileUncheckedCreateWithoutCompanyInput = {
@@ -24207,56 +24406,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type JobOfferCreateWithoutCompanyInput = {
-    id?: string
-    title: string
-    description: string
-    location?: string | null
-    durationMonths?: number | null
-    remote?: boolean
-    offerStatus?: $Enums.OfferStatus
-    viewCount?: number
-    publishedAt?: Date | string | null
-    expiresAt?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    recruiter: UserCreateNestedOneWithoutJobOffersInput
-    offerSkills?: OfferSkillCreateNestedManyWithoutOfferInput
-    applications?: ApplicationCreateNestedManyWithoutOfferInput
-    matchScores?: MatchScoreCreateNestedManyWithoutOfferInput
-  }
-
-  export type JobOfferUncheckedCreateWithoutCompanyInput = {
-    id?: string
-    recruiterId: string
-    title: string
-    description: string
-    location?: string | null
-    durationMonths?: number | null
-    remote?: boolean
-    offerStatus?: $Enums.OfferStatus
-    viewCount?: number
-    publishedAt?: Date | string | null
-    expiresAt?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    offerSkills?: OfferSkillUncheckedCreateNestedManyWithoutOfferInput
-    applications?: ApplicationUncheckedCreateNestedManyWithoutOfferInput
-    matchScores?: MatchScoreUncheckedCreateNestedManyWithoutOfferInput
-  }
-
-  export type JobOfferCreateOrConnectWithoutCompanyInput = {
-    where: JobOfferWhereUniqueInput
-    create: XOR<JobOfferCreateWithoutCompanyInput, JobOfferUncheckedCreateWithoutCompanyInput>
-  }
-
-  export type JobOfferCreateManyCompanyInputEnvelope = {
-    data: JobOfferCreateManyCompanyInput | JobOfferCreateManyCompanyInput[]
-    skipDuplicates?: boolean
-  }
-
   export type UserUpsertWithoutCompanyInput = {
     update: XOR<UserUpdateWithoutCompanyInput, UserUncheckedUpdateWithoutCompanyInput>
     create: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput>
@@ -24279,15 +24428,16 @@ export namespace Prisma {
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUpdateManyWithoutCandidateNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
+    jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
-    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
-    applications?: ApplicationUpdateManyWithoutCandidateNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
-    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
-    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
-    jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCompanyInput = {
@@ -24301,15 +24451,32 @@ export namespace Prisma {
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
+    jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
-    applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
-    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
-    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
-    jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
+  }
+
+  export type JobOfferUpsertWithWhereUniqueWithoutCompanyInput = {
+    where: JobOfferWhereUniqueInput
+    update: XOR<JobOfferUpdateWithoutCompanyInput, JobOfferUncheckedUpdateWithoutCompanyInput>
+    create: XOR<JobOfferCreateWithoutCompanyInput, JobOfferUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type JobOfferUpdateWithWhereUniqueWithoutCompanyInput = {
+    where: JobOfferWhereUniqueInput
+    data: XOR<JobOfferUpdateWithoutCompanyInput, JobOfferUncheckedUpdateWithoutCompanyInput>
+  }
+
+  export type JobOfferUpdateManyWithWhereWithoutCompanyInput = {
+    where: JobOfferScalarWhereInput
+    data: XOR<JobOfferUpdateManyMutationInput, JobOfferUncheckedUpdateManyWithoutCompanyInput>
   }
 
   export type ProfileUpsertWithWhereUniqueWithoutCompanyInput = {
@@ -24346,22 +24513,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
   }
 
-  export type JobOfferUpsertWithWhereUniqueWithoutCompanyInput = {
-    where: JobOfferWhereUniqueInput
-    update: XOR<JobOfferUpdateWithoutCompanyInput, JobOfferUncheckedUpdateWithoutCompanyInput>
-    create: XOR<JobOfferCreateWithoutCompanyInput, JobOfferUncheckedCreateWithoutCompanyInput>
-  }
-
-  export type JobOfferUpdateWithWhereUniqueWithoutCompanyInput = {
-    where: JobOfferWhereUniqueInput
-    data: XOR<JobOfferUpdateWithoutCompanyInput, JobOfferUncheckedUpdateWithoutCompanyInput>
-  }
-
-  export type JobOfferUpdateManyWithWhereWithoutCompanyInput = {
-    where: JobOfferScalarWhereInput
-    data: XOR<JobOfferUpdateManyMutationInput, JobOfferUncheckedUpdateManyWithoutCompanyInput>
-  }
-
   export type ProfileCreateWithoutSchoolInput = {
     id?: string
     firstName: string
@@ -24372,8 +24523,8 @@ export namespace Prisma {
     githubData?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutProfileInput
     company?: CompanyCreateNestedOneWithoutProfilesInput
+    user: UserCreateNestedOneWithoutProfileInput
   }
 
   export type ProfileUncheckedCreateWithoutSchoolInput = {
@@ -24513,44 +24664,46 @@ export namespace Prisma {
     id?: string
     email: string
     passwordHash: string
-    role?: $Enums.Role
+    role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
-    profile?: ProfileCreateNestedOneWithoutUserInput
-    company?: CompanyCreateNestedOneWithoutUserInput
-    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     applications?: ApplicationCreateNestedManyWithoutCandidateInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentMessages?: MessageCreateNestedManyWithoutSenderInput
-    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    company?: CompanyCreateNestedOneWithoutUserInput
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCvDocumentsInput = {
     id?: string
     email: string
     passwordHash: string
-    role?: $Enums.Role
+    role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
-    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
-    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
-    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCvDocumentsInput = {
@@ -24582,11 +24735,11 @@ export namespace Prisma {
 
   export type MatchScoreCreateWithoutCvDocumentInput = {
     id?: string
-    candidateId: string
     scoreCosinus: number
     scoreFinal: number
     breakdown: JsonNullValueInput | InputJsonValue
     computedAt?: Date | string
+    users: UserCreateNestedOneWithoutMatch_scoresInput
     offer: JobOfferCreateNestedOneWithoutMatchScoresInput
   }
 
@@ -24632,15 +24785,16 @@ export namespace Prisma {
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    profile?: ProfileUpdateOneWithoutUserNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
-    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     applications?: ApplicationUpdateManyWithoutCandidateNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
-    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCvDocumentsInput = {
@@ -24654,15 +24808,16 @@ export namespace Prisma {
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
-    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
-    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ExtractedSkillUpsertWithWhereUniqueWithoutCvDocumentInput = {
@@ -24697,20 +24852,6 @@ export namespace Prisma {
     data: XOR<MatchScoreUpdateManyMutationInput, MatchScoreUncheckedUpdateManyWithoutCvDocumentInput>
   }
 
-  export type MatchScoreScalarWhereInput = {
-    AND?: MatchScoreScalarWhereInput | MatchScoreScalarWhereInput[]
-    OR?: MatchScoreScalarWhereInput[]
-    NOT?: MatchScoreScalarWhereInput | MatchScoreScalarWhereInput[]
-    id?: StringFilter<"MatchScore"> | string
-    candidateId?: StringFilter<"MatchScore"> | string
-    offerId?: StringFilter<"MatchScore"> | string
-    cvDocumentId?: StringFilter<"MatchScore"> | string
-    scoreCosinus?: FloatFilter<"MatchScore"> | number
-    scoreFinal?: FloatFilter<"MatchScore"> | number
-    breakdown?: JsonFilter<"MatchScore">
-    computedAt?: DateTimeFilter<"MatchScore"> | Date | string
-  }
-
   export type CvDocumentCreateWithoutExtractedSkillsInput = {
     id?: string
     fileUrl: string
@@ -24718,7 +24859,6 @@ export namespace Prisma {
     importedFrom?: $Enums.ImportedFrom
     parseStatus?: $Enums.ParseStatus
     parsedText?: string | null
-    extractedSkillsRaw?: NullableJsonNullValueInput | InputJsonValue
     retryCount?: number
     lastAttemptAt?: Date | string | null
     createdAt?: Date | string
@@ -24735,7 +24875,6 @@ export namespace Prisma {
     importedFrom?: $Enums.ImportedFrom
     parseStatus?: $Enums.ParseStatus
     parsedText?: string | null
-    extractedSkillsRaw?: NullableJsonNullValueInput | InputJsonValue
     retryCount?: number
     lastAttemptAt?: Date | string | null
     createdAt?: Date | string
@@ -24787,7 +24926,6 @@ export namespace Prisma {
     importedFrom?: EnumImportedFromFieldUpdateOperationsInput | $Enums.ImportedFrom
     parseStatus?: EnumParseStatusFieldUpdateOperationsInput | $Enums.ParseStatus
     parsedText?: NullableStringFieldUpdateOperationsInput | string | null
-    extractedSkillsRaw?: NullableJsonNullValueInput | InputJsonValue
     retryCount?: IntFieldUpdateOperationsInput | number
     lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24804,7 +24942,6 @@ export namespace Prisma {
     importedFrom?: EnumImportedFromFieldUpdateOperationsInput | $Enums.ImportedFrom
     parseStatus?: EnumParseStatusFieldUpdateOperationsInput | $Enums.ParseStatus
     parsedText?: NullableStringFieldUpdateOperationsInput | string | null
-    extractedSkillsRaw?: NullableJsonNullValueInput | InputJsonValue
     retryCount?: IntFieldUpdateOperationsInput | number
     lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24837,6 +24974,36 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     offerSkills?: OfferSkillUncheckedUpdateManyWithoutSkillNestedInput
+  }
+
+  export type ApplicationCreateWithoutOfferInput = {
+    id?: string
+    applicationStatus?: $Enums.ApplicationStatus
+    coverLetter?: string | null
+    appliedAt?: Date | string
+    updatedAt?: Date | string
+    candidate: UserCreateNestedOneWithoutApplicationsInput
+    messages?: MessageCreateNestedManyWithoutApplicationInput
+  }
+
+  export type ApplicationUncheckedCreateWithoutOfferInput = {
+    id?: string
+    candidateId: string
+    applicationStatus?: $Enums.ApplicationStatus
+    coverLetter?: string | null
+    appliedAt?: Date | string
+    updatedAt?: Date | string
+    messages?: MessageUncheckedCreateNestedManyWithoutApplicationInput
+  }
+
+  export type ApplicationCreateOrConnectWithoutOfferInput = {
+    where: ApplicationWhereUniqueInput
+    create: XOR<ApplicationCreateWithoutOfferInput, ApplicationUncheckedCreateWithoutOfferInput>
+  }
+
+  export type ApplicationCreateManyOfferInputEnvelope = {
+    data: ApplicationCreateManyOfferInput | ApplicationCreateManyOfferInput[]
+    skipDuplicates?: boolean
   }
 
   export type CompanyCreateWithoutJobOffersInput = {
@@ -24878,49 +25045,81 @@ export namespace Prisma {
     id?: string
     email: string
     passwordHash: string
-    role?: $Enums.Role
+    role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
-    profile?: ProfileCreateNestedOneWithoutUserInput
-    company?: CompanyCreateNestedOneWithoutUserInput
-    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
-    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
     applications?: ApplicationCreateNestedManyWithoutCandidateInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentMessages?: MessageCreateNestedManyWithoutSenderInput
-    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    company?: CompanyCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
+    match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutJobOffersInput = {
     id?: string
     email: string
     passwordHash: string
-    role?: $Enums.Role
+    role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
-    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
-    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
-    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
+    match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutJobOffersInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutJobOffersInput, UserUncheckedCreateWithoutJobOffersInput>
+  }
+
+  export type MatchScoreCreateWithoutOfferInput = {
+    id?: string
+    scoreCosinus: number
+    scoreFinal: number
+    breakdown: JsonNullValueInput | InputJsonValue
+    computedAt?: Date | string
+    users: UserCreateNestedOneWithoutMatch_scoresInput
+    cvDocument: CvDocumentCreateNestedOneWithoutMatchScoresInput
+  }
+
+  export type MatchScoreUncheckedCreateWithoutOfferInput = {
+    id?: string
+    candidateId: string
+    cvDocumentId: string
+    scoreCosinus: number
+    scoreFinal: number
+    breakdown: JsonNullValueInput | InputJsonValue
+    computedAt?: Date | string
+  }
+
+  export type MatchScoreCreateOrConnectWithoutOfferInput = {
+    where: MatchScoreWhereUniqueInput
+    create: XOR<MatchScoreCreateWithoutOfferInput, MatchScoreUncheckedCreateWithoutOfferInput>
+  }
+
+  export type MatchScoreCreateManyOfferInputEnvelope = {
+    data: MatchScoreCreateManyOfferInput | MatchScoreCreateManyOfferInput[]
+    skipDuplicates?: boolean
   }
 
   export type OfferSkillCreateWithoutOfferInput = {
@@ -24943,64 +25142,20 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ApplicationCreateWithoutOfferInput = {
-    id?: string
-    applicationStatus?: $Enums.ApplicationStatus
-    coverLetter?: string | null
-    appliedAt?: Date | string
-    updatedAt?: Date | string
-    candidate: UserCreateNestedOneWithoutApplicationsInput
-    messages?: MessageCreateNestedManyWithoutApplicationInput
-  }
-
-  export type ApplicationUncheckedCreateWithoutOfferInput = {
-    id?: string
-    candidateId: string
-    applicationStatus?: $Enums.ApplicationStatus
-    coverLetter?: string | null
-    appliedAt?: Date | string
-    updatedAt?: Date | string
-    messages?: MessageUncheckedCreateNestedManyWithoutApplicationInput
-  }
-
-  export type ApplicationCreateOrConnectWithoutOfferInput = {
+  export type ApplicationUpsertWithWhereUniqueWithoutOfferInput = {
     where: ApplicationWhereUniqueInput
+    update: XOR<ApplicationUpdateWithoutOfferInput, ApplicationUncheckedUpdateWithoutOfferInput>
     create: XOR<ApplicationCreateWithoutOfferInput, ApplicationUncheckedCreateWithoutOfferInput>
   }
 
-  export type ApplicationCreateManyOfferInputEnvelope = {
-    data: ApplicationCreateManyOfferInput | ApplicationCreateManyOfferInput[]
-    skipDuplicates?: boolean
+  export type ApplicationUpdateWithWhereUniqueWithoutOfferInput = {
+    where: ApplicationWhereUniqueInput
+    data: XOR<ApplicationUpdateWithoutOfferInput, ApplicationUncheckedUpdateWithoutOfferInput>
   }
 
-  export type MatchScoreCreateWithoutOfferInput = {
-    id?: string
-    candidateId: string
-    scoreCosinus: number
-    scoreFinal: number
-    breakdown: JsonNullValueInput | InputJsonValue
-    computedAt?: Date | string
-    cvDocument: CvDocumentCreateNestedOneWithoutMatchScoresInput
-  }
-
-  export type MatchScoreUncheckedCreateWithoutOfferInput = {
-    id?: string
-    candidateId: string
-    cvDocumentId: string
-    scoreCosinus: number
-    scoreFinal: number
-    breakdown: JsonNullValueInput | InputJsonValue
-    computedAt?: Date | string
-  }
-
-  export type MatchScoreCreateOrConnectWithoutOfferInput = {
-    where: MatchScoreWhereUniqueInput
-    create: XOR<MatchScoreCreateWithoutOfferInput, MatchScoreUncheckedCreateWithoutOfferInput>
-  }
-
-  export type MatchScoreCreateManyOfferInputEnvelope = {
-    data: MatchScoreCreateManyOfferInput | MatchScoreCreateManyOfferInput[]
-    skipDuplicates?: boolean
+  export type ApplicationUpdateManyWithWhereWithoutOfferInput = {
+    where: ApplicationScalarWhereInput
+    data: XOR<ApplicationUpdateManyMutationInput, ApplicationUncheckedUpdateManyWithoutOfferInput>
   }
 
   export type CompanyUpsertWithoutJobOffersInput = {
@@ -25066,15 +25221,16 @@ export namespace Prisma {
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    profile?: ProfileUpdateOneWithoutUserNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
-    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
-    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
     applications?: ApplicationUpdateManyWithoutCandidateNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
-    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
+    match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutJobOffersInput = {
@@ -25088,47 +25244,16 @@ export namespace Prisma {
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
-    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
-    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
-  }
-
-  export type OfferSkillUpsertWithWhereUniqueWithoutOfferInput = {
-    where: OfferSkillWhereUniqueInput
-    update: XOR<OfferSkillUpdateWithoutOfferInput, OfferSkillUncheckedUpdateWithoutOfferInput>
-    create: XOR<OfferSkillCreateWithoutOfferInput, OfferSkillUncheckedCreateWithoutOfferInput>
-  }
-
-  export type OfferSkillUpdateWithWhereUniqueWithoutOfferInput = {
-    where: OfferSkillWhereUniqueInput
-    data: XOR<OfferSkillUpdateWithoutOfferInput, OfferSkillUncheckedUpdateWithoutOfferInput>
-  }
-
-  export type OfferSkillUpdateManyWithWhereWithoutOfferInput = {
-    where: OfferSkillScalarWhereInput
-    data: XOR<OfferSkillUpdateManyMutationInput, OfferSkillUncheckedUpdateManyWithoutOfferInput>
-  }
-
-  export type ApplicationUpsertWithWhereUniqueWithoutOfferInput = {
-    where: ApplicationWhereUniqueInput
-    update: XOR<ApplicationUpdateWithoutOfferInput, ApplicationUncheckedUpdateWithoutOfferInput>
-    create: XOR<ApplicationCreateWithoutOfferInput, ApplicationUncheckedCreateWithoutOfferInput>
-  }
-
-  export type ApplicationUpdateWithWhereUniqueWithoutOfferInput = {
-    where: ApplicationWhereUniqueInput
-    data: XOR<ApplicationUpdateWithoutOfferInput, ApplicationUncheckedUpdateWithoutOfferInput>
-  }
-
-  export type ApplicationUpdateManyWithWhereWithoutOfferInput = {
-    where: ApplicationScalarWhereInput
-    data: XOR<ApplicationUpdateManyMutationInput, ApplicationUncheckedUpdateManyWithoutOfferInput>
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
+    match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MatchScoreUpsertWithWhereUniqueWithoutOfferInput = {
@@ -25147,6 +25272,22 @@ export namespace Prisma {
     data: XOR<MatchScoreUpdateManyMutationInput, MatchScoreUncheckedUpdateManyWithoutOfferInput>
   }
 
+  export type OfferSkillUpsertWithWhereUniqueWithoutOfferInput = {
+    where: OfferSkillWhereUniqueInput
+    update: XOR<OfferSkillUpdateWithoutOfferInput, OfferSkillUncheckedUpdateWithoutOfferInput>
+    create: XOR<OfferSkillCreateWithoutOfferInput, OfferSkillUncheckedCreateWithoutOfferInput>
+  }
+
+  export type OfferSkillUpdateWithWhereUniqueWithoutOfferInput = {
+    where: OfferSkillWhereUniqueInput
+    data: XOR<OfferSkillUpdateWithoutOfferInput, OfferSkillUncheckedUpdateWithoutOfferInput>
+  }
+
+  export type OfferSkillUpdateManyWithWhereWithoutOfferInput = {
+    where: OfferSkillScalarWhereInput
+    data: XOR<OfferSkillUpdateManyMutationInput, OfferSkillUncheckedUpdateManyWithoutOfferInput>
+  }
+
   export type JobOfferCreateWithoutOfferSkillsInput = {
     id?: string
     title: string
@@ -25161,9 +25302,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    applications?: ApplicationCreateNestedManyWithoutOfferInput
     company: CompanyCreateNestedOneWithoutJobOffersInput
     recruiter: UserCreateNestedOneWithoutJobOffersInput
-    applications?: ApplicationCreateNestedManyWithoutOfferInput
     matchScores?: MatchScoreCreateNestedManyWithoutOfferInput
   }
 
@@ -25238,9 +25379,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUpdateManyWithoutOfferNestedInput
     company?: CompanyUpdateOneRequiredWithoutJobOffersNestedInput
     recruiter?: UserUpdateOneRequiredWithoutJobOffersNestedInput
-    applications?: ApplicationUpdateManyWithoutOfferNestedInput
     matchScores?: MatchScoreUpdateManyWithoutOfferNestedInput
   }
 
@@ -25291,6 +25432,57 @@ export namespace Prisma {
     extractedSkills?: ExtractedSkillUncheckedUpdateManyWithoutSkillNestedInput
   }
 
+  export type UserCreateWithoutMatch_scoresInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role: $Enums.Role
+    isVerified?: boolean
+    isBanned?: boolean
+    location?: string | null
+    availabilityMonths?: number | null
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    applications?: ApplicationCreateNestedManyWithoutCandidateInput
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    company?: CompanyCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
+    jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMatch_scoresInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role: $Enums.Role
+    isVerified?: boolean
+    isBanned?: boolean
+    location?: string | null
+    availabilityMonths?: number | null
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
+    jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMatch_scoresInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMatch_scoresInput, UserUncheckedCreateWithoutMatch_scoresInput>
+  }
+
   export type CvDocumentCreateWithoutMatchScoresInput = {
     id?: string
     fileUrl: string
@@ -25298,7 +25490,6 @@ export namespace Prisma {
     importedFrom?: $Enums.ImportedFrom
     parseStatus?: $Enums.ParseStatus
     parsedText?: string | null
-    extractedSkillsRaw?: NullableJsonNullValueInput | InputJsonValue
     retryCount?: number
     lastAttemptAt?: Date | string | null
     createdAt?: Date | string
@@ -25315,7 +25506,6 @@ export namespace Prisma {
     importedFrom?: $Enums.ImportedFrom
     parseStatus?: $Enums.ParseStatus
     parsedText?: string | null
-    extractedSkillsRaw?: NullableJsonNullValueInput | InputJsonValue
     retryCount?: number
     lastAttemptAt?: Date | string | null
     createdAt?: Date | string
@@ -25342,10 +25532,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    applications?: ApplicationCreateNestedManyWithoutOfferInput
     company: CompanyCreateNestedOneWithoutJobOffersInput
     recruiter: UserCreateNestedOneWithoutJobOffersInput
     offerSkills?: OfferSkillCreateNestedManyWithoutOfferInput
-    applications?: ApplicationCreateNestedManyWithoutOfferInput
   }
 
   export type JobOfferUncheckedCreateWithoutMatchScoresInput = {
@@ -25364,13 +25554,70 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    offerSkills?: OfferSkillUncheckedCreateNestedManyWithoutOfferInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutOfferInput
+    offerSkills?: OfferSkillUncheckedCreateNestedManyWithoutOfferInput
   }
 
   export type JobOfferCreateOrConnectWithoutMatchScoresInput = {
     where: JobOfferWhereUniqueInput
     create: XOR<JobOfferCreateWithoutMatchScoresInput, JobOfferUncheckedCreateWithoutMatchScoresInput>
+  }
+
+  export type UserUpsertWithoutMatch_scoresInput = {
+    update: XOR<UserUpdateWithoutMatch_scoresInput, UserUncheckedUpdateWithoutMatch_scoresInput>
+    create: XOR<UserCreateWithoutMatch_scoresInput, UserUncheckedCreateWithoutMatch_scoresInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMatch_scoresInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMatch_scoresInput, UserUncheckedUpdateWithoutMatch_scoresInput>
+  }
+
+  export type UserUpdateWithoutMatch_scoresInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUpdateManyWithoutCandidateNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
+    jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMatch_scoresInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
+    jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CvDocumentUpsertWithoutMatchScoresInput = {
@@ -25391,7 +25638,6 @@ export namespace Prisma {
     importedFrom?: EnumImportedFromFieldUpdateOperationsInput | $Enums.ImportedFrom
     parseStatus?: EnumParseStatusFieldUpdateOperationsInput | $Enums.ParseStatus
     parsedText?: NullableStringFieldUpdateOperationsInput | string | null
-    extractedSkillsRaw?: NullableJsonNullValueInput | InputJsonValue
     retryCount?: IntFieldUpdateOperationsInput | number
     lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25408,7 +25654,6 @@ export namespace Prisma {
     importedFrom?: EnumImportedFromFieldUpdateOperationsInput | $Enums.ImportedFrom
     parseStatus?: EnumParseStatusFieldUpdateOperationsInput | $Enums.ParseStatus
     parsedText?: NullableStringFieldUpdateOperationsInput | string | null
-    extractedSkillsRaw?: NullableJsonNullValueInput | InputJsonValue
     retryCount?: IntFieldUpdateOperationsInput | number
     lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25441,10 +25686,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUpdateManyWithoutOfferNestedInput
     company?: CompanyUpdateOneRequiredWithoutJobOffersNestedInput
     recruiter?: UserUpdateOneRequiredWithoutJobOffersNestedInput
     offerSkills?: OfferSkillUpdateManyWithoutOfferNestedInput
-    applications?: ApplicationUpdateManyWithoutOfferNestedInput
   }
 
   export type JobOfferUncheckedUpdateWithoutMatchScoresInput = {
@@ -25463,52 +25708,54 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    offerSkills?: OfferSkillUncheckedUpdateManyWithoutOfferNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutOfferNestedInput
+    offerSkills?: OfferSkillUncheckedUpdateManyWithoutOfferNestedInput
   }
 
   export type UserCreateWithoutApplicationsInput = {
     id?: string
     email: string
     passwordHash: string
-    role?: $Enums.Role
+    role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
-    profile?: ProfileCreateNestedOneWithoutUserInput
-    company?: CompanyCreateNestedOneWithoutUserInput
-    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
-    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentMessages?: MessageCreateNestedManyWithoutSenderInput
-    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    company?: CompanyCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApplicationsInput = {
     id?: string
     email: string
     passwordHash: string
-    role?: $Enums.Role
+    role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
-    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
-    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
-    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApplicationsInput = {
@@ -25532,8 +25779,8 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     company: CompanyCreateNestedOneWithoutJobOffersInput
     recruiter: UserCreateNestedOneWithoutJobOffersInput
-    offerSkills?: OfferSkillCreateNestedManyWithoutOfferInput
     matchScores?: MatchScoreCreateNestedManyWithoutOfferInput
+    offerSkills?: OfferSkillCreateNestedManyWithoutOfferInput
   }
 
   export type JobOfferUncheckedCreateWithoutApplicationsInput = {
@@ -25552,8 +25799,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    offerSkills?: OfferSkillUncheckedCreateNestedManyWithoutOfferInput
     matchScores?: MatchScoreUncheckedCreateNestedManyWithoutOfferInput
+    offerSkills?: OfferSkillUncheckedCreateNestedManyWithoutOfferInput
   }
 
   export type JobOfferCreateOrConnectWithoutApplicationsInput = {
@@ -25566,8 +25813,8 @@ export namespace Prisma {
     content: string
     isRead?: boolean
     createdAt?: Date | string
-    sender: UserCreateNestedOneWithoutSentMessagesInput
     receiver: UserCreateNestedOneWithoutReceivedMessagesInput
+    sender: UserCreateNestedOneWithoutSentMessagesInput
   }
 
   export type MessageUncheckedCreateWithoutApplicationInput = {
@@ -25611,15 +25858,16 @@ export namespace Prisma {
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    profile?: ProfileUpdateOneWithoutUserNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
-    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
-    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
-    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApplicationsInput = {
@@ -25633,15 +25881,16 @@ export namespace Prisma {
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
-    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
-    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type JobOfferUpsertWithoutApplicationsInput = {
@@ -25671,8 +25920,8 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     company?: CompanyUpdateOneRequiredWithoutJobOffersNestedInput
     recruiter?: UserUpdateOneRequiredWithoutJobOffersNestedInput
-    offerSkills?: OfferSkillUpdateManyWithoutOfferNestedInput
     matchScores?: MatchScoreUpdateManyWithoutOfferNestedInput
+    offerSkills?: OfferSkillUpdateManyWithoutOfferNestedInput
   }
 
   export type JobOfferUncheckedUpdateWithoutApplicationsInput = {
@@ -25691,8 +25940,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    offerSkills?: OfferSkillUncheckedUpdateManyWithoutOfferNestedInput
     matchScores?: MatchScoreUncheckedUpdateManyWithoutOfferNestedInput
+    offerSkills?: OfferSkillUncheckedUpdateManyWithoutOfferNestedInput
   }
 
   export type MessageUpsertWithWhereUniqueWithoutApplicationInput = {
@@ -25709,104 +25958,6 @@ export namespace Prisma {
   export type MessageUpdateManyWithWhereWithoutApplicationInput = {
     where: MessageScalarWhereInput
     data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutApplicationInput>
-  }
-
-  export type UserCreateWithoutSentMessagesInput = {
-    id?: string
-    email: string
-    passwordHash: string
-    role?: $Enums.Role
-    isVerified?: boolean
-    isBanned?: boolean
-    location?: string | null
-    availabilityMonths?: number | null
-    createdAt?: Date | string
-    deletedAt?: Date | string | null
-    profile?: ProfileCreateNestedOneWithoutUserInput
-    company?: CompanyCreateNestedOneWithoutUserInput
-    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
-    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
-    applications?: ApplicationCreateNestedManyWithoutCandidateInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
-    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
-    jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
-  }
-
-  export type UserUncheckedCreateWithoutSentMessagesInput = {
-    id?: string
-    email: string
-    passwordHash: string
-    role?: $Enums.Role
-    isVerified?: boolean
-    isBanned?: boolean
-    location?: string | null
-    availabilityMonths?: number | null
-    createdAt?: Date | string
-    deletedAt?: Date | string | null
-    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
-    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
-    applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
-    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
-    jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
-  }
-
-  export type UserCreateOrConnectWithoutSentMessagesInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutSentMessagesInput, UserUncheckedCreateWithoutSentMessagesInput>
-  }
-
-  export type UserCreateWithoutReceivedMessagesInput = {
-    id?: string
-    email: string
-    passwordHash: string
-    role?: $Enums.Role
-    isVerified?: boolean
-    isBanned?: boolean
-    location?: string | null
-    availabilityMonths?: number | null
-    createdAt?: Date | string
-    deletedAt?: Date | string | null
-    profile?: ProfileCreateNestedOneWithoutUserInput
-    company?: CompanyCreateNestedOneWithoutUserInput
-    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
-    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
-    applications?: ApplicationCreateNestedManyWithoutCandidateInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentMessages?: MessageCreateNestedManyWithoutSenderInput
-    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
-    jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
-  }
-
-  export type UserUncheckedCreateWithoutReceivedMessagesInput = {
-    id?: string
-    email: string
-    passwordHash: string
-    role?: $Enums.Role
-    isVerified?: boolean
-    isBanned?: boolean
-    location?: string | null
-    availabilityMonths?: number | null
-    createdAt?: Date | string
-    deletedAt?: Date | string | null
-    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
-    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
-    applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
-    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
-    jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
-  }
-
-  export type UserCreateOrConnectWithoutReceivedMessagesInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutReceivedMessagesInput, UserUncheckedCreateWithoutReceivedMessagesInput>
   }
 
   export type ApplicationCreateWithoutMessagesInput = {
@@ -25834,114 +25985,106 @@ export namespace Prisma {
     create: XOR<ApplicationCreateWithoutMessagesInput, ApplicationUncheckedCreateWithoutMessagesInput>
   }
 
-  export type UserUpsertWithoutSentMessagesInput = {
-    update: XOR<UserUpdateWithoutSentMessagesInput, UserUncheckedUpdateWithoutSentMessagesInput>
-    create: XOR<UserCreateWithoutSentMessagesInput, UserUncheckedCreateWithoutSentMessagesInput>
-    where?: UserWhereInput
+  export type UserCreateWithoutReceivedMessagesInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role: $Enums.Role
+    isVerified?: boolean
+    isBanned?: boolean
+    location?: string | null
+    availabilityMonths?: number | null
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    applications?: ApplicationCreateNestedManyWithoutCandidateInput
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    company?: CompanyCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
+    jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutSentMessagesInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutSentMessagesInput, UserUncheckedUpdateWithoutSentMessagesInput>
+  export type UserUncheckedCreateWithoutReceivedMessagesInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role: $Enums.Role
+    isVerified?: boolean
+    isBanned?: boolean
+    location?: string | null
+    availabilityMonths?: number | null
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
+    jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type UserUpdateWithoutSentMessagesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isBanned?: BoolFieldUpdateOperationsInput | boolean
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    profile?: ProfileUpdateOneWithoutUserNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
-    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
-    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
-    applications?: ApplicationUpdateManyWithoutCandidateNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
-    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
-    jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutSentMessagesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isBanned?: BoolFieldUpdateOperationsInput | boolean
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
-    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
-    applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
-    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
-    jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
-  }
-
-  export type UserUpsertWithoutReceivedMessagesInput = {
-    update: XOR<UserUpdateWithoutReceivedMessagesInput, UserUncheckedUpdateWithoutReceivedMessagesInput>
+  export type UserCreateOrConnectWithoutReceivedMessagesInput = {
+    where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutReceivedMessagesInput, UserUncheckedCreateWithoutReceivedMessagesInput>
-    where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutReceivedMessagesInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutReceivedMessagesInput, UserUncheckedUpdateWithoutReceivedMessagesInput>
+  export type UserCreateWithoutSentMessagesInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role: $Enums.Role
+    isVerified?: boolean
+    isBanned?: boolean
+    location?: string | null
+    availabilityMonths?: number | null
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    applications?: ApplicationCreateNestedManyWithoutCandidateInput
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    company?: CompanyCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
+    jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
   }
 
-  export type UserUpdateWithoutReceivedMessagesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isBanned?: BoolFieldUpdateOperationsInput | boolean
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    profile?: ProfileUpdateOneWithoutUserNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
-    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
-    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
-    applications?: ApplicationUpdateManyWithoutCandidateNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
-    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
-    jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
+  export type UserUncheckedCreateWithoutSentMessagesInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role: $Enums.Role
+    isVerified?: boolean
+    isBanned?: boolean
+    location?: string | null
+    availabilityMonths?: number | null
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
+    jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type UserUncheckedUpdateWithoutReceivedMessagesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    isBanned?: BoolFieldUpdateOperationsInput | boolean
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
-    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
-    applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
-    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
-    jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
+  export type UserCreateOrConnectWithoutSentMessagesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSentMessagesInput, UserUncheckedCreateWithoutSentMessagesInput>
   }
 
   export type ApplicationUpsertWithoutMessagesInput = {
@@ -25975,48 +26118,164 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserUpsertWithoutReceivedMessagesInput = {
+    update: XOR<UserUpdateWithoutReceivedMessagesInput, UserUncheckedUpdateWithoutReceivedMessagesInput>
+    create: XOR<UserCreateWithoutReceivedMessagesInput, UserUncheckedCreateWithoutReceivedMessagesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutReceivedMessagesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutReceivedMessagesInput, UserUncheckedUpdateWithoutReceivedMessagesInput>
+  }
+
+  export type UserUpdateWithoutReceivedMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUpdateManyWithoutCandidateNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
+    jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReceivedMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
+    jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUpsertWithoutSentMessagesInput = {
+    update: XOR<UserUpdateWithoutSentMessagesInput, UserUncheckedUpdateWithoutSentMessagesInput>
+    create: XOR<UserCreateWithoutSentMessagesInput, UserUncheckedCreateWithoutSentMessagesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSentMessagesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSentMessagesInput, UserUncheckedUpdateWithoutSentMessagesInput>
+  }
+
+  export type UserUpdateWithoutSentMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUpdateManyWithoutCandidateNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
+    jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSentMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
+    jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutNotificationsInput = {
     id?: string
     email: string
     passwordHash: string
-    role?: $Enums.Role
+    role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
-    profile?: ProfileCreateNestedOneWithoutUserInput
-    company?: CompanyCreateNestedOneWithoutUserInput
-    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
-    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
     applications?: ApplicationCreateNestedManyWithoutCandidateInput
-    sentMessages?: MessageCreateNestedManyWithoutSenderInput
-    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    company?: CompanyCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
     id?: string
     email: string
     passwordHash: string
-    role?: $Enums.Role
+    role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
-    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
-    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
-    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
-    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -26046,15 +26305,16 @@ export namespace Prisma {
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    profile?: ProfileUpdateOneWithoutUserNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
-    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
-    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
     applications?: ApplicationUpdateManyWithoutCandidateNestedInput
-    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
-    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -26068,59 +26328,62 @@ export namespace Prisma {
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
-    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
-    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
-    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAuditLogsInput = {
     id?: string
     email: string
     passwordHash: string
-    role?: $Enums.Role
+    role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
-    profile?: ProfileCreateNestedOneWithoutUserInput
-    company?: CompanyCreateNestedOneWithoutUserInput
-    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
-    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
     applications?: ApplicationCreateNestedManyWithoutCandidateInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sentMessages?: MessageCreateNestedManyWithoutSenderInput
-    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    company?: CompanyCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
     id?: string
     email: string
     passwordHash: string
-    role?: $Enums.Role
+    role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
-    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
-    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
-    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -26150,15 +26413,16 @@ export namespace Prisma {
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    profile?: ProfileUpdateOneWithoutUserNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
-    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
-    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
     applications?: ApplicationUpdateManyWithoutCandidateNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
-    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -26172,37 +26436,16 @@ export namespace Prisma {
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
-    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
-    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
-  }
-
-  export type RefreshTokenCreateManyUserInput = {
-    id?: string
-    tokenHash: string
-    expiresAt: Date | string
-    revokedAt?: Date | string | null
-    createdAt?: Date | string
-  }
-
-  export type CvDocumentCreateManyUserInput = {
-    id?: string
-    fileUrl: string
-    isActive?: boolean
-    importedFrom?: $Enums.ImportedFrom
-    parseStatus?: $Enums.ParseStatus
-    parsedText?: string | null
-    extractedSkillsRaw?: NullableJsonNullValueInput | InputJsonValue
-    retryCount?: number
-    lastAttemptAt?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ApplicationCreateManyCandidateInput = {
@@ -26214,33 +26457,6 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type NotificationCreateManyUserInput = {
-    id?: string
-    type: string
-    title: string
-    payload: JsonNullValueInput | InputJsonValue
-    isRead?: boolean
-    createdAt?: Date | string
-  }
-
-  export type MessageCreateManySenderInput = {
-    id?: string
-    receiverId: string
-    applicationId?: string | null
-    content: string
-    isRead?: boolean
-    createdAt?: Date | string
-  }
-
-  export type MessageCreateManyReceiverInput = {
-    id?: string
-    senderId: string
-    applicationId?: string | null
-    content: string
-    isRead?: boolean
-    createdAt?: Date | string
-  }
-
   export type AuditLogCreateManyActorInput = {
     id?: string
     action: string
@@ -26248,6 +26464,19 @@ export namespace Prisma {
     entityId?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
+  }
+
+  export type CvDocumentCreateManyUserInput = {
+    id?: string
+    fileUrl: string
+    isActive?: boolean
+    importedFrom?: $Enums.ImportedFrom
+    parseStatus?: $Enums.ParseStatus
+    parsedText?: string | null
+    retryCount?: number
+    lastAttemptAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type JobOfferCreateManyRecruiterInput = {
@@ -26267,74 +26496,49 @@ export namespace Prisma {
     deletedAt?: Date | string | null
   }
 
-  export type RefreshTokenUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tokenHash?: StringFieldUpdateOperationsInput | string
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type MatchScoreCreateManyUsersInput = {
+    id?: string
+    offerId: string
+    cvDocumentId: string
+    scoreCosinus: number
+    scoreFinal: number
+    breakdown: JsonNullValueInput | InputJsonValue
+    computedAt?: Date | string
   }
 
-  export type RefreshTokenUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tokenHash?: StringFieldUpdateOperationsInput | string
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type MessageCreateManyReceiverInput = {
+    id?: string
+    senderId: string
+    applicationId?: string | null
+    content: string
+    isRead?: boolean
+    createdAt?: Date | string
   }
 
-  export type RefreshTokenUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tokenHash?: StringFieldUpdateOperationsInput | string
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type MessageCreateManySenderInput = {
+    id?: string
+    receiverId: string
+    applicationId?: string | null
+    content: string
+    isRead?: boolean
+    createdAt?: Date | string
   }
 
-  export type CvDocumentUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    fileUrl?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    importedFrom?: EnumImportedFromFieldUpdateOperationsInput | $Enums.ImportedFrom
-    parseStatus?: EnumParseStatusFieldUpdateOperationsInput | $Enums.ParseStatus
-    parsedText?: NullableStringFieldUpdateOperationsInput | string | null
-    extractedSkillsRaw?: NullableJsonNullValueInput | InputJsonValue
-    retryCount?: IntFieldUpdateOperationsInput | number
-    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    extractedSkills?: ExtractedSkillUpdateManyWithoutCvDocumentNestedInput
-    matchScores?: MatchScoreUpdateManyWithoutCvDocumentNestedInput
+  export type NotificationCreateManyUserInput = {
+    id?: string
+    type: string
+    title: string
+    payload: JsonNullValueInput | InputJsonValue
+    isRead?: boolean
+    createdAt?: Date | string
   }
 
-  export type CvDocumentUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    fileUrl?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    importedFrom?: EnumImportedFromFieldUpdateOperationsInput | $Enums.ImportedFrom
-    parseStatus?: EnumParseStatusFieldUpdateOperationsInput | $Enums.ParseStatus
-    parsedText?: NullableStringFieldUpdateOperationsInput | string | null
-    extractedSkillsRaw?: NullableJsonNullValueInput | InputJsonValue
-    retryCount?: IntFieldUpdateOperationsInput | number
-    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    extractedSkills?: ExtractedSkillUncheckedUpdateManyWithoutCvDocumentNestedInput
-    matchScores?: MatchScoreUncheckedUpdateManyWithoutCvDocumentNestedInput
-  }
-
-  export type CvDocumentUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    fileUrl?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    importedFrom?: EnumImportedFromFieldUpdateOperationsInput | $Enums.ImportedFrom
-    parseStatus?: EnumParseStatusFieldUpdateOperationsInput | $Enums.ParseStatus
-    parsedText?: NullableStringFieldUpdateOperationsInput | string | null
-    extractedSkillsRaw?: NullableJsonNullValueInput | InputJsonValue
-    retryCount?: IntFieldUpdateOperationsInput | number
-    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type RefreshTokenCreateManyUserInput = {
+    id?: string
+    tokenHash: string
+    expiresAt: Date | string
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
   }
 
   export type ApplicationUpdateWithoutCandidateInput = {
@@ -26366,87 +26570,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type NotificationUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    payload?: JsonNullValueInput | InputJsonValue
-    isRead?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type NotificationUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    payload?: JsonNullValueInput | InputJsonValue
-    isRead?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type NotificationUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    payload?: JsonNullValueInput | InputJsonValue
-    isRead?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MessageUpdateWithoutSenderInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    isRead?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    receiver?: UserUpdateOneRequiredWithoutReceivedMessagesNestedInput
-    application?: ApplicationUpdateOneWithoutMessagesNestedInput
-  }
-
-  export type MessageUncheckedUpdateWithoutSenderInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    receiverId?: StringFieldUpdateOperationsInput | string
-    applicationId?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: StringFieldUpdateOperationsInput | string
-    isRead?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MessageUncheckedUpdateManyWithoutSenderInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    receiverId?: StringFieldUpdateOperationsInput | string
-    applicationId?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: StringFieldUpdateOperationsInput | string
-    isRead?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MessageUpdateWithoutReceiverInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    isRead?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sender?: UserUpdateOneRequiredWithoutSentMessagesNestedInput
-    application?: ApplicationUpdateOneWithoutMessagesNestedInput
-  }
-
-  export type MessageUncheckedUpdateWithoutReceiverInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    senderId?: StringFieldUpdateOperationsInput | string
-    applicationId?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: StringFieldUpdateOperationsInput | string
-    isRead?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MessageUncheckedUpdateManyWithoutReceiverInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    senderId?: StringFieldUpdateOperationsInput | string
-    applicationId?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: StringFieldUpdateOperationsInput | string
-    isRead?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type AuditLogUpdateWithoutActorInput = {
     id?: StringFieldUpdateOperationsInput | string
     action?: StringFieldUpdateOperationsInput | string
@@ -26474,6 +26597,49 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CvDocumentUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    importedFrom?: EnumImportedFromFieldUpdateOperationsInput | $Enums.ImportedFrom
+    parseStatus?: EnumParseStatusFieldUpdateOperationsInput | $Enums.ParseStatus
+    parsedText?: NullableStringFieldUpdateOperationsInput | string | null
+    retryCount?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    extractedSkills?: ExtractedSkillUpdateManyWithoutCvDocumentNestedInput
+    matchScores?: MatchScoreUpdateManyWithoutCvDocumentNestedInput
+  }
+
+  export type CvDocumentUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    importedFrom?: EnumImportedFromFieldUpdateOperationsInput | $Enums.ImportedFrom
+    parseStatus?: EnumParseStatusFieldUpdateOperationsInput | $Enums.ParseStatus
+    parsedText?: NullableStringFieldUpdateOperationsInput | string | null
+    retryCount?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    extractedSkills?: ExtractedSkillUncheckedUpdateManyWithoutCvDocumentNestedInput
+    matchScores?: MatchScoreUncheckedUpdateManyWithoutCvDocumentNestedInput
+  }
+
+  export type CvDocumentUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    importedFrom?: EnumImportedFromFieldUpdateOperationsInput | $Enums.ImportedFrom
+    parseStatus?: EnumParseStatusFieldUpdateOperationsInput | $Enums.ParseStatus
+    parsedText?: NullableStringFieldUpdateOperationsInput | string | null
+    retryCount?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type JobOfferUpdateWithoutRecruiterInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -26488,10 +26654,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    company?: CompanyUpdateOneRequiredWithoutJobOffersNestedInput
-    offerSkills?: OfferSkillUpdateManyWithoutOfferNestedInput
     applications?: ApplicationUpdateManyWithoutOfferNestedInput
+    company?: CompanyUpdateOneRequiredWithoutJobOffersNestedInput
     matchScores?: MatchScoreUpdateManyWithoutOfferNestedInput
+    offerSkills?: OfferSkillUpdateManyWithoutOfferNestedInput
   }
 
   export type JobOfferUncheckedUpdateWithoutRecruiterInput = {
@@ -26509,9 +26675,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    offerSkills?: OfferSkillUncheckedUpdateManyWithoutOfferNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutOfferNestedInput
     matchScores?: MatchScoreUncheckedUpdateManyWithoutOfferNestedInput
+    offerSkills?: OfferSkillUncheckedUpdateManyWithoutOfferNestedInput
   }
 
   export type JobOfferUncheckedUpdateManyWithoutRecruiterInput = {
@@ -26531,18 +26697,139 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type ProfileCreateManyCompanyInput = {
-    id?: string
-    userId: string
-    schoolId?: string | null
-    firstName: string
-    lastName: string
-    bio?: string | null
-    linkedinUrl?: string | null
-    githubUsername?: string | null
-    githubData?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-    updatedAt?: Date | string
+  export type MatchScoreUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    scoreCosinus?: FloatFieldUpdateOperationsInput | number
+    scoreFinal?: FloatFieldUpdateOperationsInput | number
+    breakdown?: JsonNullValueInput | InputJsonValue
+    computedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    cvDocument?: CvDocumentUpdateOneRequiredWithoutMatchScoresNestedInput
+    offer?: JobOfferUpdateOneRequiredWithoutMatchScoresNestedInput
+  }
+
+  export type MatchScoreUncheckedUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerId?: StringFieldUpdateOperationsInput | string
+    cvDocumentId?: StringFieldUpdateOperationsInput | string
+    scoreCosinus?: FloatFieldUpdateOperationsInput | number
+    scoreFinal?: FloatFieldUpdateOperationsInput | number
+    breakdown?: JsonNullValueInput | InputJsonValue
+    computedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MatchScoreUncheckedUpdateManyWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerId?: StringFieldUpdateOperationsInput | string
+    cvDocumentId?: StringFieldUpdateOperationsInput | string
+    scoreCosinus?: FloatFieldUpdateOperationsInput | number
+    scoreFinal?: FloatFieldUpdateOperationsInput | number
+    breakdown?: JsonNullValueInput | InputJsonValue
+    computedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUpdateWithoutReceiverInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    application?: ApplicationUpdateOneWithoutMessagesNestedInput
+    sender?: UserUpdateOneRequiredWithoutSentMessagesNestedInput
+  }
+
+  export type MessageUncheckedUpdateWithoutReceiverInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    applicationId?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUncheckedUpdateManyWithoutReceiverInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    applicationId?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUpdateWithoutSenderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    application?: ApplicationUpdateOneWithoutMessagesNestedInput
+    receiver?: UserUpdateOneRequiredWithoutReceivedMessagesNestedInput
+  }
+
+  export type MessageUncheckedUpdateWithoutSenderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    receiverId?: StringFieldUpdateOperationsInput | string
+    applicationId?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUncheckedUpdateManyWithoutSenderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    receiverId?: StringFieldUpdateOperationsInput | string
+    applicationId?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RefreshTokenUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RefreshTokenUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RefreshTokenUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type JobOfferCreateManyCompanyInput = {
@@ -26562,6 +26849,77 @@ export namespace Prisma {
     deletedAt?: Date | string | null
   }
 
+  export type ProfileCreateManyCompanyInput = {
+    id?: string
+    userId: string
+    schoolId?: string | null
+    firstName: string
+    lastName: string
+    bio?: string | null
+    linkedinUrl?: string | null
+    githubUsername?: string | null
+    githubData?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type JobOfferUpdateWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    remote?: BoolFieldUpdateOperationsInput | boolean
+    offerStatus?: EnumOfferStatusFieldUpdateOperationsInput | $Enums.OfferStatus
+    viewCount?: IntFieldUpdateOperationsInput | number
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUpdateManyWithoutOfferNestedInput
+    recruiter?: UserUpdateOneRequiredWithoutJobOffersNestedInput
+    matchScores?: MatchScoreUpdateManyWithoutOfferNestedInput
+    offerSkills?: OfferSkillUpdateManyWithoutOfferNestedInput
+  }
+
+  export type JobOfferUncheckedUpdateWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    recruiterId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    remote?: BoolFieldUpdateOperationsInput | boolean
+    offerStatus?: EnumOfferStatusFieldUpdateOperationsInput | $Enums.OfferStatus
+    viewCount?: IntFieldUpdateOperationsInput | number
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUncheckedUpdateManyWithoutOfferNestedInput
+    matchScores?: MatchScoreUncheckedUpdateManyWithoutOfferNestedInput
+    offerSkills?: OfferSkillUncheckedUpdateManyWithoutOfferNestedInput
+  }
+
+  export type JobOfferUncheckedUpdateManyWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    recruiterId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    remote?: BoolFieldUpdateOperationsInput | boolean
+    offerStatus?: EnumOfferStatusFieldUpdateOperationsInput | $Enums.OfferStatus
+    viewCount?: IntFieldUpdateOperationsInput | number
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type ProfileUpdateWithoutCompanyInput = {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
@@ -26572,8 +26930,8 @@ export namespace Prisma {
     githubData?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutProfileNestedInput
     school?: SchoolUpdateOneWithoutProfilesNestedInput
+    user?: UserUpdateOneRequiredWithoutProfileNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutCompanyInput = {
@@ -26604,63 +26962,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type JobOfferUpdateWithoutCompanyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    durationMonths?: NullableIntFieldUpdateOperationsInput | number | null
-    remote?: BoolFieldUpdateOperationsInput | boolean
-    offerStatus?: EnumOfferStatusFieldUpdateOperationsInput | $Enums.OfferStatus
-    viewCount?: IntFieldUpdateOperationsInput | number
-    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    recruiter?: UserUpdateOneRequiredWithoutJobOffersNestedInput
-    offerSkills?: OfferSkillUpdateManyWithoutOfferNestedInput
-    applications?: ApplicationUpdateManyWithoutOfferNestedInput
-    matchScores?: MatchScoreUpdateManyWithoutOfferNestedInput
-  }
-
-  export type JobOfferUncheckedUpdateWithoutCompanyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    recruiterId?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    durationMonths?: NullableIntFieldUpdateOperationsInput | number | null
-    remote?: BoolFieldUpdateOperationsInput | boolean
-    offerStatus?: EnumOfferStatusFieldUpdateOperationsInput | $Enums.OfferStatus
-    viewCount?: IntFieldUpdateOperationsInput | number
-    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    offerSkills?: OfferSkillUncheckedUpdateManyWithoutOfferNestedInput
-    applications?: ApplicationUncheckedUpdateManyWithoutOfferNestedInput
-    matchScores?: MatchScoreUncheckedUpdateManyWithoutOfferNestedInput
-  }
-
-  export type JobOfferUncheckedUpdateManyWithoutCompanyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    recruiterId?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    durationMonths?: NullableIntFieldUpdateOperationsInput | number | null
-    remote?: BoolFieldUpdateOperationsInput | boolean
-    offerStatus?: EnumOfferStatusFieldUpdateOperationsInput | $Enums.OfferStatus
-    viewCount?: IntFieldUpdateOperationsInput | number
-    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
   export type ProfileCreateManySchoolInput = {
     id?: string
     userId: string
@@ -26685,8 +26986,8 @@ export namespace Prisma {
     githubData?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutProfileNestedInput
     company?: CompanyUpdateOneWithoutProfilesNestedInput
+    user?: UserUpdateOneRequiredWithoutProfileNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutSchoolInput = {
@@ -26797,11 +27098,11 @@ export namespace Prisma {
 
   export type MatchScoreUpdateWithoutCvDocumentInput = {
     id?: StringFieldUpdateOperationsInput | string
-    candidateId?: StringFieldUpdateOperationsInput | string
     scoreCosinus?: FloatFieldUpdateOperationsInput | number
     scoreFinal?: FloatFieldUpdateOperationsInput | number
     breakdown?: JsonNullValueInput | InputJsonValue
     computedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateOneRequiredWithoutMatch_scoresNestedInput
     offer?: JobOfferUpdateOneRequiredWithoutMatchScoresNestedInput
   }
 
@@ -26825,11 +27126,6 @@ export namespace Prisma {
     computedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type OfferSkillCreateManyOfferInput = {
-    skillId: string
-    isRequired?: boolean
-  }
-
   export type ApplicationCreateManyOfferInput = {
     id?: string
     candidateId: string
@@ -26849,19 +27145,9 @@ export namespace Prisma {
     computedAt?: Date | string
   }
 
-  export type OfferSkillUpdateWithoutOfferInput = {
-    isRequired?: BoolFieldUpdateOperationsInput | boolean
-    skill?: SkillUpdateOneRequiredWithoutOfferSkillsNestedInput
-  }
-
-  export type OfferSkillUncheckedUpdateWithoutOfferInput = {
-    skillId?: StringFieldUpdateOperationsInput | string
-    isRequired?: BoolFieldUpdateOperationsInput | boolean
-  }
-
-  export type OfferSkillUncheckedUpdateManyWithoutOfferInput = {
-    skillId?: StringFieldUpdateOperationsInput | string
-    isRequired?: BoolFieldUpdateOperationsInput | boolean
+  export type OfferSkillCreateManyOfferInput = {
+    skillId: string
+    isRequired?: boolean
   }
 
   export type ApplicationUpdateWithoutOfferInput = {
@@ -26895,11 +27181,11 @@ export namespace Prisma {
 
   export type MatchScoreUpdateWithoutOfferInput = {
     id?: StringFieldUpdateOperationsInput | string
-    candidateId?: StringFieldUpdateOperationsInput | string
     scoreCosinus?: FloatFieldUpdateOperationsInput | number
     scoreFinal?: FloatFieldUpdateOperationsInput | number
     breakdown?: JsonNullValueInput | InputJsonValue
     computedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateOneRequiredWithoutMatch_scoresNestedInput
     cvDocument?: CvDocumentUpdateOneRequiredWithoutMatchScoresNestedInput
   }
 
@@ -26923,6 +27209,21 @@ export namespace Prisma {
     computedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type OfferSkillUpdateWithoutOfferInput = {
+    isRequired?: BoolFieldUpdateOperationsInput | boolean
+    skill?: SkillUpdateOneRequiredWithoutOfferSkillsNestedInput
+  }
+
+  export type OfferSkillUncheckedUpdateWithoutOfferInput = {
+    skillId?: StringFieldUpdateOperationsInput | string
+    isRequired?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type OfferSkillUncheckedUpdateManyWithoutOfferInput = {
+    skillId?: StringFieldUpdateOperationsInput | string
+    isRequired?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type MessageCreateManyApplicationInput = {
     id?: string
     senderId: string
@@ -26937,8 +27238,8 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sender?: UserUpdateOneRequiredWithoutSentMessagesNestedInput
     receiver?: UserUpdateOneRequiredWithoutReceivedMessagesNestedInput
+    sender?: UserUpdateOneRequiredWithoutSentMessagesNestedInput
   }
 
   export type MessageUncheckedUpdateWithoutApplicationInput = {
