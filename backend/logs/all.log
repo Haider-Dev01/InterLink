@@ -134,3 +134,6 @@
 2026-03-16 10:48:53:4853 [31merror[39m: [31m[POST] /api/auth/login >> 400 - Unexpected token '"', " "email": ""... is not valid JSON[39m
 2026-03-16 10:49:49:4949 [31merror[39m: [31m[GET] /api/companies/pending >> 404 - Entreprise introuvable[39m
 2026-03-16 10:50:58:5058 [31merror[39m: [31m[GET] /api/companies/pending >> 404 - Entreprise introuvable[39m
+2026-03-16 11:05:55:555 [31merror[39m: [31m[PATCH] /api/companies/f1e2e053-f547-4009-b490-e548d30fe243/verify >> 400 - Cette entreprise est déjà vérifiée[39m
+2026-03-16 11:09:53:953 [31merror[39m: [31m[PATCH] /api/companies/f1e2e053-f547-4009-b490-e548d30fe243/verify >> 400 - Cette entreprise est déjà vérifiée[39m
+2026-03-16 11:12:10:1210 [31merror[39m: [31m[PATCH] /api/companies/f1e2e053-f547-4009-b490-e548d30fe243/verify >> 400 - Cette entreprise est déjà vérifiée[39m
