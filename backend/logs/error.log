@@ -103,3 +103,31 @@
 [31m  5   async findUserByEmail(email: string) {[39m
 [31m→ 6     return prisma.user.findUnique([39m
 [31mThe table `(not available)` does not exist in the current database.[39m
+2026-03-16 07:38:37:3837 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [[39m
+[31m  {[39m
+[31m    "code": "invalid_value",[39m
+[31m    "values": [[39m
+[31m      "candidate",[39m
+[31m      "recruiter",[39m
+[31m      "admin"[39m
+[31m    ],[39m
+[31m    "path": [[39m
+[31m      "role"[39m
+[31m    ],[39m
+[31m    "message": "Invalid option: expected one of \"candidate\"|\"recruiter\"|\"admin\""[39m
+[31m  }[39m
+[31m][39m
+2026-03-16 07:56:58:5658 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
+2026-03-16 07:59:01:591 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
+2026-03-16 07:59:02:592 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
+2026-03-16 07:59:03:593 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
+2026-03-16 07:59:03:593 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
+2026-03-16 10:29:09:299 [31merror[39m: [31m[POST] /api/companies/register >> 400 - Ce recruteur possède déjà une entreprise[39m
+2026-03-16 10:31:58:3158 [31merror[39m: [31m[GET] /api/companies/pending >> 404 - Entreprise introuvable[39m
+2026-03-16 10:34:03:343 [31merror[39m: [31m[GET] /api/companies/pending >> 404 - Entreprise introuvable[39m
+2026-03-16 10:45:42:4542 [31merror[39m: [31m[GET] /api/companies/pending >> 404 - Entreprise introuvable[39m
+2026-03-16 10:47:54:4754 [31merror[39m: [31m[GET] /api/companies/pending >> 404 - Entreprise introuvable[39m
+2026-03-16 10:48:36:4836 [31merror[39m: [31m[POST] /api/auth/login >> 400 - Unexpected token '"', " "email": ""... is not valid JSON[39m
+2026-03-16 10:48:53:4853 [31merror[39m: [31m[POST] /api/auth/login >> 400 - Unexpected token '"', " "email": ""... is not valid JSON[39m
+2026-03-16 10:49:49:4949 [31merror[39m: [31m[GET] /api/companies/pending >> 404 - Entreprise introuvable[39m
+2026-03-16 10:50:58:5058 [31merror[39m: [31m[GET] /api/companies/pending >> 404 - Entreprise introuvable[39m

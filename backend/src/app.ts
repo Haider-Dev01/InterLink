@@ -10,6 +10,8 @@ import { errorHandler } from './shared/middleware/errorHandler';
 
 // Import des routes
 import authRoutes from './modules/auth/auth.routes';
+import profileRoutes from './modules/profile/profile.routes';
+import companyRoutes from './modules/company/company.routes';
 
 export const app = express();
 
@@ -30,8 +32,10 @@ app.use(cookieParser());
 // Routes
 // ────────────────────────────────────────────────────────────────
 
-// Module Auth
+// Modules
 app.use('/api/auth', authRoutes);
+app.use('/api/profile', profileRoutes);
+app.use('/api/companies', companyRoutes);
 
 // GET /health
 app.get('/health', async (_req: Request, res: Response) => {
