@@ -12,6 +12,7 @@ import { errorHandler } from './shared/middleware/errorHandler';
 import authRoutes from './modules/auth/auth.routes';
 import profileRoutes from './modules/profile/profile.routes';
 import companyRoutes from './modules/company/company.routes';
+import adminRoutes from './modules/admin/admin.routes';
 
 export const app = express();
 
@@ -36,36 +37,51 @@ app.use(cookieParser());
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/companies', companyRoutes);
+app.use('/api/admin', adminRoutes);
 
-// GET /health
 app.get('/health', async (_req: Request, res: Response) => {
-  let dbStatus = 'ok';
-  let redisStatus = 'ok';
-
   try {
-    await prisma.$queryRaw`SELECT 1`;
-  } catch {
-    dbStatus = 'error';
-  }
+    let dbStatus = 'ok';
+    let redisStatus = 'ok';
 
-  try {
-    const pong = await redis.ping();
-    if (pong !== 'PONG') redisStatus = 'error';
-  } catch {
-    redisStatus = 'error';
-  }
-
-  const statusCode = dbStatus === 'ok' && redisStatus === 'ok' ? 200 : 503;
-
-  res.status(statusCode).json({
-    success: true,
-    data: {
-      api: 'ok',
-      db: dbStatus,
-      redis: redisStatus,
-      timestamp: new Date().toISOString(),
+    try {
+      await prisma.$queryRaw`SELECT 1`;
+    } catch {
+      dbStatus = 'error';
     }
-  });
+
+    try {
+      const pong = await redis.ping();
+      if (pong !== 'PONG') redisStatus = 'error';
+    } catch {
+      redisStatus = 'error';
+    }
+
+    let aiStatus = 'unknown';
+    try {
+      const aiResponse = await fetch('http://localhost:8001/health', { 
+        signal: AbortSignal.timeout(2000) 
+      });
+      aiStatus = aiResponse.ok ? 'ok' : 'error';
+    } catch {
+      aiStatus = 'unavailable';
+    }
+
+    const statusCode = dbStatus === 'ok' && redisStatus === 'ok' ? 200 : 503;
+
+    res.status(statusCode).json({
+      success: true,
+      data: {
+        api: 'ok',
+        db: dbStatus,
+        redis: redisStatus,
+        ai: aiStatus,
+        timestamp: new Date().toISOString(),
+      }
+    });
+  } catch (error: any) {
+    res.status(500).json({ success: false, message: error.message });
+  }
 });
 
 // ────────────────────────────────────────────────────────────────

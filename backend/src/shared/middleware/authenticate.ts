@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { env } from '../config/env';
 import { Role } from '../../generated/prisma';
+import { prisma } from '../config/prismaClient';
 
 interface JwtPayload {
   userId: string;
@@ -9,7 +10,7 @@ interface JwtPayload {
   role: Role;
 }
 
-export const authenticate = (req: Request, res: Response, next: NextFunction) => {
+export const authenticate = async (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -24,10 +25,18 @@ export const authenticate = (req: Request, res: Response, next: NextFunction) =>
   try {
     const decoded = jwt.verify(token, env.JWT_ACCESS_SECRET) as JwtPayload;
     
+    const user = await prisma.user.findUnique({ where: { id: decoded.userId } });
+    if (!user) {
+      return res.status(401).json({ success: false, message: 'Utilisateur introuvable' });
+    }
+    if (user.isBanned) {
+      return res.status(403).json({ success: false, message: 'Compte suspendu' });
+    }
+
     req.user = {
-      id: decoded.userId,
-      email: decoded.email,
-      role: decoded.role,
+      id: user.id,
+      email: user.email,
+      role: user.role,
     };
 
     next();

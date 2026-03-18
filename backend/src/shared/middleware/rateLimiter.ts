@@ -32,5 +32,8 @@ export const authRateLimiter = rateLimit({
     });
   },
   // On limite par email s'il existe, sinon par IP
-  keyGenerator: (req) => String(req.body.email || req.ip || 'global'),
+  keyGenerator: (req) => {
+    return (req.body?.email as string) || (req.ip ?? 'unknown');
+  },
+  validate: { xForwardedForHeader: false },
 });
