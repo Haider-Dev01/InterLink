@@ -13,6 +13,7 @@ import authRoutes from './modules/auth/auth.routes';
 import profileRoutes from './modules/profile/profile.routes';
 import companyRoutes from './modules/company/company.routes';
 import adminRoutes from './modules/admin/admin.routes';
+import cvRoutes from './modules/cv/cv.routes';
 
 export const app = express();
 
@@ -38,6 +39,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/companies', companyRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/cv', cvRoutes);
+app.use('/uploads', express.static('uploads'));
 
 app.get('/health', async (_req: Request, res: Response) => {
   try {
@@ -58,8 +61,9 @@ app.get('/health', async (_req: Request, res: Response) => {
     }
 
     let aiStatus = 'unknown';
+    const aiServiceUrl = process.env.AI_SERVICE_URL || 'http://localhost:8002';
     try {
-      const aiResponse = await fetch('http://localhost:8001/health', { 
+      const aiResponse = await fetch(`${aiServiceUrl}/health`, { 
         signal: AbortSignal.timeout(2000) 
       });
       aiStatus = aiResponse.ok ? 'ok' : 'error';

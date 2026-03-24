@@ -2,6 +2,7 @@ import 'dotenv/config';
 import { app } from './app';
 import { prisma } from './shared/config/prismaClient';
 import { redis } from './shared/config/redisClient';
+import { startRetryJob } from './modules/cv/cv.service';
 
 const PORT = parseInt(process.env.PORT ?? '3000', 10);
 
@@ -18,6 +19,7 @@ async function bootstrap() {
     app.listen(PORT, () => {
       console.log(`[Server] 🚀 Backend running on http://localhost:${PORT}`);
       console.log(`[Health] 👉 http://localhost:${PORT}/health`);
+      startRetryJob();
     });
   } catch (err) {
     console.error('[Bootstrap] ❌ Failed to start:', err);
