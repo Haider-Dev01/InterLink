@@ -6,8 +6,8 @@ generator client {
 
 datasource db {
   provider   = "postgresql"
-  url        = env("DATABASE_URL")
   extensions = [vector]
+  //url        = env("DATABASE_URL")
 }
 
 model User {
@@ -32,6 +32,7 @@ model User {
   notifications      Notification[]
   profile            Profile?
   refreshTokens      RefreshToken[]
+  chatMessages       ChatMessage[]
 
   @@map("users")
 }
@@ -287,4 +288,17 @@ enum ImportedFrom {
   upload
   json
   github
+}
+
+model ChatMessage {
+  id        String   @id @default(uuid())
+  userId    String
+  role      String   // "user" ou "assistant"
+  content   String
+  context   Json?    // pour stocker les métadonnées du RAG (optionnel)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("chat_messages")
 }
