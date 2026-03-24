@@ -5,3 +5,16 @@ backend/.env
 
 logs/
 current_structure.txt
+
+
+# Python
+ai-service/venv/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+
+# Env & Logs
+.env
+logs/
