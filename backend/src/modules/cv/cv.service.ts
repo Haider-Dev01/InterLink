@@ -44,10 +44,12 @@ async function parseInBackground(cvId: string, fileUrl: string, fileType: string
     const controller = new AbortController()
     const timeout = setTimeout(() => controller.abort(), 30000)
 
+    const absoluteFilePath = path.resolve(process.cwd(), fileUrl)
+
     const response = await fetch(`${AI_SERVICE_URL}/parse`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ file_url: fileUrl, file_type: fileType }),
+      body: JSON.stringify({ file_url: absoluteFilePath, file_type: fileType }),
       signal: controller.signal,
     })
     clearTimeout(timeout)
