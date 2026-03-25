@@ -375,3 +375,197 @@
 [31m  }[39m
 [31m][39m
 2026-03-25 20:20:52:2052 [31merror[39m: [31m[POST] /api/cv/upload >> 500 - Format non supporté. PDF ou DOCX uniquement.[39m
+2026-03-25 21:40:21:4021 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
+2026-03-25 21:40:39:4039 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [[39m
+[31m  {[39m
+[31m    "code": "invalid_value",[39m
+[31m    "values": [[39m
+[31m      "candidate",[39m
+[31m      "recruiter",[39m
+[31m      "admin"[39m
+[31m    ],[39m
+[31m    "path": [[39m
+[31m      "role"[39m
+[31m    ],[39m
+[31m    "message": "Invalid option: expected one of \"candidate\"|\"recruiter\"|\"admin\""[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "firstName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "lastName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  }[39m
+[31m][39m
+2026-03-25 21:40:51:4051 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [[39m
+[31m  {[39m
+[31m    "code": "invalid_value",[39m
+[31m    "values": [[39m
+[31m      "candidate",[39m
+[31m      "recruiter",[39m
+[31m      "admin"[39m
+[31m    ],[39m
+[31m    "path": [[39m
+[31m      "role"[39m
+[31m    ],[39m
+[31m    "message": "Invalid option: expected one of \"candidate\"|\"recruiter\"|\"admin\""[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "firstName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "lastName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  }[39m
+[31m][39m
+2026-03-25 21:42:05:425 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [[39m
+[31m  {[39m
+[31m    "code": "invalid_value",[39m
+[31m    "values": [[39m
+[31m      "candidate",[39m
+[31m      "recruiter",[39m
+[31m      "admin"[39m
+[31m    ],[39m
+[31m    "path": [[39m
+[31m      "role"[39m
+[31m    ],[39m
+[31m    "message": "Invalid option: expected one of \"candidate\"|\"recruiter\"|\"admin\""[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "firstName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "lastName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  }[39m
+[31m][39m
+2026-03-25 21:58:57:5857 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [[39m
+[31m  {[39m
+[31m    "code": "invalid_value",[39m
+[31m    "values": [[39m
+[31m      "candidate",[39m
+[31m      "recruiter",[39m
+[31m      "admin"[39m
+[31m    ],[39m
+[31m    "path": [[39m
+[31m      "role"[39m
+[31m    ],[39m
+[31m    "message": "Invalid option: expected one of \"candidate\"|\"recruiter\"|\"admin\""[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "firstName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "lastName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  }[39m
+[31m][39m
+2026-03-25 22:01:29:129 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "firstName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "lastName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  }[39m
+[31m][39m
+2026-03-25 22:01:41:141 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "firstName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "lastName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  }[39m
+[31m][39m
+2026-03-25 22:01:47:147 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "firstName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "lastName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  }[39m
+[31m][39m
+2026-03-25 22:01:50:150 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "firstName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "lastName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  }[39m
+[31m][39m
+2026-03-25 22:05:01:51 [31merror[39m: [31m[POST] /api/offers >> 403 - Vous devez d'abord enregistrer une entreprise[39m
