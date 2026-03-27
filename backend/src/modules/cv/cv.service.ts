@@ -3,6 +3,7 @@ import fs from 'fs'
 import { v4 as uuidv4 } from 'uuid'
 import cron from 'node-cron'
 import { cvRepository } from './cv.repository'
+import { triggerMatchingForCandidate } from '../offer/matching.service'
 
 const AI_SERVICE_URL = process.env.AI_SERVICE_URL || 'http://localhost:8002'
 const UPLOADS_DIR = path.resolve('./uploads')
@@ -26,7 +27,7 @@ export const cvService = {
     await cvRepository.setActiveCV(userId, cvDoc.id)
 
     // 3. Lancer le parsing en arrière-plan (sans await)
-    parseInBackground(cvDoc.id, fileUrl, fileType)
+    parseInBackground(cvDoc.id, fileUrl, fileType, userId)
 
     return { cvId: cvDoc.id, message: 'CV uploadé, analyse en cours' }
   },
@@ -37,7 +38,7 @@ export const cvService = {
   },
 }
 
-async function parseInBackground(cvId: string, fileUrl: string, fileType: string) {
+async function parseInBackground(cvId: string, fileUrl: string, fileType: string, userId: string) {
   try {
     await cvRepository.updateCvProcessing(cvId)
 
@@ -63,6 +64,11 @@ async function parseInBackground(cvId: string, fileUrl: string, fileType: string
     await cvRepository.updateCvParsed(cvId, data.text, data.skills, data.embedding)
     await cvRepository.upsertExtractedSkills(cvId, data.skills)
     console.log(`[CV] ✅ CV parsé avec succès : ${cvId}`)
+
+    // Déclencher le matching en arrière-plan (sans await)
+    triggerMatchingForCandidate(cvId, userId).catch((err) =>
+      console.error('[Matching] ❌ Matching candidat échoué:', err)
+    )
   } catch (error) {
     await cvRepository.updateCvFailed(cvId)
     console.error(`[CV] ❌ Parsing échoué : ${cvId}`, error)
@@ -75,7 +81,7 @@ export function startRetryJob() {
     const pendingCvs = await cvRepository.getPendingCvs()
     for (const cv of pendingCvs) {
       const fileType = detectFileType(cv.fileUrl)
-      await parseInBackground(cv.id, cv.fileUrl, fileType)
+      await parseInBackground(cv.id, cv.fileUrl, fileType, cv.userId)
     }
   })
   console.log('[CV Cron] ✅ Cron job démarré (toutes les 3 minutes)')

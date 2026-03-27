@@ -1,6 +1,8 @@
 import { offerRepository } from './offer.repository'
 import { CreateOfferInput, UpdateOfferInput } from './offer.validation'
 import { AppError } from '../../shared/middleware/errorHandler'
+import { triggerMatchingForOffer } from './matching.service'
+import { prisma } from '../../shared/config/prismaClient'
 
 const AI_SERVICE_URL = process.env.AI_SERVICE_URL || 'http://localhost:8002'
 
@@ -91,9 +93,32 @@ export const offerService = {
     skills?: string[]
     page: number
     limit: number
+    userId?: string
   }) {
     const { offers, total } = await offerRepository.getPublishedOffers(filters)
-    return { offers, total, page: filters.page, limit: filters.limit }
+
+    // Si candidat authentifié → ajouter matchScore sur chaque offre
+    let enrichedOffers = offers as any[]
+    if (filters.userId) {
+      enrichedOffers = await Promise.all(
+        offers.map(async (offer: any) => {
+          const score = await prisma.matchScore.findUnique({
+            where: {
+              candidateId_offerId: {
+                candidateId: filters.userId!,
+                offerId: offer.id,
+              },
+            },
+          })
+          return {
+            ...offer,
+            matchScore: score ? Math.round(score.scoreFinal * 100) : null,
+          }
+        })
+      )
+    }
+
+    return { offers: enrichedOffers, total, page: filters.page, limit: filters.limit }
   },
 
   async getOfferById(offerId: string) {
@@ -141,6 +166,11 @@ async function generateEmbeddingBackground(offerId: string) {
     const data = await response.json() as { embedding: number[] }
     await offerRepository.updateOfferEmbedding(offerId, data.embedding)
     console.log(`[Offer] ✅ Embedding offre généré : ${offerId}`)
+
+    // Déclencher le matching en arrière-plan (sans await)
+    triggerMatchingForOffer(offerId).catch((err) =>
+      console.error('[Matching] ❌ Matching offre échoué:', err)
+    )
   } catch (error) {
     console.error(`[Offer] ❌ Embedding offre échoué : ${offerId}`, error)
   }

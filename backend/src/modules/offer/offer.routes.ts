@@ -12,6 +12,9 @@ router.get('/', offerController.getPublishedOffers)
 // ── Routes avec création ─────────────────────────────────────
 router.post('/', authenticate, authorize(['recruiter']), offerController.createOffer)
 
+// ── Routes avec sous-chemins AVANT /:id générique ────────────
+router.get('/:id/matches', authenticate, authorize(['recruiter']), offerController.getOfferMatches)
+
 // ── Routes avec paramètres EN DERNIER ────────────────────────
 router.get('/:id', offerController.getOfferById)
 router.put('/:id', authenticate, authorize(['recruiter']), offerController.updateOffer)

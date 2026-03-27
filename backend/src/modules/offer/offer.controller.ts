@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { offerService } from './offer.service'
 import { createOfferSchema, updateOfferSchema } from './offer.validation'
+import { getMatchesForOffer } from './matching.service'
 
 export const offerController = {
   async createOffer(req: Request, res: Response, next: NextFunction) {
@@ -91,6 +92,9 @@ export const offerController = {
         ? (req.query.skills as string).split(',')
         : undefined
 
+      // Si candidat authentifié, passer userId pour enrichir avec matchScore
+      const userId = req.user?.id
+
       const result = await offerService.getPublishedOffers({
         location,
         remote,
@@ -98,6 +102,7 @@ export const offerController = {
         skills,
         page,
         limit,
+        userId,
       })
 
       return res.status(200).json({
@@ -131,6 +136,23 @@ export const offerController = {
       return res.status(200).json({
         success: true,
         data: result,
+      })
+    } catch (error) {
+      next(error)
+    }
+  },
+
+  async getOfferMatches(req: Request, res: Response, next: NextFunction) {
+    try {
+      const offerId = req.params.id as string
+      const minScore = req.query.minScore
+        ? parseFloat(req.query.minScore as string)
+        : undefined
+      const matches = await getMatchesForOffer(offerId, minScore)
+
+      return res.status(200).json({
+        success: true,
+        data: { matches },
       })
     } catch (error) {
       next(error)
