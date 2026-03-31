@@ -7,11 +7,13 @@ import docx
 logger = logging.getLogger(__name__)
 
 KNOWN_SKILLS = [
-    "python", "javascript", "typescript", "react", "vue", "angular", "node.js",
-    "express", "fastapi", "django", "flask", "java", "spring", "c++", "c#", "php",
-    "laravel", "go", "docker", "postgresql", "mysql", "mongodb", "redis",
-    "git", "aws", "azure", "tensorflow", "pytorch", "html", "css", "tailwind",
-    "graphql", "rest", "sql", "prisma"
+    "Python", "JavaScript", "TypeScript", "React", "Vue", "Angular",
+    "Node.js", "Express", "FastAPI", "Django", "Flask", "Java", "Spring",
+    "C++", "C#", "PHP", "Laravel", "Go", "Docker", "Kubernetes",
+    "PostgreSQL", "MySQL", "MongoDB", "Redis", "Git", "AWS", "Azure",
+    "GCP", "TensorFlow", "PyTorch", "Pandas", "NumPy", "Scikit-learn",
+    "HTML", "CSS", "Tailwind", "GraphQL", "REST", "SQL", "Prisma",
+    "React Native", "Kotlin", "Swift", "Ruby", "Linux"
 ]
 
 def extract_text_from_pdf(file_path: str) -> str:
@@ -29,23 +31,28 @@ def extract_text_from_docx(file_path: str) -> str:
         logger.error(f"Erreur d'extraction DOCX {file_path}: {e}")
         return ""
 
-def extract_skills_from_text(text: str) -> List[str]:
-    found_skills = set()
+def extract_skills_from_text(text: str) -> list[str]:
+    found = []
+    text_lower = text.lower()
     for skill in KNOWN_SKILLS:
-        escaped_skill = re.escape(skill)
-        pattern = rf"(?i)\b{escaped_skill}\b"
-        if any(c in skill for c in ['+', '#', '.']):
-            pattern = rf"(?i)(?:^|\s){escaped_skill}(?:$|\s)"
-            
-        if re.search(pattern, text):
-            if skill.lower() == "node.js":
-                found_skills.add("Node.js")
-            elif skill.lower() == "react":
-                found_skills.add("React")
-            else:
-                found_skills.add(skill.capitalize() if skill.islower() else skill)
-                
-    return list(found_skills)
+        pattern = r'(?<![a-zA-Z0-9])' + re.escape(skill.lower()) + r'(?![a-zA-Z0-9])'
+        if re.search(pattern, text_lower):
+            found.append(skill)
+    return list(dict.fromkeys(found))
+
+def build_cv_summary(skills: list[str], text: str, speciality: str = "") -> str:
+    clean_lines = [l.strip() for l in text.split('\n') if len(l.strip()) > 15]
+    summary = ' '.join(clean_lines[:5])[:300]
+    
+    parts = []
+    if skills:
+        parts.append(f"skills: {', '.join(skills)}")
+    if speciality:
+        parts.append(f"speciality: {speciality}")
+    if summary:
+        parts.append(f"profile: {summary}")
+    
+    return ' | '.join(parts) if parts else text[:300]
 
 def parse_cv(file_url: str, file_type: str) -> dict:
     fallback = {"text": "", "skills": [], "embedding": [0.0] * 384}

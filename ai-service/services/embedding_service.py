@@ -28,12 +28,10 @@ def build_candidate_text(skills: List[str], speciality: str | None, bio: str | N
     parts = []
     if skills:
         parts.append(f"skills: {', '.join(skills)}")
+    if bio:
+        parts.append(f"profile: {bio[:300]}")
     if speciality:
         parts.append(f"speciality: {speciality}")
-    if bio:
-        parts.append(f"bio: {bio}")
-    if school:
-        parts.append(f"school: {school}")
     
     text = " | ".join(parts)
     if not text.strip():
