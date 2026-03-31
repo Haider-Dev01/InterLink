@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { authenticate } from '../../shared/middleware/authenticate'
+import { authenticate, optionalAuthenticate } from '../../shared/middleware/authenticate'
 import { authorize } from '../../shared/middleware/authorize'
 import { offerController } from './offer.controller'
 
@@ -7,7 +7,7 @@ const router = Router()
 
 // ── Routes statiques EN PREMIER ──────────────────────────────
 router.get('/my', authenticate, authorize(['recruiter']), offerController.getMyOffers)
-router.get('/', offerController.getPublishedOffers)
+router.get('/', optionalAuthenticate, offerController.getPublishedOffers)
 
 // ── Routes avec création ─────────────────────────────────────
 router.post('/', authenticate, authorize(['recruiter']), offerController.createOffer)
