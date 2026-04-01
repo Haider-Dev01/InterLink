@@ -1,5 +1,6 @@
 import logging
 import os
+import re
 import huggingface_hub
 if not hasattr(huggingface_hub, 'hf_hub_download'):
     from huggingface_hub import file_download
@@ -23,6 +24,16 @@ def embed_text(text: str) -> List[float]:
         raise RuntimeError("Modèle non initialisé")
     embedding = model.encode(text)
     return embedding.tolist()
+
+def build_cv_embedding_text(parsed_data: dict) -> str:
+    skills = parsed_data.get("skills", [])
+    skills_str = ", ".join(skills) if skills else "None"
+    
+    text = parsed_data.get("text", "")
+    clean_text = re.sub(r'\s+', ' ', text).strip()
+    profile_text = clean_text[:800]
+    
+    return f"Skills: {skills_str} | Profil: {profile_text}"
 
 def build_candidate_text(skills: List[str], speciality: str | None, bio: str | None, school: str | None) -> str:
     parts = []

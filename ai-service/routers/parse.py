@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 import logging
 from models.schemas import ParseRequest, ParseResponse
-from services.parser_service import parse_cv, build_cv_summary
-from services.embedding_service import embed_text
+from services.parser_service import parse_cv
+from services.embedding_service import embed_text, build_cv_embedding_text
 
 router = APIRouter(prefix="/parse", tags=["Parse"])
 logger = logging.getLogger(__name__)
@@ -11,8 +11,8 @@ logger = logging.getLogger(__name__)
 async def parse_document(request: ParseRequest):
     try:
         parsed_data = parse_cv(request.file_url, request.file_type)
-        if parsed_data["text"]:
-            summary = build_cv_summary(parsed_data["skills"], parsed_data["text"])
+        if parsed_data.get("text"):
+            summary = build_cv_embedding_text(parsed_data)
             parsed_data["embedding"] = embed_text(summary)
             
         return ParseResponse(

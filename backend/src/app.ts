@@ -15,6 +15,7 @@ import companyRoutes from './modules/company/company.routes';
 import adminRoutes from './modules/admin/admin.routes';
 import cvRoutes from './modules/cv/cv.routes';
 import offerRoutes from './modules/offer/offer.routes';
+import chatRoutes from './modules/chat/chat.routes';
 
 export const app = express();
 
@@ -42,6 +43,7 @@ app.use('/api/companies', companyRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/cv', cvRoutes);
 app.use('/api/offers', offerRoutes);
+app.use('/api/chat', chatRoutes);
 app.use('/uploads', express.static('uploads'));
 
 app.get('/health', async (_req: Request, res: Response) => {

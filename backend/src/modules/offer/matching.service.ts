@@ -11,50 +11,47 @@ function calculateFinalScore(
   cvAvailability: number | null,
   offerDuration: number | null
 ): { scoreFinal: number; breakdown: object } {
-  // Skills score
-  const intersection = cvSkills.filter((s) =>
-    offerSkills.map((o) => o.toLowerCase()).includes(s.toLowerCase())
-  )
+  // Skills score — intersection candidat ∩ offre
+  const offerSkillsLower = offerSkills.map((o) => o.toLowerCase())
+  const intersection = cvSkills.filter((s) => offerSkillsLower.includes(s.toLowerCase()))
   const skillsScore = offerSkills.length > 0 ? intersection.length / offerSkills.length : 0
 
-  // Duration match
+  // Duration match (0–1)
   let durationMatch = 0
   if (cvAvailability && offerDuration) {
     durationMatch = 1 - Math.abs(cvAvailability - offerDuration) / Math.max(offerDuration, 1)
     durationMatch = Math.max(0, durationMatch)
   }
 
-  // Location (dynamique)
+  // Location match (0 ou 1)
   const locationMatch =
     offerRemote ||
     (cvLocation && offerLocation && cvLocation.toLowerCase() === offerLocation.toLowerCase())
       ? 1
       : 0
 
-  let cosineWeight = 0.5
-  let locWeight = 0.15
+  // ── Poids fixes : 50% cosine + 40% skills + 10% contexte ──
+  const COSINE_W  = 0.50
+  const SKILLS_W  = 0.40
+  const CONTEXT_W = 0.10
 
-  if (!offerRemote && !locationMatch) {
-    cosineWeight = 0.7
-    locWeight = 0.0
-  } else if (offerRemote) {
-    cosineWeight = 0.5
-    locWeight = 0.02
-  }
+  // Contexte = moyenne durée + localisation (si dispo, sinon 0)
+  const contextScore = (durationMatch + locationMatch) / 2
 
   const scoreFinal = Math.min(
-    cosineWeight * cosine + 0.3 * skillsScore + 0.1 * durationMatch + locWeight * locationMatch,
+    COSINE_W * cosine + SKILLS_W * skillsScore + CONTEXT_W * contextScore,
     1.0
   )
 
   const breakdown = {
-    score_cosinus: Math.round(cosine * 100) / 100,
-    skills_score: Math.round(skillsScore * 100) / 100,
-    duration_match: Math.round(durationMatch * 100) / 100,
-    location_match: locationMatch,
-    cosine_weight: cosineWeight,
-    loc_weight: locWeight,
-    score_final: Math.round(scoreFinal * 100) / 100,
+    score_cosinus:   Math.round(cosine      * 100) / 100,
+    skills_score:    Math.round(skillsScore * 100) / 100,
+    skills_matched:  intersection,
+    duration_match:  Math.round(durationMatch * 100) / 100,
+    location_match:  locationMatch,
+    context_score:   Math.round(contextScore * 100) / 100,
+    weights:         { cosine: COSINE_W, skills: SKILLS_W, context: CONTEXT_W },
+    score_final:     Math.round(scoreFinal * 100) / 100,
   }
 
   return { scoreFinal, breakdown }

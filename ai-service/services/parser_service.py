@@ -33,16 +33,25 @@ def extract_text_from_docx(file_path: str) -> str:
 
 def extract_skills_from_text(text: str) -> list[str]:
     found = []
-    text_lower = text.lower()
     for skill in KNOWN_SKILLS:
-        pattern = r'(?<![a-zA-Z0-9])' + re.escape(skill.lower()) + r'(?![a-zA-Z0-9])'
-        if re.search(pattern, text_lower):
+        if skill == "Node.js":
+            pattern_core = r'node[\s\.\-]*js'
+        elif skill == "React Native":
+            pattern_core = r'react[\s\-]*native'
+        elif skill == "Vue.js":
+            pattern_core = r'vue[\s\.\-]*js'
+        else:
+            pattern_core = re.escape(skill).replace(r'\ ', r'[\s\-]+')
+            
+        pattern = r'(?<![a-zA-Z0-9])' + pattern_core + r'(?![a-zA-Z0-9\+#])'
+        
+        if re.search(pattern, text, re.IGNORECASE):
             found.append(skill)
     return list(dict.fromkeys(found))
 
 def build_cv_summary(skills: list[str], text: str, speciality: str = "") -> str:
-    clean_lines = [l.strip() for l in text.split('\n') if len(l.strip()) > 15]
-    summary = ' '.join(clean_lines[:5])[:300]
+    clean_lines = [l.strip() for l in text.split('\n') if len(l.strip()) > 3]
+    summary = ' '.join(clean_lines[:15])[:1000]
     
     parts = []
     if skills:
@@ -52,7 +61,7 @@ def build_cv_summary(skills: list[str], text: str, speciality: str = "") -> str:
     if summary:
         parts.append(f"profile: {summary}")
     
-    return ' | '.join(parts) if parts else text[:300]
+    return ' | '.join(parts) if parts else text[:1000]
 
 def parse_cv(file_url: str, file_type: str) -> dict:
     fallback = {"text": "", "skills": [], "embedding": [0.0] * 384}
