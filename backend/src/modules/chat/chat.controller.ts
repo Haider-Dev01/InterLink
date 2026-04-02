@@ -1,8 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { ChatService } from './chat.service';
 import { ChatRepository } from './chat.repository';
-import { sendMessageSchema } from './chat.validation';
-import { AppError } from '../../shared/middleware/errorHandler';
 
 const chatRepository = new ChatRepository();
 const chatService = new ChatService(chatRepository);
@@ -10,24 +8,19 @@ const chatService = new ChatService(chatRepository);
 export class ChatController {
   sendMessage = async (req: Request, res: Response, next: NextFunction) => {
     try {
+      const { question } = req.body;
+      if (!question || typeof question !== 'string' || question.length < 2 || question.length > 500) {
+        return res.status(400).json({ success: false, message: 'Question invalide' });
+      }
+
       const userId = req.user!.id;
       const userRole = req.user!.role;
 
-      const validatedData = sendMessageSchema.parse(req.body);
+      const result = await chatService.sendMessage(userId, userRole as any, question);
 
-      const { answer, sources } = await chatService.sendMessage(
-        userId,
-        userRole,
-        validatedData.question
-      );
-
-      res.status(200).json({
+      res.json({
         success: true,
-        data: {
-          answer,
-          sources,
-        },
-        message: 'Message traité avec succès',
+        data: result
       });
     } catch (error) {
       next(error);
@@ -37,14 +30,11 @@ export class ChatController {
   getHistory = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = req.user!.id;
-
       const messages = await chatService.getHistory(userId);
 
-      res.status(200).json({
+      res.json({
         success: true,
-        data: {
-          messages,
-        },
+        data: { messages }
       });
     } catch (error) {
       next(error);

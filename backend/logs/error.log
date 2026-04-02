@@ -569,3 +569,56 @@
 [31m  }[39m
 [31m][39m
 2026-03-25 22:05:01:51 [31merror[39m: [31m[POST] /api/offers >> 403 - Vous devez d'abord enregistrer une entreprise[39m
+2026-04-01 21:53:10:5310 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
+2026-04-01 21:53:57:5357 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
+2026-04-01 21:54:10:5410 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
+2026-04-01 21:55:50:5550 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
+2026-04-01 22:06:53:653 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
+2026-04-01 22:06:57:657 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
+2026-04-01 23:35:34:3534 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
+2026-04-01 23:35:42:3542 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
+2026-04-01 23:40:02:402 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [[39m
+[31m  {[39m
+[31m    "code": "invalid_value",[39m
+[31m    "values": [[39m
+[31m      "candidate",[39m
+[31m      "recruiter",[39m
+[31m      "admin"[39m
+[31m    ],[39m
+[31m    "path": [[39m
+[31m      "role"[39m
+[31m    ],[39m
+[31m    "message": "Invalid option: expected one of \"candidate\"|\"recruiter\"|\"admin\""[39m
+[31m  }[39m
+[31m][39m
+2026-04-01 23:40:10:4010 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [[39m
+[31m  {[39m
+[31m    "code": "invalid_value",[39m
+[31m    "values": [[39m
+[31m      "candidate",[39m
+[31m      "recruiter",[39m
+[31m      "admin"[39m
+[31m    ],[39m
+[31m    "path": [[39m
+[31m      "role"[39m
+[31m    ],[39m
+[31m    "message": "Invalid option: expected one of \"candidate\"|\"recruiter\"|\"admin\""[39m
+[31m  }[39m
+[31m][39m
+2026-04-01 23:40:33:4033 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [[39m
+[31m  {[39m
+[31m    "code": "invalid_value",[39m
+[31m    "values": [[39m
+[31m      "candidate",[39m
+[31m      "recruiter",[39m
+[31m      "admin"[39m
+[31m    ],[39m
+[31m    "path": [[39m
+[31m      "role"[39m
+[31m    ],[39m
+[31m    "message": "Invalid option: expected one of \"candidate\"|\"recruiter\"|\"admin\""[39m
+[31m  }[39m
+[31m][39m
+2026-04-01 23:50:59:5059 [31merror[39m: [31m[POST] /api/cv/upload >> 500 - Format non supporté. PDF ou DOCX uniquement.[39m
+2026-04-01 23:53:49:5349 [31merror[39m: [31m[PATCH] /api/offers/%3COFFER_ID%3E/publish >> 404 - Offre introuvable[39m
+2026-04-02 00:01:12:112 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m

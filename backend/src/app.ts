@@ -93,6 +93,38 @@ app.get('/health', async (_req: Request, res: Response) => {
 });
 
 // ────────────────────────────────────────────────────────────────
+// Debug route temporaire
+// ────────────────────────────────────────────────────────────────
+app.get('/debug/vectors', async (_req: Request, res: Response) => {
+  try {
+    const cvDocs: any = await prisma.$queryRaw`
+      SELECT id, 
+             CASE WHEN embedding IS NOT NULL THEN vector_dims(embedding) ELSE NULL END as dims,
+             parseStatus
+      FROM cv_documents
+    `;
+    const offers: any = await prisma.$queryRaw`
+      SELECT id, 
+             CASE WHEN embedding IS NOT NULL THEN vector_dims(embedding) ELSE NULL END as dims,
+             offerStatus
+      FROM job_offers
+    `;
+    const matchesCount = await prisma.matchScore.count();
+
+    res.json({
+      success: true,
+      data: {
+        cv_documents: cvDocs.map((doc: any) => ({ id: doc.id, dimensions: doc.dims, parseStatus: doc.parsestatus || doc.parseStatus })),
+        job_offers: offers.map((offer: any) => ({ id: offer.id, dimensions: offer.dims, offerStatus: offer.offerstatus || offer.offerStatus })),
+        match_scores_count: matchesCount
+      }
+    });
+  } catch (error: any) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+// ────────────────────────────────────────────────────────────────
 // 404 handler
 // ────────────────────────────────────────────────────────────────
 app.use((_req: Request, res: Response) => {
