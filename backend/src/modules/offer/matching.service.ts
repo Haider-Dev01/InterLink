@@ -30,16 +30,16 @@ function calculateFinalScore(
       ? 1
       : 0
 
-  // ── Poids fixes : 50% cosine + 40% skills + 10% contexte ──
-  const COSINE_W  = 0.50
-  const SKILLS_W  = 0.40
+  // ── Poids rééquilibrés : 50% skills + 40% cosine + 10% contexte ──
+  const SKILLS_W  = 0.50
+  const COSINE_W  = 0.40
   const CONTEXT_W = 0.10
 
   // Contexte = moyenne durée + localisation (si dispo, sinon 0)
   const contextScore = (durationMatch + locationMatch) / 2
 
   const scoreFinal = Math.min(
-    COSINE_W * cosine + SKILLS_W * skillsScore + CONTEXT_W * contextScore,
+    SKILLS_W * skillsScore + COSINE_W * cosine + CONTEXT_W * contextScore,
     1.0
   )
 
@@ -50,7 +50,7 @@ function calculateFinalScore(
     duration_match:  Math.round(durationMatch * 100) / 100,
     location_match:  locationMatch,
     context_score:   Math.round(contextScore * 100) / 100,
-    weights:         { cosine: COSINE_W, skills: SKILLS_W, context: CONTEXT_W },
+    weights:         { skills: SKILLS_W, cosine: COSINE_W, context: CONTEXT_W },
     score_final:     Math.round(scoreFinal * 100) / 100,
   }
 
