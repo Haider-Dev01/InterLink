@@ -622,3 +622,4 @@
 2026-04-01 23:50:59:5059 [31merror[39m: [31m[POST] /api/cv/upload >> 500 - Format non supporté. PDF ou DOCX uniquement.[39m
 2026-04-01 23:53:49:5349 [31merror[39m: [31m[PATCH] /api/offers/%3COFFER_ID%3E/publish >> 404 - Offre introuvable[39m
 2026-04-02 00:01:12:112 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
+2026-04-08 14:02:57:257 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
