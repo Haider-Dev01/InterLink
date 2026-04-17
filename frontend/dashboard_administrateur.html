@@ -1,0 +1,543 @@
+
+<!DOCTYPE html>
+<html class="light scroll-smooth" lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Administration | InternLink Nexus</title>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; overflow-x: hidden; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        
+        /* Floating Particles */
+        .particle {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            will-change: transform;
+            z-index: 5;
+        }
+        
+        /* Reveal Animations */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        
+        /* Animations Wow */
+        @keyframes drawLine {
+            from { stroke-dashoffset: 1000; }
+            to { stroke-dashoffset: 0; }
+        }
+        .animate-draw {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawLine 2.5s ease-out forwards;
+        }
+
+        @keyframes fillArea {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 0.2; transform: translateY(0); }
+        }
+        .animate-fill { animation: fillArea 2s ease-out forwards; animation-delay: 0.5s; opacity: 0; }
+
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .reveal { animation: countUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
+
+        .progress-bar-fill {
+            transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        /* Card Scale Animation */
+        .card-hover-scale {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover-scale:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 24px 48px rgba(0, 40, 142, 0.15);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e0e3e5; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00288e; }
+    </style>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00288e",
+                        "secondary": "#4648d4",
+                        "surface": "#f7f9fb",
+                        "on-surface": "#191c1e",
+                        "on-surface-variant": "#444653",
+                        "surface-variant": "#e0e3e5",
+                    },
+                    borderRadius: {
+                        'bento': '1.5rem',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="text-on-surface antialiased overflow-x-hidden flex">
+
+<!-- Floating particles (décoratif) -->
+<div class="particle" id="p1" style="width:12px;height:12px;background:#dde1ff;top:15%;left:8%"></div>
+<div class="particle" id="p2" style="width:8px;height:8px;background:#e1e0ff;top:60%;left:92%"></div>
+<div class="particle" id="p3" style="width:16px;height:16px;background:#6ffbbe;opacity:0.5;top:80%;left:20%"></div>
+<div class="particle" id="p4" style="width:6px;height:6px;background:#4648d4;opacity:0.3;top:30%;left:85%"></div>
+
+<div class="fixed inset-0 opacity-[0.02] z-0 pointer-events-none" style="background-image: radial-gradient(#000000 1px, transparent 1px); background-size: 24px 24px;"></div>
+
+<aside class="w-64 h-screen bg-white border-r border-surface-variant/50 flex flex-col fixed left-0 top-0 z-50">
+    <div class="p-6">
+        <a href="index.html" class="flex items-center gap-2 group">
+            <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform" data-icon="hub">hub</span>
+            <span class="text-2xl font-black text-primary tracking-tight">InternLink</span>
+        </a>
+    </div>
+
+    <nav class="flex-1 px-4 space-y-1 mt-4">
+        <p class="px-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60 mb-2">Menu Principal</p>
+        <a href="dashboard_administrateur.html" class="flex items-center gap-3 px-4 py-3 bg-primary text-white rounded-xl font-bold shadow-md shadow-primary/20 transition-all">
+            <span class="material-symbols-outlined">grid_view</span>
+            <span class="text-sm">Dashboard</span>
+        </a>
+        <a href="admin_utilisateurs.html" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-primary/5 hover:text-primary rounded-xl font-medium transition-all">
+            <span class="material-symbols-outlined">group</span>
+            <span class="text-sm">Utilisateurs</span>
+        </a>
+        <a href="admin_offres.html" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-primary/5 hover:text-primary rounded-xl font-medium transition-all">
+            <span class="material-symbols-outlined">work</span>
+            <span class="text-sm">Offres & Stages</span>
+            <span class="ml-auto bg-red-100 text-red-600 text-[10px] font-bold px-2 py-0.5 rounded-full">12</span>
+        </a>
+        <a href="/dashboard-administrateur/analytique-ia" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-primary/5 hover:text-primary rounded-xl font-medium transition-all">
+            <span class="material-symbols-outlined">insert_chart</span>
+            <span class="text-sm">Analytique IA</span>
+        </a>
+        <a href="/dashboard-administrateur/parametres" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-primary/5 hover:text-primary rounded-xl font-medium transition-all">
+            <span class="material-symbols-outlined">settings</span>
+            <span class="text-sm">Paramètres</span>
+        </a>
+    </nav>
+
+    <div class="p-4 border-t border-surface-variant/50">
+        <div class="flex items-center gap-3 p-3 bg-surface rounded-xl hover:bg-surface-variant/50 transition-colors cursor-pointer">
+            <img src="https://ui-avatars.com/api/?name=Admin+Nexus&background=00288e&color=fff&rounded=true" alt="Admin" class="w-10 h-10 rounded-full shadow-sm">
+            <div class="flex-1 overflow-hidden">
+                <p class="text-sm font-bold text-on-surface truncate">Admin Nexus</p>
+                <p class="text-[10px] font-medium text-primary uppercase tracking-wider truncate">Super Administrateur</p>
+            </div>
+            <span class="material-symbols-outlined text-on-surface-variant text-sm">unfold_more</span>
+        </div>
+    </div>
+</aside>
+
+<main class="flex-1 ml-64 min-h-screen relative z-10 p-8">
+    
+    <header class="flex justify-between items-center mb-8 reveal" style="animation-delay: 0.1s;">
+        <div>
+            <h1 class="text-2xl font-black text-on-surface">Bonjour, Admin</h1>
+            <p class="text-sm text-on-surface-variant mt-1">Voici le résumé de l'activité sur le Neural Nexus aujourd'hui.</p>
+        </div>
+
+        <div class="flex items-center gap-6">
+            <div class="relative hidden md:block">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                <input type="text" placeholder="Rechercher un utilisateur, une offre..." class="pl-10 pr-4 py-2.5 bg-white border border-surface-variant rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 w-72 transition-all shadow-sm">
+            </div>
+            
+            <button class="relative w-10 h-10 bg-white border border-surface-variant rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary transition-colors shadow-sm">
+                <span class="material-symbols-outlined">notifications</span>
+                <span class="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 border-2 border-white rounded-full"></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 reveal" style="animation-delay: 0.2s;" id="stat-cards">
+        <div class="bg-white p-6 rounded-bento border border-surface-variant shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 card-hover-scale">
+            <div class="flex justify-between items-start mb-4">
+                <div class="w-12 h-12 bg-blue-50 text-primary rounded-xl flex items-center justify-center">
+                    <span class="material-symbols-outlined">visibility</span>
+                </div>
+                <span class="flex items-center gap-1 text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded-lg">
+                    <span class="material-symbols-outlined text-xs">trending_up</span> +12%
+                </span>
+            </div>
+            <p class="text-sm font-medium text-on-surface-variant">Vues des offres</p>
+            <h3 class="text-2xl font-black mt-1">24,592</h3>
+        </div>
+
+        <div class="bg-white p-6 rounded-bento border border-surface-variant shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 card-hover-scale">
+            <div class="flex justify-between items-start mb-4">
+                <div class="w-12 h-12 bg-purple-50 text-secondary rounded-xl flex items-center justify-center">
+                    <span class="material-symbols-outlined">psychology</span>
+                </div>
+                <span class="flex items-center gap-1 text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded-lg">
+                    <span class="material-symbols-outlined text-xs">trending_up</span> +8.4%
+                </span>
+            </div>
+            <p class="text-sm font-medium text-on-surface-variant">Matchs IA générés</p>
+            <h3 class="text-2xl font-black mt-1">8,241</h3>
+        </div>
+
+        <div class="bg-white p-6 rounded-bento border border-surface-variant shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 card-hover-scale">
+            <div class="flex justify-between items-start mb-4">
+                <div class="w-12 h-12 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center">
+                    <span class="material-symbols-outlined">work</span>
+                </div>
+                <span class="flex items-center gap-1 text-xs font-bold text-red-600 bg-red-50 px-2 py-1 rounded-lg">
+                    <span class="material-symbols-outlined text-xs">trending_down</span> -2.1%
+                </span>
+            </div>
+            <p class="text-sm font-medium text-on-surface-variant">Offres Actives</p>
+            <h3 class="text-2xl font-black mt-1">1,432</h3>
+        </div>
+
+        <div class="bg-white p-6 rounded-bento border border-surface-variant shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 card-hover-scale">
+            <div class="flex justify-between items-start mb-4">
+                <div class="w-12 h-12 bg-green-50 text-green-600 rounded-xl flex items-center justify-center">
+                    <span class="material-symbols-outlined">group</span>
+                </div>
+                <span class="flex items-center gap-1 text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded-lg">
+                    <span class="material-symbols-outlined text-xs">trending_up</span> +15%
+                </span>
+            </div>
+            <p class="text-sm font-medium text-on-surface-variant">Nouveaux Inscrits</p>
+            <h3 class="text-2xl font-black mt-1">3,892</h3>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-bento border border-surface-variant shadow-sm p-6 mb-8 reveal-up" style="animation-delay: 0s;" id="chart-section">
+        <div class="flex justify-between items-center mb-6">
+            <div>
+                <h3 class="text-lg font-black text-on-surface">Activité Globale du Réseau</h3>
+                <p class="text-sm text-on-surface-variant">Connexions Candidats vs Recruteurs sur 7 jours</p>
+            </div>
+            <select class="bg-surface border border-surface-variant rounded-lg text-sm font-medium px-3 py-1.5 focus:outline-none focus:border-primary">
+                <option>Cette Semaine</option>
+                <option>Ce Mois</option>
+                <option>Cette Année</option>
+            </select>
+        </div>
+        
+        <div class="h-64 w-full relative">
+            <svg viewBox="0 0 1000 250" class="w-full h-full preserve-3d" preserveAspectRatio="none">
+                <line x1="0" y1="50" x2="1000" y2="50" stroke="#e0e3e5" stroke-dasharray="4" stroke-width="1"/>
+                <line x1="0" y1="125" x2="1000" y2="125" stroke="#e0e3e5" stroke-dasharray="4" stroke-width="1"/>
+                <line x1="0" y1="200" x2="1000" y2="200" stroke="#e0e3e5" stroke-dasharray="4" stroke-width="1"/>
+                
+                <defs>
+                    <linearGradient id="gradientPrimary" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#00288e" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="#00288e" stop-opacity="0"/>
+                    </linearGradient>
+                </defs>
+                
+                <path d="M0,200 C150,180 250,50 400,100 C550,150 650,20 800,80 C900,120 1000,40 1000,40" fill="none" stroke="#00288e" stroke-width="4" stroke-linecap="round" class="animate-draw"/>
+                
+                <path d="M0,200 C150,180 250,50 400,100 C550,150 650,20 800,80 C900,120 1000,40 1000,40 L1000,250 L0,250 Z" fill="url(#gradientPrimary)" class="animate-fill"/>
+            </svg>
+            
+            <div class="absolute top-[20%] left-[65%] bg-on-surface text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow-xl translate-x-[-50%] translate-y-[-100%] animate-pulse">
+                Pic d'activité : 1 204
+                <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-on-surface rotate-45"></div>
+            </div>
+            <div class="absolute top-[20%] left-[65%] w-3 h-3 bg-white border-2 border-primary rounded-full shadow-md translate-x-[-50%] translate-y-[-50%]"></div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 reveal-left" style="animation-delay: 0s;" id="main-content">
+        
+        <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white rounded-bento border border-surface-variant shadow-sm p-6 card-hover-scale">
+                <h3 class="text-lg font-black text-on-surface mb-6">Top Compétences Demandées</h3>
+                <div class="space-y-5">
+                    <div>
+                        <div class="flex justify-between text-sm font-bold mb-1">
+                            <span>React.js / Frontend</span>
+                            <span class="text-primary">85%</span>
+                        </div>
+                        <div class="w-full bg-surface-variant rounded-full h-2 overflow-hidden">
+                            <div class="bg-primary h-full progress-bar-fill w-0" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm font-bold mb-1">
+                            <span>UI/UX Design</span>
+                            <span class="text-secondary">72%</span>
+                        </div>
+                        <div class="w-full bg-surface-variant rounded-full h-2 overflow-hidden">
+                            <div class="bg-secondary h-full progress-bar-fill w-0" style="width: 72%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm font-bold mb-1">
+                            <span>Python / Data Science</span>
+                            <span class="text-blue-500">64%</span>
+                        </div>
+                        <div class="w-full bg-surface-variant rounded-full h-2 overflow-hidden">
+                            <div class="bg-blue-500 h-full progress-bar-fill w-0" style="width: 64%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm font-bold mb-1">
+                            <span>Marketing Digital</span>
+                            <span class="text-orange-500">45%</span>
+                        </div>
+                        <div class="w-full bg-surface-variant rounded-full h-2 overflow-hidden">
+                            <div class="bg-orange-500 h-full progress-bar-fill w-0" style="width: 45%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-bento border border-surface-variant shadow-sm p-6 flex flex-col justify-center items-center relative overflow-hidden group">
+                <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors"></div>
+                <h3 class="text-lg font-black text-on-surface mb-6 w-full text-left">Répartition Profils</h3>
+                
+                <div class="relative w-40 h-40 rounded-full border-[12px] border-surface-variant flex items-center justify-center">
+                    <div class="absolute inset-0 rounded-full border-[12px] border-primary" style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0 50%); transform: rotate(-45deg);"></div>
+                    <div class="absolute inset-0 rounded-full border-[12px] border-secondary" style="clip-path: polygon(0 50%, 100% 100%, 0 100%);"></div>
+                    
+                    <div class="text-center">
+                        <span class="block text-2xl font-black text-on-surface">65%</span>
+                        <span class="text-[10px] uppercase font-bold text-on-surface-variant">Étudiants</span>
+                    </div>
+                </div>
+                
+                <div class="flex gap-4 mt-6 w-full justify-center">
+                    <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-primary"></div><span class="text-xs font-bold">Étudiants</span></div>
+                    <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-secondary"></div><span class="text-xs font-bold">Recruteurs</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-bento border border-surface-variant shadow-sm p-6 flex flex-col card-hover-scale" id="recent-users">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-lg font-black text-on-surface">Inscriptions Récentes</h3>
+                <button class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                    <span class="material-symbols-outlined text-sm">add</span>
+                </button>
+            </div>
+            
+            <div class="flex-1 space-y-4">
+                <div class="flex items-center gap-3 p-2 hover:bg-surface rounded-xl transition-colors cursor-pointer group">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Sarah" class="w-10 h-10 rounded-full object-cover shadow-sm group-hover:scale-105 transition-transform">
+                    <div class="flex-1">
+                        <p class="text-sm font-bold text-on-surface">Sarah Connor</p>
+                        <p class="text-xs text-on-surface-variant">Étudiante • Master UX</p>
+                    </div>
+                    <span class="material-symbols-outlined text-on-surface-variant text-sm">chevron_right</span>
+                </div>
+                <div class="flex items-center gap-3 p-2 hover:bg-surface rounded-xl transition-colors cursor-pointer group">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" alt="Marc" class="w-10 h-10 rounded-full object-cover shadow-sm group-hover:scale-105 transition-transform">
+                    <div class="flex-1">
+                        <p class="text-sm font-bold text-on-surface">Marc Dupont</p>
+                        <p class="text-xs text-on-surface-variant">Recruteur • TechCorp</p>
+                    </div>
+                    <span class="material-symbols-outlined text-on-surface-variant text-sm">chevron_right</span>
+                </div>
+                <div class="flex items-center gap-3 p-2 hover:bg-surface rounded-xl transition-colors cursor-pointer group">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="Alice" class="w-10 h-10 rounded-full object-cover shadow-sm group-hover:scale-105 transition-transform">
+                    <div class="flex-1">
+                        <p class="text-sm font-bold text-on-surface">Alice Dubois</p>
+                        <p class="text-xs text-on-surface-variant">Étudiante • Dev Web</p>
+                    </div>
+                    <span class="material-symbols-outlined text-on-surface-variant text-sm">chevron_right</span>
+                </div>
+                <div class="flex items-center gap-3 p-2 hover:bg-surface rounded-xl transition-colors cursor-pointer group">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-primary to-secondary flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform font-bold text-sm">
+                        JD
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm font-bold text-on-surface">Jean Doe</p>
+                        <p class="text-xs text-on-surface-variant">Recruteur • Startup IO</p>
+                    </div>
+                    <span class="material-symbols-outlined text-on-surface-variant text-sm">chevron_right</span>
+                </div>
+            </div>
+            
+            <button class="w-full mt-4 py-2 border border-surface-variant rounded-xl text-sm font-bold text-on-surface-variant hover:bg-surface transition-colors">
+                Voir tous les utilisateurs
+            </button>
+        </div>
+    </div>
+</main>
+
+<script>
+    // GSAP Registration
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // Trigger animation for progress bars when page loads
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const progressBars = document.querySelectorAll('.progress-bar-fill');
+            progressBars.forEach(bar => {
+                const targetWidth = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = targetWidth;
+                }, 100);
+            });
+        }, 500);
+    });
+    
+    // ─── FLOATING PARTICLES ANIMATION ───
+    ['#p1','#p2','#p3','#p4'].forEach((id, i) => {
+        gsap.to(id, {
+            y: gsap.utils.random(-30, 30),
+            x: gsap.utils.random(-20, 20),
+            duration: gsap.utils.random(3, 5),
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut',
+            delay: i * 0.7
+        });
+    });
+    
+    // ─── STAT CARDS : stagger reveal ───
+    gsap.utils.toArray('#stat-cards > div').forEach((card, i) => {
+        gsap.fromTo(card,
+            { y: 60, opacity: 0, scale: 0.96 },
+            {
+                y: 0, opacity: 1, scale: 1,
+                duration: 0.7,
+                ease: 'power3.out',
+                delay: i * 0.15,
+                scrollTrigger: { trigger: card, start: 'top 85%', toggleActions: 'play none none none' }
+            }
+        );
+    });
+    
+    // ─── CHART SECTION : reveal with animation ───
+    gsap.fromTo('#chart-section',
+        { y: 50, opacity: 0 },
+        {
+            y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+            scrollTrigger: { trigger: '#chart-section', start: 'top 85%', toggleActions: 'play none none none' }
+        }
+    );
+    
+    // ─── MAIN CONTENT : left reveal ───
+    gsap.fromTo('#main-content',
+        { x: -60, opacity: 0 },
+        {
+            x: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+            scrollTrigger: { trigger: '#main-content', start: 'top 85%', toggleActions: 'play none none none' }
+        }
+    );
+    
+    // ─── CARDS IN MAIN CONTENT : cascade reveal ───
+    setTimeout(() => {
+        gsap.utils.toArray('#main-content > div').forEach((card, i) => {
+            gsap.fromTo(card,
+                { y: 40, opacity: 0 },
+                {
+                    y: 0, opacity: 1,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    delay: i * 0.2,
+                    scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none none' }
+                }
+            );
+        });
+    }, 100);
+    
+    // ─── LOGO HOVER ANIMATION ───
+    const logo = document.querySelector('[data-icon="hub"]');
+    if (logo) {
+        logo.addEventListener('mouseenter', () => {
+            gsap.to(logo, { 
+                rotation: 360, 
+                duration: 0.8, 
+                ease: 'elastic.out(1, 0.75)'
+            });
+        });
+    }
+    
+    // ─── SIDEBAR NAV LINK HOVER ───
+    document.querySelectorAll('aside nav a').forEach(link => {
+        link.addEventListener('mouseenter', function() {
+            gsap.to(this, { 
+                x: 4, 
+                duration: 0.3, 
+                ease: 'power2.out' 
+            });
+        });
+        link.addEventListener('mouseleave', function() {
+            gsap.to(this, { 
+                x: 0, 
+                duration: 0.3, 
+                ease: 'power2.out' 
+            });
+        });
+    });
+</script>
+
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</body>
+</html>

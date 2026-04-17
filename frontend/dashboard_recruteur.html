@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html class="light scroll-smooth" lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Tableau de bord Recruteur | InternLink</title>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; overflow-x: hidden; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        
+        /* Floating Particles */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            will-change: transform;
+        }
+        
+        /* Reveal Animations */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        
+        /* Staggered Fade In */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .reveal { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
+        
+        /* Animation des barres de matching */
+        .progress-bar-fill {
+            transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        /* Card Scale Animation */
+        .card-hover-scale {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover-scale:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 24px 48px rgba(0, 40, 142, 0.15);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e0e3e5; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00288e; }
+    </style>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00288e",
+                        "secondary": "#4648d4",
+                        "surface": "#f7f9fb",
+                        "on-surface": "#191c1e",
+                        "on-surface-variant": "#444653",
+                        "surface-variant": "#e0e3e5",
+                        "primary-container": "#1e40af"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="text-on-surface antialiased overflow-x-hidden flex">
+
+<!-- Floating particles (décoratif) -->
+<div class="particle" id="p1" style="width:12px;height:12px;background:#dde1ff;top:15%;left:8%;position:fixed;z-index:5"></div>
+<div class="particle" id="p2" style="width:8px;height:8px;background:#e1e0ff;top:60%;left:92%;position:fixed;z-index:5"></div>
+<div class="particle" id="p3" style="width:16px;height:16px;background:#6ffbbe;opacity:0.5;top:80%;left:20%;position:fixed;z-index:5"></div>
+<div class="particle" id="p4" style="width:6px;height:6px;background:#4648d4;opacity:0.3;top:30%;left:85%;position:fixed;z-index:5"></div>
+
+<div class="fixed inset-0 opacity-[0.03] z-0 pointer-events-none" style="background-image: radial-gradient(#000000 1px, transparent 1px); background-size: 24px 24px;"></div>
+<div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-br from-secondary/5 to-primary/5 blur-[120px] rounded-full -z-10 pointer-events-none"></div>
+
+<aside class="w-60 h-screen bg-white/80 backdrop-blur-xl border-r border-surface-variant/50 flex flex-col p-4 gap-2 fixed left-0 top-0 z-50 transition-all">
+    <div class="mb-6 px-2 pt-2">
+        <a href="index.html" class="flex items-center gap-2 group mb-1">
+            <span class="material-symbols-outlined text-primary text-2xl group-hover:scale-110 transition-transform" data-icon="hub">hub</span>
+            <span class="text-xl font-black text-primary tracking-tight">InternLink</span>
+        </a>
+        <p class="text-[10px] text-on-surface-variant font-black uppercase tracking-[0.2em] mt-3 opacity-60">Espace Recruteur</p>
+    </div>
+
+    <nav class="flex-1 flex flex-col gap-2 relative z-10">
+        <a href="dashboard_recruteur.html" class="flex items-center gap-3 bg-primary/10 text-primary rounded-xl px-4 py-3 font-bold transition-all duration-200">
+            <span class="material-symbols-outlined text-[20px]">dashboard</span>
+            <span class="text-sm">Vue d'ensemble</span>
+        </a>
+        <a href="/dashboard-recruteur/offres" class="flex items-center gap-3 text-on-surface-variant px-4 py-3 hover:bg-surface-variant/40 hover:text-primary rounded-xl font-medium transition-all duration-200">
+            <span class="material-symbols-outlined text-[20px]">work</span>
+            <span class="text-sm">Mes Offres</span>
+            <span class="ml-auto bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full">3</span>
+        </a>
+        <a href="/dashboard-recruteur/candidats" class="flex items-center gap-3 text-on-surface-variant px-4 py-3 hover:bg-surface-variant/40 hover:text-primary rounded-xl font-medium transition-all duration-200">
+            <span class="material-symbols-outlined text-[20px]">group</span>
+            <span class="text-sm">Candidats</span>
+        </a>
+        <a href="/dashboard-recruteur/rapports-ia" class="flex items-center gap-3 text-on-surface-variant px-4 py-3 hover:bg-surface-variant/40 hover:text-primary rounded-xl font-medium transition-all duration-200">
+            <span class="material-symbols-outlined text-[20px]">analytics</span>
+            <span class="text-sm">Rapports IA</span>
+        </a>
+    </nav>
+
+    <div class="mt-auto relative z-10 pt-4">
+        <button id="recruiter-create-offer-button" class="w-full bg-primary text-white font-bold py-3 px-4 rounded-xl shadow-xl shadow-primary/30 hover:shadow-2xl hover:bg-primary-container hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">add_circle</span>
+            <span>Nouvelle Offre</span>
+        </button>
+    </div>
+</aside>
+
+<main class="flex-1 ml-60 min-h-screen relative z-10">
+    
+    <header class="h-20 px-8 sticky top-0 bg-white/80 backdrop-blur-xl border-b border-surface-variant/50 z-40 flex items-center justify-between transition-all duration-300">
+        <div class="flex items-center gap-4">
+            <h1 class="text-xl font-black text-on-surface hidden md:block">Bonjour, Sophie</h1>
+        </div>
+
+        <div class="flex items-center gap-6">
+            <div class="hidden md:flex items-center gap-3 bg-white border border-surface-variant px-4 py-2 rounded-xl shadow-sm focus-within:ring-2 focus-within:ring-primary/20 transition-all">
+                <span class="material-symbols-outlined text-on-surface-variant text-[20px]">search</span>
+                <input class="bg-transparent border-none focus:ring-0 text-sm font-medium w-64 outline-none placeholder:text-on-surface-variant/60" placeholder="Chercher un talent, un CV..." type="text"/>
+            </div>
+            
+            <div class="flex items-center gap-4 border-l border-surface-variant/50 pl-6">
+                <button class="relative w-10 h-10 bg-white border border-surface-variant rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary transition-colors shadow-sm">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 border-2 border-white rounded-full animate-pulse"></span>
+                </button>
+
+                <div class="text-right hidden lg:block">
+                    <p class="text-sm font-bold text-on-surface leading-none">Sophie Martin</p>
+                    <p class="text-[10px] font-bold text-primary uppercase mt-1">RH Manager</p>
+                </div>
+                <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-variant hover:border-primary transition-colors cursor-pointer shadow-sm">
+                    <img alt="Profil Recruteur" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"/>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="p-8 max-w-7xl mx-auto space-y-8">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="stat-cards">
+            <div class="bg-white p-6 rounded-[2rem] border border-surface-variant shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group card-hover-scale">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined">description</span>
+                    </div>
+                    <span class="text-xs font-black text-secondary bg-secondary/10 px-2 py-1 rounded-lg">+2</span>
+                </div>
+                <p class="text-sm font-bold text-on-surface-variant">Offres Actives</p>
+                <h3 class="text-3xl font-black mt-1">24</h3>
+                <div class="absolute -bottom-4 -right-4 opacity-[0.03] group-hover:scale-110 transition-transform"><span class="material-symbols-outlined text-[100px]">work</span></div>
+            </div>
+
+            <div class="bg-white p-6 rounded-[2rem] border border-surface-variant shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group card-hover-scale">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="w-12 h-12 bg-secondary/10 text-secondary rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined">psychology</span>
+                    </div>
+                    <span class="text-xs font-black text-green-600 bg-green-50 px-2 py-1 rounded-lg">Top 10%</span>
+                </div>
+                <p class="text-sm font-bold text-on-surface-variant">Candidats Matchés</p>
+                <h3 class="text-3xl font-black mt-1">148</h3>
+                <div class="absolute -bottom-4 -right-4 opacity-[0.03] group-hover:scale-110 transition-transform"><span class="material-symbols-outlined text-[100px]">groups</span></div>
+            </div>
+
+            <div class="bg-white p-6 rounded-[2rem] border border-surface-variant shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group card-hover-scale">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="w-12 h-12 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined">event</span>
+                    </div>
+                </div>
+                <p class="text-sm font-bold text-on-surface-variant">Entretiens Prévus</p>
+                <h3 class="text-3xl font-black mt-1">12</h3>
+                <div class="absolute -bottom-4 -right-4 opacity-[0.03] group-hover:scale-110 transition-transform"><span class="material-symbols-outlined text-[100px]">calendar_today</span></div>
+            </div>
+
+            <div class="bg-white p-6 rounded-[2rem] border border-surface-variant shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group card-hover-scale">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="w-12 h-12 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined">bolt</span>
+                    </div>
+                </div>
+                <p class="text-sm font-bold text-on-surface-variant">Temps de clôture</p>
+                <h3 class="text-3xl font-black mt-1">18 j</h3>
+                <div class="absolute -bottom-4 -right-4 opacity-[0.03] group-hover:scale-110 transition-transform"><span class="material-symbols-outlined text-[100px]">speed</span></div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <div class="lg:col-span-2 space-y-6 reveal-left" id="pipeline-section">
+                <div class="flex justify-between items-center px-2">
+                    <h2 class="text-2xl font-black text-on-surface">Pipeline des talents</h2>
+                    <button class="text-sm font-bold text-primary flex items-center gap-1 hover:underline">
+                        Gérer les offres <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                    </button>
+                </div>
+                
+                <div class="space-y-4">
+                    
+                    <div class="bg-white border border-surface-variant rounded-[2rem] p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group card-hover-scale">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <div class="w-10 h-10 bg-primary/10 text-primary rounded-xl flex items-center justify-center">
+                                        <span class="material-symbols-outlined">design_services</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-black text-on-surface group-hover:text-primary transition-colors">UI/UX Designer Senior</h3>
+                                        <span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">REF: INTERN-2024-01</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4">
+                                    <div class="flex justify-between text-xs font-bold mb-1">
+                                        <span class="text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">auto_awesome</span> Score moyen du vivier</span>
+                                        <span class="text-primary">85%</span>
+                                    </div>
+                                    <div class="w-full bg-surface-variant rounded-full h-2 overflow-hidden">
+                                        <div class="bg-gradient-to-r from-primary to-secondary h-full progress-bar-fill w-0" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-col items-end gap-2">
+                                <span class="text-xs font-bold text-on-surface-variant">Top Candidats</span>
+                                <div class="flex items-center -space-x-3">
+                                    <img class="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm group-hover:scale-110 transition-transform duration-300 z-30" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80"/>
+                                    <img class="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm group-hover:scale-110 transition-transform duration-300 delay-75 z-20" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=100&q=80"/>
+                                    <img class="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm group-hover:scale-110 transition-transform duration-300 delay-150 z-10" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80"/>
+                                    <div class="w-10 h-10 rounded-full border-2 border-white bg-surface-container-highest text-[10px] font-bold flex items-center justify-center shadow-sm z-0 text-on-surface-variant">+12</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white border border-surface-variant rounded-[2rem] p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group card-hover-scale">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <div class="w-10 h-10 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center">
+                                        <span class="material-symbols-outlined">code</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-black text-on-surface group-hover:text-primary transition-colors">Fullstack Developer React/Node</h3>
+                                        <span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">REF: INTERN-2024-05</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4">
+                                    <div class="flex justify-between text-xs font-bold mb-1">
+                                        <span class="text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">auto_awesome</span> Score moyen du vivier</span>
+                                        <span class="text-secondary">62%</span>
+                                    </div>
+                                    <div class="w-full bg-surface-variant rounded-full h-2 overflow-hidden">
+                                        <div class="bg-secondary h-full progress-bar-fill w-0" style="width: 62%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-col items-end gap-2">
+                                <span class="text-xs font-bold text-on-surface-variant">Top Candidats</span>
+                                <div class="flex items-center -space-x-3">
+                                    <img class="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm group-hover:scale-110 transition-transform duration-300 z-20" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80"/>
+                                    <div class="w-10 h-10 rounded-full border-2 border-white bg-surface-container-highest text-[10px] font-bold flex items-center justify-center shadow-sm z-10 text-on-surface-variant">+3</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="space-y-6 reveal-right" id="insights-section">
+                <h2 class="text-2xl font-black text-on-surface px-2">Insights IA</h2>
+                
+                <div class="bg-gradient-to-br from-primary to-secondary rounded-[2rem] p-8 text-white shadow-2xl shadow-primary/30 relative overflow-hidden group card-hover-scale">
+                    <div class="absolute inset-0 bg-white/5 animate-pulse"></div>
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center">
+                                <span class="material-symbols-outlined text-white">psychology</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold">Nexus Actif</h3>
+                                <div class="flex items-center gap-1 text-[10px] uppercase tracking-widest font-bold text-white/70">
+                                    <span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-ping"></span> En cours d'analyse
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <p class="text-sm font-medium text-white/90 leading-relaxed mb-6">
+                            J'ai analysé 15 nouveaux profils pour le poste de <strong>Designer</strong>. Un candidat se détache avec un score exceptionnel.
+                        </p>
+                        
+                        <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 flex items-center gap-3 hover:bg-white/20 transition-colors cursor-pointer group/card">
+                            <div class="relative">
+                                <img class="w-12 h-12 rounded-full object-cover border-2 border-white/50" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80"/>
+                                <div class="absolute -bottom-1 -right-1 bg-green-500 w-4 h-4 rounded-full border-2 border-[#5456e3]"></div>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-bold leading-none">Marc Durand</p>
+                                <p class="text-[10px] font-bold text-white/70 mt-1 uppercase tracking-widest">Match: 96%</p>
+                            </div>
+                            <span class="material-symbols-outlined text-sm group-hover/card:translate-x-1 transition-transform">arrow_forward</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-surface-variant rounded-[2rem] p-6 shadow-sm card-hover-scale">
+                    <h3 class="font-black text-on-surface mb-6 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">trending_up</span> Tendance du marché
+                    </h3>
+                    <div class="flex items-end gap-2 h-20 mb-4">
+                        <div class="flex-1 bg-surface-container rounded-t-lg h-[40%] hover:bg-primary/20 transition-colors"></div>
+                        <div class="flex-1 bg-surface-container rounded-t-lg h-[60%] hover:bg-primary/20 transition-colors"></div>
+                        <div class="flex-1 bg-primary/40 rounded-t-lg h-[85%] hover:bg-primary/60 transition-colors relative group"><div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity font-bold">85%</div></div>
+                        <div class="flex-1 bg-primary rounded-t-lg h-[100%] relative group"><div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity font-bold">100%</div></div>
+                        <div class="flex-1 bg-surface-container rounded-t-lg h-[70%] hover:bg-primary/20 transition-colors"></div>
+                    </div>
+                    <p class="text-xs font-bold text-on-surface-variant text-center mt-2">La demande pour le profil <strong>Fullstack</strong> a augmenté de 15%.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    // GSAP Registration
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // Animation au chargement pour les jauges
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const progressBars = document.querySelectorAll('.progress-bar-fill');
+            progressBars.forEach(bar => {
+                const targetWidth = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = targetWidth;
+                }, 100);
+            });
+        }, 300);
+    });
+    
+    // ─── FLOATING PARTICLES ANIMATION ───
+    ['#p1','#p2','#p3','#p4'].forEach((id, i) => {
+        gsap.to(id, {
+            y: gsap.utils.random(-30, 30),
+            x: gsap.utils.random(-20, 20),
+            duration: gsap.utils.random(3, 5),
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut',
+            delay: i * 0.7
+        });
+    });
+    
+    // ─── STAT CARDS : stagger reveal ───
+    gsap.utils.toArray('#stat-cards > div').forEach((card, i) => {
+        gsap.fromTo(card,
+            { y: 60, opacity: 0, scale: 0.96 },
+            {
+                y: 0, opacity: 1, scale: 1,
+                duration: 0.7,
+                ease: 'power3.out',
+                delay: i * 0.15,
+                scrollTrigger: { trigger: card, start: 'top 85%', toggleActions: 'play none none none' }
+            }
+        );
+    });
+    
+    // ─── REVEAL UP on scroll (ScrollTrigger) ───
+    gsap.utils.toArray('.reveal-up').forEach(el => {
+        gsap.fromTo(el,
+            { y: 50, opacity: 0 },
+            {
+                y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+                scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
+            }
+        );
+    });
+    
+    // ─── REVEAL LEFT on scroll ───
+    gsap.utils.toArray('.reveal-left').forEach(el => {
+        gsap.fromTo(el,
+            { x: -60, opacity: 0 },
+            {
+                x: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+                scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
+            }
+        );
+    });
+    
+    // ─── REVEAL RIGHT on scroll ───
+    gsap.utils.toArray('.reveal-right').forEach(el => {
+        gsap.fromTo(el,
+            { x: 60, opacity: 0 },
+            {
+                x: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+                scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
+            }
+        );
+    });
+    
+    // ─── PIPELINE CARDS : cascade animation ───
+    setTimeout(() => {
+        gsap.utils.toArray('#pipeline-section .space-y-4 > div').forEach((card, i) => {
+            gsap.fromTo(card,
+                { y: 40, opacity: 0 },
+                {
+                    y: 0, opacity: 1,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    delay: i * 0.2,
+                    scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none none' }
+                }
+            );
+        });
+    }, 100);
+    
+    // ─── INSIGHTS CARDS : cascade animation ───
+    setTimeout(() => {
+        gsap.utils.toArray('#insights-section > div').forEach((card, i) => {
+            gsap.fromTo(card,
+                { y: 40, opacity: 0 },
+                {
+                    y: 0, opacity: 1,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    delay: (i + 1) * 0.2,
+                    scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none none' }
+                }
+            );
+        });
+    }, 100);
+    
+    // ─── LOGO HOVER ANIMATION ───
+    const logo = document.querySelector('[data-icon="hub"]');
+    if (logo) {
+        logo.addEventListener('mouseenter', () => {
+            gsap.to(logo, { 
+                rotation: 360, 
+                duration: 0.8, 
+                ease: 'elastic.out(1, 0.75)'
+            });
+        });
+    }
+    
+    // ─── SIDEBAR NAV LINK HOVER ───
+    document.querySelectorAll('aside nav a').forEach(link => {
+        link.addEventListener('mouseenter', function() {
+            gsap.to(this, { 
+                x: 4, 
+                duration: 0.3, 
+                ease: 'power2.out' 
+            });
+        });
+        link.addEventListener('mouseleave', function() {
+            gsap.to(this, { 
+                x: 0, 
+                duration: 0.3, 
+                ease: 'power2.out' 
+            });
+        });
+    });
+</script>
+
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</body>
+</html>
+

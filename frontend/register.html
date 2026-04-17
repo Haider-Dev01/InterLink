@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html class="light scroll-smooth" lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Inscription | InternLink Nexus</title>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <style>
+        
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        ::selection {
+        background: #00288e;
+        color: white;
+    }
+
+        /* Animation de fond fluide (identique au Login) */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animated-bg {
+            background: linear-gradient(-45deg, #f7f9fb, #e0e7ff, #f0f4ff, #ffffff);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        /* Effet Wow Entrée */
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .reveal-card { animation: zoomIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+.ripple {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+        /* Glassmorphism */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            
+        }
+        .glass-effect:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+        /* Toggle Slider Logic */
+        .user-type-toggle input:checked ~ .slider { transform: translateX(100%); }
+        input:focus {
+    box-shadow: 0 0 0 4px rgba(0, 40, 142, 0.15),
+                0 10px 30px rgba(0, 40, 142, 0.1);
+}
+
+        /* Confetti Animation */
+        @keyframes confetti-fall {
+            0% {
+                opacity: 1;
+                transform: translate(0) translateY(-100vh) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx, 0)) translateY(100vh) rotate(720deg);
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            pointer-events: none;
+            animation: confetti-fall linear forwards;
+            z-index: 9999;
+        }
+
+        /* Success Pulse */
+        @keyframes successPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .success-pulse {
+            animation: successPulse 0.6s ease-in-out;
+        }
+    </style>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00288e",
+                        "secondary": "#4648d4",
+                        "surface": "#f7f9fb",
+                        "on-surface": "#191c1e",
+                        "on-surface-variant": "#444653",
+                        "surface-variant": "#e0e3e5"
+                    },
+                    borderRadius: {
+                        'bento': '1.5rem',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="animated-bg min-h-screen flex flex-col items-center justify-start md:justify-center p-4 relative overflow-y-auto">
+
+    <!-- Floating Particles -->
+    <div class="particle" id="p1" style="width:12px;height:12px;background:#dde1ff;top:15%;left:8%;position:fixed;border-radius:50%;pointer-events:none;will-change:transform;z-index:5;"></div>
+    <div class="particle" id="p2" style="width:8px;height:8px;background:#e1e0ff;top:60%;left:92%;position:fixed;border-radius:50%;pointer-events:none;will-change:transform;z-index:5;"></div>
+    <div class="particle" id="p3" style="width:16px;height:16px;background:#6ffbbe;opacity:0.5;top:80%;left:20%;position:fixed;border-radius:50%;pointer-events:none;will-change:transform;z-index:5;"></div>
+    <div class="particle" id="p4" style="width:6px;height:6px;background:#4648d4;opacity:0.3;top:30%;left:85%;position:fixed;border-radius:50%;pointer-events:none;will-change:transform;z-index:5;"></div>
+
+    <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[120px] animate-pulse pointer-events-none"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 rounded-full blur-[120px] animate-pulse pointer-events-none" style="animation-delay: 2s;"></div>
+
+    <div class="w-full max-w-[520px] z-10 py-8">
+        
+        <div class="text-center mb-8 reveal-card" style="animation-delay: 0.1s;">
+            <div class="flex items-center justify-center gap-3 mb-2">
+                <span class="material-symbols-outlined text-primary text-4xl" data-icon="hub">hub</span>
+                <span class="text-3xl font-black text-primary tracking-tight">InternLink</span>
+            </div>
+            <p class="text-on-surface-variant font-medium">Rejoignez la nouvelle ère du recrutement</p>
+        </div>
+
+        <div class="glass-effect rounded-[2.5rem] p-8 md:p-10 shadow-2xl shadow-primary/10 reveal-card" style="animation-delay: 0.2s;">
+            
+            <div class="relative flex bg-surface p-1 rounded-2xl mb-8 user-type-toggle border border-surface-variant/50">
+                <button id="tab-student" type="button" onclick="switchUser('student')" class="relative z-10 flex-1 flex items-center justify-center gap-2 py-3 text-sm font-bold text-primary transition-colors duration-300">
+                    <span class="material-symbols-outlined text-[18px]">school</span>
+                    Étudiant
+                </button>
+                <button id="tab-recruiter" type="button" onclick="switchUser('recruiter')" class="relative z-10 flex-1 flex items-center justify-center gap-2 py-3 text-sm font-bold text-on-surface-variant transition-colors duration-300">
+                    <span class="material-symbols-outlined text-[18px]">business_center</span>
+                    Recruteur
+                </button>
+                <div id="user-slider" class="absolute top-1 left-1 w-[calc(50%-4px)] h-[calc(100%-8px)] bg-white rounded-xl shadow-sm transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]"></div>
+            </div>
+
+            <form action="#" class="space-y-5">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="space-y-2">
+                        <label class="text-xs font-black uppercase tracking-widest text-on-surface-variant ml-1">Prénom</label>
+                        <div class="relative group">
+                            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">person</span>
+                            <input type="text" placeholder="Thomas" class="w-full pl-12 pr-4 py-3.5 bg-white/50 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium placeholder:text-on-surface-variant/40" required>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-black uppercase tracking-widest text-on-surface-variant ml-1">Nom</label>
+                        <input type="text" placeholder="Dubois" class="w-full px-4 py-3.5 bg-white/50 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium placeholder:text-on-surface-variant/40" required>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-xs font-black uppercase tracking-widest text-on-surface-variant ml-1">Adresse Email</label>
+                    <div class="relative group">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">mail</span>
+                        <input type="email" placeholder="nom@exemple.com" class="w-full pl-12 pr-4 py-3.5 bg-white/50 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium placeholder:text-on-surface-variant/40" required>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-xs font-black uppercase tracking-widest text-on-surface-variant ml-1">Mot de passe</label>
+                    <div class="relative group">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">lock</span>
+                        <input id="password-input" type="password" placeholder="••••••••" class="w-full pl-12 pr-12 py-3.5 bg-white/50 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium placeholder:text-on-surface-variant/40" required>
+                        <button id="toggle-password" type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined text-[20px]">visibility</span>
+                        </button>
+                    </div>
+                    <div style="height: 4px; background: #e0e3e5; border-radius: 10px; overflow: hidden; margin-top: 8px;">
+                        <div id="strength-fill" style="height: 100%; border-radius: 10px; width: 0%; background: linear-gradient(90deg, #ef4444 0%, #f97316 50%, #22c55e 100%); background-size: 300% 100%; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+                    </div>
+                    <p class="text-[10px] text-on-surface-variant/80 font-medium ml-1 mt-1">Au moins 8 caractères, dont un chiffre et un symbole.</p>
+                </div>
+
+                <div class="flex items-start gap-3 ml-1 mt-6">
+                    <input type="checkbox" id="terms" class="w-5 h-5 mt-0.5 border-surface-variant rounded-lg text-primary focus:ring-primary cursor-pointer" required>
+                    <label for="terms" class="text-sm font-medium text-on-surface-variant leading-tight select-none cursor-pointer">
+                        J'accepte les <a href="#" class="text-primary font-bold hover:underline">Conditions d'utilisation</a> et la <a href="#" class="text-primary font-bold hover:underline">Politique de confidentialité</a> d'InternLink.
+                    </label>
+                </div>
+
+                <button type="submit" class="w-full mt-2 bg-primary text-white font-black py-4 rounded-2xl shadow-xl shadow-primary/20 hover:shadow-2xl hover:bg-primary-container hover:-translate-y-1 active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 group">
+                    <span>Créer mon compte</span>
+                    <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </button>
+            </form>
+
+            <div class="mt-8">
+                <div class="relative flex items-center justify-center mb-6">
+                    <div class="absolute w-full border-t border-surface-variant/50"></div>
+                    <span class="relative bg-white/80 px-4 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/60 rounded-full">Ou s'inscrire avec</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <button type="button" class="relative flex items-center justify-center gap-3 py-3 bg-white/50 border border-surface-variant rounded-2xl hover:bg-surface hover:border-primary hover:shadow-lg hover:-translate-y-1 transition-all font-bold text-sm shadow-sm group">
+                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5 group-hover:scale-110 transition-transform" alt="Google">
+                        <span>Google</span>
+                    </button>
+                    <button type="button" class="relative flex items-center justify-center gap-3 py-3 bg-white/50 border border-surface-variant rounded-2xl hover:bg-surface hover:border-primary hover:shadow-lg hover:-translate-y-1 transition-all font-bold text-sm shadow-sm group">
+                        <img src="https://www.svgrepo.com/show/512317/github-142.svg" class="w-5 h-5 group-hover:scale-110 transition-transform" alt="Github">
+                        <span>Github</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <p class="text-center mt-8 reveal-card" style="animation-delay: 0.3s;">
+            <span class="text-on-surface-variant font-medium text-sm">Vous avez déjà un compte ?</span>
+            <a href="login.html" class="text-primary font-black text-sm hover:underline ml-1">Connectez-vous</a>
+        </p>
+    </div>
+
+    <script>
+        /* =========================================
+           PAGE LOAD ANIMATION
+        ========================================= */
+        const tl = gsap.timeline();
+        tl.from(".reveal-card", {
+            y: 40,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power3.out"
+        });
+
+        /* =========================================
+           FLOATING PARTICLES
+        ========================================= */
+        ['#p1','#p2','#p3','#p4'].forEach((id, i) => {
+            gsap.to(id, {
+                y: gsap.utils.random(-30, 30),
+                x: gsap.utils.random(-20, 20),
+                duration: gsap.utils.random(3, 5),
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut',
+                delay: i * 0.5
+            });
+        });
+
+        /* =========================================
+           PASSWORD STRENGTH INDICATORS
+        ========================================= */
+        const passwordInput = document.getElementById('password-input');
+        const strengthFill = document.getElementById('strength-fill');
+        const togglePasswordBtn = document.getElementById('toggle-password');
+
+        function calculatePasswordStrength(password) {
+            let strength = 0;
+            if (password.length >= 8) strength += 25;
+            if (password.length >= 12) strength += 15;
+            if (/[A-Z]/.test(password)) strength += 20;
+            if (/[0-9]/.test(password)) strength += 20;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 20;
+            return Math.min(strength, 100);
+        }
+
+        passwordInput.addEventListener('input', () => {
+            const strength = calculatePasswordStrength(passwordInput.value);
+            gsap.to(strengthFill, {
+                width: strength + '%',
+                duration: 0.4,
+                ease: 'power2.out'
+            });
+
+            const hueRotation = (strength / 100) * 120;
+            strengthFill.style.filter = `hue-rotate(${hueRotation}deg)`;
+        });
+
+        /* =========================================
+           PASSWORD VISIBILITY TOGGLE
+        ========================================= */
+        togglePasswordBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            
+            gsap.to(togglePasswordBtn, {
+                scale: 1.2,
+                duration: 0.2,
+                yoyo: true,
+                repeat: 1
+            });
+        });
+
+        /* =========================================
+           USER TYPE SWITCHING
+        ========================================= */
+        function switchUser(type) {
+            const slider = document.getElementById('user-slider');
+            const btnStudent = document.getElementById('tab-student');
+            const btnRecruiter = document.getElementById('tab-recruiter');
+
+            if (type === 'student') {
+                gsap.to(slider, { x: 0, duration: 0.5, ease: 'elastic.out(1, 0.6)' });
+                btnStudent.classList.replace('text-on-surface-variant', 'text-primary');
+                btnRecruiter.classList.replace('text-primary', 'text-on-surface-variant');
+            } else {
+                gsap.to(slider, { x: '100%', duration: 0.5, ease: 'elastic.out(1, 0.6)' });
+                btnRecruiter.classList.replace('text-on-surface-variant', 'text-primary');
+                btnStudent.classList.replace('text-primary', 'text-on-surface-variant');
+            }
+        }
+
+        /* =========================================
+           FORM SUBMISSION WITH CELEBRATION
+        ========================================= */
+        const submitBtn = document.querySelector("button[type='submit']");
+        
+        function createConfetti() {
+            const colors = ['#00288e', '#4648d4', '#6ffbbe', '#dde1ff', '#e1e0ff', '#f0f4ff'];
+            const confettiCount = 50;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+                confetti.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
+                confetti.style.animationDelay = Math.random() * 0.2 + 's';
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+
+        document.querySelector("form").addEventListener("submit", (e) => {
+            e.preventDefault();
+            
+            // Add pulse animation to button
+            submitBtn.classList.add('success-pulse');
+            
+            gsap.to(submitBtn, {
+                scale: 0.95,
+                duration: 0.2
+            });
+            
+            submitBtn.innerHTML = "<span class='material-symbols-outlined'>hourglass_empty</span> Création...";
+            submitBtn.disabled = true;
+
+            // Create confetti immediately
+            createConfetti();
+
+            setTimeout(() => {
+                submitBtn.innerHTML = "<span class='material-symbols-outlined'>check_circle</span> Compte créé";
+                gsap.to(submitBtn, { scale: 1, duration: 0.3 });
+                submitBtn.classList.remove('success-pulse');
+            }, 2000);
+        });
+
+        /* =========================================
+           BUTTON RIPPLE EFFECT & HOVER
+        ========================================= */
+        document.querySelectorAll("button").forEach(btn => {
+            btn.addEventListener("click", function(e) {
+                if (!e.target.closest('input')) {
+                    const ripple = document.createElement("span");
+                    ripple.classList.add("ripple");
+                    this.appendChild(ripple);
+
+                    const x = e.clientX - this.offsetLeft;
+                    const y = e.clientY - this.offsetTop;
+
+                    ripple.style.left = x + "px";
+                    ripple.style.top = y + "px";
+
+                    setTimeout(() => ripple.remove(), 600);
+                }
+            });
+
+            btn.addEventListener("mouseenter", function() {
+                if (this !== submitBtn && this !== togglePasswordBtn) {
+                    gsap.to(this, { scale: 1.02, duration: 0.2 });
+                }
+            });
+
+            btn.addEventListener("mouseleave", function() {
+                if (this !== submitBtn && this !== togglePasswordBtn) {
+                    gsap.to(this, { scale: 1, duration: 0.2 });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

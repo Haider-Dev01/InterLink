@@ -1,0 +1,646 @@
+
+<!DOCTYPE html>
+<html class="light scroll-smooth" lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Analyse Nexus Premium | InternLink</title>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis/bundled/lenis.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; overflow-x: hidden; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        
+        /* Floating Particles */
+        .particle {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            will-change: transform;
+            z-index: 5;
+        }
+        
+        /* Animation du Scanner IA */
+        @keyframes scan {
+            0% { top: 0%; opacity: 0; }
+            50% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+        .scan-line {
+            height: 4px;
+            background: linear-gradient(to right, transparent, #00288e, transparent);
+            box-shadow: 0 0 20px 5px rgba(0, 40, 142, 0.4);
+            position: absolute;
+            width: 100%;
+            z-index: 20;
+            animation: scan 3s linear infinite;
+            display: none;
+        }
+
+        .reveal-up { opacity: 0; transform: translateY(50px); }
+        
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .reveal { animation: countUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
+
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        
+        /* Custom Scrollbar */
+        .chat-scroll::-webkit-scrollbar { width: 6px; }
+        .chat-scroll::-webkit-scrollbar-track { background: transparent; }
+        .chat-scroll::-webkit-scrollbar-thumb { background: #e0e3e5; border-radius: 10px; }
+        .chat-scroll::-webkit-scrollbar-thumb:hover { background: #00288e; }
+        
+        /* Premium Card Gradient */
+        .premium-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0,40,142,0.08);
+            box-shadow: 0 8px 32px rgba(0,40,142,0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .premium-card:hover {
+            box-shadow: 0 16px 48px rgba(0,40,142,0.12);
+            transform: translateY(-2px);
+            border-color: rgba(0,40,142,0.15);
+        }
+        
+        /* Stat Card Premium */
+        .stat-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f7f9fb 100%);
+            border: 1px solid rgba(0,40,142,0.08);
+            box-shadow: 0 4px 16px rgba(0,40,142,0.06);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 32px rgba(0,40,142,0.12);
+            border-color: rgba(0,40,142,0.15);
+        }
+        
+        /* Upload Zone States */
+        .upload-active {
+            background: linear-gradient(135deg, rgba(0,40,142,0.05) 0%, rgba(70,72,212,0.05) 100%);
+            border-color: #00288e !important;
+        }
+        
+        /* Progress Bar Animation */
+        #scan-progress {
+            background: linear-gradient(90deg, #00288e, #4648d4, #00288e);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00288e",
+                        "secondary": "#4648d4",
+                        "surface": "#f7f9fb",
+                        "on-surface": "#191c1e",
+                        "on-surface-variant": "#444653",
+                        "surface-variant": "#e0e3e5"
+                    },
+                    borderRadius: {
+                        'bento': '1.5rem'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="text-on-surface antialiased flex">
+
+<!-- Floating Particles -->
+<div class="particle" id="p1" style="width:12px;height:12px;background:#dde1ff;top:15%;left:8%"></div>
+<div class="particle" id="p2" style="width:8px;height:8px;background:#e1e0ff;top:60%;left:92%"></div>
+<div class="particle" id="p3" style="width:16px;height:16px;background:#6ffbbe;opacity:0.5;top:80%;left:20%"></div>
+<div class="particle" id="p4" style="width:6px;height:6px;background:#4648d4;opacity:0.3;top:30%;left:85%"></div>
+
+<div class="fixed inset-0 opacity-[0.02] z-0 pointer-events-none" style="background-image: radial-gradient(#000000 1px, transparent 1px); background-size: 24px 24px;"></div>
+
+<aside class="w-64 h-screen bg-white border-r border-surface-variant/50 flex flex-col fixed left-0 top-0 z-50">
+    <div class="p-6">
+        <a href="index.html" class="flex items-center gap-2 group">
+            <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform" data-icon="hub">hub</span>
+            <span class="text-2xl font-black text-primary tracking-tight">InternLink</span>
+        </a>
+    </div>
+
+    <nav class="flex-1 px-4 space-y-1 mt-4 overflow-y-auto chat-scroll">
+        <p class="px-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60 mb-2">Menu Principal</p>
+        <a href="daboard_candidat.html" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-primary/5 hover:text-primary rounded-xl font-medium transition-all">
+            <span class="material-symbols-outlined">grid_view</span>
+            <span class="text-sm">Dashboard</span>
+        </a>
+        <a href="assistant_ia.html" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-primary/5 hover:text-primary rounded-xl font-medium transition-all">
+            <span class="material-symbols-outlined">smart_toy</span>
+            <span class="text-sm">Assistant IA</span>
+        </a>
+        <a href="analyse_cv.html" class="flex items-center gap-3 px-4 py-3 bg-primary text-white rounded-xl font-bold shadow-md shadow-primary/20 transition-all">
+            <span class="material-symbols-outlined">analytics</span>
+            <span class="text-sm">Analyse CV</span>
+        </a>
+    </nav>
+
+    <div class="p-4 border-t border-surface-variant/50">
+        <div class="flex items-center gap-3 p-3 bg-surface rounded-xl hover:bg-surface-variant/50 transition-colors cursor-pointer">
+            <img src="https://ui-avatars.com/api/?name=User+Profile&background=00288e&color=fff&rounded=true" alt="User" class="w-10 h-10 rounded-full shadow-sm">
+            <div class="flex-1 overflow-hidden">
+                <p class="text-sm font-bold text-on-surface truncate">Thomas Dubois</p>
+                <p class="text-[10px] font-medium text-primary uppercase tracking-wider truncate">Candidat</p>
+            </div>
+            <span class="material-symbols-outlined text-on-surface-variant text-sm">unfold_more</span>
+        </div>
+    </div>
+</aside>
+
+<main class="flex-1 ml-64 min-h-screen p-8 relative">
+    
+    <header class="max-w-6xl mx-auto mb-10 reveal" style="animation-delay: 0.1s;">
+        <h1 class="text-3xl font-black text-on-surface">Nexus Scan <span class="text-primary">Premium</span></h1>
+        <p class="text-on-surface-variant font-medium mt-2">Optimisez votre CV pour les algorithmes des plus grandes entreprises.</p>
+    </header>
+
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <div class="lg:col-span-7 space-y-6 reveal" style="animation-delay: 0.2s;">
+            <div class="premium-card rounded-[2.5rem] p-8">
+                <div class="relative overflow-hidden">
+                    <div id="scanner" class="scan-line"></div>
+                    
+                    <div id="upload-zone" class="relative z-10 text-center p-8 rounded-2xl border-2 border-dashed border-surface-variant transition-all duration-300 cursor-pointer">
+                        <div class="w-24 h-24 bg-gradient-to-br from-primary to-secondary rounded-3xl shadow-xl mx-auto flex items-center justify-center text-white mb-6 transition-all duration-500 hover:scale-110 hover:shadow-2xl hover:shadow-primary/40">
+                            <span class="material-symbols-outlined text-5xl">cloud_upload</span>
+                        </div>
+                        <h3 class="text-2xl font-black text-on-surface">Glissez votre CV ici</h3>
+                        <p class="text-sm text-on-surface-variant mt-3 font-medium">ou cliquez pour parcourir</p>
+                        <p class="text-xs text-on-surface-variant mt-1 font-medium">PDF, DOCX (Max. 5Mo)</p>
+                        <button onclick="startScan()" class="mt-8 px-8 py-3 bg-gradient-to-r from-primary to-secondary text-white font-black rounded-2xl shadow-lg shadow-primary/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+                            Lancer l'analyse Nexus
+                        </button>
+                    </div>
+
+                    <div id="scan-container" class="hidden relative z-10 flex flex-col items-center justify-center py-12">
+                        <div class="mb-8">
+                            <svg class="w-32 h-32" viewBox="0 0 140 140">
+                                <circle cx="70" cy="70" r="60" stroke="rgba(0,40,142,0.1)" stroke-width="6" fill="none" />
+                                <circle id="confidence" cx="70" cy="70" r="60" stroke="url(#gradient-circle)" stroke-width="6" fill="none" stroke-dasharray="377" stroke-dashoffset="377" stroke-linecap="round" />
+                                <defs>
+                                    <linearGradient id="gradient-circle" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#00288e;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#4648d4;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <p id="scan-status" class="text-lg font-bold text-on-surface mb-4">Analyse en cours...</p>
+                        <div class="w-48 bg-white/20 rounded-full h-2 overflow-hidden backdrop-blur-sm">
+                            <div id="scan-progress" class="bg-gradient-to-r from-primary to-secondary h-full w-0 rounded-full"></div>
+                        </div>
+                        <p id="scan-percent" class="text-xs text-on-surface-variant mt-3 font-medium">0%</p>
+                    </div>
+
+                    <div id="file-preview" class="hidden relative z-10 flex flex-col items-center">
+                        <div class="w-20 h-20 bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl flex items-center justify-center mb-4 shadow-md">
+                            <span class="material-symbols-outlined text-4xl text-green-600">description</span>
+                        </div>
+                        <p class="font-bold text-on-surface">CV_Thomas_Dubois.pdf</p>
+                        <p class="text-xs text-on-surface-variant mt-2">Analyse terminée ✓</p>
+                        <button onclick="resetUpload()" class="text-xs font-bold text-primary mt-6 hover:text-secondary transition-colors">← Analyser un autre CV</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-4">
+                <div class="stat-card p-6 rounded-3xl transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <p class="text-[10px] font-black uppercase text-on-surface-variant/70 tracking-widest">Lisibilité ATS</p>
+                        <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+                    </div>
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-3xl font-black text-primary">98%</span>
+                        <span class="text-xs font-medium text-green-600">Optimal</span>
+                    </div>
+                    <div class="mt-3 w-full bg-white/30 rounded-full h-1.5 overflow-hidden">
+                        <div class="bg-gradient-to-r from-green-400 to-green-600 h-full w-[98%] rounded-full"></div>
+                    </div>
+                </div>
+                <div class="stat-card p-6 rounded-3xl transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <p class="text-[10px] font-black uppercase text-on-surface-variant/70 tracking-widest">Impact Verbes</p>
+                        <span class="material-symbols-outlined text-orange-500 text-lg">lightbulb</span>
+                    </div>
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-3xl font-black text-orange-600">72%</span>
+                        <span class="text-xs font-medium text-orange-600">À améliorer</span>
+                    </div>
+                    <div class="mt-3 w-full bg-white/30 rounded-full h-1.5 overflow-hidden">
+                        <div class="bg-gradient-to-r from-orange-400 to-orange-600 h-full w-[72%] rounded-full"></div>
+                    </div>
+                </div>
+                <div class="stat-card p-6 rounded-3xl transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <p class="text-[10px] font-black uppercase text-on-surface-variant/70 tracking-widest">Mots-clés</p>
+                        <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+                    </div>
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-3xl font-black text-primary">85%</span>
+                        <span class="text-xs font-medium text-green-600">Bon</span>
+                    </div>
+                    <div class="mt-3 w-full bg-white/30 rounded-full h-1.5 overflow-hidden">
+                        <div class="bg-gradient-to-r from-primary to-secondary h-full w-[85%] rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- 📊 CHART SECTION -->
+            <div class="premium-card rounded-3xl p-8">
+                <h4 class="text-base font-bold text-on-surface mb-6 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">trending_up</span>
+                    Évolution du Score Nexus
+                </h4>
+                
+                <svg viewBox="0 0 300 100" class="w-full h-32" style="filter: drop-shadow(0 4px 12px rgba(0,40,142,0.1))">
+                    <!-- Grid background -->
+                    <defs>
+                        <linearGradient id="chart-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00288e;stop-opacity:0.3" />
+                            <stop offset="100%" style="stop-color:#00288e;stop-opacity:0" />
+                        </linearGradient>
+                        <linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#00288e" />
+                            <stop offset="100%" style="stop-color:#4648d4" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- Area fill -->
+                    <path id="chart-area"
+                          d="M0,80 Q50,40 100,60 T200,40 T300,30 L300,100 L0,100 Z"
+                          fill="url(#chart-gradient)"
+                          opacity="0.6"/>
+                    
+                    <!-- Line -->
+                    <path id="chart-line"
+                          d="M0,80 Q50,40 100,60 T200,40 T300,30"
+                          fill="none"
+                          stroke="url(#line-gradient)"
+                          stroke-width="4"
+                          stroke-linecap="round"/>
+                    
+                    <!-- Data points -->
+                    <circle cx="0" cy="80" r="3" fill="#00288e" />
+                    <circle cx="100" cy="60" r="3" fill="#00288e" />
+                    <circle cx="200" cy="40" r="3" fill="#4648d4" />
+                    <circle cx="300" cy="30" r="3" fill="#4648d4" />
+                </svg>
+                
+                <div class="mt-6 flex justify-between text-xs font-medium text-on-surface-variant">
+                    <span>Jour 1</span>
+                    <span>Jour 7</span>
+                    <span>Jour 14</span>
+                    <span>Aujourd'hui</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:col-span-5 space-y-6 reveal" style="animation-delay: 0.3s;">
+            
+            <div class="bg-gradient-to-br from-primary to-secondary rounded-[2.5rem] p-8 text-white shadow-2xl shadow-primary/30 relative overflow-hidden group">
+                <!-- Animated background elements -->
+                <div class="absolute inset-0 opacity-10">
+                    <div class="absolute -right-20 -top-20 w-40 h-40 bg-white rounded-full blur-3xl"></div>
+                    <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-white rounded-full blur-3xl"></div>
+                </div>
+                
+                <div class="relative z-10">
+                    <h3 class="text-lg font-bold opacity-90 mb-4">Score Global Nexus</h3>
+                    <div class="flex items-baseline gap-2 mb-8">
+                        <span class="text-7xl font-black tracking-tight">85</span>
+                        <span class="text-2xl font-bold opacity-70">/100</span>
+                    </div>
+                    
+                    <div class="flex flex-col items-center mb-8">
+                        <svg class="w-32 h-32" viewBox="0 0 140 140">
+                            <defs>
+                                <linearGradient id="score-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.3" />
+                                    <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <circle cx="70" cy="70" r="60" stroke="rgba(255,255,255,0.2)" stroke-width="8" fill="none" />
+                            <circle id="confidence" cx="70" cy="70" r="60" stroke="url(#score-gradient)" stroke-width="8" fill="none" stroke-dasharray="377" stroke-dashoffset="377" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex justify-between text-xs font-bold uppercase tracking-widest opacity-90">
+                            <span>Rang Performance</span>
+                            <span class="bg-white/20 px-3 py-1 rounded-full">Top 5%</span>
+                        </div>
+                        <div class="w-full bg-white/20 rounded-full h-2 overflow-hidden backdrop-blur-sm">
+                            <div class="bg-white h-full rounded-full w-[85%] shadow-lg shadow-white/50"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="absolute -right-20 -bottom-20 opacity-10 group-hover:opacity-20 group-hover:rotate-45 transition-all duration-700 transform">
+                    <span class="material-symbols-outlined text-[180px]">verified</span>
+                </div>
+            </div>
+
+            <div class="premium-card rounded-[2.5rem] p-8">
+                <h3 class="font-black text-on-surface mb-6 flex items-center gap-3 text-lg">
+                    <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center text-white shadow-md">
+                        <span class="material-symbols-outlined text-lg">lightbulb</span>
+                    </div>
+                    Recommandations IA
+                </h3>
+                <div class="space-y-3">
+                    <div class="flex gap-4 p-4 rounded-2xl bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-200/60 hover:shadow-md transition-all duration-300 group cursor-pointer">
+                        <div class="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-orange-600 text-lg">lightbulb</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-bold text-orange-900 leading-tight">Quantifiez vos résultats</p>
+                            <p class="text-xs text-orange-700 mt-2 leading-relaxed">L'IA suggère d'ajouter des chiffres (ex: +20% de productivité) dans votre expérience chez 'Tech Flow'.</p>
+                        </div>
+                        <span class="material-symbols-outlined text-orange-400 text-lg shrink-0 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </div>
+                    <div class="flex gap-4 p-4 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200/60 hover:shadow-md transition-all duration-300 group cursor-pointer">
+                        <div class="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-green-600 text-lg">check_circle</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-bold text-green-900 leading-tight">Structure parfaite</p>
+                            <p class="text-xs text-green-700 mt-2 leading-relaxed">Vos coordonnées et votre résumé sont parfaitement lisibles par les robots recruteurs.</p>
+                        </div>
+                        <span class="material-symbols-outlined text-green-400 text-lg shrink-0">verified</span>
+                    </div>
+                    <div class="flex gap-4 p-4 rounded-2xl bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200/60 hover:shadow-md transition-all duration-300 group cursor-pointer">
+                        <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-blue-600 text-lg">psychology</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-bold text-blue-900 leading-tight">Compétences à valoriser</p>
+                            <p class="text-xs text-blue-700 mt-2 leading-relaxed">Nexus recommande d'accentuer vos projets sur 'React Native' pour ce profil.</p>
+                        </div>
+                        <span class="material-symbols-outlined text-blue-400 text-lg shrink-0 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </div>
+                </div>
+                
+                <button class="w-full mt-8 py-4 bg-gradient-to-r from-primary to-secondary text-white font-black rounded-2xl shadow-lg shadow-primary/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2">
+                    <span>Générer la version optimisée</span>
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // Floating Particles GSAP Animation
+    ['#p1','#p2','#p3','#p4'].forEach((id, i) => {
+        gsap.to(id, {
+            y: gsap.utils.random(-30, 30),
+            x: gsap.utils.random(-20, 20),
+            duration: gsap.utils.random(3, 5),
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut',
+            delay: i * 0.7
+        });
+    });
+    
+    // Header reveal
+    gsap.fromTo('.reveal',
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+          stagger: 0.1
+        }
+    );
+    
+    // Upload section reveal
+    gsap.utils.toArray('.reveal-up').forEach((el, i) => {
+        gsap.fromTo(el,
+            { y: 50, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out',
+              delay: i * 0.15,
+              scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
+            }
+        );
+    });
+    
+    // Stat cards appear with stagger
+    gsap.utils.toArray('.stat-card').forEach((card, i) => {
+        gsap.fromTo(card,
+            { y: 40, opacity: 0, scale: 0.95 },
+            { y: 0, opacity: 1, scale: 1, duration: 0.6, ease: 'power3.out',
+              delay: i * 0.1,
+              scrollTrigger: { trigger: card, start: 'top 85%', toggleActions: 'play none none none' }
+            }
+        );
+    });
+    
+    // Premium card reveals
+    gsap.utils.toArray('.premium-card').forEach((card, i) => {
+        gsap.fromTo(card,
+            { y: 40, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out',
+              delay: i * 0.15,
+              scrollTrigger: { trigger: card, start: 'top 85%', toggleActions: 'play none none none' }
+            }
+        );
+    });
+    
+    // Button effects
+    document.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('mouseenter', () => {
+            gsap.to(btn, { scale: 1.05, duration: 0.3, ease: 'back.out' });
+        });
+        btn.addEventListener('mouseleave', () => {
+            gsap.to(btn, { scale: 1, duration: 0.2, ease: 'back.out' });
+        });
+    });
+    
+    // Sidebar nav hover
+    document.querySelectorAll('aside nav a').forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            gsap.to(link, { x: 4, duration: 0.2, ease: 'power2.out' });
+        });
+        link.addEventListener('mouseleave', () => {
+            gsap.to(link, { x: 0, duration: 0.2, ease: 'power2.out' });
+        });
+    });
+    
+    function startScan() {
+        const uploadZone = document.getElementById("upload-zone");
+        const scanContainer = document.getElementById("scan-container");
+        const progress = document.getElementById("scan-progress");
+        const status = document.getElementById("scan-status");
+        const percent = document.getElementById("scan-percent");
+        const confidence = document.getElementById("confidence");
+
+        // Animate upload zone out
+        gsap.to(uploadZone, {
+            opacity: 0,
+            scale: 0.95,
+            duration: 0.3,
+            ease: 'power2.out',
+            onComplete: () => {
+                uploadZone.classList.add('hidden');
+                scanContainer.classList.remove('hidden');
+                
+                gsap.fromTo(scanContainer,
+                    { opacity: 0, scale: 0.95 },
+                    { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out' }
+                );
+            }
+        });
+
+        const steps = [
+            "Analyse du document...",
+            "Extraction des compétences...",
+            "Matching ATS...",
+            "Calcul du score..."
+        ];
+
+        let currentStep = 0;
+        let currentPercent = 0;
+
+        // Progress bar animation with shimmer
+        gsap.to(progress, {
+            width: "100%",
+            duration: 3.5,
+            ease: "power2.inOut",
+            onUpdate: function() {
+                currentPercent = Math.round(this.progress() * 100);
+                percent.innerText = currentPercent + "%";
+            }
+        });
+
+        // Step text updates
+        const stepInterval = setInterval(() => {
+            if (currentStep < steps.length) {
+                status.innerText = steps[currentStep];
+                currentStep++;
+            } else {
+                clearInterval(stepInterval);
+                // Show confetti effect
+                setTimeout(() => {
+                    scanContainer.classList.add('hidden');
+                    document.getElementById('file-preview').classList.remove('hidden');
+                    
+                    gsap.fromTo('#file-preview',
+                        { opacity: 0, scale: 0.9 },
+                        { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out' }
+                    );
+                    
+                    // Animate confidence circle
+                    gsap.to(confidence, {
+                        strokeDashoffset: 0,
+                        duration: 1.2,
+                        ease: 'power2.out'
+                    });
+                }, 500);
+            }
+        }, 875);
+    }
+    
+    function resetUpload() {
+        const uploadZone = document.getElementById('upload-zone');
+        const scanContainer = document.getElementById('scan-container');
+        const filePreview = document.getElementById('file-preview');
+        const progress = document.getElementById("scan-progress");
+        const confidence = document.getElementById("confidence");
+
+        filePreview.classList.add('hidden');
+        scanContainer.classList.add('hidden');
+        
+        gsap.to(uploadZone, {
+            opacity: 0,
+            scale: 0.95,
+            duration: 0.2,
+            onComplete: () => {
+                uploadZone.classList.remove('hidden');
+                progress.style.width = '0%';
+                confidence.setAttribute('stroke-dashoffset', '377');
+                
+                gsap.fromTo(uploadZone,
+                    { opacity: 0, scale: 0.95 },
+                    { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out' }
+                );
+            }
+        });
+    }
+
+    const zone = document.getElementById("upload-zone");
+
+    zone.addEventListener("dragover", e => {
+        e.preventDefault();
+        gsap.to(zone, { 
+            scale: 1.02,
+            borderColor: "#00288e",
+            backgroundColor: "rgba(0,40,142,0.02)",
+            duration: 0.2
+        });
+        zone.classList.add('upload-active');
+    });
+
+    zone.addEventListener("dragleave", () => {
+        gsap.to(zone, { 
+            scale: 1,
+            borderColor: "#e0e3e5",
+            backgroundColor: "transparent",
+            duration: 0.2
+        });
+        zone.classList.remove('upload-active');
+    });
+
+    zone.addEventListener("drop", e => {
+        e.preventDefault();
+        gsap.to(zone, { 
+            scale: 1,
+            borderColor: "#e0e3e5",
+            backgroundColor: "transparent",
+            duration: 0.2
+        });
+        zone.classList.remove('upload-active');
+        startScan();
+    });
+
+const lenis = new Lenis();
+
+function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+</script>
+</body>
+</html>

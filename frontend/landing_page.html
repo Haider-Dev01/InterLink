@@ -1,0 +1,1272 @@
+﻿<!DOCTYPE html>
+<html class="light" lang="fr">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>InternLink - Trouvez votre stage idéal grâce à l'IA</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+ 
+<style>
+  body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  .glass-panel {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+ 
+  /* ── ANIMATED LOGO LETTERS ── */
+  .logo-animated {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0;
+    cursor: default;
+  }
+  .logo-letter {
+    display: inline-block;
+    will-change: transform;
+    line-height: 1;
+  }
+ 
+  /* ── HERO ANIMATED TITLE ── */
+  .hero-word {
+    display: inline-block;
+    overflow: hidden;
+  }
+  .hero-word-inner {
+    display: inline-block;
+    will-change: transform, opacity;
+  }
+ 
+  /* ── HORIZONTAL SCROLL SECTION ── */
+  #horizontal-section {
+    overflow: hidden;
+  }
+  #sticky-container {
+    position: relative;
+    height: 70vh;
+    overflow: hidden;
+  }
+  .horizontal-track {
+    display: flex;
+    height: 100%;
+    will-change: transform;
+    align-items: stretch;
+  }
+  .h-panel {
+    width: 100vw;
+    height: 100%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    box-sizing: border-box;
+  }
+ 
+  /* ── REVEAL ANIMATIONS ── */
+  .reveal-up {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+ 
+  /* ── FLOATING PARTICLES ── */
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    will-change: transform;
+  }
+ 
+  /* ── COUNTER ── */
+  .counter-value {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── FEEDBACK RAIL ── */
+  .feedback-scroll-shell {
+    overflow: hidden;
+    width: 100%;
+    min-height: auto;
+  }
+  .feedback-scroll {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 2rem;
+    width: max-content;
+    height: auto;
+    min-height: 650px;
+  }
+  .feedback-scroll::-webkit-scrollbar {
+    height: 12px;
+  }
+  .feedback-scroll::-webkit-scrollbar-track {
+    background: rgba(224, 227, 229, 0.55);
+    border-radius: 999px;
+  }
+  .feedback-scroll::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #00288e, #4648d4);
+    border-radius: 999px;
+  }
+  .feedback-card {
+    flex: 0 0 520px;
+    min-width: 520px;
+    height: 500px;
+    scroll-snap-align: start;
+  }
+  @media (min-width: 768px) {
+    .feedback-scroll {
+      overflow-x: visible;
+      padding: 2rem;
+    }
+    .feedback-card {
+      flex-basis: 540px;
+      min-width: 540px;
+      height: 500px;
+    }
+  }
+ 
+  /* ── MAGNETIC BUTTON ── */
+  .btn-magnetic {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.15s ease;
+  }
+  .btn-flair {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    transform: scale(0) translate(-50%, -50%);
+    pointer-events: none;
+    transform-origin: 0 0;
+  }
+  .btn-magnetic:hover .btn-flair {
+    animation: none;
+  }
+ 
+  /* ── NAVBAR SCROLL INDICATOR ── */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #1e40af, #4648d4);
+    z-index: 9999;
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+ 
+  /* ── STEP INDICATOR in horizontal section ── */
+  .h-step-dots {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 100;
+    opacity: 0;
+  }
+  .h-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #c4c5d5;
+    transition: background 0.3s, transform 0.3s;
+  }
+  .h-dot.active {
+    background: #1e40af;
+    transform: scale(1.4);
+  }
+ 
+  /* ── SVG ICON SPIN on hover ── */
+  .icon-spin:hover { animation: spin360 0.6s ease; }
+  @keyframes spin360 { to { transform: rotate(360deg); } }
+ 
+  /* ── CARD HOVER ── */
+  .feature-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 48px rgba(0,40,142,0.1);
+  }
+
+  /* ── PROGRESS STEP STYLES ── */
+  .step-circle {
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    font-size: 1.25rem;
+  }
+  .step-circle.active {
+    transform: scale(1.1);
+    box-shadow: 0 12px 32px rgba(70, 72, 212, 0.4);
+  }
+  .step-circle.completed {
+    background: linear-gradient(135deg, #4648d4 0%, #00288e 100%);
+  }
+  .check-icon {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .progress-line {
+    transition: width 0.3s ease;
+  }</style>
+ 
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "tertiary": "#003d27",
+          "surface-tint": "#3755c3",
+          "outline-variant": "#c4c5d5",
+          "on-surface": "#191c1e",
+          "surface-container-highest": "#e0e3e5",
+          "on-error": "#ffffff",
+          "on-secondary": "#ffffff",
+          "on-primary-fixed": "#001453",
+          "surface": "#f7f9fb",
+          "inverse-on-surface": "#eff1f3",
+          "secondary-fixed": "#e1e0ff",
+          "tertiary-fixed": "#6ffbbe",
+          "on-tertiary-fixed": "#002113",
+          "surface-container": "#eceef0",
+          "secondary": "#4648d4",
+          "on-secondary-container": "#fffbff",
+          "surface-container-low": "#f2f4f6",
+          "secondary-fixed-dim": "#c0c1ff",
+          "surface-variant": "#e0e3e5",
+          "on-secondary-fixed": "#07006c",
+          "on-background": "#191c1e",
+          "inverse-primary": "#b8c4ff",
+          "on-tertiary": "#ffffff",
+          "surface-container-lowest": "#ffffff",
+          "primary": "#00288e",
+          "on-surface-variant": "#444653",
+          "on-secondary-fixed-variant": "#2f2ebe",
+          "on-tertiary-container": "#3fd298",
+          "on-primary-fixed-variant": "#173bab",
+          "primary-container": "#1e40af",
+          "primary-fixed-dim": "#b8c4ff",
+          "surface-dim": "#d8dadc",
+          "on-primary": "#ffffff",
+          "tertiary-fixed-dim": "#4edea3",
+          "on-tertiary-fixed-variant": "#005236",
+          "secondary-container": "#6063ee",
+          "inverse-surface": "#2d3133",
+          "surface-bright": "#f7f9fb",
+          "background": "#f7f9fb",
+          "on-primary-container": "#a8b8ff",
+          "outline": "#757684",
+          "error": "#ba1a1a",
+          "surface-container-high": "#e6e8ea",
+          "tertiary-container": "#00563a",
+          "error-container": "#ffdad6",
+          "on-error-container": "#93000a",
+          "primary-fixed": "#dde1ff"
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        }
+      }
+    }
+  }
+</script>
+</head>
+ 
+<body class="bg-surface text-on-surface antialiased selection:bg-secondary-container selection:text-on-secondary-container">
+ 
+<!-- Progress bar -->
+<div class="progress-bar" id="progress-bar"></div>
+ 
+<!-- Step dots for horizontal section -->
+<div class="h-step-dots" id="step-dots">
+  <div class="h-dot active" data-index="0"></div>
+  <div class="h-dot" data-index="1"></div>
+  <div class="h-dot" data-index="2"></div>
+</div>
+ 
+<!-- ══ NAVBAR ══ -->
+<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm sticky top-0 z-40" id="main-header">
+<nav class="flex justify-between items-center w-full px-6 h-16">
+  <div class="flex items-center gap-8">
+ 
+    <!-- ANIMATED LOGO with SVG icon -->
+    <a href="index.html" class="flex items-center gap-2 group" id="logo-link">
+      <!-- SVG Icon : éclair stylisé -->
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-spin" style="flex-shrink:0">
+        <circle cx="14" cy="14" r="13" fill="#00288e" opacity="0.08"/>
+        <!-- Link chain icon -->
+        <path d="M10 14.5C10 12.567 11.567 11 13.5 11H15.5C17.433 11 19 12.567 19 14.5C19 16.433 17.433 18 15.5 18H14.5" stroke="#00288e" stroke-width="2" stroke-linecap="round"/>
+        <path d="M18 13.5C18 11.567 16.433 10 14.5 10H12.5C10.567 10 9 11.567 9 13.5C9 15.433 10.567 17 12.5 17H13.5" stroke="#4648d4" stroke-width="2" stroke-linecap="round"/>
+        <!-- AI sparkle dots -->
+        <circle cx="21" cy="7" r="1.5" fill="#4648d4"/>
+        <circle cx="7" cy="21" r="1" fill="#00288e" opacity="0.5"/>
+        <circle cx="23" cy="11" r="0.8" fill="#4648d4" opacity="0.6"/>
+      </svg>
+ 
+      <!-- "Inter" part - normal -->
+      <span class="text-xl font-bold text-blue-800 select-none">Inter</span>
+      <!-- "Link" part - each letter animates independently -->
+      <span class="logo-animated" id="logo-animated">
+        <span class="logo-letter text-xl font-bold text-indigo-600" data-char="L">L</span>
+        <span class="logo-letter text-xl font-bold text-indigo-600" data-char="i">i</span>
+        <span class="logo-letter text-xl font-bold text-indigo-600" data-char="n">n</span>
+        <span class="logo-letter text-xl font-bold text-indigo-600" data-char="k">k</span>
+      </span>
+    </a>
+ 
+    <div class="hidden md:flex gap-6 items-center">
+      <a class="text-blue-700 font-semibold text-sm tracking-tight" href="index.html">Accueil</a>
+      <a class="text-slate-500 text-sm tracking-tight hover:bg-slate-100 transition-colors px-3 py-2 rounded-lg" href="/candidats">Candidats</a>
+      <a class="text-slate-500 text-sm tracking-tight hover:bg-slate-100 transition-colors px-3 py-2 rounded-lg" href="/recruteurs">Recruteurs</a>
+    </div>
+  </div>
+ 
+  <div class="flex items-center gap-3">
+    <a href="register.html" class="text-slate-600 text-sm font-semibold hover:bg-slate-100 transition-colors px-4 py-2 rounded-lg">Créer un compte</a>
+    <a href="register.html" class="bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold px-5 py-2 rounded-lg transition-colors">S'inscrire</a>
+    <button class="material-symbols-outlined text-slate-500 hover:bg-slate-100 p-2 rounded-full transition-colors">notifications</button>
+    <button class="material-symbols-outlined text-slate-500 hover:bg-slate-100 p-2 rounded-full transition-colors">settings</button>
+    <div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/30">
+      <img alt="Photo de profil" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9RKYTea8h7ICu2YxCw3nRpB32LZJSRDd6A_oFQgKon1AhHrny13aBjewu5oe5Q-LCwKIxSWox7ePLXR1p8n6_NN4F_6dNNWFKmGxm-eb_gjjhxilylv7RC-8eoJb8xBkwIUMHfkJqAfznXrlpvOedjaDyM6LkOSQrHP_-1hwmWITFCtjqpovasYdEEPV5in-Fr8qIsbrdsdgoVHcHEiwqMDCDSA25gm5ghgts7q3ThEc7dDeOQ8-WHkAlrVhEkcTDCOWLlLGJmyF3">
+    </div>
+  </div>
+</nav>
+</header>
+ 
+<main>
+ 
+<!-- ══ HERO SECTION ══ -->
+<section class="relative pt-12 pb-24 overflow-hidden" id="hero">
+ 
+  <!-- Floating particles (décoratif) -->
+  <div class="particle" id="p1" style="width:12px;height:12px;background:#dde1ff;top:15%;left:8%"></div>
+  <div class="particle" id="p2" style="width:8px;height:8px;background:#e1e0ff;top:60%;left:92%"></div>
+  <div class="particle" id="p3" style="width:16px;height:16px;background:#6ffbbe;opacity:0.5;top:80%;left:20%"></div>
+  <div class="particle" id="p4" style="width:6px;height:6px;background:#4648d4;opacity:0.3;top:30%;left:85%"></div>
+ 
+  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <div class="lg:col-span-6 space-y-8">
+ 
+      <div class="reveal-left inline-flex items-center gap-2 px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-xs font-bold tracking-wider uppercase">
+        <span class="material-symbols-outlined text-base">auto_awesome</span>
+        IA de Matching Propulsée
+      </div>
+ 
+      <!-- HERO TITLE avec animation mot par mot -->
+      <h1 class="text-5xl lg:text-7xl font-black text-primary leading-[1.5] tracking-tight" id="hero-title">
+        <span class="block overflow-hidden"><span class="hero-word-inner block">Trouvez votre</span></span>
+        <span class="block overflow-hidden"><span class="hero-word-inner block">stage idéal</span></span>
+        <span class="block overflow-hidden"><span class="hero-word-inner block">grâce à</span></span>
+        <!-- "InterLink" avec lettres individuelles animées -->
+        <span class="block" id="hero-interlink">
+          <span class="text-blue-800">Inter</span><span id="hero-link-letters" class="logo-animated">
+            <span class="logo-letter text-indigo-600" data-char="L">L</span>
+            <span class="logo-letter text-indigo-600" data-char="i">i</span>
+            <span class="logo-letter text-indigo-600" data-char="n">n</span>
+            <span class="logo-letter text-indigo-600" data-char="k">k</span>
+          </span>
+        </span>
+      </h1>
+        
+      <p class="reveal-up text-xl text-on-surface-variant leading-relaxed max-w-xl">
+        Propulsez votre carrière avec notre assistant intelligent. Analyse instantanée de CV, score de matching prédictif et opportunités exclusives.
+      </p>
+ 
+      <div class="reveal-up flex flex-col sm:flex-row gap-4">
+        <button class="btn-magnetic px-8 py-4 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform active:opacity-80">
+          <span class="btn-flair" id="flair-1"></span>
+          Je cherche un stage
+        </button>
+        <button class="btn-magnetic px-8 py-4 bg-surface-container-highest text-primary rounded-xl font-bold hover:bg-surface-container-high transition-colors">
+          <span class="btn-flair" id="flair-2"></span>
+          Je recrute
+        </button>
+      </div>
+    </div>
+ 
+    <div class="lg:col-span-6 relative reveal-right">
+      <div class="relative z-10 p-4 bg-surface-container-lowest rounded-3xl shadow-2xl shadow-primary/10 overflow-hidden">
+        <img alt="Matching IA" class="rounded-2xl w-full" src="./Gemini_Generated_Image_uyj3q6uyj3q6uyj3.png">
+        <div class="absolute bottom-8 right-8 glass-panel p-6 rounded-2xl border border-white/20 shadow-xl max-w-xs">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center text-white">
+              <span class="material-symbols-outlined">smart_toy</span>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-on-surface-variant uppercase">Assistant IA</p>
+              <p class="text-sm font-medium">Matching trouvé !</p>
+            </div>
+          </div>
+          <div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+            <div class="h-full bg-secondary w-[94%]" id="match-bar" style="width:0%"></div>
+          </div>
+          <p class="mt-2 text-xs text-right font-bold text-secondary"><span id="match-counter">0</span>% Score de Match</p>
+        </div>
+      </div>
+      <div class="absolute -top-12 -right-12 w-64 h-64 bg-secondary-container/20 blur-3xl rounded-full"></div>
+      <div class="absolute -bottom-12 -left-12 w-64 h-64 bg-primary-container/10 blur-3xl rounded-full"></div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ══ STATS BAR avec compteurs ══ -->
+<section class="bg-primary py-12" id="stats-bar">
+<div class="max-w-7xl mx-auto px-6">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+    <div class="space-y-1">
+      <p class="text-4xl font-black text-white counter-value" data-target="500">0</p>
+      <p class="text-primary-fixed/70 text-sm font-bold uppercase tracking-widest">Offres actives</p>
+    </div>
+    <div class="space-y-1">
+      <p class="text-4xl font-black text-white counter-value" data-target="2000">0</p>
+      <p class="text-primary-fixed/70 text-sm font-bold uppercase tracking-widest">Candidats inscrits</p>
+    </div>
+    <div class="space-y-1">
+      <p class="text-4xl font-black text-white counter-value" data-target="87">0</p>
+      <p class="text-primary-fixed/70 text-sm font-bold uppercase tracking-widest">Matching moyen</p>
+    </div>
+  </div>
+</div>
+</section>
+ 
+<!-- ══ FEATURES BENTO GRID ══ -->
+<section class="py-24 max-w-7xl mx-auto px-6" id="features">
+<div class="mb-16 text-center reveal-up">
+  <h2 class="text-3xl font-black text-primary mb-4">Pourquoi choisir InternLink ?</h2>
+  <p class="text-on-surface-variant max-w-2xl mx-auto">Une technologie de pointe au service de votre avenir professionnel.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[600px]">
+ 
+  <div class="feature-card md:col-span-8 bg-surface-container-lowest p-8 rounded-3xl flex flex-col justify-between group hover:shadow-xl transition-shadow reveal-left">
+    <div>
+      <div class="w-14 h-14 bg-secondary/10 rounded-2xl flex items-center justify-center mb-6">
+        <!-- Upload icon SVG custom -->
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" class="icon-spin">
+          <path d="M16 4L16 20M16 4L11 9M16 4L21 9" stroke="#4648d4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 22V26C6 27.1 6.9 28 8 28H24C25.1 28 26 27.1 26 26V22" stroke="#4648d4" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3 class="text-2xl font-bold mb-4">Analyse de CV Intelligente</h3>
+      <p class="text-on-surface-variant text-lg leading-relaxed max-w-md">Importez votre CV et laissez InterLink extraire vos compétences clés pour construire un profil dynamique en quelques secondes.</p>
+    </div>
+    <div class="mt-8 rounded-2xl overflow-hidden bg-slate-100 h-48 relative">
+      <img alt="CV Analysis" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLvnQkFn-yUmEekG1SCQwm5dCCLzLSsPZLA7JIedUxVXqzsFSE0ZVxbntQ9Q_9IvSJTxo52XIqiLVL8sfidkLIv2GNF8O7Ajg1hlQcAKjFXoYIgVEslBLhGpcmUT7N-jcXDihIQeL9s2_xTH2w0gtYCBpv50Fnfzj5WKHQrNYUylfdYp4QdMf3krS7cDibuO88fM0posSLn8I_VEzGPWmSj6fzKLKLGW7QfuE0DYb15oGBa87udRZYIhq2NwEyEIWpug049erKnuhI">
+    </div>
+  </div>
+ 
+  <div class="feature-card md:col-span-4 bg-secondary text-white p-8 rounded-3xl flex flex-col justify-center items-center text-center space-y-6 reveal-right">
+    <div class="relative w-32 h-32 flex items-center justify-center">
+      <svg class="absolute inset-0 w-full h-full -rotate-90" id="match-ring-svg">
+        <circle cx="64" cy="64" fill="none" r="60" stroke="rgba(255,255,255,0.2)" stroke-width="8"></circle>
+        <circle cx="64" cy="64" fill="none" r="60" stroke="white" stroke-dasharray="377" stroke-dashoffset="377" stroke-width="8" id="ring-circle"></circle>
+      </svg>
+      <span class="text-3xl font-black italic" id="ring-counter">0%</span>
+    </div>
+    <div>
+      <h3 class="text-xl font-bold mb-2">Score de matching</h3>
+      <p class="text-secondary-fixed/80 text-sm">Visualisez instantanément votre compatibilité avec chaque offre de stage.</p>
+    </div>
+    <!-- Radar SVG icon -->
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" class="icon-spin">
+      <circle cx="18" cy="18" r="16" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+      <circle cx="18" cy="18" r="10" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+      <circle cx="18" cy="18" r="4" fill="white" opacity="0.6"/>
+      <line x1="18" y1="2" x2="18" y2="34" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+      <line x1="2" y1="18" x2="34" y2="18" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+      <path d="M18 18L28 8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </div>
+ 
+  <div class="feature-card md:col-span-4 bg-tertiary-container text-white p-8 rounded-3xl flex flex-col justify-between reveal-left">
+    <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
+      <!-- Click/Apply SVG icon -->
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M9 12L11 14L15 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="12" cy="12" r="9" stroke="white" stroke-width="2"/>
+        <path d="M20 4L22 2M18 6L20 4" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div>
+      <h3 class="text-xl font-bold mb-2">Postuler en 1 clic</h3>
+      <p class="text-white/70 text-sm">Ne perdez plus de temps. Votre profil optimisé suffit pour déclencher l'intérêt des meilleurs recruteurs.</p>
+    </div>
+  </div>
+ 
+  <div class="feature-card md:col-span-8 bg-surface-container-high p-8 rounded-3xl flex items-center gap-8 group reveal-right">
+    <div class="flex-1">
+      <h3 class="text-xl font-bold mb-2">Accompagnement IA</h3>
+      <p class="text-on-surface-variant text-sm">Notre assistant vous suggère des améliorations pour votre CV afin d'augmenter votre score de match.</p>
+    </div>
+    <div class="w-32 h-32 bg-white rounded-2xl shadow-inner flex items-center justify-center overflow-hidden">
+      <img alt="IA Suggestion" class="object-cover w-full h-full" src="./Gemini_Generated_Image_e8r75qe8r75qe8r7.png">
+  </div>
+ 
+</div>
+</section>
+
+<!-- ══ HORIZONTAL SCROLL SECTION ══ -->
+<div id="horizontal-section" style="position: relative; margin-top: 80px; z-index: 1; background: #f7f9fb;">
+  
+  <!-- Premium Progress Bar with Sticky Position -->
+  <div style="background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,0.4)); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(30, 64, 175, 0.1); padding: 2.5rem 2rem 3.5rem 2rem; position: sticky; top: 64px; z-index: 40;">
+    <div class="max-w-7xl mx-auto">
+      <!-- Steps Progress -->
+      <div class="flex justify-between items-start mb-8">
+        <!-- Step 1 -->
+        <div class="flex flex-col items-center flex-1">
+          <div class="flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-secondary to-primary text-white font-bold text-xl shadow-lg shadow-primary/30 mb-3 step-circle active" data-step="0" style="transition: all 0.3s ease;">
+            <span class="check-icon">01</span>
+          </div>
+          <h4 class="font-bold text-sm text-primary text-center">Détails du poste</h4>
+          <p class="text-xs text-gray-500 text-center mt-1">Explorez les offres</p>
+        </div>
+        
+        <!-- Connector Line -->
+        <div class="flex-1 flex items-center justify-center mb-12 relative">
+          <div class="absolute h-1 w-full bg-gray-200 rounded-full"></div>
+          <div class="absolute h-1 bg-gradient-to-r from-secondary to-primary rounded-full progress-line" style="width: 0%; transition: width 0.3s ease;"></div>
+        </div>
+        
+        <!-- Step 2 -->
+        <div class="flex flex-col items-center flex-1">
+          <div class="flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-bold text-xl shadow-lg mb-3 step-circle" data-step="1" style="transition: all 0.3s ease;">
+            <span>02</span>
+          </div>
+          <h4 class="font-bold text-sm text-primary text-center">Complétez vos Données</h4>
+          <p class="text-xs text-gray-500 text-center mt-1">Remplissez votre profil</p>
+        </div>
+        
+        <!-- Connector Line -->
+        <div class="flex-1 flex items-center justify-center mb-12 relative">
+          <div class="absolute h-1 w-full bg-gray-200 rounded-full"></div>
+          <div class="absolute h-1 bg-gradient-to-r from-secondary to-primary rounded-full progress-line" style="width: 0%; transition: width 0.3s ease;"></div>
+        </div>
+        
+        <!-- Step 3 -->
+        <div class="flex flex-col items-center flex-1">
+          <div class="flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-emerald-400 to-teal-600 text-white font-bold text-xl shadow-lg mb-3 step-circle" data-step="2" style="transition: all 0.3s ease;">
+            <span>03</span>
+          </div>
+          <h4 class="font-bold text-sm text-primary text-center">Confirmez & Postulez</h4>
+          <p class="text-xs text-gray-500 text-center mt-1">Finalisez votre candidature</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Horizontal Scroll Container -->
+  <div id="sticky-container" style="position: relative; height: 120vh; overflow: hidden; border-bottom: 1px solid #e2e8f0;">
+    
+    <!-- Horizontal Track : 3 panels côte à côte -->
+    <div class="horizontal-track" style="display: flex; height: 100%; will-change: transform; transform: translateX(0px);">
+      
+      <!-- Panel 1: Détails du Poste (Blue) -->
+      <div class="h-panel" style="width: 100vw; height: 100%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; padding: 5rem 2rem; box-sizing: border-box; background: linear-gradient(135deg, #1e40af 0%, #00288e 100%); flex-direction: column; gap: 5rem; overflow-y: auto;">
+        <div style="width: 120px; height: 120px; flex-shrink: 0; flex-grow: 0; border-radius: 50%; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; border: 2px solid rgba(255,255,255,0.3); box-shadow: 0 8px 32px rgba(0,40,142,0.3);">
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="none">
+            <path d="M4 4h16v14H4z" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <path d="M4 6h16M8 10h8M8 14h6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div style="text-align: center; max-width: 600px; color: white;">
+          <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.2; margin-bottom: 1rem;">Détails du Poste</h2>
+          <p style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem;">Explorez les meilleures offres de stage adaptées à votre profil et vos aspirations professionnelles.</p>
+        </div>
+        <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 30px; width: 500px; box-shadow: 0 8px 32px rgba(0,40,142,0.2);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <div style="color: white;">
+              <p style="font-weight: 700; margin-bottom: 4px;">Développeur Full Stack</p>
+              <p style="font-size: 12px; opacity: 0.7;">Paris • Startup Tech</p>
+            </div>
+            <span style="background: rgba(70, 72, 212, 0.8); color: white; padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 700;">92%</span>
+          </div>
+          <div style="color: rgba(255,255,255,0.8); font-size: 13px; line-height: 1.6;">
+            <p>React, Node.js, MongoDB • Télétravail possible • 6 mois</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 2: Complétez vos Données (Indigo) -->
+      <div class="h-panel" style="width: 100vw; height: 100%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; padding: 5rem 2rem; box-sizing: border-box; background: linear-gradient(135deg, #6063ee 0%, #4648d4 100%); flex-direction: column; gap: 5rem; overflow-y: auto;">
+        <div style="width: 120px; height: 120px; flex-shrink: 0; flex-grow: 0; border-radius: 50%; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; border: 2px solid rgba(255,255,255,0.3); box-shadow: 0 8px 32px rgba(70, 72, 212, 0.4);">
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="none">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="white" stroke-width="2"/>
+            <path d="M4 9h16M9 13h6" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div style="text-align: center; max-width: 600px; color: white;">
+          <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.2; margin-bottom: 1rem;">Complétez vos Données</h2>
+          <p style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem;">Remplissez rapidement votre profil pour augmenter votre score de matching et attirer les recruteurs.</p>
+        </div>
+        <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 30px; width: 500px; box-shadow: 0 8px 32px rgba(70, 72, 212, 0.3);">
+          <div style="display: flex; flex-direction: column; gap: 15px;">
+            <div>
+              <p style="color: rgba(255,255,255,0.7); font-size: 12px; margin-bottom: 6px;">Compétences principales</p>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <span style="background: rgba(255,255,255,0.15); color: white; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">React</span>
+                <span style="background: rgba(255,255,255,0.15); color: white; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">Node.js</span>
+                <span style="background: rgba(255,255,255,0.15); color: white; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">TypeScript</span>
+              </div>
+            </div>
+            <div style="height: 1px; background: rgba(255,255,255,0.1);"></div>
+            <p style="color: rgba(255,255,255,0.8); font-size: 12px;">Profil 73% complété</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 3: Confirmation & Postulez (Green) -->
+      <div class="h-panel" style="width: 100vw; height: 100%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; padding: 5rem 2rem; box-sizing: border-box; background: linear-gradient(135deg, #00b894 0%, #00a372 100%); flex-direction: column; gap: 5rem; overflow-y: auto;">
+        <div style="width: 120px; height: 120px; flex-shrink: 0; flex-grow: 0; border-radius: 50%; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; border: 2px solid rgba(255,255,255,0.3); box-shadow: 0 8px 32px rgba(0, 184, 148, 0.4);">
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="none">
+            <path d="M9 12.75L11 14.75L15 10.75" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="12" cy="12" r="9" stroke="white" stroke-width="2"/>
+          </svg>
+        </div>
+        <div style="text-align: center; max-width: 600px; color: white;">
+          <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.2; margin-bottom: 1rem;">Confirmez & Postulez</h2>
+          <p style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem;">Vérifiez vos informations et envoyez votre candidature en un seul clic. C'est aussi simple que cela!</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
+          <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 30px; width: 500px; text-align: center; box-shadow: 0 8px 32px rgba(0, 184, 148, 0.2);">
+            <p style="color: rgba(255,255,255,0.8); font-size: 13px; margin-bottom: 12px;">Récapitulatif de votre candidature</p>
+            <div style="display: flex; justify-content: space-around; margin-top: 15px;">
+              <div style="text-align: center;">
+                <p style="color: white; font-weight: 700; font-size: 16px;">92%</p>
+                <p style="color: rgba(255,255,255,0.6); font-size: 11px;">Match Score</p>
+              </div>
+              <div style="height: 30px; width: 1px; background: rgba(255,255,255,0.2);"></div>
+              <div style="text-align: center;">
+                <p style="color: white; font-weight: 700; font-size: 16px;">✓</p>
+                <p style="color: rgba(255,255,255,0.6); font-size: 11px;">Profil Complet</p>
+              </div>
+            </div>
+          </div>
+          <a href="register.html" style="background: rgba(255,255,255,0.95); color: #00b894; padding: 16px 48px; border-radius: 12px; border: none; font-weight: 700; font-size: 16px; cursor: pointer; box-shadow: 0 12px 32px rgba(0,0,0,0.2); transition: transform 0.2s, box-shadow 0.2s; display: inline-flex; align-items: center; justify-content: center;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 16px 40px rgba(0,0,0,0.3)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 12px 32px rgba(0,0,0,0.2)'">
+            Postuler Maintenant
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ FEEDBACK SECTION (FULLWIDTH HORIZONTAL SCROLL) ══ -->
+<section id="feedback-section" class="relative w-full bg-white overflow-hidden">
+    <div id="feedback-scroll-section" class="feedback-scroll-shell">
+        <div id="feedback-scroll" class="feedback-scroll w-max">
+          <div class="feedback-card bg-surface rounded-[2.5rem] border-2 border-surface-variant p-12">
+            <img class="w-24 h-24 rounded-3xl object-cover mb-8" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" alt="Amine">
+            <p class="text-lg text-on-surface-variant leading-9 mb-8">"J'ai compris exactement où améliorer mon profil avant de postuler."</p>
+            <h4 class="font-black text-2xl text-primary mb-2">Amine</h4>
+            <p class="text-sm font-black uppercase tracking-widest text-on-surface-variant">Frontend Candidate</p>
+          </div>
+          <div class="feedback-card bg-surface rounded-[2.5rem] border-2 border-surface-variant p-12">
+            <img class="w-24 h-24 rounded-3xl object-cover mb-8" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80" alt="Sarra">
+            <p class="text-lg text-on-surface-variant leading-9 mb-8">"Les retours du coach IA m'ont aidée à rendre mon pitch beaucoup plus précis."</p>
+            <h4 class="font-black text-2xl text-primary mb-2">Sarra</h4>
+            <p class="text-sm font-black uppercase tracking-widest text-on-surface-variant">Product Candidate</p>
+          </div>
+          <div class="feedback-card bg-surface rounded-[2.5rem] border-2 border-surface-variant p-12">
+            <img class="w-24 h-24 rounded-3xl object-cover mb-8" src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=120&q=80" alt="Sophie">
+            <p class="text-lg text-on-surface-variant leading-9 mb-8">"La qualité des shortlists reste premium même quand nous recrutons très vite."</p>
+            <h4 class="font-black text-2xl text-primary mb-2">Sophie</h4>
+            <p class="text-sm font-black uppercase tracking-widest text-on-surface-variant">RH Manager</p>
+          </div>
+          <div class="feedback-card bg-surface rounded-[2.5rem] border-2 border-surface-variant p-12">
+            <img class="w-24 h-24 rounded-3xl object-cover mb-8" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=120&q=80" alt="Youssef">
+            <p class="text-lg text-on-surface-variant leading-9 mb-8">"Le score de matching m'a évité de perdre du temps sur des offres peu adaptées."</p>
+            <h4 class="font-black text-2xl text-primary mb-2">Youssef</h4>
+            <p class="text-sm font-black uppercase tracking-widest text-on-surface-variant">Data Candidate</p>
+          </div>
+          <div class="feedback-card bg-surface rounded-[2.5rem] border-2 border-surface-variant p-12">
+            <img class="w-24 h-24 rounded-3xl object-cover mb-8" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=120&q=80" alt="Ines">
+            <p class="text-lg text-on-surface-variant leading-9 mb-8">"J'ai refait mon CV Nexus en une soirée et j'ai tout de suite vu la différence."</p>
+            <h4 class="font-black text-2xl text-primary mb-2">Ines</h4>
+            <p class="text-sm font-black uppercase tracking-widest text-on-surface-variant">UI Candidate</p>
+          </div>
+          <div class="feedback-card bg-surface rounded-[2.5rem] border-2 border-surface-variant p-12">
+            <img class="w-24 h-24 rounded-3xl object-cover mb-8" src="https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=120&q=80" alt="Mehdi">
+            <p class="text-lg text-on-surface-variant leading-9 mb-8">"Le suivi centralisé des candidatures m'a aidé à rester constant dans mes relances."</p>
+            <h4 class="font-black text-2xl text-primary mb-2">Mehdi</h4>
+            <p class="text-sm font-black uppercase tracking-widest text-on-surface-variant">Growth Candidate</p>
+          </div>
+          <div class="feedback-card bg-surface rounded-[2.5rem] border-2 border-surface-variant p-12">
+            <img class="w-24 h-24 rounded-3xl object-cover mb-8" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80" alt="Leila">
+            <p class="text-lg text-on-surface-variant leading-9 mb-8">"Les conseils de coaching étaient concrets, pas génériques, et ça change tout."</p>
+            <h4 class="font-black text-2xl text-primary mb-2">Leila</h4>
+            <p class="text-sm font-black uppercase tracking-widest text-on-surface-variant">Marketing Candidate</p>
+          </div>
+          <div class="feedback-card bg-surface rounded-[2.5rem] border-2 border-surface-variant p-12">
+            <img class="w-24 h-24 rounded-3xl object-cover mb-8" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="Alex">
+            <p class="text-lg text-on-surface-variant leading-9 mb-8">"InternLink m'a permis de décrocher mon stage en moins de 2 semaines."</p>
+            <h4 class="font-black text-2xl text-primary mb-2">Alex</h4>
+            <p class="text-sm font-black uppercase tracking-widest text-on-surface-variant">Backend Developer</p>
+          </div>
+          <div class="feedback-card bg-surface rounded-[2.5rem] border-2 border-surface-variant p-12">
+            <img class="w-24 h-24 rounded-3xl object-cover mb-8" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=120&q=80" alt="Julie">
+            <p class="text-lg text-on-surface-variant leading-9 mb-8">"L'assistant IA m'a suggéré des améliorations vraiment pertinentes pour mon CV."</p>
+            <h4 class="font-black text-2xl text-primary mb-2">Julie</h4>
+            <p class="text-sm font-black uppercase tracking-widest text-on-surface-variant">UX Designer</p>
+          </div>
+          <div class="feedback-card bg-surface rounded-[2.5rem] border-2 border-surface-variant p-12">
+            <img class="w-24 h-24 rounded-3xl object-cover mb-8" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" alt="Thomas">
+            <p class="text-lg text-on-surface-variant leading-9 mb-8">"Le matching prédictif était très fiable, j'ai eu un entretien dès ma candidature."</p>
+            <h4 class="font-black text-2xl text-primary mb-2">Thomas</h4>
+            <p class="text-sm font-black uppercase tracking-widest text-on-surface-variant">DevOps Engineer</p>
+          </div>
+          <div class="feedback-card bg-surface rounded-[2.5rem] border-2 border-surface-variant p-12">
+            <img class="w-24 h-24 rounded-3xl object-cover mb-8" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80" alt="Emma">
+            <p class="text-lg text-on-surface-variant leading-9 mb-8">"Recruteur, j'ai trouvé les meilleurs candidats grâce à la shortlist IA."</p>
+            <h4 class="font-black text-2xl text-primary mb-2">Emma</h4>
+            <p class="text-sm font-black uppercase tracking-widest text-on-surface-variant">HR Manager</p>
+          </div>
+          <div class="feedback-card bg-surface rounded-[2.5rem] border-2 border-surface-variant p-12">
+            <img class="w-24 h-24 rounded-3xl object-cover mb-8" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=120&q=80" alt="Marc">
+            <p class="text-lg text-on-surface-variant leading-9 mb-8">"Les retours candidats sont automatiquement analysés, c'est révolutionnaire."</p>
+            <h4 class="font-black text-2xl text-primary mb-2">Marc</h4>
+            <p class="text-sm font-black uppercase tracking-widest text-on-surface-variant">Talent Acquirer</p>
+          </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ STATS SECTION (AFTER FEEDBACK) ══ -->
+<section class="relative bg-white py-16">
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-5">
+      <div class="bg-surface rounded-[1.75rem] border border-surface-variant p-6 reveal-up">
+        <p class="text-[11px] font-black uppercase tracking-[0.24em] text-on-surface-variant">Placements réussis</p>
+        <h3 class="mt-3 text-4xl font-black text-on-surface"><span class="premium-counter-value" data-target="320" data-suffix="+">0</span></h3>
+      </div>
+      <div class="bg-surface rounded-[1.75rem] border border-surface-variant p-6 reveal-up">
+        <p class="text-[11px] font-black uppercase tracking-[0.24em] text-on-surface-variant">Temps moyen shortlist</p>
+        <h3 class="mt-3 text-4xl font-black text-on-surface"><span class="premium-counter-value" data-target="48" data-suffix="h">0</span></h3>
+      </div>
+      <div class="bg-surface rounded-[1.75rem] border border-surface-variant p-6 reveal-up">
+        <p class="text-[11px] font-black uppercase tracking-[0.24em] text-on-surface-variant">Matching moyen</p>
+        <h3 class="mt-3 text-4xl font-black text-on-surface"><span class="premium-counter-value" data-target="96" data-suffix="%">0</span></h3>
+      </div>
+      <div class="bg-surface rounded-[1.75rem] border border-surface-variant p-6 reveal-up">
+        <p class="text-[11px] font-black uppercase tracking-[0.24em] text-on-surface-variant">Satisfaction</p>
+        <h3 class="mt-3 text-4xl font-black text-on-surface"><span class="premium-counter-value" data-target="9" data-prefix="4." data-suffix="/5">0</span></h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PERFORMANCE FUNNEL SECTION ══ -->
+<section class="relative overflow-hidden bg-white py-20">
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <div class="bg-gradient-to-br from-primary to-secondary rounded-[2rem] p-12 text-white shadow-2xl shadow-primary/20 reveal-right">
+      <div class="flex items-center justify-between gap-4 mb-8">
+        <div>
+          <p class="text-[11px] font-black uppercase tracking-[0.28em] text-white/70">Performance funnel</p>
+          <h3 class="mt-3 text-3xl font-black">Du clic à l'entretien</h3>
+        </div>
+        <div class="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center">
+          <span class="material-symbols-outlined text-3xl">monitoring</span>
+        </div>
+      </div>
+
+      <div class="mt-8 space-y-5">
+        <div>
+          <div class="flex justify-between text-xs font-black uppercase tracking-widest mb-2">
+            <span>Profil complété</span>
+            <span>92%</span>
+          </div>
+          <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+            <div class="premium-bar-fill h-full bg-white/80 rounded-full" data-width="92" style="width: 92%"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs font-black uppercase tracking-widest mb-2">
+            <span>Matching shortlist</span>
+            <span>84%</span>
+          </div>
+          <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+            <div class="premium-bar-fill h-full bg-tertiary-fixed rounded-full" data-width="84" style="width: 84%"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs font-black uppercase tracking-widest mb-2">
+            <span>Conversion entretien</span>
+            <span>68%</span>
+          </div>
+          <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+            <div class="premium-bar-fill h-full bg-secondary-fixed rounded-full" data-width="68" style="width: 68%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+ <!-- ══ CTA FINAL ══ -->
+<section class="relative py-32 bg-gradient-to-br from-primary to-secondary text-white overflow-hidden">
+
+  <!-- Glow SVG -->
+  <svg width="600" height="600" viewBox="0 0 600 600" class="absolute -top-40 -left-40 opacity-20">
+    <circle cx="300" cy="300" r="300" fill="url(#grad1)"/>
+    <defs>
+      <radialGradient id="grad1">
+        <stop offset="0%" stop-color="white"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </radialGradient>
+    </defs>
+  </svg>
+
+  <div class="max-w-4xl mx-auto text-center relative z-10">
+    
+    <h2 class="text-5xl font-black mb-6 reveal-up">
+      Prêt à trouver ton stage idéal ?
+    </h2>
+
+    <p class="text-lg opacity-80 mb-10 reveal-up">
+      Rejoins des milliers d’étudiants qui utilisent déjà InternLink pour booster leur carrière.
+    </p>
+
+    <a href="register.html" class="inline-flex px-10 py-5 bg-white text-primary font-bold rounded-2xl shadow-xl hover:scale-105 transition-transform">
+      Commencer maintenant
+    </a>
+
+  </div>
+</section>
+<!-- ══ TESTIMONIALS ══ -->
+<section class="py-24 bg-surface-container-low">
+
+<div class="max-w-6xl mx-auto px-6 text-center">
+  
+  <h2 class="text-3xl font-black text-primary mb-16 reveal-up">
+    Ils ont trouvé leur stage avec InternLink
+  </h2>
+
+  <div class="grid md:grid-cols-3 gap-8">
+
+    <div class="p-6 bg-white rounded-2xl shadow reveal-up">
+      <p class="text-sm text-gray-600 mb-4">
+        “Grâce à InterLink, j’ai trouvé un stage en 2 jours.”
+      </p>
+      <h4 class="font-bold text-primary">Amine</h4>
+    </div>
+
+    <div class="p-6 bg-white rounded-2xl shadow reveal-up">
+      <p class="text-sm text-gray-600 mb-4">
+        “Le matching score est incroyable.”
+      </p>
+      <h4 class="font-bold text-primary">Sarra</h4>
+    </div>
+
+    <div class="p-6 bg-white rounded-2xl shadow reveal-up">
+      <p class="text-sm text-gray-600 mb-4">
+        “Interface simple + ultra rapide.”
+      </p>
+      <h4 class="font-bold text-primary">Youssef</h4>
+    </div>
+
+  </div>
+
+</div>
+</section>
+<section class="py-20 bg-black text-white text-center">
+
+  <h2 class="text-4xl font-black mb-6 reveal-up">
+    InternLink
+  </h2>
+
+  <p class="opacity-70 mb-6">
+    Matching intelligent entre étudiants et entreprises
+  </p>
+
+  <!-- ICONES SVG -->
+  <div class="flex justify-center gap-6 text-white opacity-80">
+
+    <!-- LinkedIn -->
+    <svg width="24" height="24" fill="white">
+      <path d="M4 4h4v16H4zM6 2a2 2 0 110 4 2 2 0 010-4zm4 6h4v2h.1a4 4 0 013.9-2c4.2 0 5 2.7 5 6.3V20h-4v-5.5c0-1.3 0-3-2-3s-2.3 1.5-2.3 2.9V20h-4z"/>
+    </svg>
+
+    <!-- GitHub -->
+    <svg width="24" height="24" fill="white">
+      <path d="M12 .5C5.7.5.7 5.5.7 11.8c0 5 3.2 9.2 7.7 10.7.6.1.8-.3.8-.6v-2.2c-3.1.7-3.7-1.5-3.7-1.5-.5-1.2-1.2-1.5-1.2-1.5-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 .1.8.7 2.6.7.8-.6.9-1.5.9-1.5-2.4-.3-4.9-1.2-4.9-5.4 0-1.2.4-2.2 1.1-3-.1-.3-.5-1.4.1-2.9 0 0 .9-.3 3 1.1.9-.2 1.8-.3 2.7-.3.9 0 1.8.1 2.7.3 2.1-1.4 3-1.1 3-1.1.6 1.5.2 2.6.1 2.9.7.8 1.1 1.8 1.1 3 0 4.2-2.5 5.1-4.9 5.4.4.3.9 1 .9 2v3c0 .3.2.7.8.6 4.5-1.5 7.7-5.7 7.7-10.7C23.3 5.5 18.3.5 12 .5z"/>
+    </svg>
+
+  </div>
+
+</section>
+
+</main>
+ 
+<!-- ══ FOOTER ══ -->
+<footer class="bg-white border-t border-slate-100 w-full py-8">
+  <div class="flex flex-col md:flex-row justify-between items-center px-8 max-w-7xl mx-auto gap-6">
+  <div class="flex flex-col items-center md:items-start gap-2">
+    <div class="flex items-center gap-2">
+      <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
+        <circle cx="14" cy="14" r="13" fill="#00288e" opacity="0.1"/>
+        <path d="M10 14.5C10 12.567 11.567 11 13.5 11H15.5C17.433 11 19 12.567 19 14.5C19 16.433 17.433 18 15.5 18H14.5" stroke="#00288e" stroke-width="2" stroke-linecap="round"/>
+        <path d="M18 13.5C18 11.567 16.433 10 14.5 10H12.5C10.567 10 9 11.567 9 13.5C9 15.433 10.567 17 12.5 17H13.5" stroke="#4648d4" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span class="text-lg font-black text-blue-800">InternLink</span>
+    </div>
+  </div>
+    <a class="text-slate-500 text-xs font-medium uppercase tracking-wider hover:text-blue-500 underline-offset-4 hover:underline transition-all" href="#">Aide</a>
+  </div>
+</div>
+</footer>
+ 
+<!-- ══════════════════════════════════════════
+     GSAP ANIMATIONS
+══════════════════════════════════════════ -->
+<script>
+gsap.registerPlugin(ScrollTrigger);
+ 
+/* ─── 1. PROGRESS BAR ─── */
+gsap.to("#progress-bar", {
+  scaleX: 1,
+  ease: "none",
+  scrollTrigger: {
+    trigger: "body",
+    start: "top top",
+    end: "bottom bottom",
+    scrub: true
+  }
+});
+ 
+/* ─── 2. FLOATING PARTICLES ─── */
+["#p1","#p2","#p3","#p4"].forEach((id, i) => {
+  gsap.to(id, {
+    y: gsap.utils.random(-30, 30),
+    x: gsap.utils.random(-20, 20),
+    duration: gsap.utils.random(3, 5),
+    repeat: -1,
+    yoyo: true,
+    ease: "sine.inOut",
+    delay: i * 0.7
+  });
+});
+ 
+/* ─── 3. HERO TITLE : lignes qui montent (stagger) ─── */
+gsap.fromTo(
+  "#hero-title .hero-word-inner",
+  { yPercent: 100, opacity: 0 },
+  {
+    yPercent: 0,
+    opacity: 1,
+    duration: 0.9,
+    ease: "power4.out",
+    stagger: 0.12,
+    delay: 0.2
+  }
+);
+ 
+/* ─── 4. LETTRES "Link" dans le HERO : danse en boucle ─── */
+function animateLinkLetters(containerId) {
+  const letters = document.querySelectorAll(containerId + " .logo-letter");
+  const animations = [
+    // Wave
+    () => gsap.timeline()
+      .to(letters, {
+        y: -12,
+        duration: 0.35,
+        ease: "power2.out",
+        stagger: 0.07
+      })
+      .to(letters, {
+        y: 0,
+        duration: 0.5,
+        ease: "bounce.out",
+        stagger: 0.07
+      }),
+    // Rotation
+    () => gsap.timeline()
+      .to(letters, {
+        rotateY: 180,
+        duration: 0.4,
+        ease: "power3.inOut",
+        stagger: 0.08
+      })
+      .to(letters, {
+        rotateY: 0,
+        duration: 0.4,
+        ease: "power3.inOut",
+        stagger: 0.08
+      }),
+    // Scale bounce
+    () => gsap.timeline()
+      .to(letters, {
+        scale: 1.4,
+        color: "#00288e",
+        duration: 0.3,
+        ease: "back.out(2)",
+        stagger: 0.06
+      })
+      .to(letters, {
+        scale: 1,
+        color: "",
+        duration: 0.4,
+        ease: "elastic.out(1, 0.5)",
+        stagger: 0.06
+      }),
+    // Skew shake
+    () => gsap.timeline()
+      .to(letters, {
+        skewX: 20,
+        x: 4,
+        duration: 0.2,
+        ease: "power3.out",
+        stagger: 0.04
+      })
+      .to(letters, {
+        skewX: 0,
+        x: 0,
+        duration: 0.4,
+        ease: "elastic.out(1, 0.4)",
+        stagger: 0.04
+      })
+  ];
+ 
+  let idx = 0;
+  function playNext() {
+    const tl = animations[idx % animations.length]();
+    idx++;
+    tl.eventCallback("onComplete", () => {
+      gsap.delayedCall(2.5, playNext);
+    });
+  }
+  gsap.delayedCall(1.5, playNext);
+}
+ 
+animateLinkLetters("#hero-link-letters");
+ 
+/* ─── 5. LETTRES "Link" dans le NAVBAR : hover déclenche animation ─── */
+const navLogoLetters = document.querySelectorAll("#logo-animated .logo-letter");
+let navAnimating = false;
+ 
+document.getElementById("logo-link").addEventListener("mouseenter", () => {
+  if (navAnimating) return;
+  navAnimating = true;
+  gsap.timeline({
+    onComplete: () => { navAnimating = false; }
+  })
+  .to(navLogoLetters, {
+    y: -8,
+    duration: 0.25,
+    ease: "power2.out",
+    stagger: 0.06
+  })
+  .to(navLogoLetters, {
+    y: 0,
+    duration: 0.4,
+    ease: "bounce.out",
+    stagger: 0.06
+  });
+});
+ 
+/* ─── 6. REVEAL on scroll (ScrollTrigger) ─── */
+gsap.utils.toArray(".reveal-up").forEach(el => {
+  gsap.fromTo(el,
+    { y: 50, opacity: 0 },
+    {
+      y: 0, opacity: 1, duration: 0.8, ease: "power3.out",
+      scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none none" }
+    }
+  );
+});
+ 
+gsap.utils.toArray(".reveal-left").forEach(el => {
+  gsap.fromTo(el,
+    { x: -60, opacity: 0 },
+    {
+      x: 0, opacity: 1, duration: 0.8, ease: "power3.out",
+      scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none none" }
+    }
+  );
+});
+ 
+gsap.utils.toArray(".reveal-right").forEach(el => {
+  gsap.fromTo(el,
+    { x: 60, opacity: 0 },
+    {
+      x: 0, opacity: 1, duration: 0.8, ease: "power3.out",
+      scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none none" }
+    }
+  );
+});
+ 
+/* ─── 7. MATCH BAR & COUNTER animation on enter ─── */
+ScrollTrigger.create({
+  trigger: "#hero",
+  start: "top 80%",
+  once: true,
+  onEnter: () => {
+    gsap.to("#match-bar", { width: "94%", duration: 1.8, ease: "power3.out", delay: 1 });
+    gsap.to({ val: 0 }, {
+      val: 94,
+      duration: 1.8,
+      delay: 1,
+      ease: "power3.out",
+      onUpdate: function() {
+        document.getElementById("match-counter").textContent = Math.round(this.targets()[0].val);
+      }
+    });
+  }
+});
+ 
+/* ─── 8. RING COUNTER dans la feature card ─── */
+ScrollTrigger.create({
+  trigger: "#ring-circle",
+  start: "top 80%",
+  once: true,
+  onEnter: () => {
+    const targetOffset = 377 - (377 * 0.88); // 88%
+    gsap.fromTo("#ring-circle",
+      { strokeDashoffset: 377 },
+      { strokeDashoffset: targetOffset, duration: 1.6, ease: "power3.out" }
+    );
+    gsap.to({ val: 0 }, {
+      val: 88,
+      duration: 1.6,
+      ease: "power3.out",
+      onUpdate: function() {
+        document.getElementById("ring-counter").textContent = Math.round(this.targets()[0].val) + "%";
+      }
+    });
+  }
+});
+ 
+/* ─── 9. COMPTEURS STATS ─── */
+ScrollTrigger.create({
+  trigger: "#stats-bar",
+  start: "top 80%",
+  once: true,
+  onEnter: () => {
+    document.querySelectorAll(".counter-value").forEach(el => {
+      const target = parseInt(el.dataset.target);
+      gsap.to({ val: 0 }, {
+        val: target,
+        duration: 1.8,
+        ease: "power3.out",
+        onUpdate: function() {
+          const v = Math.round(this.targets()[0].val);
+          el.textContent = v >= 1000 ? v.toLocaleString("fr") + "+" : (target === 87 ? v + "%" : v + "+");
+        }
+      });
+    });
+  }
+});
+ 
+
+/* ─── 10. SCROLL HORIZONTAL AVEC GSAP SCROLLTRIGGER ─── */
+(function() {
+  const section = document.querySelector("#horizontal-section");
+  const track = document.querySelector(".horizontal-track");
+  
+  if (section && track) {
+    gsap.to(track, {
+      x: () => -track.scrollWidth + window.innerWidth,
+      ease: "none",
+      scrollTrigger: {
+        trigger: section,
+        start: "top top",
+        end: () => "+=" + (track.scrollWidth - window.innerWidth),
+        scrub: 1,
+        pin: true,
+        onUpdate: (self) => {
+          // Update progress circles based on scroll
+          const progress = self.getVelocity() === 0 ? self.progress : self.progress;
+          const circles = document.querySelectorAll('.step-circle');
+          const lines = document.querySelectorAll('.progress-line');
+          
+          circles.forEach((circle, i) => {
+            circle.classList.remove('active', 'completed');
+            if (progress > (i + 0.5) / 3) {
+              circle.classList.add('completed');
+              circle.innerHTML = '<span class="check-icon">✓</span>';
+            } else if (progress > i / 3) {
+              circle.classList.add('active');
+            }
+          });
+          
+          lines.forEach((line, i) => {
+            const lineStart = i / 3;
+            const lineEnd = (i + 1) / 3;
+            if (progress < lineStart) {
+              line.style.width = '0%';
+            } else if (progress > lineEnd) {
+              line.style.width = '100%';
+            } else {
+              const lineProgress = ((progress - lineStart) / (lineEnd - lineStart)) * 100;
+              line.style.width = lineProgress + '%';
+            }
+          });
+        }
+      }
+    });
+  }
+})();
+
+ 
+/* ─── 11. HEADER : shrink on scroll ─── */
+ScrollTrigger.create({
+  start: "top -60",
+  onUpdate: (self) => {
+    const header = document.getElementById("main-header");
+    if (self.direction === 1) {
+      header.style.boxShadow = "0 4px 30px rgba(0,40,142,0.08)";
+    } else {
+      header.style.boxShadow = "";
+    }
+  }
+});
+ 
+/* ─── 12. FEATURE CARDS : stagger reveal ─── */
+gsap.utils.toArray(".feature-card").forEach((card, i) => {
+  gsap.fromTo(card,
+    { y: 60, opacity: 0, scale: 0.96 },
+    {
+      y: 0, opacity: 1, scale: 1,
+      duration: 0.7,
+      ease: "power3.out",
+      delay: i * 0.1,
+      scrollTrigger: { trigger: card, start: "top 88%", toggleActions: "play none none none" }
+    }
+  );
+});
+ 
+/* ─── 13. SCROLL HINT arrow animation ─── */
+gsap.to("#scroll-hint svg path", {
+  x: 4,
+  duration: 0.8,
+  repeat: -1,
+  yoyo: true,
+  ease: "sine.inOut"
+});
+</script>
+</body>
+</html>
