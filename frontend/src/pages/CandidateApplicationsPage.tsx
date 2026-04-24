@@ -1,9 +1,10 @@
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 import { DashboardShell } from '../components/dashboard/DashboardShell';
 import { KpiCard, SurfaceCard } from '../components/dashboard/DashboardPrimitives';
-import { candidateApplications, candidateNavItems } from '../lib/data/dashboardData';
+import { candidateNavItems } from '../lib/data/dashboardData';
 import { useReactPageAnimations } from '../lib/reactPageAnimations';
+import { applicationService } from '../services/applicationService';
 
 function statusClasses(tone: string) {
   switch (tone) {
@@ -22,6 +23,16 @@ export default function CandidateApplicationsPage() {
   const rootRef = useRef(null);
   useReactPageAnimations(rootRef);
 
+  const [applications, setApplications] = useState<any[]>([]);
+
+  useEffect(() => {
+    applicationService.getMyApplications().then(res => {
+      if (res.success && res.data) {
+        setApplications(res.data);
+      }
+    });
+  }, []);
+
   return (
     <div ref={rootRef}>
       <DashboardShell
@@ -37,7 +48,7 @@ export default function CandidateApplicationsPage() {
         title="Mes candidatures"
       >
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-          <KpiCard icon="description" label="Candidatures actives" value="4" />
+          <KpiCard icon="description" label="Candidatures actives" value={applications.length.toString()} />
           <KpiCard icon="forum" label="Entretiens planifiés" tone="secondary" trend="2 cette semaine" value="2" />
           <KpiCard icon="psychology" label="Score moyen IA" tone="emerald" value="84%" />
           <KpiCard icon="schedule" label="Relances suggérées" tone="amber" value="3" />
@@ -53,23 +64,27 @@ export default function CandidateApplicationsPage() {
           </div>
 
           <div className="space-y-4">
-            {candidateApplications.map((application) => (
+            {applications.map((application) => (
               <div className="grid gap-4 rounded-[1.5rem] border border-surface-variant bg-surface p-5 md:grid-cols-[1.1fr_0.6fr_0.4fr]" key={application.id}>
                 <div>
-                  <p className="text-xs font-black uppercase tracking-widest text-on-surface-variant">{application.id}</p>
-                  <h3 className="mt-2 text-lg font-black text-on-surface">{application.role}</h3>
+                  <p className="text-xs font-black uppercase tracking-widest text-on-surface-variant">{application.id.substring(0,8)}</p>
+                  <h3 className="mt-2 text-lg font-black text-on-surface">{application.offer?.title || 'Offre'}</h3>
                   <p className="mt-1 text-sm font-medium text-on-surface-variant">
-                    {application.company} · {application.city} · {application.appliedAt}
+                    {application.offer?.company?.name || 'Entreprise'} · {application.offer?.location || 'Lieu'} · {new Date(application.createdAt).toLocaleDateString()}
                   </p>
-                  <p className="mt-3 text-sm text-on-surface-variant">{application.nextStep}</p>
+                  <p className="mt-3 text-sm text-on-surface-variant">
+                    {application.applicationStatus === 'pending' ? 'En attente de réponse' : application.applicationStatus}
+                  </p>
                 </div>
                 <div className="flex flex-col justify-center gap-3">
-                  <span className={`inline-flex w-fit rounded-full px-3 py-1.5 text-[10px] font-black uppercase tracking-widest ${statusClasses(application.statusTone)}`}>
-                    {application.status}
+                  <span className={`inline-flex w-fit rounded-full px-3 py-1.5 text-[10px] font-black uppercase tracking-widest ${statusClasses(application.applicationStatus === 'rejected' ? 'red' : 'emerald')}`}>
+                    {application.applicationStatus}
                   </span>
                   <div>
                     <p className="text-xs font-black uppercase tracking-widest text-on-surface-variant">Match IA</p>
-                    <p className="mt-2 text-3xl font-black text-on-surface">{application.score}%</p>
+                    <p className="mt-2 text-3xl font-black text-on-surface">
+                      {application.candidate?.match_scores?.find((m: any) => m.offerId === application.offerId)?.scoreFinal * 100 || 0}%
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center justify-end">
@@ -79,6 +94,12 @@ export default function CandidateApplicationsPage() {
                 </div>
               </div>
             ))}
+            
+            {applications.length === 0 && (
+              <div className="text-center py-8 text-on-surface-variant">
+                Aucune candidature pour le moment.
+              </div>
+            )}
           </div>
         </SurfaceCard>
       </DashboardShell>

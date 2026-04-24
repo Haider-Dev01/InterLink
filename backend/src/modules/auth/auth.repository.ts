@@ -1,15 +1,19 @@
 import { prisma } from '../../shared/config/prismaClient';
 import { RegisterDto } from './auth.validation';
+import { Role } from '../../generated/prisma';
 
 export class AuthRepository {
-  async findUserByEmail(email: string) {
-    return prisma.user.findUnique({
-      where: { email },
+  findUserByEmail = async (email: string, role?: Role) => {
+    return prisma.user.findFirst({
+      where: {
+        email,
+        ...(role ? { role } : {})
+      },
       include: { profile: true }
     });
-  }
+  };
 
-  async findUserById(id: string) {
+  findUserById = async (id: string) => {
     return prisma.user.findUnique({
       where: { id },
       include: { 
@@ -21,9 +25,9 @@ export class AuthRepository {
         } 
       }
     });
-  }
+  };
 
-  async createUser(data: RegisterDto, passwordHash: string) {
+  createUser = async (data: RegisterDto, passwordHash: string) => {
     return prisma.user.create({
       data: {
         email: data.email,
@@ -38,9 +42,9 @@ export class AuthRepository {
       },
       include: { profile: true }
     });
-  }
+  };
 
-  async saveRefreshToken(userId: string, tokenHash: string, expiresAt: Date) {
+  saveRefreshToken = async (userId: string, tokenHash: string, expiresAt: Date) => {
     return prisma.refreshToken.create({
       data: {
         userId,
@@ -48,30 +52,31 @@ export class AuthRepository {
         expiresAt,
       }
     });
-  }
+  };
 
-  async findRefreshToken(tokenHash: string) {
+  findRefreshToken = async (tokenHash: string) => {
     return prisma.refreshToken.findUnique({
       where: { tokenHash },
       include: { user: true }
     });
-  }
+  };
 
-  async revokeRefreshToken(tokenHash: string) {
+  revokeRefreshToken = async (tokenHash: string) => {
     return prisma.refreshToken.update({
       where: { tokenHash },
       data: { revokedAt: new Date() }
     });
-  }
+  };
 
-  async createAuditLog(actorId: string | null, action: string, metadata: any = {}) {
+  createAuditLog = async (actorId: string | null, action: string, metadata: any = {}, entityId?: string) => {
     return prisma.auditLog.create({
       data: {
         actorId,
         action,
         entityType: 'USER',
+        entityId,
         metadata
       }
     });
-  }
+  };
 }

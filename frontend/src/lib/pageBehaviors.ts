@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { bindLogoHoverBounce, startLogoLetterLoop } from './logoAnimations';
 import { useAppStore } from '../store/useAppStore';
+import { useAuthStore } from '../store/authStore';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -264,6 +265,15 @@ function setupDashboardAnimations(
 
   if (typeof matchScore === 'number') {
     setMatchScore(matchScore);
+  }
+
+  // Bind logout button if exists
+  const logoutBtn = get('#logout-button');
+  if (logoutBtn) {
+    on(logoutBtn, 'click', (e) => {
+      e.preventDefault();
+      useAuthStore.getState().logout();
+    });
   }
 
   timeout(() => ScrollTrigger.refresh(), 0);
@@ -592,7 +602,34 @@ export function setupLandingPage({
   all('.btn-magnetic').forEach((button) => {
     on(button, 'click', (event) => {
       event.preventDefault();
+      const text = button.textContent?.toLowerCase() || '';
+      if (text.includes('recrute')) {
+        useAppStore.getState().setUserType('recruiter');
+      } else {
+        useAppStore.getState().setUserType('student');
+      }
       navigate('/login');
+    });
+  });
+
+  // Handle Navbar links
+  all('header nav a').forEach(link => {
+    on(link, 'click', (e) => {
+      const href = link.getAttribute('href');
+      if (href && (href.includes('register') || href.includes('signup'))) {
+        e.preventDefault();
+        navigate('/register');
+      } else if (href && (href.includes('login') || href.includes('signin'))) {
+        e.preventDefault();
+        navigate('/login');
+      } else if (href && (href === 'index.html' || href === '/')) {
+        e.preventDefault();
+        navigate('/');
+      } else if (href && (href.includes('candidats') || href.includes('recruteurs'))) {
+        e.preventDefault();
+        useAppStore.getState().setUserType(href.includes('recruteur') ? 'recruiter' : 'student');
+        navigate('/login');
+      }
     });
   });
 
@@ -604,15 +641,50 @@ export function setupLandingPage({
   };
 }
 
-export function setupLoginPage({ root }: { root: HTMLElement }): CleanupFn {
+export function setupLoginPage({ root, onLogin, navigate }: { root: HTMLElement; onLogin?: (data: any) => Promise<any>; navigate?: any }): CleanupFn {
   stripInlineHandlers(root);
   const tools = createPageTools(root);
   const { q, get, all, on, cleanup } = tools;
+
+  const form = get('form');
+  if (form) {
+    on(form, 'submit', async (e: Event) => {
+      e.preventDefault();
+      const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
+      const passwordInput = form.querySelector('input[type="password"]') as HTMLInputElement;
+      const roleSelect = form.querySelector('select[name="role"]') as HTMLSelectElement | null;
+      const selectedRole = roleSelect?.value;
+      const fallbackRole = useAppStore.getState().userType === 'student' ? 'candidate' : useAppStore.getState().userType;
+      const role = selectedRole || fallbackRole;
+
+      if (emailInput && passwordInput && onLogin) {
+        try {
+          const res = await onLogin({
+            email: emailInput.value,
+            password: passwordInput.value,
+            role
+          });
+          if (res.success && navigate) {
+            const role = useAppStore.getState().userType;
+            if (role === 'recruiter') navigate('/dashboard-recruteur');
+            else if (role === 'admin') navigate('/dashboard-administrateur');
+            else navigate('/dashboard-candidat');
+          } else if (res.message) {
+            // Optionnel : injecter l'erreur dans l'UI si un conteneur d'erreur existe
+            console.error(res.message);
+          }
+        } catch (err) {
+          console.error("Erreur de connexion", err);
+        }
+      }
+    });
+  }
 
   const switchUser = (type: 'student' | 'recruiter') => {
     const slider = get('#user-slider');
     const btnStudent = get('#tab-student');
     const btnRecruiter = get('#tab-recruiter');
+    const roleSelect = get('select[name="role"]') as HTMLSelectElement | null;
 
     if (!slider || !btnStudent || !btnRecruiter) {
       return;
@@ -624,12 +696,18 @@ export function setupLoginPage({ root }: { root: HTMLElement }): CleanupFn {
       btnRecruiter.classList.replace('text-primary', 'text-on-surface-variant');
       useAppStore.getState().setUserType('student');
       useAppStore.getState().setUser({ role: 'Candidat' });
+      if (roleSelect) {
+        roleSelect.value = 'candidate';
+      }
     } else {
       gsap.to(slider, { x: '100%', duration: 0.5, ease: 'elastic.out(1, 0.6)' });
       btnRecruiter.classList.replace('text-on-surface-variant', 'text-primary');
       btnStudent.classList.replace('text-primary', 'text-on-surface-variant');
       useAppStore.getState().setUserType('recruiter');
       useAppStore.getState().setUser({ role: 'Recruteur' });
+      if (roleSelect) {
+        roleSelect.value = 'recruiter';
+      }
     }
   };
 
@@ -666,6 +744,22 @@ export function setupLoginPage({ root }: { root: HTMLElement }): CleanupFn {
     event.preventDefault();
     switchUser('recruiter');
   });
+
+  const roleSelect = get('select[name="role"]') as HTMLSelectElement | null;
+  if (roleSelect) {
+    roleSelect.value = useAppStore.getState().userType === 'student' ? 'candidate' : useAppStore.getState().userType;
+    on(roleSelect, 'change', (event) => {
+      const value = (event.target as HTMLSelectElement).value;
+      if (value === 'candidate') {
+        switchUser('student');
+      } else if (value === 'recruiter') {
+        switchUser('recruiter');
+      } else {
+        useAppStore.getState().setUserType('admin');
+        useAppStore.getState().setUser({ role: 'Administrateur' });
+      }
+    });
+  }
 
   all('button').forEach((button) => {
     on(button, 'click', (event) => {
@@ -707,7 +801,7 @@ export function setupLoginPage({ root }: { root: HTMLElement }): CleanupFn {
   };
 }
 
-export function setupRegisterPage({ root }: { root: HTMLElement }): CleanupFn {
+export function setupRegisterPage({ root, onRegister, navigate }: { root: HTMLElement; onRegister?: (data: any) => Promise<any>; navigate?: any }): CleanupFn {
   stripInlineHandlers(root);
   const tools = createPageTools(root);
   const { q, get, all, on, cleanup, timeout } = tools;
@@ -748,11 +842,42 @@ export function setupRegisterPage({ root }: { root: HTMLElement }): CleanupFn {
     animateFloatingParticles(['#p1', '#p2', '#p3', '#p4'], q, 0.5);
   }, root);
 
-  const passwordInput = get('#password-input');
+  const passwordInput = get('#password-input') as HTMLInputElement;
   const strengthFill = get('#strength-fill');
   const togglePasswordBtn = get('#toggle-password');
   const submitBtn = get("button[type='submit']");
   const form = get('form');
+
+  if (form) {
+    on(form, 'submit', async (e: Event) => {
+      e.preventDefault();
+      const inputs = form.querySelectorAll('input');
+      const data: any = {};
+      inputs.forEach((input: HTMLInputElement) => {
+        if (input.name) data[input.name] = input.value;
+        else if (input.type === 'email') data.email = input.value;
+        else if (input.id === 'password-input') data.password = input.value;
+        else if (input.placeholder.includes('Prénom')) data.firstName = input.value;
+        else if (input.placeholder.includes('Nom')) data.lastName = input.value;
+      });
+      data.role = useAppStore.getState().userType === 'recruiter' ? 'recruiter' : 'candidate';
+
+      if (onRegister) {
+        try {
+          const res = await onRegister(data);
+          if (res.success && navigate) {
+            const role = useAppStore.getState().userType;
+            if (role === 'recruiter') navigate('/dashboard-recruteur');
+            else navigate('/dashboard-candidat');
+          } else if (res.message) {
+             console.error(res.message);
+          }
+        } catch (err) {
+          console.error("Erreur d'inscription", err);
+        }
+      }
+    });
+  }
 
   const calculatePasswordStrength = (password: string) => {
     let strength = 0;
@@ -901,7 +1026,7 @@ export function setupAssistantPage({ root }: { root: HTMLElement }): CleanupFn {
   };
 }
 
-export function setupAnalyseCvPage({ root }: { root: HTMLElement }): CleanupFn {
+export function setupAnalyseCvPage({ root, onUpload, onGetMyCv }: { root: HTMLElement; onUpload?: (file: File) => Promise<any>; onGetMyCv?: () => Promise<any> }): CleanupFn {
   stripInlineHandlers(root);
   const tools = createPageTools(root);
   const { q, get, all, on, cleanup, timeout, interval, raf } = tools;
@@ -962,7 +1087,7 @@ export function setupAnalyseCvPage({ root }: { root: HTMLElement }): CleanupFn {
   setupButtonScale(all, on);
   setupNavHover(all, on);
 
-  const startScan = () => {
+  const startScan = async (file?: File) => {
     const uploadZone = get('#upload-zone');
     const scanContainer = get('#scan-container');
     const progress = get('#scan-progress');
@@ -983,39 +1108,58 @@ export function setupAnalyseCvPage({ root }: { root: HTMLElement }): CleanupFn {
       },
     });
 
-    const steps = [
-      'Analyse du document...',
-      'Extraction des compétences...',
-      'Matching ATS...',
-      'Calcul du score...',
-    ];
+    if (file && onUpload) {
+      status.innerText = 'Upload du document...';
+      try {
+        await onUpload(file);
+        status.innerText = 'Analyse en cours...';
 
-    let currentStep = 0;
+        let pollingInterval = interval(async () => {
+          if (onGetMyCv) {
+             const res = await onGetMyCv();
+             if (res.success && res.data?.cv) {
+                const cv = res.data.cv;
+                if (cv.parseStatus === 'done') {
+                  window.clearInterval(pollingInterval);
+                  
+                  // Mettre à jour l'UI avec les skills
+                  const skillsContainer = root.querySelector('.flex.flex-wrap.gap-2');
+                  if (skillsContainer && cv.extractedSkills) {
+                     skillsContainer.innerHTML = '';
+                     cv.extractedSkills.forEach((extractedSkill: any) => {
+                       const span = document.createElement('span');
+                       span.className = "bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold";
+                       span.textContent = extractedSkill.skill?.name || extractedSkill.skillName || 'Skill';
+                       skillsContainer.appendChild(span);
+                     });
+                  }
 
-    gsap.to(progress, {
-      width: '100%',
-      duration: 3.5,
-      ease: 'power2.inOut',
-      onUpdate() {
-        percent.innerText = `${Math.round((this as any).progress() * 100)}%`;
-      },
-    });
+                  gsap.to(progress, { width: '100%', duration: 0.5 });
+                  percent.innerText = '100%';
 
-    const stepInterval = interval(() => {
-      if (currentStep < steps.length) {
-        status.innerText = steps[currentStep];
-        currentStep += 1;
-      } else {
-        window.clearInterval(stepInterval);
-        timeout(() => {
-          scanContainer.classList.add('hidden');
-          filePreview.classList.remove('hidden');
-          gsap.fromTo('#file-preview', { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out' });
-          gsap.to(confidence, { strokeDashoffset: 0, duration: 1.2, ease: 'power2.out' });
-          setMatchScore(92);
-        }, 500);
+                  timeout(() => {
+                    scanContainer.classList.add('hidden');
+                    filePreview.classList.remove('hidden');
+                    gsap.fromTo('#file-preview', { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out' });
+                    gsap.to(confidence, { strokeDashoffset: 0, duration: 1.2, ease: 'power2.out' });
+                    setMatchScore(92);
+                  }, 500);
+                } else if (cv.parseStatus === 'failed') {
+                  window.clearInterval(pollingInterval);
+                  status.innerText = "Échec de l'analyse.";
+                  status.style.color = 'red';
+                }
+             }
+          }
+        }, 3000);
+      } catch (err) {
+        status.innerText = "Erreur lors de l'upload.";
+        status.style.color = 'red';
       }
-    }, 875);
+    } else {
+      // Fallback
+      status.innerText = 'Fichier manquant.';
+    }
   };
 
   const resetUpload = () => {
@@ -1041,9 +1185,23 @@ export function setupAnalyseCvPage({ root }: { root: HTMLElement }): CleanupFn {
     });
   };
 
+  // Cacher le faux bouton et ajouter un vrai input file caché si besoin, ou intercepter
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.accept = '.pdf,.doc,.docx';
+  fileInput.style.display = 'none';
+  root.appendChild(fileInput);
+
+  on(fileInput, 'change', (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+       startScan(target.files[0]);
+    }
+  });
+
   on(root.querySelector('[onclick*="startScan"]'), 'click', (event) => {
     event.preventDefault();
-    startScan();
+    fileInput.click();
   });
   on(root.querySelector('[onclick*="resetUpload"]'), 'click', (event) => {
     event.preventDefault();
@@ -1070,7 +1228,7 @@ export function setupAnalyseCvPage({ root }: { root: HTMLElement }): CleanupFn {
     });
     zone.classList.remove('upload-active');
   });
-  on(zone, 'drop', (event) => {
+  on(zone, 'drop', (event: DragEvent) => {
     event.preventDefault();
     gsap.to(zone, {
       scale: 1,
@@ -1078,8 +1236,11 @@ export function setupAnalyseCvPage({ root }: { root: HTMLElement }): CleanupFn {
       backgroundColor: 'transparent',
       duration: 0.2,
     });
-    zone.classList.remove('upload-active');
-    startScan();
+    zone?.classList.remove('upload-active');
+    
+    if (event.dataTransfer?.files && event.dataTransfer.files.length > 0) {
+      startScan(event.dataTransfer.files[0]);
+    }
   });
 
   const lenis = new Lenis();
@@ -1125,15 +1286,61 @@ export function setupCandidateDashboardPage({
 export function setupRecruiterDashboardPage({
   root,
   navigate,
+  candidates,
 }: {
   root: HTMLElement;
   navigate: (path: string) => void;
+  candidates?: any[];
 }): CleanupFn {
   const cleanup = setupDashboardAnimations(root, {
     particleIds: ['#p1', '#p2', '#p3', '#p4'],
     mainContentSelector: null,
     progressDelay: 300,
-    extraTriggers: ({ all, timeout }) => {
+    extraTriggers: ({ all, timeout, q }) => {
+      // Populate candidates if provided
+      if (candidates && candidates.length > 0) {
+        // Update "Nexus Actif" card (the top candidate)
+        const nexusActifCard = q('.bg-gradient-to-br.from-primary.to-secondary');
+        if (nexusActifCard) {
+          const topApp = candidates[0];
+          const candidateName = nexusActifCard.querySelector('.font-bold.leading-none');
+          const matchPercent = nexusActifCard.querySelector('.text-\\[10px\\].font-bold.text-white\\/70');
+          const profileImg = nexusActifCard.querySelector('img');
+          const bioText = nexusActifCard.querySelector('.text-sm.font-medium.text-white\\/90');
+
+          if (candidateName) candidateName.textContent = `${topApp.candidate.profile.firstName} ${topApp.candidate.profile.lastName}`;
+          if (matchPercent && topApp.candidate.match_scores && topApp.candidate.match_scores[0]) {
+            matchPercent.textContent = `Match: ${Math.round(topApp.candidate.match_scores[0].scoreFinal * 100)}%`;
+          }
+          if (bioText) bioText.innerHTML = `Nouveau profil détecté pour <strong>${topApp.offer.title}</strong>. Ce candidat présente une excellente adéquation.`;
+        }
+
+        // Update Pipeline section with real applications
+        const pipelineContainer = root.querySelector('#pipeline-section .space-y-4');
+        const templateCard = pipelineContainer?.querySelector('.card-hover-scale');
+        if (pipelineContainer && templateCard) {
+          pipelineContainer.innerHTML = '';
+          candidates.forEach((app) => {
+            const card = templateCard.cloneNode(true) as HTMLElement;
+            const titleEl = card.querySelector('h3');
+            const scoreEl = card.querySelector('.text-primary, .text-secondary');
+            const progressEl = card.querySelector('.progress-bar-fill') as HTMLElement;
+            const refEl = card.querySelector('.text-\\[10px\\].font-bold');
+
+            if (titleEl) titleEl.textContent = `${app.candidate.profile.firstName} ${app.candidate.profile.lastName} - ${app.offer.title}`;
+            if (refEl) refEl.textContent = `STATUT: ${app.applicationStatus.toUpperCase()}`;
+            
+            if (app.candidate.match_scores && app.candidate.match_scores[0]) {
+              const score = Math.round(app.candidate.match_scores[0].scoreFinal * 100);
+              if (scoreEl) scoreEl.textContent = `${score}%`;
+              if (progressEl) progressEl.style.width = `${score}%`;
+            }
+
+            pipelineContainer.appendChild(card);
+          });
+        }
+      }
+
       all('.reveal-up').forEach((element) => {
         gsap.fromTo(
           element,
@@ -1223,11 +1430,11 @@ export function setupRecruiterDashboardPage({
   };
 }
 
-export function setupAdminDashboardPage({ root }: { root: HTMLElement }): CleanupFn {
+export function setupAdminDashboardPage({ root, stats }: { root: HTMLElement; stats?: any }): CleanupFn {
   return setupDashboardAnimations(root, {
     particleIds: ['#p1', '#p2', '#p3', '#p4'],
     progressDelay: 500,
-    extraTriggers: () => {
+    extraTriggers: ({ all }) => {
       gsap.fromTo(
         '#chart-section',
         { y: 50, opacity: 0 },
@@ -1239,11 +1446,22 @@ export function setupAdminDashboardPage({ root }: { root: HTMLElement }): Cleanu
           scrollTrigger: { trigger: '#chart-section', start: 'top 85%', toggleActions: 'play none none none' },
         },
       );
+      
+      if (stats) {
+        // Inject stats into the DOM
+        const kpiCards = all('.card-hover-scale h3');
+        if (kpiCards.length >= 4) {
+          kpiCards[0].textContent = stats.totalUsers || '--';
+          kpiCards[1].textContent = stats.activeOffers || '--';
+          kpiCards[2].textContent = stats.totalApplications || '--';
+          kpiCards[3].textContent = stats.systemHealth || '--';
+        }
+      }
     },
   });
 }
 
-export function setupAdminUsersPage({ root }: { root: HTMLElement }): CleanupFn {
+export function setupAdminUsersPage({ root, users }: { root: HTMLElement; users?: any[] }): CleanupFn {
   stripInlineHandlers(root);
   const tools = createPageTools(root);
   const { q, all, cleanup, on, timeout } = tools;
@@ -1278,6 +1496,29 @@ export function setupAdminUsersPage({ root }: { root: HTMLElement }): CleanupFn 
     });
 
     animateFloatingParticles(['#p1', '#p2', '#p3', '#p4'], q, 0.5);
+
+    if (users && users.length > 0) {
+      // Find the user list container and a template card
+      const listContainer = root.querySelector('.space-y-4');
+      const templateCard = listContainer?.querySelector('.card-hover-scale');
+      
+      if (listContainer && templateCard) {
+        listContainer.innerHTML = ''; // Clear hardcoded data
+        
+        users.forEach((user) => {
+          const card = templateCard.cloneNode(true) as HTMLElement;
+          const nameEl = card.querySelector('h3');
+          const roleEl = card.querySelector('.text-primary');
+          const emailEl = card.querySelector('.text-sm.text-on-surface-variant');
+          
+          if (nameEl) nameEl.textContent = `${user.firstName || ''} ${user.lastName || ''}`;
+          if (roleEl) roleEl.textContent = user.role || 'Utilisateur';
+          if (emailEl) emailEl.textContent = user.email || '';
+          
+          listContainer.appendChild(card);
+        });
+      }
+    }
   }, root);
 
   setupButtonScale(all, on, '.btn-primary', { ease: 'power2.out', leaveDuration: 0.3 });
@@ -1289,7 +1530,7 @@ export function setupAdminUsersPage({ root }: { root: HTMLElement }): CleanupFn 
   };
 }
 
-export function setupAdminOffresPage({ root }: { root: HTMLElement }): CleanupFn {
+export function setupAdminOffresPage({ root, offers }: { root: HTMLElement; offers?: any[] }): CleanupFn {
   stripInlineHandlers(root);
   const tools = createPageTools(root);
   const { q, all, get, on, cleanup, timeout } = tools;
@@ -1354,6 +1595,38 @@ export function setupAdminOffresPage({ root }: { root: HTMLElement }): CleanupFn
     if (active && activeCol) active.innerText = String(activeCol.children.length);
     if (closed && closedCol) closed.innerText = String(closedCol.children.length);
   };
+
+  if (offers && offers.length > 0) {
+    // Populate kanban columns
+    const pendingCol = root.querySelector('#col-pending .overflow-y-auto');
+    const activeCol = root.querySelector('#col-active .overflow-y-auto');
+    const closedCol = root.querySelector('#col-closed .overflow-y-auto');
+    
+    // Use first draggable card as template
+    const templateCard = root.querySelector('.draggable')?.cloneNode(true) as HTMLElement;
+    
+    if (templateCard && pendingCol && activeCol && closedCol) {
+      pendingCol.innerHTML = '';
+      activeCol.innerHTML = '';
+      closedCol.innerHTML = '';
+      
+      offers.forEach((offer) => {
+        const card = templateCard.cloneNode(true) as HTMLElement;
+        const idEl = card.querySelector('.text-xs');
+        const titleEl = card.querySelector('h3');
+        const companyEl = card.querySelector('.font-bold.text-on-surface-variant');
+        
+        if (idEl) idEl.textContent = offer.id.substring(0,8);
+        if (titleEl) titleEl.textContent = offer.title;
+        if (companyEl) companyEl.textContent = offer.company?.name || 'Entreprise';
+        
+        if (offer.status === 'PUBLISHED') activeCol.appendChild(card);
+        else if (offer.status === 'ARCHIVED') closedCol.appendChild(card);
+        else pendingCol.appendChild(card);
+      });
+      updateCounters();
+    }
+  }
 
   const getDragAfterElement = (column: Element, y: number) => {
     const elements = [...column.querySelectorAll('.draggable:not(.dragging)')];
@@ -1425,7 +1698,7 @@ export function setupAdminOffresPage({ root }: { root: HTMLElement }): CleanupFn
   };
 }
 
-export function setupUserSettingsPage({ root }: { root: HTMLElement }): CleanupFn {
+export function setupUserSettingsPage({ root, profileData, onUpdate }: { root: HTMLElement; profileData?: any; onUpdate?: (data: any) => Promise<any> }): CleanupFn {
   return setupDashboardAnimations(root, {
     particleIds: ['#p1-1', '#p1-2', '#p1-3', '#p1-4'],
     progressDelay: 250,
@@ -1444,6 +1717,67 @@ export function setupUserSettingsPage({ root }: { root: HTMLElement }): CleanupF
           },
         );
       });
+
+      if (profileData) {
+        // Remplir les inputs
+        const inputs = all('input');
+        inputs.forEach((input: HTMLInputElement) => {
+          if (input.placeholder?.includes('Prénom') || input.previousElementSibling?.textContent?.includes('Prénom')) {
+            input.value = profileData.profile?.firstName || profileData.user?.firstName || '';
+            input.id = 'input-firstname';
+          }
+          if (input.placeholder?.includes('Nom') || input.previousElementSibling?.textContent?.includes('Nom')) {
+            input.value = profileData.profile?.lastName || profileData.user?.lastName || '';
+            input.id = 'input-lastname';
+          }
+          if (input.placeholder?.includes('Email') || input.previousElementSibling?.textContent?.includes('Email')) {
+            input.value = profileData.user?.email || '';
+          }
+          if (input.placeholder?.includes('Titre') || input.previousElementSibling?.textContent?.includes('Titre')) {
+            input.value = profileData.profile?.bio || '';
+            input.id = 'input-bio';
+          }
+        });
+
+        // Nom en haut à droite et titre
+        const nameHeaders = root.querySelectorAll('h1, .text-right p:first-child');
+        nameHeaders.forEach((el) => {
+          if (el.textContent?.includes('Paramètres de')) {
+            el.textContent = `Paramètres de ${profileData.profile?.firstName || 'Utilisateur'}`;
+          } else if (el.textContent?.includes('Thomas Dubois')) {
+            el.textContent = `${profileData.profile?.firstName || ''} ${profileData.profile?.lastName || ''}`;
+          }
+        });
+      }
+
+      // Attacher handler Enregistrer
+      const saveBtn = Array.from(root.querySelectorAll('button')).find(b => b.textContent?.includes('Enregistrer') || b.querySelector('.material-symbols-outlined')?.textContent?.includes('save'));
+      if (saveBtn && onUpdate) {
+        saveBtn.addEventListener('click', async (e) => {
+          e.preventDefault();
+          const firstNameInput = root.querySelector('#input-firstname') as HTMLInputElement;
+          const lastNameInput = root.querySelector('#input-lastname') as HTMLInputElement;
+          const bioInput = root.querySelector('#input-bio') as HTMLInputElement;
+
+          const dataToUpdate = {
+            firstName: firstNameInput?.value,
+            lastName: lastNameInput?.value,
+            bio: bioInput?.value
+          };
+
+          const oldHtml = saveBtn.innerHTML;
+          saveBtn.innerHTML = "<span class='material-symbols-outlined'>hourglass_empty</span> Enregistrement...";
+          
+          try {
+            await onUpdate(dataToUpdate);
+            saveBtn.innerHTML = "<span class='material-symbols-outlined'>check_circle</span> Enregistré";
+            setTimeout(() => { saveBtn.innerHTML = oldHtml; }, 2000);
+          } catch (err) {
+             console.error("Erreur de mise à jour du profil", err);
+             saveBtn.innerHTML = oldHtml;
+          }
+        });
+      }
     },
   });
 }

@@ -1,6 +1,6 @@
 import { CompanyRepository } from './company.repository';
 import { RegisterCompanyDto, RejectCompanyDto } from './company.validation';
-import { AppError } from '../../shared/middleware/errorHandler';
+import { AppError } from '../../shared/errors/AppError';
 
 const companyRepository = new CompanyRepository();
 

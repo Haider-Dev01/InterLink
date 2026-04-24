@@ -133,6 +133,17 @@
 
             <form action="#" class="space-y-6">
                 <div class="space-y-2">
+                    <label class="text-xs font-black uppercase tracking-widest text-on-surface-variant ml-1">Rôle</label>
+                    <div class="relative group">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">person</span>
+                        <select name="role" class="w-full pl-12 pr-4 py-4 bg-white/50 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium">
+                            <option value="candidate">Etudiant</option>
+                            <option value="recruiter">Recruteur</option>
+                            <option value="admin">Administrateur</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="space-y-2">
                     <label class="text-xs font-black uppercase tracking-widest text-on-surface-variant ml-1">Adresse Email</label>
                     <div class="relative group">
                         <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">mail</span>
@@ -160,7 +171,7 @@
                 </div>
 
                 <button type="submit" class="w-full bg-primary text-white font-black py-4 rounded-2xl shadow-xl shadow-primary/20 hover:shadow-2xl hover:bg-primary-container hover:-translate-y-1 active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 group">
-                    <span>Accéder au Nexus</span>
+                    <span>Accéder à InterLink</span>
                     <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
                 </button>
             </form>

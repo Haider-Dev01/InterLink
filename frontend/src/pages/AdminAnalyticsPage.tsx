@@ -12,10 +12,32 @@ import {
   adminUserGrowth,
 } from '../lib/data/dashboardData';
 import { useReactPageAnimations } from '../lib/reactPageAnimations';
+import { adminService } from '../services/adminService';
+import { useEffect, useState } from 'react';
 
 export default function AdminAnalyticsPage() {
   const rootRef = useRef(null);
   useReactPageAnimations(rootRef);
+  
+  const [stats, setStats] = useState<any>(null);
+
+  useEffect(() => {
+    adminService.getStats().then(res => {
+      if (res.success && res.data) {
+        // Backend returns { data: { stats: { totalUsers, ... } } }
+        setStats(res.data.stats ?? res.data);
+      }
+    }).catch(err => {
+      console.error('[AdminAnalytics] Failed to fetch stats:', err);
+    });
+  }, []);
+
+  const kpis = stats ? [
+    { label: 'Utilisateurs total', value: stats.totalUsers.toString(), icon: 'group' },
+    { label: 'Candidats', value: stats.totalCandidates.toString(), icon: 'person', tone: 'secondary' as 'secondary' },
+    { label: 'Entreprises', value: stats.totalCompanies.toString(), icon: 'business', tone: 'emerald' as 'emerald' },
+    { label: 'Offres publiées', value: stats.totalOffers.toString(), icon: 'description', tone: 'amber' as 'amber' },
+  ] : adminKpis;
 
   return (
     <div ref={rootRef}>
@@ -34,7 +56,7 @@ export default function AdminAnalyticsPage() {
         variant="admin"
       >
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-          {adminKpis.map((kpi) => (
+          {kpis.map((kpi) => (
             <KpiCard {...kpi} key={kpi.label} />
           ))}
         </div>

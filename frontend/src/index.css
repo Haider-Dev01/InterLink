@@ -42,3 +42,8 @@ select {
   line-height: 1;
   will-change: transform, opacity;
 }
+
+/* Hide legacy HTML header to use React Navbar instead */
+#main-header {
+  display: none !important;
+}

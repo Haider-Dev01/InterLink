@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { cvService } from './cv.service'
 import { validateUploadFile } from './cv.validation'
-import { AppError } from '../../shared/middleware/errorHandler'
+import { AppError } from '../../shared/errors/AppError';
 
 export const cvController = {
   async upload(req: Request, res: Response, next: NextFunction) {

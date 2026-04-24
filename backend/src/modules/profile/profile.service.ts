@@ -1,6 +1,6 @@
 import { ProfileRepository } from './profile.repository';
 import { UpdateProfileDto } from './profile.validation';
-import { AppError } from '../../shared/middleware/errorHandler';
+import { AppError } from '../../shared/errors/AppError';
 
 const profileRepository = new ProfileRepository();
 

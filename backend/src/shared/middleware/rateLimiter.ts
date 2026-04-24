@@ -1,4 +1,4 @@
-import rateLimit from 'express-rate-limit';
+import rateLimit, { ipKeyGenerator } from 'express-rate-limit';
 import { logger } from '../utils/logger';
 import { prisma } from '../config/prismaClient';
 
@@ -31,9 +31,13 @@ export const authRateLimiter = rateLimit({
       message: 'Trop de tentatives - Compte bloqué temporairement (15 min)',
     });
   },
-  // On limite par email s'il existe, sinon par IP
+  // On limite par email s'il existe, sinon par IP (IPv6-safe)
   keyGenerator: (req) => {
-    return (req.body?.email as string) || (req.ip ?? 'unknown');
+    const email = req.body?.email as string;
+    if (email) return email;
+    
+    const ip = req.ip || req.socket?.remoteAddress || 'unknown';
+    return ipKeyGenerator(ip);
   },
   validate: { xForwardedForHeader: false },
 });

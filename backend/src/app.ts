@@ -16,6 +16,7 @@ import adminRoutes from './modules/admin/admin.routes';
 import cvRoutes from './modules/cv/cv.routes';
 import offerRoutes from './modules/offer/offer.routes';
 import chatRoutes from './modules/chat/chat.routes';
+import applicationRoutes from './modules/application/application.routes';
 
 export const app = express();
 
@@ -24,7 +25,11 @@ export const app = express();
 // ────────────────────────────────────────────────────────────────
 app.use(helmet());
 app.use(cors({ 
-  origin: env.FRONTEND_URL, 
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:5174',
+    process.env.FRONTEND_URL || 'http://localhost:5174'
+  ], 
   credentials: true 
 }));
 app.use(morgan('dev'));
@@ -44,6 +49,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/cv', cvRoutes);
 app.use('/api/offers', offerRoutes);
 app.use('/api/chat', chatRoutes);
+app.use('/api/applications', applicationRoutes);
 app.use('/uploads', express.static('uploads'));
 
 app.get('/health', async (_req: Request, res: Response) => {

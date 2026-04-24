@@ -1,4 +1,5 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../../store/authStore';
 
 import type { ReactNode } from 'react';
 
@@ -36,6 +37,7 @@ export type DashboardShellProps = {
   subtitle?: ReactNode;
   searchPlaceholder?: string;
   profile?: DashboardProfile;
+  onAvatarClick?: () => void;
   action?: DashboardAction;
   children: ReactNode;
 };
@@ -172,6 +174,7 @@ export function DashboardShell({
   subtitle,
   searchPlaceholder,
   profile,
+  onAvatarClick,
   action,
   children,
 }: DashboardShellProps) {
@@ -229,7 +232,7 @@ export function DashboardShell({
 
         {isAdmin && profile ? (
           <div className="border-t border-surface-variant/50 p-4">
-            <div className="flex cursor-pointer items-center gap-3 rounded-xl bg-surface p-3 transition-colors hover:bg-surface-variant/50">
+            <div className="flex cursor-pointer items-center gap-3 rounded-xl bg-surface p-3 transition-colors hover:bg-surface-variant/50" onClick={onAvatarClick}>
               <img alt={profile.name} className="h-10 w-10 rounded-full shadow-sm" src={profile.image} />
               <div className="min-w-0 flex-1 overflow-hidden">
                 <p className="truncate text-sm font-bold text-on-surface">{profile.name}</p>
@@ -265,6 +268,14 @@ export function DashboardShell({
                 <span className="material-symbols-outlined">notifications</span>
                 <span className="absolute right-0 top-0 h-2.5 w-2.5 rounded-full border-2 border-white bg-red-500" />
               </button>
+
+              <button
+                onClick={() => useAuthStore.getState().logout()}
+                className="interactive-scale flex h-10 w-10 items-center justify-center rounded-full border border-surface-variant bg-white text-on-surface-variant shadow-sm transition-colors hover:border-red-200 hover:text-red-600"
+                title="Déconnexion"
+              >
+                <span className="material-symbols-outlined">logout</span>
+              </button>
             </div>
           </header>
         ) : (
@@ -293,13 +304,24 @@ export function DashboardShell({
                   <span className="absolute right-0 top-0 h-2.5 w-2.5 rounded-full border-2 border-white bg-red-500 animate-pulse" />
                 </button>
 
+                <button
+                  onClick={() => useAuthStore.getState().logout()}
+                  className="interactive-scale flex h-10 w-10 items-center justify-center rounded-full border border-surface-variant bg-white text-on-surface-variant shadow-sm transition-colors hover:border-red-200 hover:text-red-600"
+                  title="Déconnexion"
+                >
+                  <span className="material-symbols-outlined">logout</span>
+                </button>
+
                 {profile ? (
                   <>
                     <div className="hidden text-right lg:block">
                       <p className="leading-none text-sm font-bold text-on-surface">{profile.name}</p>
                       <p className="mt-1 text-[10px] font-bold uppercase text-primary">{profile.role}</p>
                     </div>
-                    <div className="h-10 w-10 overflow-hidden rounded-full border-2 border-surface-variant shadow-sm transition-colors hover:border-primary">
+                    <div 
+                      className="h-10 w-10 overflow-hidden rounded-full border-2 border-surface-variant shadow-sm transition-colors hover:border-primary cursor-pointer"
+                      onClick={onAvatarClick}
+                    >
                       <img alt={profile.name} className="h-full w-full object-cover" src={profile.image} />
                     </div>
                   </>

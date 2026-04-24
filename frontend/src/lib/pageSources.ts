@@ -109,6 +109,9 @@ export const userSettingsHtml = `<!DOCTYPE html>
         </div>
 
         <div class="flex items-center gap-4 border-l border-surface-variant/50 pl-6">
+          <button id="logout-button" class="relative w-10 h-10 bg-white border border-surface-variant rounded-full flex items-center justify-center text-on-surface-variant hover:text-red-600 hover:border-red-200 transition-colors shadow-sm" title="Déconnexion">
+            <span class="material-symbols-outlined">logout</span>
+          </button>
           <div class="text-right hidden lg:block">
             <p class="text-sm font-bold text-on-surface leading-none">Thomas Dubois</p>
             <p class="text-[10px] font-bold text-primary uppercase mt-1">Étudiant Master 2</p>

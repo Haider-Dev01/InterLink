@@ -1,90 +1,178 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
-import { env } from '../../shared/config/env';
 import { AuthRepository } from './auth.repository';
+import { prisma } from '../../shared/config/prismaClient';
 import { RegisterDto, LoginDto } from './auth.validation';
-import { AppError } from '../../shared/middleware/errorHandler';
+import { env } from '../../shared/config/env';
+import { AppError } from '../../shared/errors/AppError';
 
 const authRepository = new AuthRepository();
 
 export class AuthService {
-  async register(data: RegisterDto) {
-    const existingUser = await authRepository.findUserByEmail(data.email);
-    if (existingUser) {
-      throw { statusCode: 400, message: 'Cet email est déjà utilisé' } as AppError;
+  register = async (data: RegisterDto) => {
+    try {
+      const existingUser = await authRepository.findUserByEmail(data.email);
+      if (existingUser) {
+        throw new AppError('Cet email est déjà utilisé', 400);
+      }
+
+      if (data.role === 'admin') {
+        const adminCount = await prisma.user.count({ where: { role: 'admin' } });
+        if (adminCount >= 1) {
+          throw new AppError('Un seul administrateur autorise', 400);
+        }
+      }
+
+      const passwordHash = await bcrypt.hash(data.password, 12);
+
+      // Utilisation d'une transaction pour garantir l'atomicité
+      const result = await prisma.$transaction(async (tx: any) => {
+        // 1. Création de l'utilisateur et de son profil
+        const user = await tx.user.create({
+          data: {
+            email: data.email,
+            passwordHash,
+            role: data.role,
+            profile: {
+              create: {
+                firstName: data.firstName,
+                lastName: data.lastName,
+              }
+            }
+          },
+          include: { profile: true }
+        });
+
+        // 2. Génération des tokens (avec sauvegarde du refresh token dans la transaction)
+        const tokens = await this.generateTokens(user.id, user.email, user.role as any, tx);
+
+        // 3. Log d'audit
+        await tx.auditLog.create({
+          data: {
+            actorId: user.id,
+            action: 'USER_REGISTERED',
+            entityType: 'USER',
+            entityId: user.id,
+            metadata: { email: user.email }
+          }
+        });
+
+        return { user, ...tokens };
+      });
+
+      return result;
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+      
+      console.error('[AuthService.register] Error:', error);
+      throw new AppError(
+        error instanceof Error ? error.message : 'Erreur lors de l\'inscription',
+        500
+      );
     }
-
-    const passwordHash = await bcrypt.hash(data.password, 12);
-    const user = await authRepository.createUser(data, passwordHash);
-
-    const tokens = await this.generateTokens(user.id, user.email, user.role as any);
-    
-    await authRepository.createAuditLog(user.id, 'USER_REGISTERED', { email: user.email });
-
-    return { user, ...tokens };
-  }
+  };
 
   async login(data: LoginDto) {
-    const user = await authRepository.findUserByEmail(data.email);
-    if (!user) {
-      throw { statusCode: 401, message: 'Identifiants invalides' } as AppError;
+    try {
+      const user = await authRepository.findUserByEmail(data.email, data.role);
+      if (!user) {
+        throw new AppError('Identifiants invalides', 401);
+      }
+
+      if (user.isBanned) {
+        throw new AppError('Ce compte a été suspendu', 403);
+      }
+
+      const isMatch = await bcrypt.compare(data.password, user.passwordHash);
+      if (!isMatch) {
+        throw new AppError('Identifiants invalides', 401);
+      }
+
+      const tokens = await this.generateTokens(user.id, user.email, user.role as any);
+
+      await authRepository.createAuditLog(user.id, 'USER_LOGGED_IN');
+
+      return { user, ...tokens };
+    } catch (error) {
+      if (error instanceof AppError) {
+        throw error;
+      }
+      throw new AppError(
+        error instanceof Error ? error.message : 'Erreur lors de la connexion',
+        500
+      );
     }
-
-    if (user.isBanned) {
-      throw { statusCode: 403, message: 'Ce compte a été suspendu' } as AppError;
-    }
-
-    const isMatch = await bcrypt.compare(data.password, user.passwordHash);
-    if (!isMatch) {
-      throw { statusCode: 401, message: 'Identifiants invalides' } as AppError;
-    }
-
-    const tokens = await this.generateTokens(user.id, user.email, user.role as any);
-
-    await authRepository.createAuditLog(user.id, 'USER_LOGGED_IN');
-
-    return { user, ...tokens };
   }
 
   async refresh(refreshToken: string) {
-    if (!refreshToken) {
-      throw { statusCode: 401, message: 'Refresh token manquant' } as AppError;
+    try {
+      if (!refreshToken) {
+        throw new AppError('Refresh token manquant', 401);
+      }
+
+      const tokenHash = this.hashToken(refreshToken);
+      const storedToken = await authRepository.findRefreshToken(tokenHash);
+
+      if (!storedToken || storedToken.revokedAt || storedToken.expiresAt < new Date()) {
+        throw new AppError('Token de rafraîchissement invalide ou expiré', 401);
+      }
+
+      const user = storedToken.user;
+      const tokens = await this.generateTokens(user.id, user.email, user.role as any);
+
+      return tokens;
+    } catch (error) {
+      if (error instanceof AppError) {
+        throw error;
+      }
+      throw new AppError(
+        error instanceof Error ? error.message : 'Erreur lors du rafraîchissement du token',
+        500
+      );
     }
-
-    const tokenHash = this.hashToken(refreshToken);
-    const storedToken = await authRepository.findRefreshToken(tokenHash);
-
-    if (!storedToken || storedToken.revokedAt || storedToken.expiresAt < new Date()) {
-      throw { statusCode: 401, message: 'Token de rafraîchissement invalide ou expiré' } as AppError;
-    }
-
-    const user = storedToken.user;
-    const tokens = await this.generateTokens(user.id, user.email, user.role as any);
-
-    return tokens;
   }
 
   async logout(refreshToken: string) {
-    if (refreshToken) {
-      const tokenHash = this.hashToken(refreshToken);
-      await authRepository.revokeRefreshToken(tokenHash);
+    try {
+      if (refreshToken) {
+        const tokenHash = this.hashToken(refreshToken);
+        await authRepository.revokeRefreshToken(tokenHash);
+      }
+    } catch (error) {
+      if (error instanceof AppError) {
+        throw error;
+      }
+      throw new AppError(
+        error instanceof Error ? error.message : 'Erreur lors de la déconnexion',
+        500
+      );
     }
   }
 
   async getMe(userId: string) {
-    const user = await authRepository.findUserById(userId);
-    if (!user) {
-      throw { statusCode: 404, message: 'Utilisateur introuvable' } as AppError;
+    try {
+      const user = await authRepository.findUserById(userId);
+      if (!user) {
+        throw new AppError('Utilisateur introuvable', 404);
+      }
+      return user;
+    } catch (error) {
+      if (error instanceof AppError) {
+        throw error;
+      }
+      throw new AppError(
+        error instanceof Error ? error.message : 'Erreur lors de la récupération de l\'utilisateur',
+        500
+      );
     }
-    return user;
   }
 
   private hashToken(token: string): string {
     return crypto.createHash('sha256').update(token).digest('hex');
   }
 
-  private async generateTokens(userId: string, email: string, role: string) {
+  private generateTokens = async (userId: string, email: string, role: string, tx?: any) => {
     const accessToken = jwt.sign(
       { userId, email, role },
       env.JWT_ACCESS_SECRET,
@@ -94,12 +182,21 @@ export class AuthService {
     const refreshTokenRaw = crypto.randomBytes(64).toString('hex');
     const refreshTokenHash = this.hashToken(refreshTokenRaw);
     
-    // Expire dans 7 jours
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + 7);
 
-    await authRepository.saveRefreshToken(userId, refreshTokenHash, expiresAt);
+    if (tx) {
+      await tx.refreshToken.create({
+        data: {
+          userId,
+          tokenHash: refreshTokenHash,
+          expiresAt,
+        }
+      });
+    } else {
+      await authRepository.saveRefreshToken(userId, refreshTokenHash, expiresAt);
+    }
 
     return { accessToken, refreshToken: refreshTokenRaw };
-  }
+  };
 }

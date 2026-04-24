@@ -623,3 +623,279 @@
 2026-04-01 23:53:49:5349 [31merror[39m: [31m[PATCH] /api/offers/%3COFFER_ID%3E/publish >> 404 - Offre introuvable[39m
 2026-04-02 00:01:12:112 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
 2026-04-08 14:02:57:257 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
+2026-04-17 23:53:42:5342 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "firstName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "lastName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  }[39m
+[31m][39m
+2026-04-17 23:54:38:5438 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "firstName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "lastName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  }[39m
+[31m][39m
+2026-04-18 00:31:18:3118 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 00:31:18:3118 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 00:31:25:3125 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 00:31:25:3125 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 00:31:30:3130 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 00:31:30:3130 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 00:31:31:3131 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 00:31:31:3131 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 00:32:27:3227 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 00:32:27:3227 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 00:37:41:3741 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 00:37:41:3741 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 00:37:48:3748 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 00:37:48:3748 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:20:46:2046 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:20:46:2046 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:22:30:2230 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:22:30:2230 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:22:36:2236 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:22:36:2236 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:28:28:2828 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:28:28:2828 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:35:03:353 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:35:03:353 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:49:12:4912 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
+2026-04-18 01:49:12:4912 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:49:18:4918 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
+2026-04-18 01:49:18:4918 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:49:19:4919 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
+2026-04-18 01:49:19:4919 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:49:20:4920 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
+2026-04-18 01:49:20:4920 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:49:20:4920 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides[39m
+2026-04-18 01:49:20:4920 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:50:53:5053 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:50:53:5053 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:52:17:5217 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:52:17:5217 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:52:26:5226 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:52:26:5226 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:53:43:5343 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-18 01:53:43:5343 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-20 22:03:50:350 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-20 22:03:50:350 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-20 22:04:53:453 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-20 22:04:53:453 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-20 22:06:02:62 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-20 22:06:02:62 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-20 22:18:25:1825 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-20 22:18:25:1825 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-20 22:19:25:1925 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "firstName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "lastName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  }[39m
+[31m][39m
+2026-04-20 22:23:42:2342 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-20 22:23:42:2342 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-20 22:24:34:2434 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-20 22:24:34:2434 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-20 22:24:50:2450 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-20 22:24:50:2450 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-20 22:25:27:2527 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-20 22:25:27:2527 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-20 22:26:20:2620 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-20 22:26:20:2620 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-20 22:37:47:3747 [31merror[39m: [31m[POST] /api/auth/register >> 500 - [[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "firstName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "lastName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  }[39m
+[31m][39m
+2026-04-20 22:37:57:3757 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-20 22:37:57:3757 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant[39m
+2026-04-20 23:32:18:3218 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-20 23:32:18:3218 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-20 23:32:45:3245 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-20 23:32:45:3245 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-20 23:34:27:3427 [31merror[39m: [31m[POST] /api/auth/register >> 400 - Erreur de validation [[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "firstName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "lastName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  }[39m
+[31m][39m
+2026-04-20 23:34:38:3438 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-20 23:34:38:3438 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-20 23:42:35:4235 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-20 23:42:35:4235 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-20 23:43:08:438 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-20 23:43:08:438 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-20 23:43:16:4316 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-20 23:43:16:4316 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-20 23:43:48:4348 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-20 23:43:48:4348 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-20 23:44:22:4422 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-20 23:44:22:4422 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 00:02:04:24 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 00:02:04:24 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 00:02:30:230 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 00:02:30:230 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 00:04:38:438 [31merror[39m: [31m[POST] /api/auth/register >> 400 - Erreur de validation [[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "firstName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "lastName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  }[39m
+[31m][39m
+2026-04-21 00:47:05:475 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 00:47:05:475 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 00:58:18:5818 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 00:58:18:5818 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 00:59:44:5944 [31merror[39m: [31m[POST] /api/offers >> 400 - Erreur de validation [[39m
+[31m  {[39m
+[31m    "origin": "string",[39m
+[31m    "code": "too_small",[39m
+[31m    "minimum": 10,[39m
+[31m    "inclusive": true,[39m
+[31m    "path": [[39m
+[31m      "description"[39m
+[31m    ],[39m
+[31m    "message": "Too small: expected string to have >=10 characters"[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "array",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "skills"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected array, received undefined"[39m
+[31m  }[39m
+[31m][39m
+2026-04-21 10:30:47:3047 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 10:30:47:3047 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 10:31:41:3141 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 10:31:41:3141 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 10:31:44:3144 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 10:31:44:3144 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 10:31:46:3146 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 10:31:46:3146 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 10:32:30:3230 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 10:32:30:3230 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 10:45:30:4530 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 10:45:30:4530 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 10:45:34:4534 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 10:45:34:4534 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 10:57:21:5721 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 10:57:21:5721 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 15:14:13:1413 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 15:14:13:1413 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-21 15:19:38:1938 [31merror[39m: [31m[POST] /api/offers >> 400 - Erreur de validation [[39m
+[31m  {[39m
+[31m    "expected": "array",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "skills"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected array, received undefined"[39m
+[31m  }[39m
+[31m][39m
+2026-04-21 15:19:54:1954 [31merror[39m: [31m[POST] /api/offers >> 400 - Erreur de validation [[39m
+[31m  {[39m
+[31m    "expected": "array",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "skills"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected array, received undefined"[39m
+[31m  }[39m
+[31m][39m
+2026-04-24 13:56:28:5628 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-24 13:56:28:5628 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-24 14:06:17:617 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-24 14:06:17:617 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-24 14:08:29:829 [31merror[39m: [31m[POST] /api/offers >> 400 - Erreur de validation [[39m
+[31m  {[39m
+[31m    "origin": "string",[39m
+[31m    "code": "too_small",[39m
+[31m    "minimum": 10,[39m
+[31m    "inclusive": true,[39m
+[31m    "path": [[39m
+[31m      "description"[39m
+[31m    ],[39m
+[31m    "message": "Too small: expected string to have >=10 characters"[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "array",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "skills"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected array, received undefined"[39m
+[31m  }[39m
+[31m][39m

@@ -1,5 +1,5 @@
 import { AdminRepository } from './admin.repository';
-import { AppError } from '../../shared/middleware/errorHandler';
+import { AppError } from '../../shared/errors/AppError';
 
 const adminRepository = new AdminRepository();
 

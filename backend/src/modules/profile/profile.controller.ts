@@ -9,10 +9,11 @@ export class ProfileController {
     try {
       const userId = req.user!.id;
       const profile = await profileService.getMyProfile(userId);
-
+      //select 
       res.status(200).json({
         success: true,
         data: { profile }
+        //count 
       });
     } catch (error) {
       next(error);

@@ -1,6 +1,6 @@
 import { offerRepository } from './offer.repository'
 import { CreateOfferInput, UpdateOfferInput } from './offer.validation'
-import { AppError } from '../../shared/middleware/errorHandler'
+import { AppError } from '../../shared/errors/AppError';
 import { triggerMatchingForOffer } from './matching.service'
 import { prisma } from '../../shared/config/prismaClient'
 
