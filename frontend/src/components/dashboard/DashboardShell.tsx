@@ -36,8 +36,18 @@ export type DashboardShellProps = {
   title: ReactNode;
   subtitle?: ReactNode;
   searchPlaceholder?: string;
+  onSearchChange?: (value: string) => void;
+  searchResults?: Array<{
+    id: string;
+    label: string;
+    subtitle: string;
+    image?: string | null;
+    to?: string;
+  }>;
+  onSearchResultClick?: (result: { id: string; label: string; subtitle: string; image?: string | null; to?: string }) => void;
   profile?: DashboardProfile;
   onAvatarClick?: () => void;
+  onNotificationsClick?: () => void;
   action?: DashboardAction;
   children: ReactNode;
 };
@@ -173,11 +183,16 @@ export function DashboardShell({
   title,
   subtitle,
   searchPlaceholder,
+  onSearchChange,
+  searchResults,
+  onSearchResultClick,
   profile,
   onAvatarClick,
+  onNotificationsClick,
   action,
   children,
 }: DashboardShellProps) {
+  const navigate = useNavigate();
   const isAdmin = variant === 'admin';
 
   return (
@@ -258,13 +273,50 @@ export function DashboardShell({
                   <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
                   <input
                     className="w-72 rounded-xl border border-surface-variant bg-white py-2.5 pl-10 pr-4 text-sm shadow-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    onChange={(event) => onSearchChange?.(event.target.value)}
                     placeholder={searchPlaceholder}
                     type="text"
                   />
+                  {searchResults?.length ? (
+                    <div className="absolute left-0 right-0 top-[calc(100%+0.5rem)] overflow-hidden rounded-2xl border border-surface-variant bg-white shadow-2xl">
+                      {searchResults.map((result) => (
+                        <button
+                          className="flex w-full items-center gap-3 border-b border-surface-variant/60 px-4 py-3 text-left last:border-b-0 hover:bg-surface"
+                          key={result.id}
+                          onClick={() => {
+                            if (onSearchResultClick) {
+                              onSearchResultClick(result);
+                              return;
+                            }
+
+                            if (result.to) {
+                              navigate(result.to);
+                            }
+                          }}
+                          type="button"
+                        >
+                          {result.image ? (
+                            <img alt={result.label} className="h-10 w-10 rounded-full object-cover" src={result.image} />
+                          ) : (
+                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+                              <span className="material-symbols-outlined text-[18px]">person</span>
+                            </div>
+                          )}
+                          <div className="min-w-0">
+                            <p className="truncate text-sm font-bold text-on-surface">{result.label}</p>
+                            <p className="truncate text-xs text-on-surface-variant">{result.subtitle}</p>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
               ) : null}
 
-              <button className="interactive-scale relative flex h-10 w-10 items-center justify-center rounded-full border border-surface-variant bg-white text-on-surface-variant shadow-sm transition-colors hover:border-primary hover:text-primary">
+              <button
+                className="interactive-scale relative flex h-10 w-10 items-center justify-center rounded-full border border-surface-variant bg-white text-on-surface-variant shadow-sm transition-colors hover:border-primary hover:text-primary"
+                onClick={() => (onNotificationsClick ? onNotificationsClick() : navigate('/notifications'))}
+              >
                 <span className="material-symbols-outlined">notifications</span>
                 <span className="absolute right-0 top-0 h-2.5 w-2.5 rounded-full border-2 border-white bg-red-500" />
               </button>
@@ -288,18 +340,57 @@ export function DashboardShell({
 
             <div className="flex items-center gap-6">
               {searchPlaceholder ? (
-                <div className="hidden items-center gap-3 rounded-xl border border-surface-variant bg-white px-4 py-2 shadow-sm transition-all focus-within:ring-2 focus-within:ring-primary/20 md:flex">
+                <div className="relative hidden md:block">
+                  <div className="flex items-center gap-3 rounded-xl border border-surface-variant bg-white px-4 py-2 shadow-sm transition-all focus-within:ring-2 focus-within:ring-primary/20">
                   <span className="material-symbols-outlined text-[20px] text-on-surface-variant">search</span>
                   <input
                     className="w-64 border-none bg-transparent text-sm font-medium outline-none placeholder:text-on-surface-variant/60 focus:ring-0"
+                    onChange={(event) => onSearchChange?.(event.target.value)}
                     placeholder={searchPlaceholder}
                     type="text"
                   />
+                  </div>
+                  {searchResults?.length ? (
+                    <div className="absolute left-0 right-0 top-[calc(100%+0.5rem)] overflow-hidden rounded-2xl border border-surface-variant bg-white shadow-2xl">
+                      {searchResults.map((result) => (
+                        <button
+                          className="flex w-full items-center gap-3 border-b border-surface-variant/60 px-4 py-3 text-left last:border-b-0 hover:bg-surface"
+                          key={result.id}
+                          onClick={() => {
+                            if (onSearchResultClick) {
+                              onSearchResultClick(result);
+                              return;
+                            }
+
+                            if (result.to) {
+                              navigate(result.to);
+                            }
+                          }}
+                          type="button"
+                        >
+                          {result.image ? (
+                            <img alt={result.label} className="h-10 w-10 rounded-full object-cover" src={result.image} />
+                          ) : (
+                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+                              <span className="material-symbols-outlined text-[18px]">person</span>
+                            </div>
+                          )}
+                          <div className="min-w-0">
+                            <p className="truncate text-sm font-bold text-on-surface">{result.label}</p>
+                            <p className="truncate text-xs text-on-surface-variant">{result.subtitle}</p>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
               ) : null}
 
               <div className="flex items-center gap-4 border-l border-surface-variant/50 pl-6">
-                <button className="interactive-scale relative flex h-10 w-10 items-center justify-center rounded-full border border-surface-variant bg-white text-on-surface-variant shadow-sm transition-colors hover:border-primary hover:text-primary">
+                <button
+                  className="interactive-scale relative flex h-10 w-10 items-center justify-center rounded-full border border-surface-variant bg-white text-on-surface-variant shadow-sm transition-colors hover:border-primary hover:text-primary"
+                  onClick={() => (onNotificationsClick ? onNotificationsClick() : navigate('/notifications'))}
+                >
                   <span className="material-symbols-outlined">notifications</span>
                   <span className="absolute right-0 top-0 h-2.5 w-2.5 rounded-full border-2 border-white bg-red-500 animate-pulse" />
                 </button>
@@ -320,7 +411,7 @@ export function DashboardShell({
                     </div>
                     <div 
                       className="h-10 w-10 overflow-hidden rounded-full border-2 border-surface-variant shadow-sm transition-colors hover:border-primary cursor-pointer"
-                      onClick={onAvatarClick}
+                      onClick={() => (onAvatarClick ? onAvatarClick() : navigate('/profile/me'))}
                     >
                       <img alt={profile.name} className="h-full w-full object-cover" src={profile.image} />
                     </div>

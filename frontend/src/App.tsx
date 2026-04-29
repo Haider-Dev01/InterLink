@@ -26,14 +26,19 @@ const CandidateSavedOffersPage = lazy(() => import('./pages/CandidateSavedOffers
 const CandidateCvNexusPage = lazy(() => import('./pages/CandidateCvNexusPage'));
 const CandidateCoachingPage = lazy(() => import('./pages/CandidateCoachingPage'));
 const CandidateFindInternshipPage = lazy(() => import('./pages/CandidateFindInternshipPage'));
-const RecruiterDashboardView = lazy(() => import('./components/RecruiterDashboardView'));
+const ProfilePage = lazy(() => import('./pages/ProfilePage'));
+const NotificationsPage = lazy(() => import('./pages/NotificationsPage'));
+const SocialChatPage = lazy(() => import('./pages/SocialChatPage'));
+const JobDetailsPage = lazy(() => import('./pages/JobDetailsPage'));
 const RecruiterOffersPage = lazy(() => import('./pages/RecruiterOffersPage'));
 const RecruiterCreateOfferPage = lazy(() => import('./pages/RecruiterCreateOfferPage'));
 const RecruiterEditOfferPage = lazy(() => import('./pages/RecruiterEditOfferPage'));
 const RecruiterCandidatesPage = lazy(() => import('./pages/RecruiterCandidatesPage'));
 const RecruiterReportsPage = lazy(() => import('./pages/RecruiterReportsPage'));
+const RecruiterOverviewPage = lazy(() => import('./pages/RecruiterOverviewPage'));
 const CandidatesPage = lazy(() => import('./pages/CandidatesPage'));
 const RecruitersPage = lazy(() => import('./pages/RecruitersPage'));
+const CompanyDetailsPage = lazy(() => import('./pages/CompanyDetailsPage'));
 
 function AppFallback() {
   return <div className="min-h-screen bg-surface" />;
@@ -81,6 +86,13 @@ export default function App() {
 
             {/* Alias pour dashboard général */}
             <Route path="/dashboard" element={<Navigate to="/candidate/dashboard" replace />} />
+            <Route path="/dashboard-candidat" element={<Navigate to="/candidate/dashboard" replace />} />
+            <Route path="/dashboard-candidat/candidatures" element={<Navigate to="/candidate/dashboard/candidatures" replace />} />
+            <Route path="/dashboard-candidat/offres-sauvegardees" element={<Navigate to="/candidate/dashboard/offres-sauvegardees" replace />} />
+            <Route path="/dashboard-candidat/cv-nexus" element={<Navigate to="/candidate/dashboard/cv-nexus" replace />} />
+            <Route path="/dashboard-candidat/coaching-ia" element={<Navigate to="/candidate/dashboard/coaching-ia" replace />} />
+            <Route path="/dashboard-candidat/analyse-cv" element={<Navigate to="/candidate/dashboard/analyse-cv" replace />} />
+            <Route path="/dashboard-candidat/trouver-stage" element={<Navigate to="/candidate/dashboard/trouver-stage" replace />} />
 
             {/* Espace Candidat (Protégé) */}
             <Route element={<ProtectedRoute allowedRoles={['candidate']} />}>
@@ -89,14 +101,24 @@ export default function App() {
               <Route path="/candidate/dashboard/offres-sauvegardees" element={<CandidateSavedOffersPage />} />
               <Route path="/candidate/dashboard/cv-nexus" element={<CandidateCvNexusPage />} />
               <Route path="/candidate/dashboard/coaching-ia" element={<CandidateCoachingPage />} />
+              <Route path="/coaching-ia/session" element={<CandidateCoachingPage />} />
               <Route path="/candidate/dashboard/analyse-cv" element={<AnalyseCvPage />} />
               <Route path="/candidate/dashboard/trouver-stage" element={<CandidateFindInternshipPage />} />
+              <Route path="/candidatures" element={<CandidateApplicationsPage />} />
+              <Route path="/cv-nexus" element={<CandidateCvNexusPage />} />
+              <Route path="/offres-sauvegardees" element={<CandidateSavedOffersPage />} />
+              <Route path="/coaching-ia" element={<CandidateCoachingPage />} />
+              <Route path="/trouver-stage" element={<CandidateFindInternshipPage />} />
             </Route>
+
+            <Route path="/job/:id" element={<JobDetailsPage />} />
+            <Route path="/company/:id" element={<PublicLayout><CompanyDetailsPage /></PublicLayout>} />
 
             {/* Espace Recruteur (Protégé) */}
             <Route element={<ProtectedRoute allowedRoles={['recruiter']} />}>
               <Route path="/dashboard-recruteur" element={<DashboardRecruiteurPage />} />
               <Route path="/dashboard_recruteur.html" element={<DashboardRecruiteurPage />} />
+              <Route path="/dashboard-recruteur/overview" element={<RecruiterOverviewPage />} />
               <Route path="/dashboard-recruteur/offres" element={<RecruiterOffersPage />} />
               <Route path="/dashboard-recruteur/candidats" element={<RecruiterCandidatesPage />} />
               <Route path="/dashboard-recruteur/rapports-ia" element={<RecruiterReportsPage />} />
@@ -104,11 +126,16 @@ export default function App() {
               <Route path="/dashboard-recruteur/offres/:id/edit" element={<RecruiterEditOfferPage />} />
               <Route path="/recruiter" element={<Navigate to="/recruiter/dashboard" replace />} />
               <Route path="/recruiter/dashboard" element={<DashboardRecruiteurPage />} />
-              <Route path="/recruiter/offers" element={<RecruiterOffersPage />} />
-              <Route path="/recruiter/offers/new" element={<RecruiterCreateOfferPage />} />
-              <Route path="/recruiter/offers/:id/edit" element={<RecruiterEditOfferPage />} />
+              <Route path="/recruiter/overview" element={<RecruiterOverviewPage />} />
+              <Route path="/recruiter/jobs" element={<RecruiterOffersPage />} />
+              <Route path="/recruiter/jobs/new" element={<RecruiterCreateOfferPage />} />
+              <Route path="/recruiter/jobs/:id/edit" element={<RecruiterEditOfferPage />} />
               <Route path="/recruiter/candidates" element={<RecruiterCandidatesPage />} />
-              <Route path="/recruiter/reports" element={<RecruiterReportsPage />} />
+              <Route path="/recruiter/ai-reports" element={<RecruiterReportsPage />} />
+              <Route path="/recruiter/offers" element={<Navigate to="/recruiter/jobs" replace />} />
+              <Route path="/recruiter/offers/new" element={<Navigate to="/recruiter/jobs/new" replace />} />
+              <Route path="/recruiter/offers/:id/edit" element={<RecruiterEditOfferPage />} />
+              <Route path="/recruiter/reports" element={<Navigate to="/recruiter/ai-reports" replace />} />
             </Route>
 
 
@@ -126,6 +153,12 @@ export default function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="/user-settings" element={<UserSettingsPage />} />
               <Route path="/parametres" element={<UserSettingsPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/profile/me" element={<ProfilePage />} />
+              <Route path="/profile/:userId" element={<ProfilePage />} />
+              <Route path="/messages" element={<SocialChatPage />} />
+              <Route path="/messages/:userId" element={<SocialChatPage />} />
+              <Route path="/notifications" element={<NotificationsPage />} />
             </Route>
 
             {/* Redirection par défaut */}

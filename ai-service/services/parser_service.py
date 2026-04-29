@@ -22,6 +22,14 @@ KNOWN_SKILLS = [
     "Redux", "Zustand", "RxJS", "Webpack", "Vite", "Jest", "Cypress"
 ]
 
+SECTION_KEYWORDS = {
+    "summary": ["resume", "profil", "summary", "objectif", "objective", "about"],
+    "experience": ["experience", "experiences", "work experience", "professional experience", "emploi"],
+    "education": ["education", "formation", "etudes", "academique"],
+    "skills": ["skills", "competences", "technologies", "stack"],
+    "projects": ["projects", "projets", "portfolio"],
+}
+
 def extract_text_from_pdf(file_path: str) -> str:
     try:
         return extract_text(file_path)
@@ -91,8 +99,48 @@ def build_cv_summary(skills: list[str], text: str, speciality: str = "") -> str:
     
     return ' | '.join(parts) if parts else text[:1000]
 
+def extract_sections(text: str) -> dict[str, str]:
+    sections: dict[str, str] = {}
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
+    if not lines:
+        return sections
+
+    current_section = "summary"
+    bucket: dict[str, list[str]] = {current_section: []}
+
+    for line in lines:
+        line_lower = line.lower()
+        matched_section = None
+        for section_name, keywords in SECTION_KEYWORDS.items():
+            if any(keyword in line_lower for keyword in keywords) and len(line.split()) <= 8:
+                matched_section = section_name
+                break
+
+        if matched_section:
+            current_section = matched_section
+            bucket.setdefault(current_section, [])
+            continue
+
+        bucket.setdefault(current_section, []).append(line)
+
+    for section_name, content_lines in bucket.items():
+        content = " ".join(content_lines).strip()
+        if content:
+            sections[section_name] = content[:2000]
+
+    return sections
+
+def compute_parse_score(text: str, skills: list[str], sections: dict[str, str]) -> int:
+    if not text.strip():
+        return 0
+
+    text_len_score = min(len(text) / 3000, 1.0) * 40
+    skills_score = min(len(skills) / 15, 1.0) * 35
+    sections_score = min(len(sections) / 4, 1.0) * 25
+    return max(0, min(100, int(round(text_len_score + skills_score + sections_score))))
+
 def parse_cv(file_url: str, file_type: str) -> dict:
-    fallback = {"text": "", "skills": [], "embedding": [0.0] * 384}
+    fallback = {"text": "", "skills": [], "sections": {}, "score": 0, "embedding": [0.0] * 384}
     
     text = ""
     if file_type.lower() == "pdf":
@@ -105,4 +153,12 @@ def parse_cv(file_url: str, file_type: str) -> dict:
         return fallback
         
     skills = extract_skills_from_text(text)
-    return {"text": text.strip(), "skills": skills, "embedding": [0.0] * 384}
+    sections = extract_sections(text)
+    score = compute_parse_score(text, skills, sections)
+    return {
+        "text": text.strip(),
+        "skills": skills,
+        "sections": sections,
+        "score": score,
+        "embedding": [0.0] * 384,
+    }

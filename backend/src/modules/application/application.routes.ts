@@ -8,6 +8,7 @@ const router = Router();
 router.post('/', authenticate, authorize(['candidate']), applicationController.apply);
 router.get('/my', authenticate, authorize(['candidate']), applicationController.getMyApplications);
 router.get('/offer/:offerId', authenticate, authorize(['recruiter']), applicationController.getOfferApplications);
+router.get('/recruiter', authenticate, authorize(['recruiter']), applicationController.getRecruiterApplications);
 router.patch('/:id/status', authenticate, authorize(['recruiter', 'admin']), applicationController.updateStatus);
 
 export default router;

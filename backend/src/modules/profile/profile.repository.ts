@@ -41,4 +41,12 @@ export class ProfileRepository {
       include: { school: true, company: true }
     });
   }
+
+  async updateAvatar(userId: string, avatarUrl: string) {
+    return prisma.profile.update({
+      where: { userId },
+      data: { avatarUrl } as any,
+      include: { school: true, company: true },
+    });
+  }
 }

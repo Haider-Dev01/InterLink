@@ -152,6 +152,8 @@ exports.Prisma.ProfileScalarFieldEnum = {
   firstName: 'firstName',
   lastName: 'lastName',
   bio: 'bio',
+  avatarUrl: 'avatarUrl',
+  viewsCount: 'viewsCount',
   linkedinUrl: 'linkedinUrl',
   githubUsername: 'githubUsername',
   githubData: 'githubData',
@@ -263,6 +265,16 @@ exports.Prisma.MessageScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ConnectionScalarFieldEnum = {
+  id: 'id',
+  requesterId: 'requesterId',
+  receiverId: 'receiverId',
+  status: 'status',
+  respondedAt: 'respondedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.NotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -354,6 +366,12 @@ exports.ApplicationStatus = exports.$Enums.ApplicationStatus = {
   withdrawn: 'withdrawn'
 };
 
+exports.ConnectionStatus = exports.$Enums.ConnectionStatus = {
+  pending: 'pending',
+  accepted: 'accepted',
+  rejected: 'rejected'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   RefreshToken: 'RefreshToken',
@@ -368,6 +386,7 @@ exports.Prisma.ModelName = {
   MatchScore: 'MatchScore',
   Application: 'Application',
   Message: 'Message',
+  Connection: 'Connection',
   Notification: 'Notification',
   AuditLog: 'AuditLog',
   ChatMessage: 'ChatMessage'

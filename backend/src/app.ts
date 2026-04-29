@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import path from 'path';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -15,15 +16,26 @@ import companyRoutes from './modules/company/company.routes';
 import adminRoutes from './modules/admin/admin.routes';
 import cvRoutes from './modules/cv/cv.routes';
 import offerRoutes from './modules/offer/offer.routes';
+import jobsRoutes from './modules/jobs/jobs.routes';
 import chatRoutes from './modules/chat/chat.routes';
 import applicationRoutes from './modules/application/application.routes';
+import usersRoutes from './modules/users/users.routes';
+import notificationsRoutes from './modules/notifications/notifications.routes';
+import dashboardRoutes from './modules/dashboard/dashboard.routes';
+import searchRoutes from './modules/search/search.routes';
+import aiRoutes from './modules/ai/ai.routes';
+import connectionsRoutes from './modules/connections/connections.routes';
+import messagesRoutes from './modules/messages/messages.routes';
+import recruiterRoutes from './modules/recruiter/recruiter.routes';
 
 export const app = express();
 
 // ────────────────────────────────────────────────────────────────
 // Middleware globaux
 // ────────────────────────────────────────────────────────────────
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
+}));
 app.use(cors({ 
   origin: [
     'http://localhost:5173',
@@ -48,9 +60,18 @@ app.use('/api/companies', companyRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/cv', cvRoutes);
 app.use('/api/offers', offerRoutes);
+app.use('/api/jobs', jobsRoutes);
 app.use('/api/chat', chatRoutes);
+app.use('/api/users', usersRoutes);
+app.use('/api/notifications', notificationsRoutes);
+app.use('/api/search', searchRoutes);
+app.use('/api/ai', aiRoutes);
+app.use('/api/connections', connectionsRoutes);
+app.use('/api/messages', messagesRoutes);
+app.use('/api/recruiter', recruiterRoutes);
+app.use('/api', dashboardRoutes);
 app.use('/api/applications', applicationRoutes);
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static(path.resolve(process.cwd(), 'uploads')));
 
 app.get('/health', async (_req: Request, res: Response) => {
   try {

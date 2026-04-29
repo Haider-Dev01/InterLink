@@ -2,10 +2,18 @@ import { Request, Response, NextFunction } from 'express'
 import { offerService } from './offer.service'
 import { createOfferSchema, updateOfferSchema } from './offer.validation'
 import { getMatchesForOffer } from './matching.service'
+import { AppError } from '../../shared/errors/AppError'
 
 export const offerController = {
   async createOffer(req: Request, res: Response, next: NextFunction) {
     try {
+      if (!req.user?.id) {
+        throw new AppError('Authentification requise', 401)
+      }
+      if (req.user.role !== 'recruiter') {
+        throw new AppError('Accès refusé: recruteur requis', 403)
+      }
+
       const userId = req.user!.id
       const parsed = createOfferSchema.parse(req.body)
       const result = await offerService.createOffer(userId, parsed)
@@ -14,7 +22,14 @@ export const offerController = {
         success: true,
         data: result,
       })
-    } catch (error) {
+    } catch (error: any) {
+      console.error('[POST /jobs] createOffer failed:', error)
+      if (error?.code === 'P2003') {
+        return next(new AppError('Référence invalide (companyId ou relation manquante)', 400))
+      }
+      if (error?.code === 'P2002') {
+        return next(new AppError('Conflit de données: valeur déjà utilisée', 409))
+      }
       next(error)
     }
   },
@@ -68,7 +83,11 @@ export const offerController = {
   async softDeleteOffer(req: Request, res: Response, next: NextFunction) {
     try {
       const offerId = req.params.id as string
-      const result = await offerService.softDeleteOffer(offerId)
+      const userId = req.user!.id
+      const role = req.user!.role
+      const result = role === 'admin'
+        ? await offerService.softDeleteOffer(offerId)
+        : await offerService.softDeleteOfferByRecruiter(offerId, userId)
 
       return res.status(200).json({
         success: true,

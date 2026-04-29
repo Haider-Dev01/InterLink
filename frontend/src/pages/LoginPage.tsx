@@ -9,6 +9,14 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const setAccessToken = useAuthStore((s) => s.setAccessToken);
   const setUser = useAuthStore((s) => s.setUser);
+  const checkAuth = useAuthStore((s) => s.checkAuth);
+
+  const getDashboardPath = (role: string | undefined) => {
+    const normalizedRole = (role || '').toLowerCase();
+    if (normalizedRole === 'recruiter') return '/recruiter/dashboard';
+    if (normalizedRole === 'admin') return '/admin/dashboard';
+    return '/candidate/dashboard';
+  };
 
   const handleLogin = async (credentials: any) => {
     const res = await authService.login(credentials);
@@ -23,12 +31,9 @@ export default function LoginPage() {
 
       setAccessToken(accessToken);
       setUser(user);
+      await checkAuth();
 
-      // Redirect based on actual role from the API
-      const role = user.role?.toLowerCase();
-      if (role === 'recruiter') navigate('/recruiter/dashboard', { replace: true });
-      else if (role === 'admin') navigate('/admin/dashboard', { replace: true });
-      else navigate('/candidate/dashboard', { replace: true });
+      navigate(getDashboardPath(user.role), { replace: true });
     }
     return res;
   };

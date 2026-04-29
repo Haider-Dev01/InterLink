@@ -1,17 +1,18 @@
 export const candidateNavItems = [
-  { label: 'Tableau de bord', icon: 'dashboard', to: '/dashboard-candidat' },
-  { label: 'Candidatures', icon: 'description', to: '/dashboard-candidat/candidatures', badge: '4' },
-  { label: 'Mon CV Nexus', icon: 'assignment_ind', to: '/dashboard-candidat/cv-nexus' },
-  { label: 'Offres Sauvegardées', icon: 'bookmark', to: '/dashboard-candidat/offres-sauvegardees' },
-  { label: 'Coaching IA', icon: 'forum', to: '/dashboard-candidat/coaching-ia' },
-  { label: 'Analyse CV', icon: 'analytics', to: '/dashboard-candidat/analyse-cv' },
+  { label: 'Tableau de bord', icon: 'dashboard', to: '/candidate/dashboard' },
+  { label: 'Candidatures', icon: 'description', to: '/candidate/dashboard/candidatures', badge: '4' },
+  { label: 'Mon CV Nexus', icon: 'assignment_ind', to: '/candidate/dashboard/cv-nexus' },
+  { label: 'Offres Sauvegardees', icon: 'bookmark', to: '/candidate/dashboard/offres-sauvegardees' },
+  { label: 'Coaching IA', icon: 'forum', to: '/candidate/dashboard/coaching-ia' },
+  { label: 'Analyse CV', icon: 'analytics', to: '/candidate/dashboard/analyse-cv' },
 ];
 
 export const recruiterNavItems = [
-  { label: "Vue d'ensemble", icon: 'dashboard', to: '/dashboard-recruteur' },
-  { label: 'Mes Offres', icon: 'work', to: '/dashboard-recruteur/offres', badge: '3' },
-  { label: 'Candidats', icon: 'group', to: '/dashboard-recruteur/candidats' },
-  { label: 'Rapports IA', icon: 'analytics', to: '/dashboard-recruteur/rapports-ia' },
+  { label: 'Dashboard', icon: 'dashboard', to: '/recruiter/dashboard' },
+  { label: "Vue d'ensemble", icon: 'insights', to: '/recruiter/overview' },
+  { label: 'Mes Offres', icon: 'work', to: '/recruiter/jobs' },
+  { label: 'Candidats', icon: 'group', to: '/recruiter/candidates' },
+  { label: 'Rapports IA', icon: 'analytics', to: '/recruiter/ai-reports' },
 ];
 
 export const adminNavItems = [

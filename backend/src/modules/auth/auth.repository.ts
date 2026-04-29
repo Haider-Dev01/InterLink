@@ -9,14 +9,23 @@ export class AuthRepository {
         email,
         ...(role ? { role } : {})
       },
-      include: { profile: true }
+      include: {
+        company: true,
+        profile: {
+          include: {
+            company: true,
+            school: true,
+          },
+        },
+      }
     });
   };
 
   findUserById = async (id: string) => {
     return prisma.user.findUnique({
       where: { id },
-      include: { 
+      include: {
+        company: true,
         profile: {
           include: {
             company: true,
@@ -40,7 +49,15 @@ export class AuthRepository {
           }
         }
       },
-      include: { profile: true }
+      include: {
+        company: true,
+        profile: {
+          include: {
+            company: true,
+            school: true,
+          },
+        },
+      }
     });
   };
 

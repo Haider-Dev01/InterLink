@@ -50,15 +50,31 @@ export function SectionTitle({ eyebrow, title, subtitle }: { eyebrow?: ReactNode
   );
 }
 
-export function ProgressMetric({ label, value, tone = 'from-primary to-secondary' }: { label: ReactNode; value: number; tone?: string }) {
+export function ProgressMetric({
+  label,
+  value,
+  tone = 'from-primary to-secondary',
+  inverted = false,
+  animated = false,
+}: {
+  label: ReactNode;
+  value: number;
+  tone?: string;
+  inverted?: boolean;
+  animated?: boolean;
+}) {
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between text-xs font-bold">
-        <span className="text-on-surface-variant">{label}</span>
-        <span className="text-primary">{value}%</span>
+        <span className={inverted ? 'text-white' : 'text-on-surface-variant'}>{label}</span>
+        <span className={inverted ? 'text-white/80' : 'text-primary'}>{value}%</span>
       </div>
-      <div className="h-2 overflow-hidden rounded-full bg-surface-variant">
-        <div className={`progress-bar-fill-react h-full bg-gradient-to-r ${tone}`} data-width={value} style={{ width: `${value}%` }} />
+      <div className={inverted ? 'h-2.5 overflow-hidden rounded-full bg-white/20' : 'h-2 overflow-hidden rounded-full bg-surface-variant'}>
+        <div
+          className={`progress-bar-fill-react h-full bg-gradient-to-r ${tone}${animated ? ' progress-bar-shimmer progress-bar-glow' : ''}`}
+          data-width={value}
+          style={{ width: `${value}%` }}
+        />
       </div>
     </div>
   );

@@ -131,16 +131,16 @@
                 <div id="user-slider" class="absolute top-1 left-1 w-[calc(50%-4px)] h-[calc(100%-8px)] bg-white rounded-xl shadow-sm transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]"></div>
             </div>
 
-            <form action="#" class="space-y-6">
+            <form id="login-form" class="space-y-6">
                 <div class="space-y-2">
                     <label class="text-xs font-black uppercase tracking-widest text-on-surface-variant ml-1">Rôle</label>
                     <div class="relative group">
                         <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">person</span>
-                        <select name="role" class="w-full pl-12 pr-4 py-4 bg-white/50 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium">
+                        <select name="role" class="w-full appearance-none pl-12 pr-12 py-4 bg-white/70 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-semibold shadow-sm">
                             <option value="candidate">Etudiant</option>
                             <option value="recruiter">Recruteur</option>
-                            <option value="admin">Administrateur</option>
                         </select>
+                        <span class="material-symbols-outlined pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant">expand_more</span>
                     </div>
                 </div>
                 <div class="space-y-2">
@@ -341,5 +341,23 @@
 	}
 	// ]]>
 </script>
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("login-form");
+
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const email = document.querySelector('input[type="email"]').value;
+        const password = document.querySelector('input[type="password"]').value;
+        const role = document.querySelector('select[name="role"]').value;
+
+        if (window.onLogin) {
+            window.onLogin({ email, password, role });
+        }
+    });
+});
+</script>
 </body>
 </html>
+

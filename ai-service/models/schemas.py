@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from pydantic import BaseModel
 
 class ParseRequest(BaseModel):
@@ -8,6 +8,8 @@ class ParseRequest(BaseModel):
 class ParseResponse(BaseModel):
     text: str
     skills: List[str]
+    sections: Dict[str, str] = {}
+    score: int = 0
     embedding: List[float]
 
 class EmbedCandidateRequest(BaseModel):
@@ -48,3 +50,55 @@ class RagRequest(BaseModel):
 class RagResponse(BaseModel):
     answer: str
     sources: List[str]             # deduplicated list of source labels
+
+class ChatContextDocument(BaseModel):
+    id: str
+    source: Optional[str] = None
+    content: str
+    embedding: Optional[List[float]] = None
+
+class AiChatMessage(BaseModel):
+    role: str
+    content: str
+
+class AiChatRequest(BaseModel):
+    userId: str
+    userRole: str
+    message: str
+    history: List[AiChatMessage] = []
+    documents: List[ChatContextDocument] = []
+    topK: int = 6
+    temperature: float = 0.25
+
+class AiChatResponse(BaseModel):
+    reply: str
+    sources: List[str]
+    retrieved: List[RagDocument] = []
+
+
+class CvAnalysisResponse(BaseModel):
+    summary: str
+    skills: List[str]
+    score: int
+    suggestions: List[str]
+
+
+class OptimizeCvRequest(BaseModel):
+    text: str
+    target_role: Optional[str] = None
+    focus_skills: List[str] = []
+
+
+class OptimizeCvResponse(BaseModel):
+    optimized_text: str
+    highlights: List[str]
+
+
+class CoachingSessionRequest(BaseModel):
+    prompt: str
+    history: List[dict[str, Any]] = []
+
+
+class CoachingSessionResponse(BaseModel):
+    reply: str
+    next_step: str

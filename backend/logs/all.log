@@ -916,3 +916,615 @@
 [31m    "message": "Invalid input: expected array, received undefined"[39m
 [31m  }[39m
 [31m][39m
+2026-04-24 19:27:17:2717 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-24 19:27:17:2717 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-24 19:28:25:2825 [31merror[39m: [31m[POST] /api/auth/register >> 400 - Erreur de validation [[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "firstName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "lastName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  }[39m
+[31m][39m
+2026-04-24 19:28:50:2850 [31merror[39m: [31m[POST] /api/auth/login >> 500 - [39m
+[31mInvalid `prisma.user.findFirst()` invocation in[39m
+[31mC:\Users\maram\OneDrive\Desktop\interlink project\InterLink\backend\src\modules\auth\auth.repository.ts:7:24[39m
+
+[31m  4 [39m
+[31m  5 export class AuthRepository {[39m
+[31m  6   findUserByEmail = async (email: string, role?: Role) => {[39m
+[31m→ 7     return prisma.user.findFirst([39m
+[31mThe table `public.users` does not exist in the current database. [39m
+[31mInvalid `prisma.user.findFirst()` invocation in[39m
+[31mC:\Users\maram\OneDrive\Desktop\interlink project\InterLink\backend\src\modules\auth\auth.repository.ts:7:24[39m
+
+[31m  4 [39m
+[31m  5 export class AuthRepository {[39m
+[31m  6   findUserByEmail = async (email: string, role?: Role) => {[39m
+[31m→ 7     return prisma.user.findFirst([39m
+[31mThe table `public.users` does not exist in the current database.[39m
+2026-04-24 19:28:55:2855 [31merror[39m: [31m[POST] /api/auth/login >> 500 - [39m
+[31mInvalid `prisma.user.findFirst()` invocation in[39m
+[31mC:\Users\maram\OneDrive\Desktop\interlink project\InterLink\backend\src\modules\auth\auth.repository.ts:7:24[39m
+
+[31m  4 [39m
+[31m  5 export class AuthRepository {[39m
+[31m  6   findUserByEmail = async (email: string, role?: Role) => {[39m
+[31m→ 7     return prisma.user.findFirst([39m
+[31mThe table `public.users` does not exist in the current database. [39m
+[31mInvalid `prisma.user.findFirst()` invocation in[39m
+[31mC:\Users\maram\OneDrive\Desktop\interlink project\InterLink\backend\src\modules\auth\auth.repository.ts:7:24[39m
+
+[31m  4 [39m
+[31m  5 export class AuthRepository {[39m
+[31m  6   findUserByEmail = async (email: string, role?: Role) => {[39m
+[31m→ 7     return prisma.user.findFirst([39m
+[31mThe table `public.users` does not exist in the current database.[39m
+2026-04-24 19:31:44:3144 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-24 19:31:44:3144 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-24 19:32:07:327 [31merror[39m: [31m[POST] /api/auth/register >> 400 - Erreur de validation [[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "firstName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "lastName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  }[39m
+[31m][39m
+2026-04-24 19:32:22:3222 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-24 19:32:22:3222 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-24 19:32:26:3226 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-24 19:32:26:3226 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-24 19:32:46:3246 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-24 19:32:46:3246 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-24 19:33:40:3340 [33mwarn[39m: [33m[RateLimit] Blocage auth pour IP: ::1, Email: nawaramarrouma@gmail.com[39m
+2026-04-24 19:33:48:3348 [33mwarn[39m: [33m[RateLimit] Blocage auth pour IP: ::1, Email: nawaramarrouma@gmail.com[39m
+2026-04-24 19:34:31:3431 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-24 19:34:31:3431 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-24 19:34:54:3454 [31merror[39m: [31m[POST] /api/auth/register >> 400 - Erreur de validation [[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "firstName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "lastName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  }[39m
+[31m][39m
+2026-04-24 21:07:16:716 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-24 21:07:16:716 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-24 21:07:38:738 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-24 21:07:38:738 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-24 21:07:39:739 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-24 21:07:39:739 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-24 21:09:08:98 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-24 21:09:08:98 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-24 21:09:11:911 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-24 21:09:11:911 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-24 21:09:38:938 [31merror[39m: [31m[POST] /api/auth/register >> 400 - Erreur de validation [[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "firstName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  },[39m
+[31m  {[39m
+[31m    "expected": "string",[39m
+[31m    "code": "invalid_type",[39m
+[31m    "path": [[39m
+[31m      "lastName"[39m
+[31m    ],[39m
+[31m    "message": "Invalid input: expected string, received undefined"[39m
+[31m  }[39m
+[31m][39m
+2026-04-24 21:14:25:1425 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-24 21:14:25:1425 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-24 22:17:53:1753 [31merror[39m: [31m[PUT] /api/users/me >> 400 - Erreur de validation [[39m
+[31m  {[39m
+[31m    "code": "invalid_format",[39m
+[31m    "format": "url",[39m
+[31m    "path": [[39m
+[31m      "linkedinUrl"[39m
+[31m    ],[39m
+[31m    "message": "Invalid URL"[39m
+[31m  }[39m
+[31m][39m
+2026-04-24 22:17:54:1754 [31merror[39m: [31m[PUT] /api/users/me >> 400 - Erreur de validation [[39m
+[31m  {[39m
+[31m    "code": "invalid_format",[39m
+[31m    "format": "url",[39m
+[31m    "path": [[39m
+[31m      "linkedinUrl"[39m
+[31m    ],[39m
+[31m    "message": "Invalid URL"[39m
+[31m  }[39m
+[31m][39m
+2026-04-24 22:38:57:3857 [31merror[39m: [31m[GET] /api/auth/me >> 500 - [39m
+[31mInvalid `prisma.user.findUnique()` invocation in[39m
+[31mC:\Users\maram\OneDrive\Desktop\interlink project\InterLink\backend\src\modules\auth\auth.repository.ts:17:24[39m
+
+[31m  14 };[39m
+[31m  15 [39m
+[31m  16 findUserById = async (id: string) => {[39m
+[31m→ 17   return prisma.user.findUnique([39m
+[31mThe column `profiles.avatar_url` does not exist in the current database. [39m
+[31mInvalid `prisma.user.findUnique()` invocation in[39m
+[31mC:\Users\maram\OneDrive\Desktop\interlink project\InterLink\backend\src\modules\auth\auth.repository.ts:17:24[39m
+
+[31m  14 };[39m
+[31m  15 [39m
+[31m  16 findUserById = async (id: string) => {[39m
+[31m→ 17   return prisma.user.findUnique([39m
+[31mThe column `profiles.avatar_url` does not exist in the current database.[39m
+2026-04-24 22:38:57:3857 [31merror[39m: [31m[GET] /api/auth/me >> 500 - [39m
+[31mInvalid `prisma.user.findUnique()` invocation in[39m
+[31mC:\Users\maram\OneDrive\Desktop\interlink project\InterLink\backend\src\modules\auth\auth.repository.ts:17:24[39m
+
+[31m  14 };[39m
+[31m  15 [39m
+[31m  16 findUserById = async (id: string) => {[39m
+[31m→ 17   return prisma.user.findUnique([39m
+[31mThe column `profiles.avatar_url` does not exist in the current database. [39m
+[31mInvalid `prisma.user.findUnique()` invocation in[39m
+[31mC:\Users\maram\OneDrive\Desktop\interlink project\InterLink\backend\src\modules\auth\auth.repository.ts:17:24[39m
+
+[31m  14 };[39m
+[31m  15 [39m
+[31m  16 findUserById = async (id: string) => {[39m
+[31m→ 17   return prisma.user.findUnique([39m
+[31mThe column `profiles.avatar_url` does not exist in the current database.[39m
+2026-04-24 22:39:05:395 [31merror[39m: [31m[POST] /api/auth/login >> 500 - [39m
+[31mInvalid `prisma.user.findFirst()` invocation in[39m
+[31mC:\Users\maram\OneDrive\Desktop\interlink project\InterLink\backend\src\modules\auth\auth.repository.ts:7:24[39m
+
+[31m  4 [39m
+[31m  5 export class AuthRepository {[39m
+[31m  6   findUserByEmail = async (email: string, role?: Role) => {[39m
+[31m→ 7     return prisma.user.findFirst([39m
+[31mThe column `profiles.avatar_url` does not exist in the current database. [39m
+[31mInvalid `prisma.user.findFirst()` invocation in[39m
+[31mC:\Users\maram\OneDrive\Desktop\interlink project\InterLink\backend\src\modules\auth\auth.repository.ts:7:24[39m
+
+[31m  4 [39m
+[31m  5 export class AuthRepository {[39m
+[31m  6   findUserByEmail = async (email: string, role?: Role) => {[39m
+[31m→ 7     return prisma.user.findFirst([39m
+[31mThe column `profiles.avatar_url` does not exist in the current database.[39m
+2026-04-24 22:39:06:396 [31merror[39m: [31m[POST] /api/auth/login >> 500 - [39m
+[31mInvalid `prisma.user.findFirst()` invocation in[39m
+[31mC:\Users\maram\OneDrive\Desktop\interlink project\InterLink\backend\src\modules\auth\auth.repository.ts:7:24[39m
+
+[31m  4 [39m
+[31m  5 export class AuthRepository {[39m
+[31m  6   findUserByEmail = async (email: string, role?: Role) => {[39m
+[31m→ 7     return prisma.user.findFirst([39m
+[31mThe column `profiles.avatar_url` does not exist in the current database. [39m
+[31mInvalid `prisma.user.findFirst()` invocation in[39m
+[31mC:\Users\maram\OneDrive\Desktop\interlink project\InterLink\backend\src\modules\auth\auth.repository.ts:7:24[39m
+
+[31m  4 [39m
+[31m  5 export class AuthRepository {[39m
+[31m  6   findUserByEmail = async (email: string, role?: Role) => {[39m
+[31m→ 7     return prisma.user.findFirst([39m
+[31mThe column `profiles.avatar_url` does not exist in the current database.[39m
+2026-04-24 22:39:14:3914 [31merror[39m: [31m[POST] /api/auth/login >> 500 - [39m
+[31mInvalid `prisma.user.findFirst()` invocation in[39m
+[31mC:\Users\maram\OneDrive\Desktop\interlink project\InterLink\backend\src\modules\auth\auth.repository.ts:7:24[39m
+
+[31m  4 [39m
+[31m  5 export class AuthRepository {[39m
+[31m  6   findUserByEmail = async (email: string, role?: Role) => {[39m
+[31m→ 7     return prisma.user.findFirst([39m
+[31mThe column `profiles.avatar_url` does not exist in the current database. [39m
+[31mInvalid `prisma.user.findFirst()` invocation in[39m
+[31mC:\Users\maram\OneDrive\Desktop\interlink project\InterLink\backend\src\modules\auth\auth.repository.ts:7:24[39m
+
+[31m  4 [39m
+[31m  5 export class AuthRepository {[39m
+[31m  6   findUserByEmail = async (email: string, role?: Role) => {[39m
+[31m→ 7     return prisma.user.findFirst([39m
+[31mThe column `profiles.avatar_url` does not exist in the current database.[39m
+2026-04-24 23:08:35:835 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e/profile >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:08:35:835 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e/profile >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:09:11:911 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e/profile >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:09:11:911 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e/profile >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:12:11:1211 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e/profile >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:12:11:1211 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e/profile >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:12:50:1250 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e/profile >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:12:50:1250 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e/profile >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:40:21:4021 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e/profile >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:40:21:4021 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e/profile >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:40:44:4044 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e/profile >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:40:44:4044 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e/profile >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:41:35:4135 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:41:35:4135 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:43:34:4334 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:43:34:4334 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:44:16:4416 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:44:16:4416 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:50:15:5015 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:50:15:5015 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:50:15:5015 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e/profile >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:50:15:5015 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e/profile >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:51:22:5122 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:51:23:5123 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e/profile >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:51:23:5123 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:51:23:5123 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:51:23:5123 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e/profile >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:51:23:5123 [31merror[39m: [31m[GET] /api/users/48b70ee9-639a-4969-adb1-81564dc0f80e/profile >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:55:25:5525 [31merror[39m: [31m[GET] /api/users/8d85df56-f0c8-4733-9dc0-407e8866a1d7 >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:55:25:5525 [31merror[39m: [31m[GET] /api/users/8d85df56-f0c8-4733-9dc0-407e8866a1d7 >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:55:25:5525 [31merror[39m: [31m[GET] /api/users/8d85df56-f0c8-4733-9dc0-407e8866a1d7/profile >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:55:25:5525 [31merror[39m: [31m[GET] /api/users/8d85df56-f0c8-4733-9dc0-407e8866a1d7/profile >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:55:25:5525 [31merror[39m: [31m[GET] /api/users/8d85df56-f0c8-4733-9dc0-407e8866a1d7 >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:55:25:5525 [31merror[39m: [31m[GET] /api/users/8d85df56-f0c8-4733-9dc0-407e8866a1d7 >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:55:25:5525 [31merror[39m: [31m[GET] /api/users/8d85df56-f0c8-4733-9dc0-407e8866a1d7/profile >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-24 23:55:25:5525 [31merror[39m: [31m[GET] /api/users/8d85df56-f0c8-4733-9dc0-407e8866a1d7/profile >> 500 - [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist` [39m
+[31mInvalid `prisma.$executeRaw()` invocation:[39m
+
+
+[31mRaw query failed. Code: `42703`. Message: `column "user_id" does not exist`[39m
+2026-04-25 02:13:41:1341 [31merror[39m: [31m[POST] /api/jobs >> 500 - Internal Server Error {"statusCode":403,"message":"Vous devez d'abord enregistrer une entreprise"}[39m
+2026-04-25 02:24:38:2438 [31merror[39m: [31m[POST] /api/jobs >> 400 - Aucune entreprise associée au recruteur Aucune entreprise associée au recruteur[39m
+2026-04-25 02:31:22:3122 [31merror[39m: [31m[POST] /api/jobs >> 400 - Aucune entreprise associée au recruteur Aucune entreprise associée au recruteur[39m
+2026-04-25 02:32:00:320 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-25 02:32:00:320 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-25 02:32:01:321 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-25 02:32:01:321 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-25 02:32:09:329 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-25 02:32:09:329 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-25 02:32:45:3245 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-25 02:32:45:3245 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-25 02:33:06:336 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-25 02:33:06:336 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-25 02:33:07:337 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-25 02:33:07:337 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-25 02:33:49:3349 [31merror[39m: [31m[POST] /api/jobs >> 400 - Aucune entreprise associée au recruteur Aucune entreprise associée au recruteur[39m
+2026-04-25 11:14:21:1421 [31merror[39m: [31m[POST] /api/jobs >> 400 - companyId invalide pour ce recruteur companyId invalide pour ce recruteur[39m
+2026-04-25 11:16:20:1620 [31merror[39m: [31m[GET] /api/connections >> 500 - [39m
+[31mInvalid `prisma.connection.findMany()` invocation in[39m
+[31mC:\Users\maram\OneDrive\Desktop\interlink project\InterLink\backend\src\modules\connections\connections.routes.ts:272:42[39m
+
+[31m  269 const userId = req.user!.id;[39m
+[31m  270 const targetUserId = typeof req.query.userId === 'string' ? req.query.userId : undefined;[39m
+[31m  271 [39m
+[31m→ 272 const rows = await prisma.connection.findMany([39m
+[31mThe table `public.connections` does not exist in the current database. [39m
+[31mInvalid `prisma.connection.findMany()` invocation in[39m
+[31mC:\Users\maram\OneDrive\Desktop\interlink project\InterLink\backend\src\modules\connections\connections.routes.ts:272:42[39m
+
+[31m  269 const userId = req.user!.id;[39m
+[31m  270 const targetUserId = typeof req.query.userId === 'string' ? req.query.userId : undefined;[39m
+[31m  271 [39m
+[31m→ 272 const rows = await prisma.connection.findMany([39m
+[31mThe table `public.connections` does not exist in the current database.[39m
+2026-04-25 11:16:20:1620 [31merror[39m: [31m[GET] /api/connections >> 500 - [39m
+[31mInvalid `prisma.connection.findMany()` invocation in[39m
+[31mC:\Users\maram\OneDrive\Desktop\interlink project\InterLink\backend\src\modules\connections\connections.routes.ts:272:42[39m
+
+[31m  269 const userId = req.user!.id;[39m
+[31m  270 const targetUserId = typeof req.query.userId === 'string' ? req.query.userId : undefined;[39m
+[31m  271 [39m
+[31m→ 272 const rows = await prisma.connection.findMany([39m
+[31mThe table `public.connections` does not exist in the current database. [39m
+[31mInvalid `prisma.connection.findMany()` invocation in[39m
+[31mC:\Users\maram\OneDrive\Desktop\interlink project\InterLink\backend\src\modules\connections\connections.routes.ts:272:42[39m
+
+[31m  269 const userId = req.user!.id;[39m
+[31m  270 const targetUserId = typeof req.query.userId === 'string' ? req.query.userId : undefined;[39m
+[31m  271 [39m
+[31m→ 272 const rows = await prisma.connection.findMany([39m
+[31mThe table `public.connections` does not exist in the current database.[39m

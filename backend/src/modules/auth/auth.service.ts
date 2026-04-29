@@ -10,18 +10,13 @@ import { AppError } from '../../shared/errors/AppError';
 const authRepository = new AuthRepository();
 
 export class AuthService {
+  private readonly validRoles = new Set(['candidate', 'recruiter', 'admin']);
+
   register = async (data: RegisterDto) => {
     try {
       const existingUser = await authRepository.findUserByEmail(data.email);
       if (existingUser) {
         throw new AppError('Cet email est déjà utilisé', 400);
-      }
-
-      if (data.role === 'admin') {
-        const adminCount = await prisma.user.count({ where: { role: 'admin' } });
-        if (adminCount >= 1) {
-          throw new AppError('Un seul administrateur autorise', 400);
-        }
       }
 
       const passwordHash = await bcrypt.hash(data.password, 12);
@@ -44,8 +39,38 @@ export class AuthService {
           include: { profile: true }
         });
 
+        if (data.role === 'recruiter') {
+          const defaultCompanyName = `Entreprise de ${data.firstName} ${data.lastName}`.trim();
+          const company = await tx.company.create({
+            data: {
+              userId: user.id,
+              name: defaultCompanyName,
+              industry: 'General',
+              isVerified: false,
+            },
+          });
+
+          await tx.profile.update({
+            where: { userId: user.id },
+            data: { companyId: company.id },
+          });
+        }
+
         // 2. Génération des tokens (avec sauvegarde du refresh token dans la transaction)
         const tokens = await this.generateTokens(user.id, user.email, user.role as any, tx);
+
+        const hydratedUser = await tx.user.findUnique({
+          where: { id: user.id },
+          include: {
+            company: true,
+            profile: {
+              include: {
+                company: true,
+                school: true,
+              },
+            },
+          },
+        });
 
         // 3. Log d'audit
         await tx.auditLog.create({
@@ -58,7 +83,7 @@ export class AuthService {
           }
         });
 
-        return { user, ...tokens };
+        return { user: hydratedUser ?? user, ...tokens };
       });
 
       return result;
@@ -75,9 +100,17 @@ export class AuthService {
 
   async login(data: LoginDto) {
     try {
+      if (!this.validRoles.has(data.role)) {
+        throw new AppError('Role invalide', 400);
+      }
+
       const user = await authRepository.findUserByEmail(data.email, data.role);
       if (!user) {
         throw new AppError('Identifiants invalides', 401);
+      }
+
+      if (!this.validRoles.has((user.role || '').toLowerCase())) {
+        throw new AppError('Role utilisateur invalide', 403);
       }
 
       if (user.isBanned) {

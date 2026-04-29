@@ -79,6 +79,11 @@ export type Application = $Result.DefaultSelection<Prisma.$ApplicationPayload>
  */
 export type Message = $Result.DefaultSelection<Prisma.$MessagePayload>
 /**
+ * Model Connection
+ * 
+ */
+export type Connection = $Result.DefaultSelection<Prisma.$ConnectionPayload>
+/**
  * Model Notification
  * 
  */
@@ -145,6 +150,15 @@ export const ApplicationStatus: {
 
 export type ApplicationStatus = (typeof ApplicationStatus)[keyof typeof ApplicationStatus]
 
+
+export const ConnectionStatus: {
+  pending: 'pending',
+  accepted: 'accepted',
+  rejected: 'rejected'
+};
+
+export type ConnectionStatus = (typeof ConnectionStatus)[keyof typeof ConnectionStatus]
+
 }
 
 export type Role = $Enums.Role
@@ -166,6 +180,10 @@ export const OfferStatus: typeof $Enums.OfferStatus
 export type ApplicationStatus = $Enums.ApplicationStatus
 
 export const ApplicationStatus: typeof $Enums.ApplicationStatus
+
+export type ConnectionStatus = $Enums.ConnectionStatus
+
+export const ConnectionStatus: typeof $Enums.ConnectionStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -419,6 +437,16 @@ export class PrismaClient<
     * ```
     */
   get message(): Prisma.MessageDelegate<ExtArgs>;
+
+  /**
+   * `prisma.connection`: Exposes CRUD operations for the **Connection** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Connections
+    * const connections = await prisma.connection.findMany()
+    * ```
+    */
+  get connection(): Prisma.ConnectionDelegate<ExtArgs>;
 
   /**
    * `prisma.notification`: Exposes CRUD operations for the **Notification** model.
@@ -903,6 +931,7 @@ export namespace Prisma {
     MatchScore: 'MatchScore',
     Application: 'Application',
     Message: 'Message',
+    Connection: 'Connection',
     Notification: 'Notification',
     AuditLog: 'AuditLog',
     ChatMessage: 'ChatMessage'
@@ -921,7 +950,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "refreshToken" | "profile" | "company" | "school" | "skill" | "cvDocument" | "extractedSkill" | "jobOffer" | "offerSkill" | "matchScore" | "application" | "message" | "notification" | "auditLog" | "chatMessage"
+      modelProps: "user" | "refreshToken" | "profile" | "company" | "school" | "skill" | "cvDocument" | "extractedSkill" | "jobOffer" | "offerSkill" | "matchScore" | "application" | "message" | "connection" | "notification" | "auditLog" | "chatMessage"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1835,6 +1864,76 @@ export namespace Prisma {
           }
         }
       }
+      Connection: {
+        payload: Prisma.$ConnectionPayload<ExtArgs>
+        fields: Prisma.ConnectionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ConnectionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConnectionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ConnectionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConnectionPayload>
+          }
+          findFirst: {
+            args: Prisma.ConnectionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConnectionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ConnectionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConnectionPayload>
+          }
+          findMany: {
+            args: Prisma.ConnectionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConnectionPayload>[]
+          }
+          create: {
+            args: Prisma.ConnectionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConnectionPayload>
+          }
+          createMany: {
+            args: Prisma.ConnectionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ConnectionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConnectionPayload>[]
+          }
+          delete: {
+            args: Prisma.ConnectionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConnectionPayload>
+          }
+          update: {
+            args: Prisma.ConnectionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConnectionPayload>
+          }
+          deleteMany: {
+            args: Prisma.ConnectionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ConnectionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ConnectionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConnectionPayload>
+          }
+          aggregate: {
+            args: Prisma.ConnectionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateConnection>
+          }
+          groupBy: {
+            args: Prisma.ConnectionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ConnectionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ConnectionCountArgs<ExtArgs>
+            result: $Utils.Optional<ConnectionCountAggregateOutputType> | number
+          }
+        }
+      }
       Notification: {
         payload: Prisma.$NotificationPayload<ExtArgs>
         fields: Prisma.NotificationFieldRefs
@@ -2213,6 +2312,8 @@ export namespace Prisma {
     match_scores: number
     receivedMessages: number
     sentMessages: number
+    sentConnections: number
+    receivedConnections: number
     notifications: number
     refreshTokens: number
     chatMessages: number
@@ -2226,6 +2327,8 @@ export namespace Prisma {
     match_scores?: boolean | UserCountOutputTypeCountMatch_scoresArgs
     receivedMessages?: boolean | UserCountOutputTypeCountReceivedMessagesArgs
     sentMessages?: boolean | UserCountOutputTypeCountSentMessagesArgs
+    sentConnections?: boolean | UserCountOutputTypeCountSentConnectionsArgs
+    receivedConnections?: boolean | UserCountOutputTypeCountReceivedConnectionsArgs
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
     refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
     chatMessages?: boolean | UserCountOutputTypeCountChatMessagesArgs
@@ -2289,6 +2392,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountSentMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MessageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSentConnectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConnectionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountReceivedConnectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConnectionWhereInput
   }
 
   /**
@@ -2794,6 +2911,8 @@ export namespace Prisma {
     match_scores?: boolean | User$match_scoresArgs<ExtArgs>
     receivedMessages?: boolean | User$receivedMessagesArgs<ExtArgs>
     sentMessages?: boolean | User$sentMessagesArgs<ExtArgs>
+    sentConnections?: boolean | User$sentConnectionsArgs<ExtArgs>
+    receivedConnections?: boolean | User$receivedConnectionsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     profile?: boolean | User$profileArgs<ExtArgs>
     refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
@@ -2836,6 +2955,8 @@ export namespace Prisma {
     match_scores?: boolean | User$match_scoresArgs<ExtArgs>
     receivedMessages?: boolean | User$receivedMessagesArgs<ExtArgs>
     sentMessages?: boolean | User$sentMessagesArgs<ExtArgs>
+    sentConnections?: boolean | User$sentConnectionsArgs<ExtArgs>
+    receivedConnections?: boolean | User$receivedConnectionsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     profile?: boolean | User$profileArgs<ExtArgs>
     refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
@@ -2855,6 +2976,8 @@ export namespace Prisma {
       match_scores: Prisma.$MatchScorePayload<ExtArgs>[]
       receivedMessages: Prisma.$MessagePayload<ExtArgs>[]
       sentMessages: Prisma.$MessagePayload<ExtArgs>[]
+      sentConnections: Prisma.$ConnectionPayload<ExtArgs>[]
+      receivedConnections: Prisma.$ConnectionPayload<ExtArgs>[]
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
       profile: Prisma.$ProfilePayload<ExtArgs> | null
       refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
@@ -3243,6 +3366,8 @@ export namespace Prisma {
     match_scores<T extends User$match_scoresArgs<ExtArgs> = {}>(args?: Subset<T, User$match_scoresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MatchScorePayload<ExtArgs>, T, "findMany"> | Null>
     receivedMessages<T extends User$receivedMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$receivedMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany"> | Null>
     sentMessages<T extends User$sentMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$sentMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany"> | Null>
+    sentConnections<T extends User$sentConnectionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sentConnectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConnectionPayload<ExtArgs>, T, "findMany"> | Null>
+    receivedConnections<T extends User$receivedConnectionsArgs<ExtArgs> = {}>(args?: Subset<T, User$receivedConnectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConnectionPayload<ExtArgs>, T, "findMany"> | Null>
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany"> | Null>
     profile<T extends User$profileArgs<ExtArgs> = {}>(args?: Subset<T, User$profileArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     refreshTokens<T extends User$refreshTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany"> | Null>
@@ -3752,6 +3877,46 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * User.sentConnections
+   */
+  export type User$sentConnectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Connection
+     */
+    select?: ConnectionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConnectionInclude<ExtArgs> | null
+    where?: ConnectionWhereInput
+    orderBy?: ConnectionOrderByWithRelationInput | ConnectionOrderByWithRelationInput[]
+    cursor?: ConnectionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ConnectionScalarFieldEnum | ConnectionScalarFieldEnum[]
+  }
+
+  /**
+   * User.receivedConnections
+   */
+  export type User$receivedConnectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Connection
+     */
+    select?: ConnectionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConnectionInclude<ExtArgs> | null
+    where?: ConnectionWhereInput
+    orderBy?: ConnectionOrderByWithRelationInput | ConnectionOrderByWithRelationInput[]
+    cursor?: ConnectionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ConnectionScalarFieldEnum | ConnectionScalarFieldEnum[]
   }
 
   /**
@@ -4795,8 +4960,18 @@ export namespace Prisma {
 
   export type AggregateProfile = {
     _count: ProfileCountAggregateOutputType | null
+    _avg: ProfileAvgAggregateOutputType | null
+    _sum: ProfileSumAggregateOutputType | null
     _min: ProfileMinAggregateOutputType | null
     _max: ProfileMaxAggregateOutputType | null
+  }
+
+  export type ProfileAvgAggregateOutputType = {
+    viewsCount: number | null
+  }
+
+  export type ProfileSumAggregateOutputType = {
+    viewsCount: number | null
   }
 
   export type ProfileMinAggregateOutputType = {
@@ -4807,6 +4982,8 @@ export namespace Prisma {
     firstName: string | null
     lastName: string | null
     bio: string | null
+    avatarUrl: string | null
+    viewsCount: number | null
     linkedinUrl: string | null
     githubUsername: string | null
     createdAt: Date | null
@@ -4821,6 +4998,8 @@ export namespace Prisma {
     firstName: string | null
     lastName: string | null
     bio: string | null
+    avatarUrl: string | null
+    viewsCount: number | null
     linkedinUrl: string | null
     githubUsername: string | null
     createdAt: Date | null
@@ -4835,6 +5014,8 @@ export namespace Prisma {
     firstName: number
     lastName: number
     bio: number
+    avatarUrl: number
+    viewsCount: number
     linkedinUrl: number
     githubUsername: number
     githubData: number
@@ -4844,6 +5025,14 @@ export namespace Prisma {
   }
 
 
+  export type ProfileAvgAggregateInputType = {
+    viewsCount?: true
+  }
+
+  export type ProfileSumAggregateInputType = {
+    viewsCount?: true
+  }
+
   export type ProfileMinAggregateInputType = {
     id?: true
     userId?: true
@@ -4852,6 +5041,8 @@ export namespace Prisma {
     firstName?: true
     lastName?: true
     bio?: true
+    avatarUrl?: true
+    viewsCount?: true
     linkedinUrl?: true
     githubUsername?: true
     createdAt?: true
@@ -4866,6 +5057,8 @@ export namespace Prisma {
     firstName?: true
     lastName?: true
     bio?: true
+    avatarUrl?: true
+    viewsCount?: true
     linkedinUrl?: true
     githubUsername?: true
     createdAt?: true
@@ -4880,6 +5073,8 @@ export namespace Prisma {
     firstName?: true
     lastName?: true
     bio?: true
+    avatarUrl?: true
+    viewsCount?: true
     linkedinUrl?: true
     githubUsername?: true
     githubData?: true
@@ -4926,6 +5121,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: ProfileAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ProfileSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ProfileMinAggregateInputType
@@ -4956,6 +5163,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ProfileCountAggregateInputType | true
+    _avg?: ProfileAvgAggregateInputType
+    _sum?: ProfileSumAggregateInputType
     _min?: ProfileMinAggregateInputType
     _max?: ProfileMaxAggregateInputType
   }
@@ -4968,12 +5177,16 @@ export namespace Prisma {
     firstName: string
     lastName: string
     bio: string | null
+    avatarUrl: string | null
+    viewsCount: number
     linkedinUrl: string | null
     githubUsername: string | null
     githubData: JsonValue | null
     createdAt: Date
     updatedAt: Date
     _count: ProfileCountAggregateOutputType | null
+    _avg: ProfileAvgAggregateOutputType | null
+    _sum: ProfileSumAggregateOutputType | null
     _min: ProfileMinAggregateOutputType | null
     _max: ProfileMaxAggregateOutputType | null
   }
@@ -5000,6 +5213,8 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     bio?: boolean
+    avatarUrl?: boolean
+    viewsCount?: boolean
     linkedinUrl?: boolean
     githubUsername?: boolean
     githubData?: boolean
@@ -5018,6 +5233,8 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     bio?: boolean
+    avatarUrl?: boolean
+    viewsCount?: boolean
     linkedinUrl?: boolean
     githubUsername?: boolean
     githubData?: boolean
@@ -5036,6 +5253,8 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     bio?: boolean
+    avatarUrl?: boolean
+    viewsCount?: boolean
     linkedinUrl?: boolean
     githubUsername?: boolean
     githubData?: boolean
@@ -5069,6 +5288,8 @@ export namespace Prisma {
       firstName: string
       lastName: string
       bio: string | null
+      avatarUrl: string | null
+      viewsCount: number
       linkedinUrl: string | null
       githubUsername: string | null
       githubData: Prisma.JsonValue | null
@@ -5477,6 +5698,8 @@ export namespace Prisma {
     readonly firstName: FieldRef<"Profile", 'String'>
     readonly lastName: FieldRef<"Profile", 'String'>
     readonly bio: FieldRef<"Profile", 'String'>
+    readonly avatarUrl: FieldRef<"Profile", 'String'>
+    readonly viewsCount: FieldRef<"Profile", 'Int'>
     readonly linkedinUrl: FieldRef<"Profile", 'String'>
     readonly githubUsername: FieldRef<"Profile", 'String'>
     readonly githubData: FieldRef<"Profile", 'Json'>
@@ -15920,6 +16143,969 @@ export namespace Prisma {
 
 
   /**
+   * Model Connection
+   */
+
+  export type AggregateConnection = {
+    _count: ConnectionCountAggregateOutputType | null
+    _min: ConnectionMinAggregateOutputType | null
+    _max: ConnectionMaxAggregateOutputType | null
+  }
+
+  export type ConnectionMinAggregateOutputType = {
+    id: string | null
+    requesterId: string | null
+    receiverId: string | null
+    status: $Enums.ConnectionStatus | null
+    respondedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ConnectionMaxAggregateOutputType = {
+    id: string | null
+    requesterId: string | null
+    receiverId: string | null
+    status: $Enums.ConnectionStatus | null
+    respondedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ConnectionCountAggregateOutputType = {
+    id: number
+    requesterId: number
+    receiverId: number
+    status: number
+    respondedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ConnectionMinAggregateInputType = {
+    id?: true
+    requesterId?: true
+    receiverId?: true
+    status?: true
+    respondedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ConnectionMaxAggregateInputType = {
+    id?: true
+    requesterId?: true
+    receiverId?: true
+    status?: true
+    respondedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ConnectionCountAggregateInputType = {
+    id?: true
+    requesterId?: true
+    receiverId?: true
+    status?: true
+    respondedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ConnectionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Connection to aggregate.
+     */
+    where?: ConnectionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Connections to fetch.
+     */
+    orderBy?: ConnectionOrderByWithRelationInput | ConnectionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ConnectionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Connections from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Connections.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Connections
+    **/
+    _count?: true | ConnectionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ConnectionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ConnectionMaxAggregateInputType
+  }
+
+  export type GetConnectionAggregateType<T extends ConnectionAggregateArgs> = {
+        [P in keyof T & keyof AggregateConnection]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateConnection[P]>
+      : GetScalarType<T[P], AggregateConnection[P]>
+  }
+
+
+
+
+  export type ConnectionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConnectionWhereInput
+    orderBy?: ConnectionOrderByWithAggregationInput | ConnectionOrderByWithAggregationInput[]
+    by: ConnectionScalarFieldEnum[] | ConnectionScalarFieldEnum
+    having?: ConnectionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ConnectionCountAggregateInputType | true
+    _min?: ConnectionMinAggregateInputType
+    _max?: ConnectionMaxAggregateInputType
+  }
+
+  export type ConnectionGroupByOutputType = {
+    id: string
+    requesterId: string
+    receiverId: string
+    status: $Enums.ConnectionStatus
+    respondedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ConnectionCountAggregateOutputType | null
+    _min: ConnectionMinAggregateOutputType | null
+    _max: ConnectionMaxAggregateOutputType | null
+  }
+
+  type GetConnectionGroupByPayload<T extends ConnectionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ConnectionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ConnectionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ConnectionGroupByOutputType[P]>
+            : GetScalarType<T[P], ConnectionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ConnectionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    requesterId?: boolean
+    receiverId?: boolean
+    status?: boolean
+    respondedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    requester?: boolean | UserDefaultArgs<ExtArgs>
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["connection"]>
+
+  export type ConnectionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    requesterId?: boolean
+    receiverId?: boolean
+    status?: boolean
+    respondedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    requester?: boolean | UserDefaultArgs<ExtArgs>
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["connection"]>
+
+  export type ConnectionSelectScalar = {
+    id?: boolean
+    requesterId?: boolean
+    receiverId?: boolean
+    status?: boolean
+    respondedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ConnectionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    requester?: boolean | UserDefaultArgs<ExtArgs>
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ConnectionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    requester?: boolean | UserDefaultArgs<ExtArgs>
+    receiver?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $ConnectionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Connection"
+    objects: {
+      requester: Prisma.$UserPayload<ExtArgs>
+      receiver: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      requesterId: string
+      receiverId: string
+      status: $Enums.ConnectionStatus
+      respondedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["connection"]>
+    composites: {}
+  }
+
+  type ConnectionGetPayload<S extends boolean | null | undefined | ConnectionDefaultArgs> = $Result.GetResult<Prisma.$ConnectionPayload, S>
+
+  type ConnectionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ConnectionFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ConnectionCountAggregateInputType | true
+    }
+
+  export interface ConnectionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Connection'], meta: { name: 'Connection' } }
+    /**
+     * Find zero or one Connection that matches the filter.
+     * @param {ConnectionFindUniqueArgs} args - Arguments to find a Connection
+     * @example
+     * // Get one Connection
+     * const connection = await prisma.connection.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ConnectionFindUniqueArgs>(args: SelectSubset<T, ConnectionFindUniqueArgs<ExtArgs>>): Prisma__ConnectionClient<$Result.GetResult<Prisma.$ConnectionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Connection that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ConnectionFindUniqueOrThrowArgs} args - Arguments to find a Connection
+     * @example
+     * // Get one Connection
+     * const connection = await prisma.connection.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ConnectionFindUniqueOrThrowArgs>(args: SelectSubset<T, ConnectionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ConnectionClient<$Result.GetResult<Prisma.$ConnectionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Connection that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConnectionFindFirstArgs} args - Arguments to find a Connection
+     * @example
+     * // Get one Connection
+     * const connection = await prisma.connection.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ConnectionFindFirstArgs>(args?: SelectSubset<T, ConnectionFindFirstArgs<ExtArgs>>): Prisma__ConnectionClient<$Result.GetResult<Prisma.$ConnectionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Connection that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConnectionFindFirstOrThrowArgs} args - Arguments to find a Connection
+     * @example
+     * // Get one Connection
+     * const connection = await prisma.connection.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ConnectionFindFirstOrThrowArgs>(args?: SelectSubset<T, ConnectionFindFirstOrThrowArgs<ExtArgs>>): Prisma__ConnectionClient<$Result.GetResult<Prisma.$ConnectionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Connections that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConnectionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Connections
+     * const connections = await prisma.connection.findMany()
+     * 
+     * // Get first 10 Connections
+     * const connections = await prisma.connection.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const connectionWithIdOnly = await prisma.connection.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ConnectionFindManyArgs>(args?: SelectSubset<T, ConnectionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConnectionPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Connection.
+     * @param {ConnectionCreateArgs} args - Arguments to create a Connection.
+     * @example
+     * // Create one Connection
+     * const Connection = await prisma.connection.create({
+     *   data: {
+     *     // ... data to create a Connection
+     *   }
+     * })
+     * 
+     */
+    create<T extends ConnectionCreateArgs>(args: SelectSubset<T, ConnectionCreateArgs<ExtArgs>>): Prisma__ConnectionClient<$Result.GetResult<Prisma.$ConnectionPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Connections.
+     * @param {ConnectionCreateManyArgs} args - Arguments to create many Connections.
+     * @example
+     * // Create many Connections
+     * const connection = await prisma.connection.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ConnectionCreateManyArgs>(args?: SelectSubset<T, ConnectionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Connections and returns the data saved in the database.
+     * @param {ConnectionCreateManyAndReturnArgs} args - Arguments to create many Connections.
+     * @example
+     * // Create many Connections
+     * const connection = await prisma.connection.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Connections and only return the `id`
+     * const connectionWithIdOnly = await prisma.connection.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ConnectionCreateManyAndReturnArgs>(args?: SelectSubset<T, ConnectionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConnectionPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Connection.
+     * @param {ConnectionDeleteArgs} args - Arguments to delete one Connection.
+     * @example
+     * // Delete one Connection
+     * const Connection = await prisma.connection.delete({
+     *   where: {
+     *     // ... filter to delete one Connection
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ConnectionDeleteArgs>(args: SelectSubset<T, ConnectionDeleteArgs<ExtArgs>>): Prisma__ConnectionClient<$Result.GetResult<Prisma.$ConnectionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Connection.
+     * @param {ConnectionUpdateArgs} args - Arguments to update one Connection.
+     * @example
+     * // Update one Connection
+     * const connection = await prisma.connection.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ConnectionUpdateArgs>(args: SelectSubset<T, ConnectionUpdateArgs<ExtArgs>>): Prisma__ConnectionClient<$Result.GetResult<Prisma.$ConnectionPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Connections.
+     * @param {ConnectionDeleteManyArgs} args - Arguments to filter Connections to delete.
+     * @example
+     * // Delete a few Connections
+     * const { count } = await prisma.connection.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ConnectionDeleteManyArgs>(args?: SelectSubset<T, ConnectionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Connections.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConnectionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Connections
+     * const connection = await prisma.connection.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ConnectionUpdateManyArgs>(args: SelectSubset<T, ConnectionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Connection.
+     * @param {ConnectionUpsertArgs} args - Arguments to update or create a Connection.
+     * @example
+     * // Update or create a Connection
+     * const connection = await prisma.connection.upsert({
+     *   create: {
+     *     // ... data to create a Connection
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Connection we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ConnectionUpsertArgs>(args: SelectSubset<T, ConnectionUpsertArgs<ExtArgs>>): Prisma__ConnectionClient<$Result.GetResult<Prisma.$ConnectionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Connections.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConnectionCountArgs} args - Arguments to filter Connections to count.
+     * @example
+     * // Count the number of Connections
+     * const count = await prisma.connection.count({
+     *   where: {
+     *     // ... the filter for the Connections we want to count
+     *   }
+     * })
+    **/
+    count<T extends ConnectionCountArgs>(
+      args?: Subset<T, ConnectionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ConnectionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Connection.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConnectionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ConnectionAggregateArgs>(args: Subset<T, ConnectionAggregateArgs>): Prisma.PrismaPromise<GetConnectionAggregateType<T>>
+
+    /**
+     * Group by Connection.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConnectionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ConnectionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ConnectionGroupByArgs['orderBy'] }
+        : { orderBy?: ConnectionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ConnectionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetConnectionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Connection model
+   */
+  readonly fields: ConnectionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Connection.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ConnectionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    requester<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    receiver<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Connection model
+   */ 
+  interface ConnectionFieldRefs {
+    readonly id: FieldRef<"Connection", 'String'>
+    readonly requesterId: FieldRef<"Connection", 'String'>
+    readonly receiverId: FieldRef<"Connection", 'String'>
+    readonly status: FieldRef<"Connection", 'ConnectionStatus'>
+    readonly respondedAt: FieldRef<"Connection", 'DateTime'>
+    readonly createdAt: FieldRef<"Connection", 'DateTime'>
+    readonly updatedAt: FieldRef<"Connection", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Connection findUnique
+   */
+  export type ConnectionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Connection
+     */
+    select?: ConnectionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConnectionInclude<ExtArgs> | null
+    /**
+     * Filter, which Connection to fetch.
+     */
+    where: ConnectionWhereUniqueInput
+  }
+
+  /**
+   * Connection findUniqueOrThrow
+   */
+  export type ConnectionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Connection
+     */
+    select?: ConnectionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConnectionInclude<ExtArgs> | null
+    /**
+     * Filter, which Connection to fetch.
+     */
+    where: ConnectionWhereUniqueInput
+  }
+
+  /**
+   * Connection findFirst
+   */
+  export type ConnectionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Connection
+     */
+    select?: ConnectionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConnectionInclude<ExtArgs> | null
+    /**
+     * Filter, which Connection to fetch.
+     */
+    where?: ConnectionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Connections to fetch.
+     */
+    orderBy?: ConnectionOrderByWithRelationInput | ConnectionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Connections.
+     */
+    cursor?: ConnectionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Connections from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Connections.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Connections.
+     */
+    distinct?: ConnectionScalarFieldEnum | ConnectionScalarFieldEnum[]
+  }
+
+  /**
+   * Connection findFirstOrThrow
+   */
+  export type ConnectionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Connection
+     */
+    select?: ConnectionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConnectionInclude<ExtArgs> | null
+    /**
+     * Filter, which Connection to fetch.
+     */
+    where?: ConnectionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Connections to fetch.
+     */
+    orderBy?: ConnectionOrderByWithRelationInput | ConnectionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Connections.
+     */
+    cursor?: ConnectionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Connections from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Connections.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Connections.
+     */
+    distinct?: ConnectionScalarFieldEnum | ConnectionScalarFieldEnum[]
+  }
+
+  /**
+   * Connection findMany
+   */
+  export type ConnectionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Connection
+     */
+    select?: ConnectionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConnectionInclude<ExtArgs> | null
+    /**
+     * Filter, which Connections to fetch.
+     */
+    where?: ConnectionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Connections to fetch.
+     */
+    orderBy?: ConnectionOrderByWithRelationInput | ConnectionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Connections.
+     */
+    cursor?: ConnectionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Connections from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Connections.
+     */
+    skip?: number
+    distinct?: ConnectionScalarFieldEnum | ConnectionScalarFieldEnum[]
+  }
+
+  /**
+   * Connection create
+   */
+  export type ConnectionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Connection
+     */
+    select?: ConnectionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConnectionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Connection.
+     */
+    data: XOR<ConnectionCreateInput, ConnectionUncheckedCreateInput>
+  }
+
+  /**
+   * Connection createMany
+   */
+  export type ConnectionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Connections.
+     */
+    data: ConnectionCreateManyInput | ConnectionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Connection createManyAndReturn
+   */
+  export type ConnectionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Connection
+     */
+    select?: ConnectionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Connections.
+     */
+    data: ConnectionCreateManyInput | ConnectionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConnectionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Connection update
+   */
+  export type ConnectionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Connection
+     */
+    select?: ConnectionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConnectionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Connection.
+     */
+    data: XOR<ConnectionUpdateInput, ConnectionUncheckedUpdateInput>
+    /**
+     * Choose, which Connection to update.
+     */
+    where: ConnectionWhereUniqueInput
+  }
+
+  /**
+   * Connection updateMany
+   */
+  export type ConnectionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Connections.
+     */
+    data: XOR<ConnectionUpdateManyMutationInput, ConnectionUncheckedUpdateManyInput>
+    /**
+     * Filter which Connections to update
+     */
+    where?: ConnectionWhereInput
+  }
+
+  /**
+   * Connection upsert
+   */
+  export type ConnectionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Connection
+     */
+    select?: ConnectionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConnectionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Connection to update in case it exists.
+     */
+    where: ConnectionWhereUniqueInput
+    /**
+     * In case the Connection found by the `where` argument doesn't exist, create a new Connection with this data.
+     */
+    create: XOR<ConnectionCreateInput, ConnectionUncheckedCreateInput>
+    /**
+     * In case the Connection was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ConnectionUpdateInput, ConnectionUncheckedUpdateInput>
+  }
+
+  /**
+   * Connection delete
+   */
+  export type ConnectionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Connection
+     */
+    select?: ConnectionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConnectionInclude<ExtArgs> | null
+    /**
+     * Filter which Connection to delete.
+     */
+    where: ConnectionWhereUniqueInput
+  }
+
+  /**
+   * Connection deleteMany
+   */
+  export type ConnectionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Connections to delete
+     */
+    where?: ConnectionWhereInput
+  }
+
+  /**
+   * Connection without action
+   */
+  export type ConnectionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Connection
+     */
+    select?: ConnectionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConnectionInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Notification
    */
 
@@ -18831,6 +20017,8 @@ export namespace Prisma {
     firstName: 'firstName',
     lastName: 'lastName',
     bio: 'bio',
+    avatarUrl: 'avatarUrl',
+    viewsCount: 'viewsCount',
     linkedinUrl: 'linkedinUrl',
     githubUsername: 'githubUsername',
     githubData: 'githubData',
@@ -18973,6 +20161,19 @@ export namespace Prisma {
   };
 
   export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+  export const ConnectionScalarFieldEnum: {
+    id: 'id',
+    requesterId: 'requesterId',
+    receiverId: 'receiverId',
+    status: 'status',
+    respondedAt: 'respondedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ConnectionScalarFieldEnum = (typeof ConnectionScalarFieldEnum)[keyof typeof ConnectionScalarFieldEnum]
 
 
   export const NotificationScalarFieldEnum: {
@@ -19204,6 +20405,20 @@ export namespace Prisma {
    */
   export type ListEnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus[]'>
     
+
+
+  /**
+   * Reference to a field of type 'ConnectionStatus'
+   */
+  export type EnumConnectionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConnectionStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ConnectionStatus[]'
+   */
+  export type ListEnumConnectionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConnectionStatus[]'>
+    
   /**
    * Deep Input Types
    */
@@ -19231,6 +20446,8 @@ export namespace Prisma {
     match_scores?: MatchScoreListRelationFilter
     receivedMessages?: MessageListRelationFilter
     sentMessages?: MessageListRelationFilter
+    sentConnections?: ConnectionListRelationFilter
+    receivedConnections?: ConnectionListRelationFilter
     notifications?: NotificationListRelationFilter
     profile?: XOR<ProfileNullableRelationFilter, ProfileWhereInput> | null
     refreshTokens?: RefreshTokenListRelationFilter
@@ -19256,6 +20473,8 @@ export namespace Prisma {
     match_scores?: MatchScoreOrderByRelationAggregateInput
     receivedMessages?: MessageOrderByRelationAggregateInput
     sentMessages?: MessageOrderByRelationAggregateInput
+    sentConnections?: ConnectionOrderByRelationAggregateInput
+    receivedConnections?: ConnectionOrderByRelationAggregateInput
     notifications?: NotificationOrderByRelationAggregateInput
     profile?: ProfileOrderByWithRelationInput
     refreshTokens?: RefreshTokenOrderByRelationAggregateInput
@@ -19284,6 +20503,8 @@ export namespace Prisma {
     match_scores?: MatchScoreListRelationFilter
     receivedMessages?: MessageListRelationFilter
     sentMessages?: MessageListRelationFilter
+    sentConnections?: ConnectionListRelationFilter
+    receivedConnections?: ConnectionListRelationFilter
     notifications?: NotificationListRelationFilter
     profile?: XOR<ProfileNullableRelationFilter, ProfileWhereInput> | null
     refreshTokens?: RefreshTokenListRelationFilter
@@ -19395,6 +20616,8 @@ export namespace Prisma {
     firstName?: StringFilter<"Profile"> | string
     lastName?: StringFilter<"Profile"> | string
     bio?: StringNullableFilter<"Profile"> | string | null
+    avatarUrl?: StringNullableFilter<"Profile"> | string | null
+    viewsCount?: IntFilter<"Profile"> | number
     linkedinUrl?: StringNullableFilter<"Profile"> | string | null
     githubUsername?: StringNullableFilter<"Profile"> | string | null
     githubData?: JsonNullableFilter<"Profile">
@@ -19413,6 +20636,8 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     bio?: SortOrderInput | SortOrder
+    avatarUrl?: SortOrderInput | SortOrder
+    viewsCount?: SortOrder
     linkedinUrl?: SortOrderInput | SortOrder
     githubUsername?: SortOrderInput | SortOrder
     githubData?: SortOrderInput | SortOrder
@@ -19434,6 +20659,8 @@ export namespace Prisma {
     firstName?: StringFilter<"Profile"> | string
     lastName?: StringFilter<"Profile"> | string
     bio?: StringNullableFilter<"Profile"> | string | null
+    avatarUrl?: StringNullableFilter<"Profile"> | string | null
+    viewsCount?: IntFilter<"Profile"> | number
     linkedinUrl?: StringNullableFilter<"Profile"> | string | null
     githubUsername?: StringNullableFilter<"Profile"> | string | null
     githubData?: JsonNullableFilter<"Profile">
@@ -19452,14 +20679,18 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     bio?: SortOrderInput | SortOrder
+    avatarUrl?: SortOrderInput | SortOrder
+    viewsCount?: SortOrder
     linkedinUrl?: SortOrderInput | SortOrder
     githubUsername?: SortOrderInput | SortOrder
     githubData?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ProfileCountOrderByAggregateInput
+    _avg?: ProfileAvgOrderByAggregateInput
     _max?: ProfileMaxOrderByAggregateInput
     _min?: ProfileMinOrderByAggregateInput
+    _sum?: ProfileSumOrderByAggregateInput
   }
 
   export type ProfileScalarWhereWithAggregatesInput = {
@@ -19473,6 +20704,8 @@ export namespace Prisma {
     firstName?: StringWithAggregatesFilter<"Profile"> | string
     lastName?: StringWithAggregatesFilter<"Profile"> | string
     bio?: StringNullableWithAggregatesFilter<"Profile"> | string | null
+    avatarUrl?: StringNullableWithAggregatesFilter<"Profile"> | string | null
+    viewsCount?: IntWithAggregatesFilter<"Profile"> | number
     linkedinUrl?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     githubUsername?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     githubData?: JsonNullableWithAggregatesFilter<"Profile">
@@ -20213,6 +21446,75 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
   }
 
+  export type ConnectionWhereInput = {
+    AND?: ConnectionWhereInput | ConnectionWhereInput[]
+    OR?: ConnectionWhereInput[]
+    NOT?: ConnectionWhereInput | ConnectionWhereInput[]
+    id?: StringFilter<"Connection"> | string
+    requesterId?: StringFilter<"Connection"> | string
+    receiverId?: StringFilter<"Connection"> | string
+    status?: EnumConnectionStatusFilter<"Connection"> | $Enums.ConnectionStatus
+    respondedAt?: DateTimeNullableFilter<"Connection"> | Date | string | null
+    createdAt?: DateTimeFilter<"Connection"> | Date | string
+    updatedAt?: DateTimeFilter<"Connection"> | Date | string
+    requester?: XOR<UserRelationFilter, UserWhereInput>
+    receiver?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type ConnectionOrderByWithRelationInput = {
+    id?: SortOrder
+    requesterId?: SortOrder
+    receiverId?: SortOrder
+    status?: SortOrder
+    respondedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    requester?: UserOrderByWithRelationInput
+    receiver?: UserOrderByWithRelationInput
+  }
+
+  export type ConnectionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    requesterId_receiverId?: ConnectionRequesterIdReceiverIdCompoundUniqueInput
+    AND?: ConnectionWhereInput | ConnectionWhereInput[]
+    OR?: ConnectionWhereInput[]
+    NOT?: ConnectionWhereInput | ConnectionWhereInput[]
+    requesterId?: StringFilter<"Connection"> | string
+    receiverId?: StringFilter<"Connection"> | string
+    status?: EnumConnectionStatusFilter<"Connection"> | $Enums.ConnectionStatus
+    respondedAt?: DateTimeNullableFilter<"Connection"> | Date | string | null
+    createdAt?: DateTimeFilter<"Connection"> | Date | string
+    updatedAt?: DateTimeFilter<"Connection"> | Date | string
+    requester?: XOR<UserRelationFilter, UserWhereInput>
+    receiver?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id" | "requesterId_receiverId">
+
+  export type ConnectionOrderByWithAggregationInput = {
+    id?: SortOrder
+    requesterId?: SortOrder
+    receiverId?: SortOrder
+    status?: SortOrder
+    respondedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ConnectionCountOrderByAggregateInput
+    _max?: ConnectionMaxOrderByAggregateInput
+    _min?: ConnectionMinOrderByAggregateInput
+  }
+
+  export type ConnectionScalarWhereWithAggregatesInput = {
+    AND?: ConnectionScalarWhereWithAggregatesInput | ConnectionScalarWhereWithAggregatesInput[]
+    OR?: ConnectionScalarWhereWithAggregatesInput[]
+    NOT?: ConnectionScalarWhereWithAggregatesInput | ConnectionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Connection"> | string
+    requesterId?: StringWithAggregatesFilter<"Connection"> | string
+    receiverId?: StringWithAggregatesFilter<"Connection"> | string
+    status?: EnumConnectionStatusWithAggregatesFilter<"Connection"> | $Enums.ConnectionStatus
+    respondedAt?: DateTimeNullableWithAggregatesFilter<"Connection"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Connection"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Connection"> | Date | string
+  }
+
   export type NotificationWhereInput = {
     AND?: NotificationWhereInput | NotificationWhereInput[]
     OR?: NotificationWhereInput[]
@@ -20422,6 +21724,8 @@ export namespace Prisma {
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionCreateNestedManyWithoutReceiverInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
@@ -20447,6 +21751,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionUncheckedCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionUncheckedCreateNestedManyWithoutReceiverInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -20472,6 +21778,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
@@ -20497,6 +21805,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUncheckedUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -20609,6 +21919,8 @@ export namespace Prisma {
     firstName: string
     lastName: string
     bio?: string | null
+    avatarUrl?: string | null
+    viewsCount?: number
     linkedinUrl?: string | null
     githubUsername?: string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -20627,6 +21939,8 @@ export namespace Prisma {
     firstName: string
     lastName: string
     bio?: string | null
+    avatarUrl?: string | null
+    viewsCount?: number
     linkedinUrl?: string | null
     githubUsername?: string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -20639,6 +21953,8 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    viewsCount?: IntFieldUpdateOperationsInput | number
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -20657,6 +21973,8 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    viewsCount?: IntFieldUpdateOperationsInput | number
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -20672,6 +21990,8 @@ export namespace Prisma {
     firstName: string
     lastName: string
     bio?: string | null
+    avatarUrl?: string | null
+    viewsCount?: number
     linkedinUrl?: string | null
     githubUsername?: string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -20684,6 +22004,8 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    viewsCount?: IntFieldUpdateOperationsInput | number
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -20699,6 +22021,8 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    viewsCount?: IntFieldUpdateOperationsInput | number
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -21462,6 +22786,74 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ConnectionCreateInput = {
+    id?: string
+    status?: $Enums.ConnectionStatus
+    respondedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    requester: UserCreateNestedOneWithoutSentConnectionsInput
+    receiver: UserCreateNestedOneWithoutReceivedConnectionsInput
+  }
+
+  export type ConnectionUncheckedCreateInput = {
+    id?: string
+    requesterId: string
+    receiverId: string
+    status?: $Enums.ConnectionStatus
+    respondedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConnectionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumConnectionStatusFieldUpdateOperationsInput | $Enums.ConnectionStatus
+    respondedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    requester?: UserUpdateOneRequiredWithoutSentConnectionsNestedInput
+    receiver?: UserUpdateOneRequiredWithoutReceivedConnectionsNestedInput
+  }
+
+  export type ConnectionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    requesterId?: StringFieldUpdateOperationsInput | string
+    receiverId?: StringFieldUpdateOperationsInput | string
+    status?: EnumConnectionStatusFieldUpdateOperationsInput | $Enums.ConnectionStatus
+    respondedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConnectionCreateManyInput = {
+    id?: string
+    requesterId: string
+    receiverId: string
+    status?: $Enums.ConnectionStatus
+    respondedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConnectionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumConnectionStatusFieldUpdateOperationsInput | $Enums.ConnectionStatus
+    respondedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConnectionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    requesterId?: StringFieldUpdateOperationsInput | string
+    receiverId?: StringFieldUpdateOperationsInput | string
+    status?: EnumConnectionStatusFieldUpdateOperationsInput | $Enums.ConnectionStatus
+    respondedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type NotificationCreateInput = {
     id?: string
     type: string
@@ -21778,6 +23170,12 @@ export namespace Prisma {
     none?: MessageWhereInput
   }
 
+  export type ConnectionListRelationFilter = {
+    every?: ConnectionWhereInput
+    some?: ConnectionWhereInput
+    none?: ConnectionWhereInput
+  }
+
   export type NotificationListRelationFilter = {
     every?: NotificationWhereInput
     some?: NotificationWhereInput
@@ -21827,6 +23225,10 @@ export namespace Prisma {
   }
 
   export type MessageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ConnectionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -22018,6 +23420,17 @@ export namespace Prisma {
     revokedAt?: SortOrder
     createdAt?: SortOrder
   }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
   export type JsonNullableFilter<$PrismaModel = never> = 
     | PatchUndefined<
         Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -22054,11 +23467,17 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     bio?: SortOrder
+    avatarUrl?: SortOrder
+    viewsCount?: SortOrder
     linkedinUrl?: SortOrder
     githubUsername?: SortOrder
     githubData?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type ProfileAvgOrderByAggregateInput = {
+    viewsCount?: SortOrder
   }
 
   export type ProfileMaxOrderByAggregateInput = {
@@ -22069,6 +23488,8 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     bio?: SortOrder
+    avatarUrl?: SortOrder
+    viewsCount?: SortOrder
     linkedinUrl?: SortOrder
     githubUsername?: SortOrder
     createdAt?: SortOrder
@@ -22083,10 +23504,32 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     bio?: SortOrder
+    avatarUrl?: SortOrder
+    viewsCount?: SortOrder
     linkedinUrl?: SortOrder
     githubUsername?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type ProfileSumOrderByAggregateInput = {
+    viewsCount?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
   export type JsonNullableWithAggregatesFilter<$PrismaModel = never> = 
     | PatchUndefined<
@@ -22242,17 +23685,6 @@ export namespace Prisma {
     not?: NestedEnumParseStatusFilter<$PrismaModel> | $Enums.ParseStatus
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type CvDocumentCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -22321,22 +23753,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumParseStatusFilter<$PrismaModel>
     _max?: NestedEnumParseStatusFilter<$PrismaModel>
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type FloatNullableFilter<$PrismaModel = never> = {
@@ -22731,6 +24147,58 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type EnumConnectionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ConnectionStatus | EnumConnectionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ConnectionStatus[] | ListEnumConnectionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ConnectionStatus[] | ListEnumConnectionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumConnectionStatusFilter<$PrismaModel> | $Enums.ConnectionStatus
+  }
+
+  export type ConnectionRequesterIdReceiverIdCompoundUniqueInput = {
+    requesterId: string
+    receiverId: string
+  }
+
+  export type ConnectionCountOrderByAggregateInput = {
+    id?: SortOrder
+    requesterId?: SortOrder
+    receiverId?: SortOrder
+    status?: SortOrder
+    respondedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ConnectionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    requesterId?: SortOrder
+    receiverId?: SortOrder
+    status?: SortOrder
+    respondedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ConnectionMinOrderByAggregateInput = {
+    id?: SortOrder
+    requesterId?: SortOrder
+    receiverId?: SortOrder
+    status?: SortOrder
+    respondedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumConnectionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ConnectionStatus | EnumConnectionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ConnectionStatus[] | ListEnumConnectionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ConnectionStatus[] | ListEnumConnectionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumConnectionStatusWithAggregatesFilter<$PrismaModel> | $Enums.ConnectionStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumConnectionStatusFilter<$PrismaModel>
+    _max?: NestedEnumConnectionStatusFilter<$PrismaModel>
+  }
+
   export type NotificationCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -22872,6 +24340,20 @@ export namespace Prisma {
     connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
   }
 
+  export type ConnectionCreateNestedManyWithoutRequesterInput = {
+    create?: XOR<ConnectionCreateWithoutRequesterInput, ConnectionUncheckedCreateWithoutRequesterInput> | ConnectionCreateWithoutRequesterInput[] | ConnectionUncheckedCreateWithoutRequesterInput[]
+    connectOrCreate?: ConnectionCreateOrConnectWithoutRequesterInput | ConnectionCreateOrConnectWithoutRequesterInput[]
+    createMany?: ConnectionCreateManyRequesterInputEnvelope
+    connect?: ConnectionWhereUniqueInput | ConnectionWhereUniqueInput[]
+  }
+
+  export type ConnectionCreateNestedManyWithoutReceiverInput = {
+    create?: XOR<ConnectionCreateWithoutReceiverInput, ConnectionUncheckedCreateWithoutReceiverInput> | ConnectionCreateWithoutReceiverInput[] | ConnectionUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: ConnectionCreateOrConnectWithoutReceiverInput | ConnectionCreateOrConnectWithoutReceiverInput[]
+    createMany?: ConnectionCreateManyReceiverInputEnvelope
+    connect?: ConnectionWhereUniqueInput | ConnectionWhereUniqueInput[]
+  }
+
   export type NotificationCreateNestedManyWithoutUserInput = {
     create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
@@ -22952,6 +24434,20 @@ export namespace Prisma {
     connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
     createMany?: MessageCreateManySenderInputEnvelope
     connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type ConnectionUncheckedCreateNestedManyWithoutRequesterInput = {
+    create?: XOR<ConnectionCreateWithoutRequesterInput, ConnectionUncheckedCreateWithoutRequesterInput> | ConnectionCreateWithoutRequesterInput[] | ConnectionUncheckedCreateWithoutRequesterInput[]
+    connectOrCreate?: ConnectionCreateOrConnectWithoutRequesterInput | ConnectionCreateOrConnectWithoutRequesterInput[]
+    createMany?: ConnectionCreateManyRequesterInputEnvelope
+    connect?: ConnectionWhereUniqueInput | ConnectionWhereUniqueInput[]
+  }
+
+  export type ConnectionUncheckedCreateNestedManyWithoutReceiverInput = {
+    create?: XOR<ConnectionCreateWithoutReceiverInput, ConnectionUncheckedCreateWithoutReceiverInput> | ConnectionCreateWithoutReceiverInput[] | ConnectionUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: ConnectionCreateOrConnectWithoutReceiverInput | ConnectionCreateOrConnectWithoutReceiverInput[]
+    createMany?: ConnectionCreateManyReceiverInputEnvelope
+    connect?: ConnectionWhereUniqueInput | ConnectionWhereUniqueInput[]
   }
 
   export type NotificationUncheckedCreateNestedManyWithoutUserInput = {
@@ -23121,6 +24617,34 @@ export namespace Prisma {
     deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
   }
 
+  export type ConnectionUpdateManyWithoutRequesterNestedInput = {
+    create?: XOR<ConnectionCreateWithoutRequesterInput, ConnectionUncheckedCreateWithoutRequesterInput> | ConnectionCreateWithoutRequesterInput[] | ConnectionUncheckedCreateWithoutRequesterInput[]
+    connectOrCreate?: ConnectionCreateOrConnectWithoutRequesterInput | ConnectionCreateOrConnectWithoutRequesterInput[]
+    upsert?: ConnectionUpsertWithWhereUniqueWithoutRequesterInput | ConnectionUpsertWithWhereUniqueWithoutRequesterInput[]
+    createMany?: ConnectionCreateManyRequesterInputEnvelope
+    set?: ConnectionWhereUniqueInput | ConnectionWhereUniqueInput[]
+    disconnect?: ConnectionWhereUniqueInput | ConnectionWhereUniqueInput[]
+    delete?: ConnectionWhereUniqueInput | ConnectionWhereUniqueInput[]
+    connect?: ConnectionWhereUniqueInput | ConnectionWhereUniqueInput[]
+    update?: ConnectionUpdateWithWhereUniqueWithoutRequesterInput | ConnectionUpdateWithWhereUniqueWithoutRequesterInput[]
+    updateMany?: ConnectionUpdateManyWithWhereWithoutRequesterInput | ConnectionUpdateManyWithWhereWithoutRequesterInput[]
+    deleteMany?: ConnectionScalarWhereInput | ConnectionScalarWhereInput[]
+  }
+
+  export type ConnectionUpdateManyWithoutReceiverNestedInput = {
+    create?: XOR<ConnectionCreateWithoutReceiverInput, ConnectionUncheckedCreateWithoutReceiverInput> | ConnectionCreateWithoutReceiverInput[] | ConnectionUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: ConnectionCreateOrConnectWithoutReceiverInput | ConnectionCreateOrConnectWithoutReceiverInput[]
+    upsert?: ConnectionUpsertWithWhereUniqueWithoutReceiverInput | ConnectionUpsertWithWhereUniqueWithoutReceiverInput[]
+    createMany?: ConnectionCreateManyReceiverInputEnvelope
+    set?: ConnectionWhereUniqueInput | ConnectionWhereUniqueInput[]
+    disconnect?: ConnectionWhereUniqueInput | ConnectionWhereUniqueInput[]
+    delete?: ConnectionWhereUniqueInput | ConnectionWhereUniqueInput[]
+    connect?: ConnectionWhereUniqueInput | ConnectionWhereUniqueInput[]
+    update?: ConnectionUpdateWithWhereUniqueWithoutReceiverInput | ConnectionUpdateWithWhereUniqueWithoutReceiverInput[]
+    updateMany?: ConnectionUpdateManyWithWhereWithoutReceiverInput | ConnectionUpdateManyWithWhereWithoutReceiverInput[]
+    deleteMany?: ConnectionScalarWhereInput | ConnectionScalarWhereInput[]
+  }
+
   export type NotificationUpdateManyWithoutUserNestedInput = {
     create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
@@ -23281,6 +24805,34 @@ export namespace Prisma {
     deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
   }
 
+  export type ConnectionUncheckedUpdateManyWithoutRequesterNestedInput = {
+    create?: XOR<ConnectionCreateWithoutRequesterInput, ConnectionUncheckedCreateWithoutRequesterInput> | ConnectionCreateWithoutRequesterInput[] | ConnectionUncheckedCreateWithoutRequesterInput[]
+    connectOrCreate?: ConnectionCreateOrConnectWithoutRequesterInput | ConnectionCreateOrConnectWithoutRequesterInput[]
+    upsert?: ConnectionUpsertWithWhereUniqueWithoutRequesterInput | ConnectionUpsertWithWhereUniqueWithoutRequesterInput[]
+    createMany?: ConnectionCreateManyRequesterInputEnvelope
+    set?: ConnectionWhereUniqueInput | ConnectionWhereUniqueInput[]
+    disconnect?: ConnectionWhereUniqueInput | ConnectionWhereUniqueInput[]
+    delete?: ConnectionWhereUniqueInput | ConnectionWhereUniqueInput[]
+    connect?: ConnectionWhereUniqueInput | ConnectionWhereUniqueInput[]
+    update?: ConnectionUpdateWithWhereUniqueWithoutRequesterInput | ConnectionUpdateWithWhereUniqueWithoutRequesterInput[]
+    updateMany?: ConnectionUpdateManyWithWhereWithoutRequesterInput | ConnectionUpdateManyWithWhereWithoutRequesterInput[]
+    deleteMany?: ConnectionScalarWhereInput | ConnectionScalarWhereInput[]
+  }
+
+  export type ConnectionUncheckedUpdateManyWithoutReceiverNestedInput = {
+    create?: XOR<ConnectionCreateWithoutReceiverInput, ConnectionUncheckedCreateWithoutReceiverInput> | ConnectionCreateWithoutReceiverInput[] | ConnectionUncheckedCreateWithoutReceiverInput[]
+    connectOrCreate?: ConnectionCreateOrConnectWithoutReceiverInput | ConnectionCreateOrConnectWithoutReceiverInput[]
+    upsert?: ConnectionUpsertWithWhereUniqueWithoutReceiverInput | ConnectionUpsertWithWhereUniqueWithoutReceiverInput[]
+    createMany?: ConnectionCreateManyReceiverInputEnvelope
+    set?: ConnectionWhereUniqueInput | ConnectionWhereUniqueInput[]
+    disconnect?: ConnectionWhereUniqueInput | ConnectionWhereUniqueInput[]
+    delete?: ConnectionWhereUniqueInput | ConnectionWhereUniqueInput[]
+    connect?: ConnectionWhereUniqueInput | ConnectionWhereUniqueInput[]
+    update?: ConnectionUpdateWithWhereUniqueWithoutReceiverInput | ConnectionUpdateWithWhereUniqueWithoutReceiverInput[]
+    updateMany?: ConnectionUpdateManyWithWhereWithoutReceiverInput | ConnectionUpdateManyWithWhereWithoutReceiverInput[]
+    deleteMany?: ConnectionScalarWhereInput | ConnectionScalarWhereInput[]
+  }
+
   export type NotificationUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
@@ -23363,6 +24915,14 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
     connectOrCreate?: UserCreateOrConnectWithoutProfileInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type CompanyUpdateOneWithoutProfilesNestedInput = {
@@ -23657,14 +25217,6 @@ export namespace Prisma {
 
   export type EnumParseStatusFieldUpdateOperationsInput = {
     set?: $Enums.ParseStatus
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type UserUpdateOneRequiredWithoutCvDocumentsNestedInput = {
@@ -24121,6 +25673,38 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSentMessagesInput, UserUpdateWithoutSentMessagesInput>, UserUncheckedUpdateWithoutSentMessagesInput>
   }
 
+  export type UserCreateNestedOneWithoutSentConnectionsInput = {
+    create?: XOR<UserCreateWithoutSentConnectionsInput, UserUncheckedCreateWithoutSentConnectionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSentConnectionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutReceivedConnectionsInput = {
+    create?: XOR<UserCreateWithoutReceivedConnectionsInput, UserUncheckedCreateWithoutReceivedConnectionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReceivedConnectionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumConnectionStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ConnectionStatus
+  }
+
+  export type UserUpdateOneRequiredWithoutSentConnectionsNestedInput = {
+    create?: XOR<UserCreateWithoutSentConnectionsInput, UserUncheckedCreateWithoutSentConnectionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSentConnectionsInput
+    upsert?: UserUpsertWithoutSentConnectionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSentConnectionsInput, UserUpdateWithoutSentConnectionsInput>, UserUncheckedUpdateWithoutSentConnectionsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutReceivedConnectionsNestedInput = {
+    create?: XOR<UserCreateWithoutReceivedConnectionsInput, UserUncheckedCreateWithoutReceivedConnectionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReceivedConnectionsInput
+    upsert?: UserUpsertWithoutReceivedConnectionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReceivedConnectionsInput, UserUpdateWithoutReceivedConnectionsInput>, UserUncheckedUpdateWithoutReceivedConnectionsInput>
+  }
+
   export type UserCreateNestedOneWithoutNotificationsInput = {
     create?: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
     connectOrCreate?: UserCreateOrConnectWithoutNotificationsInput
@@ -24355,6 +25939,33 @@ export namespace Prisma {
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
   export type NestedJsonNullableFilter<$PrismaModel = never> = 
     | PatchUndefined<
         Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -24410,33 +26021,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumParseStatusFilter<$PrismaModel>
     _max?: NestedEnumParseStatusFilter<$PrismaModel>
-  }
-
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -24525,6 +26109,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumApplicationStatusFilter<$PrismaModel>
     _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumConnectionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ConnectionStatus | EnumConnectionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ConnectionStatus[] | ListEnumConnectionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ConnectionStatus[] | ListEnumConnectionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumConnectionStatusFilter<$PrismaModel> | $Enums.ConnectionStatus
+  }
+
+  export type NestedEnumConnectionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ConnectionStatus | EnumConnectionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ConnectionStatus[] | ListEnumConnectionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ConnectionStatus[] | ListEnumConnectionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumConnectionStatusWithAggregatesFilter<$PrismaModel> | $Enums.ConnectionStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumConnectionStatusFilter<$PrismaModel>
+    _max?: NestedEnumConnectionStatusFilter<$PrismaModel>
   }
 
   export type ApplicationCreateWithoutCandidateInput = {
@@ -24796,6 +26397,62 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ConnectionCreateWithoutRequesterInput = {
+    id?: string
+    status?: $Enums.ConnectionStatus
+    respondedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    receiver: UserCreateNestedOneWithoutReceivedConnectionsInput
+  }
+
+  export type ConnectionUncheckedCreateWithoutRequesterInput = {
+    id?: string
+    receiverId: string
+    status?: $Enums.ConnectionStatus
+    respondedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConnectionCreateOrConnectWithoutRequesterInput = {
+    where: ConnectionWhereUniqueInput
+    create: XOR<ConnectionCreateWithoutRequesterInput, ConnectionUncheckedCreateWithoutRequesterInput>
+  }
+
+  export type ConnectionCreateManyRequesterInputEnvelope = {
+    data: ConnectionCreateManyRequesterInput | ConnectionCreateManyRequesterInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ConnectionCreateWithoutReceiverInput = {
+    id?: string
+    status?: $Enums.ConnectionStatus
+    respondedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    requester: UserCreateNestedOneWithoutSentConnectionsInput
+  }
+
+  export type ConnectionUncheckedCreateWithoutReceiverInput = {
+    id?: string
+    requesterId: string
+    status?: $Enums.ConnectionStatus
+    respondedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConnectionCreateOrConnectWithoutReceiverInput = {
+    where: ConnectionWhereUniqueInput
+    create: XOR<ConnectionCreateWithoutReceiverInput, ConnectionUncheckedCreateWithoutReceiverInput>
+  }
+
+  export type ConnectionCreateManyReceiverInputEnvelope = {
+    data: ConnectionCreateManyReceiverInput | ConnectionCreateManyReceiverInput[]
+    skipDuplicates?: boolean
+  }
+
   export type NotificationCreateWithoutUserInput = {
     id?: string
     type: string
@@ -24829,6 +26486,8 @@ export namespace Prisma {
     firstName: string
     lastName: string
     bio?: string | null
+    avatarUrl?: string | null
+    viewsCount?: number
     linkedinUrl?: string | null
     githubUsername?: string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -24845,6 +26504,8 @@ export namespace Prisma {
     firstName: string
     lastName: string
     bio?: string | null
+    avatarUrl?: string | null
+    viewsCount?: number
     linkedinUrl?: string | null
     githubUsername?: string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -25153,6 +26814,51 @@ export namespace Prisma {
     data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutSenderInput>
   }
 
+  export type ConnectionUpsertWithWhereUniqueWithoutRequesterInput = {
+    where: ConnectionWhereUniqueInput
+    update: XOR<ConnectionUpdateWithoutRequesterInput, ConnectionUncheckedUpdateWithoutRequesterInput>
+    create: XOR<ConnectionCreateWithoutRequesterInput, ConnectionUncheckedCreateWithoutRequesterInput>
+  }
+
+  export type ConnectionUpdateWithWhereUniqueWithoutRequesterInput = {
+    where: ConnectionWhereUniqueInput
+    data: XOR<ConnectionUpdateWithoutRequesterInput, ConnectionUncheckedUpdateWithoutRequesterInput>
+  }
+
+  export type ConnectionUpdateManyWithWhereWithoutRequesterInput = {
+    where: ConnectionScalarWhereInput
+    data: XOR<ConnectionUpdateManyMutationInput, ConnectionUncheckedUpdateManyWithoutRequesterInput>
+  }
+
+  export type ConnectionScalarWhereInput = {
+    AND?: ConnectionScalarWhereInput | ConnectionScalarWhereInput[]
+    OR?: ConnectionScalarWhereInput[]
+    NOT?: ConnectionScalarWhereInput | ConnectionScalarWhereInput[]
+    id?: StringFilter<"Connection"> | string
+    requesterId?: StringFilter<"Connection"> | string
+    receiverId?: StringFilter<"Connection"> | string
+    status?: EnumConnectionStatusFilter<"Connection"> | $Enums.ConnectionStatus
+    respondedAt?: DateTimeNullableFilter<"Connection"> | Date | string | null
+    createdAt?: DateTimeFilter<"Connection"> | Date | string
+    updatedAt?: DateTimeFilter<"Connection"> | Date | string
+  }
+
+  export type ConnectionUpsertWithWhereUniqueWithoutReceiverInput = {
+    where: ConnectionWhereUniqueInput
+    update: XOR<ConnectionUpdateWithoutReceiverInput, ConnectionUncheckedUpdateWithoutReceiverInput>
+    create: XOR<ConnectionCreateWithoutReceiverInput, ConnectionUncheckedCreateWithoutReceiverInput>
+  }
+
+  export type ConnectionUpdateWithWhereUniqueWithoutReceiverInput = {
+    where: ConnectionWhereUniqueInput
+    data: XOR<ConnectionUpdateWithoutReceiverInput, ConnectionUncheckedUpdateWithoutReceiverInput>
+  }
+
+  export type ConnectionUpdateManyWithWhereWithoutReceiverInput = {
+    where: ConnectionScalarWhereInput
+    data: XOR<ConnectionUpdateManyMutationInput, ConnectionUncheckedUpdateManyWithoutReceiverInput>
+  }
+
   export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
     where: NotificationWhereUniqueInput
     update: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
@@ -25198,6 +26904,8 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    viewsCount?: IntFieldUpdateOperationsInput | number
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -25214,6 +26922,8 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    viewsCount?: IntFieldUpdateOperationsInput | number
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -25296,6 +27006,8 @@ export namespace Prisma {
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionCreateNestedManyWithoutReceiverInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
@@ -25320,6 +27032,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionUncheckedCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionUncheckedCreateNestedManyWithoutReceiverInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
@@ -25360,6 +27074,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
@@ -25384,6 +27100,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUncheckedUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
@@ -25462,6 +27180,8 @@ export namespace Prisma {
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionCreateNestedManyWithoutReceiverInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
@@ -25486,6 +27206,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionUncheckedCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionUncheckedCreateNestedManyWithoutReceiverInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
@@ -25592,6 +27314,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
@@ -25616,6 +27340,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUncheckedUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
@@ -25639,6 +27365,8 @@ export namespace Prisma {
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionCreateNestedManyWithoutReceiverInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
@@ -25663,6 +27391,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionUncheckedCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionUncheckedCreateNestedManyWithoutReceiverInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -25729,6 +27459,8 @@ export namespace Prisma {
     firstName: string
     lastName: string
     bio?: string | null
+    avatarUrl?: string | null
+    viewsCount?: number
     linkedinUrl?: string | null
     githubUsername?: string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -25745,6 +27477,8 @@ export namespace Prisma {
     firstName: string
     lastName: string
     bio?: string | null
+    avatarUrl?: string | null
+    viewsCount?: number
     linkedinUrl?: string | null
     githubUsername?: string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -25791,6 +27525,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
@@ -25815,6 +27551,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUncheckedUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -25864,6 +27602,8 @@ export namespace Prisma {
     firstName?: StringFilter<"Profile"> | string
     lastName?: StringFilter<"Profile"> | string
     bio?: StringNullableFilter<"Profile"> | string | null
+    avatarUrl?: StringNullableFilter<"Profile"> | string | null
+    viewsCount?: IntFilter<"Profile"> | number
     linkedinUrl?: StringNullableFilter<"Profile"> | string | null
     githubUsername?: StringNullableFilter<"Profile"> | string | null
     githubData?: JsonNullableFilter<"Profile">
@@ -25876,6 +27616,8 @@ export namespace Prisma {
     firstName: string
     lastName: string
     bio?: string | null
+    avatarUrl?: string | null
+    viewsCount?: number
     linkedinUrl?: string | null
     githubUsername?: string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -25892,6 +27634,8 @@ export namespace Prisma {
     firstName: string
     lastName: string
     bio?: string | null
+    avatarUrl?: string | null
+    viewsCount?: number
     linkedinUrl?: string | null
     githubUsername?: string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -26036,6 +27780,8 @@ export namespace Prisma {
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionCreateNestedManyWithoutReceiverInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
@@ -26060,6 +27806,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionUncheckedCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionUncheckedCreateNestedManyWithoutReceiverInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -26152,6 +27900,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
@@ -26176,6 +27926,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUncheckedUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -26421,6 +28173,8 @@ export namespace Prisma {
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionCreateNestedManyWithoutReceiverInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
@@ -26445,6 +28199,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionUncheckedCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionUncheckedCreateNestedManyWithoutReceiverInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -26592,6 +28348,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
@@ -26616,6 +28374,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUncheckedUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -26816,6 +28576,8 @@ export namespace Prisma {
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionCreateNestedManyWithoutReceiverInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
@@ -26840,6 +28602,8 @@ export namespace Prisma {
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionUncheckedCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionUncheckedCreateNestedManyWithoutReceiverInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -26960,6 +28724,8 @@ export namespace Prisma {
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
@@ -26984,6 +28750,8 @@ export namespace Prisma {
     jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUncheckedUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -27100,6 +28868,8 @@ export namespace Prisma {
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionCreateNestedManyWithoutReceiverInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
@@ -27124,6 +28894,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionUncheckedCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionUncheckedCreateNestedManyWithoutReceiverInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -27237,6 +29009,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
@@ -27261,6 +29035,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUncheckedUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -27377,6 +29153,8 @@ export namespace Prisma {
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionCreateNestedManyWithoutReceiverInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
@@ -27401,6 +29179,8 @@ export namespace Prisma {
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionUncheckedCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionUncheckedCreateNestedManyWithoutReceiverInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -27430,6 +29210,8 @@ export namespace Prisma {
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    sentConnections?: ConnectionCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionCreateNestedManyWithoutReceiverInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
@@ -27454,6 +29236,8 @@ export namespace Prisma {
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    sentConnections?: ConnectionUncheckedCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionUncheckedCreateNestedManyWithoutReceiverInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -27525,6 +29309,8 @@ export namespace Prisma {
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
@@ -27549,6 +29335,8 @@ export namespace Prisma {
     jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUncheckedUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -27584,6 +29372,8 @@ export namespace Prisma {
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    sentConnections?: ConnectionUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
@@ -27608,6 +29398,248 @@ export namespace Prisma {
     jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    sentConnections?: ConnectionUncheckedUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutSentConnectionsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role: $Enums.Role
+    isVerified?: boolean
+    isBanned?: boolean
+    location?: string | null
+    availabilityMonths?: number | null
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    applications?: ApplicationCreateNestedManyWithoutCandidateInput
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    company?: CompanyCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
+    jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    receivedConnections?: ConnectionCreateNestedManyWithoutReceiverInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSentConnectionsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role: $Enums.Role
+    isVerified?: boolean
+    isBanned?: boolean
+    location?: string | null
+    availabilityMonths?: number | null
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
+    jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    receivedConnections?: ConnectionUncheckedCreateNestedManyWithoutReceiverInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSentConnectionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSentConnectionsInput, UserUncheckedCreateWithoutSentConnectionsInput>
+  }
+
+  export type UserCreateWithoutReceivedConnectionsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role: $Enums.Role
+    isVerified?: boolean
+    isBanned?: boolean
+    location?: string | null
+    availabilityMonths?: number | null
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    applications?: ApplicationCreateNestedManyWithoutCandidateInput
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    company?: CompanyCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
+    jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionCreateNestedManyWithoutRequesterInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutReceivedConnectionsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role: $Enums.Role
+    isVerified?: boolean
+    isBanned?: boolean
+    location?: string | null
+    availabilityMonths?: number | null
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
+    jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionUncheckedCreateNestedManyWithoutRequesterInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutReceivedConnectionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutReceivedConnectionsInput, UserUncheckedCreateWithoutReceivedConnectionsInput>
+  }
+
+  export type UserUpsertWithoutSentConnectionsInput = {
+    update: XOR<UserUpdateWithoutSentConnectionsInput, UserUncheckedUpdateWithoutSentConnectionsInput>
+    create: XOR<UserCreateWithoutSentConnectionsInput, UserUncheckedCreateWithoutSentConnectionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSentConnectionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSentConnectionsInput, UserUncheckedUpdateWithoutSentConnectionsInput>
+  }
+
+  export type UserUpdateWithoutSentConnectionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUpdateManyWithoutCandidateNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
+    jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    receivedConnections?: ConnectionUpdateManyWithoutReceiverNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSentConnectionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
+    jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    receivedConnections?: ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUpsertWithoutReceivedConnectionsInput = {
+    update: XOR<UserUpdateWithoutReceivedConnectionsInput, UserUncheckedUpdateWithoutReceivedConnectionsInput>
+    create: XOR<UserCreateWithoutReceivedConnectionsInput, UserUncheckedCreateWithoutReceivedConnectionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutReceivedConnectionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutReceivedConnectionsInput, UserUncheckedUpdateWithoutReceivedConnectionsInput>
+  }
+
+  export type UserUpdateWithoutReceivedConnectionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUpdateManyWithoutCandidateNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
+    jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUpdateManyWithoutRequesterNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReceivedConnectionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
+    jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUncheckedUpdateManyWithoutRequesterNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -27633,6 +29665,8 @@ export namespace Prisma {
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionCreateNestedManyWithoutReceiverInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
@@ -27657,6 +29691,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionUncheckedCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionUncheckedCreateNestedManyWithoutReceiverInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
@@ -27697,6 +29733,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUpdateManyWithoutReceiverNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
@@ -27721,6 +29759,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUncheckedUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
@@ -27744,6 +29784,8 @@ export namespace Prisma {
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionCreateNestedManyWithoutReceiverInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
@@ -27768,6 +29810,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionUncheckedCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionUncheckedCreateNestedManyWithoutReceiverInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -27808,6 +29852,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
@@ -27832,6 +29878,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUncheckedUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -27857,6 +29905,8 @@ export namespace Prisma {
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionCreateNestedManyWithoutReceiverInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
@@ -27881,6 +29931,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionUncheckedCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionUncheckedCreateNestedManyWithoutReceiverInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -27921,6 +29973,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
@@ -27945,6 +29999,8 @@ export namespace Prisma {
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUncheckedUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -28024,6 +30080,24 @@ export namespace Prisma {
     content: string
     isRead?: boolean
     createdAt?: Date | string
+  }
+
+  export type ConnectionCreateManyRequesterInput = {
+    id?: string
+    receiverId: string
+    status?: $Enums.ConnectionStatus
+    respondedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConnectionCreateManyReceiverInput = {
+    id?: string
+    requesterId: string
+    status?: $Enums.ConnectionStatus
+    respondedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type NotificationCreateManyUserInput = {
@@ -28291,6 +30365,60 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ConnectionUpdateWithoutRequesterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumConnectionStatusFieldUpdateOperationsInput | $Enums.ConnectionStatus
+    respondedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receiver?: UserUpdateOneRequiredWithoutReceivedConnectionsNestedInput
+  }
+
+  export type ConnectionUncheckedUpdateWithoutRequesterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    receiverId?: StringFieldUpdateOperationsInput | string
+    status?: EnumConnectionStatusFieldUpdateOperationsInput | $Enums.ConnectionStatus
+    respondedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConnectionUncheckedUpdateManyWithoutRequesterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    receiverId?: StringFieldUpdateOperationsInput | string
+    status?: EnumConnectionStatusFieldUpdateOperationsInput | $Enums.ConnectionStatus
+    respondedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConnectionUpdateWithoutReceiverInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumConnectionStatusFieldUpdateOperationsInput | $Enums.ConnectionStatus
+    respondedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    requester?: UserUpdateOneRequiredWithoutSentConnectionsNestedInput
+  }
+
+  export type ConnectionUncheckedUpdateWithoutReceiverInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    requesterId?: StringFieldUpdateOperationsInput | string
+    status?: EnumConnectionStatusFieldUpdateOperationsInput | $Enums.ConnectionStatus
+    respondedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConnectionUncheckedUpdateManyWithoutReceiverInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    requesterId?: StringFieldUpdateOperationsInput | string
+    status?: EnumConnectionStatusFieldUpdateOperationsInput | $Enums.ConnectionStatus
+    respondedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type NotificationUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
@@ -28390,6 +30518,8 @@ export namespace Prisma {
     firstName: string
     lastName: string
     bio?: string | null
+    avatarUrl?: string | null
+    viewsCount?: number
     linkedinUrl?: string | null
     githubUsername?: string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -28459,6 +30589,8 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    viewsCount?: IntFieldUpdateOperationsInput | number
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -28475,6 +30607,8 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    viewsCount?: IntFieldUpdateOperationsInput | number
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -28489,6 +30623,8 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    viewsCount?: IntFieldUpdateOperationsInput | number
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -28503,6 +30639,8 @@ export namespace Prisma {
     firstName: string
     lastName: string
     bio?: string | null
+    avatarUrl?: string | null
+    viewsCount?: number
     linkedinUrl?: string | null
     githubUsername?: string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -28515,6 +30653,8 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    viewsCount?: IntFieldUpdateOperationsInput | number
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -28531,6 +30671,8 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    viewsCount?: IntFieldUpdateOperationsInput | number
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -28545,6 +30687,8 @@ export namespace Prisma {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    viewsCount?: IntFieldUpdateOperationsInput | number
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     githubData?: NullableJsonNullValueInput | InputJsonValue
@@ -28879,6 +31023,10 @@ export namespace Prisma {
      * @deprecated Use MessageDefaultArgs instead
      */
     export type MessageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MessageDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ConnectionDefaultArgs instead
+     */
+    export type ConnectionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ConnectionDefaultArgs<ExtArgs>
     /**
      * @deprecated Use NotificationDefaultArgs instead
      */

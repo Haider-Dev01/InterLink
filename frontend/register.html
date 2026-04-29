@@ -168,12 +168,12 @@
                         <label class="text-xs font-black uppercase tracking-widest text-on-surface-variant ml-1">Prénom</label>
                         <div class="relative group">
                             <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">person</span>
-                            <input type="text" placeholder="Thomas" class="w-full pl-12 pr-4 py-3.5 bg-white/50 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium placeholder:text-on-surface-variant/40" required>
+                            <input type="text" name="firstName" placeholder="Thomas" class="w-full pl-12 pr-4 py-3.5 bg-white/50 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium placeholder:text-on-surface-variant/40" required>
                         </div>
                     </div>
                     <div class="space-y-2">
                         <label class="text-xs font-black uppercase tracking-widest text-on-surface-variant ml-1">Nom</label>
-                        <input type="text" placeholder="Dubois" class="w-full px-4 py-3.5 bg-white/50 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium placeholder:text-on-surface-variant/40" required>
+                        <input type="text" name="lastName" placeholder="Dubois" class="w-full px-4 py-3.5 bg-white/50 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium placeholder:text-on-surface-variant/40" required>
                     </div>
                 </div>
 
@@ -181,7 +181,7 @@
                     <label class="text-xs font-black uppercase tracking-widest text-on-surface-variant ml-1">Adresse Email</label>
                     <div class="relative group">
                         <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">mail</span>
-                        <input type="email" placeholder="nom@exemple.com" class="w-full pl-12 pr-4 py-3.5 bg-white/50 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium placeholder:text-on-surface-variant/40" required>
+                        <input type="email" name="email" placeholder="nom@exemple.com" class="w-full pl-12 pr-4 py-3.5 bg-white/50 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium placeholder:text-on-surface-variant/40" required>
                     </div>
                 </div>
 
@@ -189,7 +189,7 @@
                     <label class="text-xs font-black uppercase tracking-widest text-on-surface-variant ml-1">Mot de passe</label>
                     <div class="relative group">
                         <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">lock</span>
-                        <input id="password-input" type="password" placeholder="••••••••" class="w-full pl-12 pr-12 py-3.5 bg-white/50 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium placeholder:text-on-surface-variant/40" required>
+                        <input id="password-input" name="password" type="password" placeholder="••••••••" class="w-full pl-12 pr-12 py-3.5 bg-white/50 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium placeholder:text-on-surface-variant/40" required>
                         <button id="toggle-password" type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors">
                             <span class="material-symbols-outlined text-[20px]">visibility</span>
                         </button>

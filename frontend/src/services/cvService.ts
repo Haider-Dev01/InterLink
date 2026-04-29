@@ -17,6 +17,11 @@ export const cvService = {
     return response.data;
   },
 
+  getMe: async () => {
+    const response = await api.get('/cv/me');
+    return response.data;
+  },
+
   getSkills: async () => {
     const response = await api.get('/cv/skills');
     return response.data;

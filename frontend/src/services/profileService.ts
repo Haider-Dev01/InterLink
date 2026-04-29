@@ -2,12 +2,17 @@ import { api } from './api';
 
 export const profileService = {
   getMe: async () => {
-    const response = await api.get('/profile/me');
+    const response = await api.get('/users/me');
     return response.data;
   },
 
   updateMe: async (data: any) => {
-    const response = await api.patch('/profile/me', data);
+    const response = await api.put('/users/me', data);
+    return response.data;
+  },
+
+  getByUserId: async (userId: string) => {
+    const response = await api.get(`/users/${userId}/profile`);
     return response.data;
   },
 

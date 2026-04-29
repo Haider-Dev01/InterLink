@@ -3,8 +3,10 @@ import { useRef, useEffect, useState } from 'react';
 import { DashboardShell } from '../components/dashboard/DashboardShell';
 import { KpiCard, SurfaceCard } from '../components/dashboard/DashboardPrimitives';
 import { candidateNavItems } from '../lib/data/dashboardData';
+import { buildDashboardProfile } from '../lib/userProfile';
 import { useReactPageAnimations } from '../lib/reactPageAnimations';
 import { applicationService } from '../services/applicationService';
+import { useAuthStore } from '../store/authStore';
 
 function statusClasses(tone: string) {
   switch (tone) {
@@ -23,10 +25,11 @@ export default function CandidateApplicationsPage() {
   const rootRef = useRef(null);
   useReactPageAnimations(rootRef);
 
+  const authUser = useAuthStore((state) => state.user);
   const [applications, setApplications] = useState<any[]>([]);
 
   useEffect(() => {
-    applicationService.getMyApplications().then(res => {
+    applicationService.getMyApplications().then((res) => {
       if (res.success && res.data) {
         setApplications(res.data);
       }
@@ -36,29 +39,25 @@ export default function CandidateApplicationsPage() {
   return (
     <div ref={rootRef}>
       <DashboardShell
-        action={{ icon: 'search', label: 'Trouver un stage', to: '/dashboard-candidat/trouver-stage' }}
+        action={{ icon: 'search', label: 'Trouver un stage', to: '/candidate/dashboard/trouver-stage' }}
         navItems={candidateNavItems}
-        profile={{
-          name: 'Thomas Dubois',
-          role: 'Étudiant Master 2',
-          image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80',
-        }}
+        profile={buildDashboardProfile(authUser)}
         searchPlaceholder="Rechercher une candidature..."
         sectionLabel="Espace Candidat"
         title="Mes candidatures"
       >
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           <KpiCard icon="description" label="Candidatures actives" value={applications.length.toString()} />
-          <KpiCard icon="forum" label="Entretiens planifiés" tone="secondary" trend="2 cette semaine" value="2" />
+          <KpiCard icon="forum" label="Entretiens planifies" tone="secondary" trend="2 cette semaine" value="2" />
           <KpiCard icon="psychology" label="Score moyen IA" tone="emerald" value="84%" />
-          <KpiCard icon="schedule" label="Relances suggérées" tone="amber" value="3" />
+          <KpiCard icon="schedule" label="Relances suggerees" tone="amber" value="3" />
         </div>
 
         <SurfaceCard className="p-8" data-animate="card">
           <div className="mb-8 flex items-center justify-between">
             <div>
               <h2 className="text-2xl font-black text-on-surface">Pipeline de suivi</h2>
-              <p className="mt-2 text-sm text-on-surface-variant">Chaque carte reprend l’état, le score IA et la prochaine action recommandée.</p>
+              <p className="mt-2 text-sm text-on-surface-variant">Chaque carte reprend l'etat, le score IA et la prochaine action recommandee.</p>
             </div>
             <span className="rounded-full bg-primary/10 px-3 py-1.5 text-[10px] font-black uppercase tracking-widest text-primary">Live sync</span>
           </div>
@@ -67,13 +66,13 @@ export default function CandidateApplicationsPage() {
             {applications.map((application) => (
               <div className="grid gap-4 rounded-[1.5rem] border border-surface-variant bg-surface p-5 md:grid-cols-[1.1fr_0.6fr_0.4fr]" key={application.id}>
                 <div>
-                  <p className="text-xs font-black uppercase tracking-widest text-on-surface-variant">{application.id.substring(0,8)}</p>
+                  <p className="text-xs font-black uppercase tracking-widest text-on-surface-variant">{application.id.substring(0, 8)}</p>
                   <h3 className="mt-2 text-lg font-black text-on-surface">{application.offer?.title || 'Offre'}</h3>
                   <p className="mt-1 text-sm font-medium text-on-surface-variant">
                     {application.offer?.company?.name || 'Entreprise'} · {application.offer?.location || 'Lieu'} · {new Date(application.createdAt).toLocaleDateString()}
                   </p>
                   <p className="mt-3 text-sm text-on-surface-variant">
-                    {application.applicationStatus === 'pending' ? 'En attente de réponse' : application.applicationStatus}
+                    {application.applicationStatus === 'pending' ? 'En attente de reponse' : application.applicationStatus}
                   </p>
                 </div>
                 <div className="flex flex-col justify-center gap-3">
@@ -89,17 +88,13 @@ export default function CandidateApplicationsPage() {
                 </div>
                 <div className="flex items-center justify-end">
                   <button className="interactive-scale rounded-xl border border-surface-variant bg-white px-4 py-3 text-sm font-bold text-on-surface transition-colors hover:border-primary hover:text-primary" type="button">
-                    Voir détails
+                    Voir details
                   </button>
                 </div>
               </div>
             ))}
-            
-            {applications.length === 0 && (
-              <div className="text-center py-8 text-on-surface-variant">
-                Aucune candidature pour le moment.
-              </div>
-            )}
+
+            {applications.length === 0 && <div className="py-8 text-center text-on-surface-variant">Aucune candidature pour le moment.</div>}
           </div>
         </SurfaceCard>
       </DashboardShell>

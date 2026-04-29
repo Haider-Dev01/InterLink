@@ -45,6 +45,21 @@ export const applicationController = {
     }
   },
 
+  async getRecruiterApplications(req: Request, res: Response, next: NextFunction) {
+    try {
+      const recruiterId = req.user!.id;
+      const offerId = typeof req.query.offerId === 'string' ? req.query.offerId : undefined;
+      const result = await applicationService.getRecruiterApplications(recruiterId, offerId);
+
+      return res.status(200).json({
+        success: true,
+        data: { applications: result },
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+
   async updateStatus(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;

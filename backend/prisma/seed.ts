@@ -1,14 +1,30 @@
-import { PrismaClient } from '../src/generated/prisma';
+﻿import { PrismaClient } from '../src/generated/prisma';
 import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
-async function main() {
-  const hashPassword = async (password: string) => {
-    return bcrypt.hash(password, 12);
-  };
+type SeedCompany = {
+  name: string;
+  industry: string;
+  region: 'tunisia' | 'europe';
+};
 
-  // 1. Admin
+const seedCompanies: SeedCompany[] = [
+  { name: 'Telnet', industry: 'Telecommunications', region: 'tunisia' },
+  { name: 'Vermeg', industry: 'Fintech', region: 'tunisia' },
+  { name: 'Orange Tunisie', industry: 'Telecommunications', region: 'tunisia' },
+  { name: 'Sofrecom', industry: 'Digital Services', region: 'tunisia' },
+  { name: 'SAP', industry: 'Enterprise Software', region: 'europe' },
+  { name: 'Capgemini', industry: 'IT Consulting', region: 'europe' },
+  { name: 'Siemens', industry: 'Engineering', region: 'europe' },
+  { name: 'Atos', industry: 'Digital Transformation', region: 'europe' },
+];
+
+async function hashPassword(password: string) {
+  return bcrypt.hash(password, 12);
+}
+
+async function ensureAdmin() {
   await prisma.user.upsert({
     where: { email: 'admin@internlink.com' },
     update: {},
@@ -20,53 +36,14 @@ async function main() {
       profile: {
         create: {
           firstName: 'Super',
-          lastName: 'Admin'
-        }
-      }
-    }
+          lastName: 'Admin',
+        },
+      },
+    },
   });
+}
 
-  // 2. Recruteur + Company
-  const recruiter = await prisma.user.upsert({
-    where: { email: 'recruteur@techcorp.com' },
-    update: {},
-    create: {
-      email: 'recruteur@techcorp.com',
-      passwordHash: await hashPassword('Recruteur1234!'),
-      role: 'recruiter',
-      isVerified: true,
-      profile: {
-        create: {
-          firstName: 'Marc',
-          lastName: 'Dupont'
-        }
-      }
-    }
-  });
-
-  // Ensure recruiter has a company
-  const existingCompany = await prisma.company.findUnique({
-    where: { userId: recruiter.id }
-  });
-
-  if (!existingCompany) {
-    const company = await prisma.company.create({
-      data: {
-        userId: recruiter.id,
-        name: 'TechCorp',
-        industry: 'Informatique',
-        isVerified: true,
-        validatedAt: new Date(),
-      }
-    });
-
-    await prisma.profile.update({
-      where: { userId: recruiter.id },
-      data: { companyId: company.id }
-    });
-  }
-
-  // 3. Candidat
+async function ensureCandidate() {
   await prisma.user.upsert({
     where: { email: 'candidat@etudiant.com' },
     update: {},
@@ -79,13 +56,110 @@ async function main() {
         create: {
           firstName: 'Alice',
           lastName: 'Martin',
-          bio: 'Étudiante en développement web 3ème année'
-        }
-      }
-    }
+          bio: 'Etudiante en developpement web 3eme annee',
+        },
+      },
+    },
+  });
+}
+
+async function ensureCompanyOwnersAndCompanies() {
+  const createdCompanyIds: string[] = [];
+
+  for (const [index, companyDef] of seedCompanies.entries()) {
+    const ownerEmail = `recruiter.${index + 1}@${companyDef.name.toLowerCase().replace(/[^a-z0-9]+/g, '')}.seed.internlink`;
+
+    const recruiterOwner = await prisma.user.upsert({
+      where: { email: ownerEmail },
+      update: {
+        isVerified: true,
+      },
+      create: {
+        email: ownerEmail,
+        passwordHash: await hashPassword('Recruteur1234!'),
+        role: 'recruiter',
+        isVerified: true,
+        profile: {
+          create: {
+            firstName: 'Recruiter',
+            lastName: companyDef.name,
+          },
+        },
+      },
+    });
+
+    const company = await prisma.company.upsert({
+      where: { userId: recruiterOwner.id },
+      update: {
+        name: companyDef.name,
+        industry: companyDef.industry,
+        isVerified: true,
+        validatedAt: new Date(),
+      },
+      create: {
+        userId: recruiterOwner.id,
+        name: companyDef.name,
+        industry: companyDef.industry,
+        isVerified: true,
+        validatedAt: new Date(),
+      },
+    });
+
+    await prisma.profile.updateMany({
+      where: { userId: recruiterOwner.id },
+      data: { companyId: company.id },
+    });
+
+    createdCompanyIds.push(company.id);
+  }
+
+  return createdCompanyIds;
+}
+
+async function assignCompanyToEveryRecruiter(companyIds: string[]) {
+  const recruiters = await prisma.user.findMany({
+    where: {
+      role: 'recruiter',
+      deletedAt: null,
+    },
+    include: {
+      profile: true,
+    },
+    orderBy: { createdAt: 'asc' },
   });
 
-  console.log('Seed terminé : 3 users créés');
+  let companyCursor = 0;
+
+  for (const recruiter of recruiters) {
+    const linkedCompanyId = recruiter.profile?.companyId ?? null;
+    if (linkedCompanyId) {
+      if (recruiter.profile && recruiter.profile.companyId !== linkedCompanyId) {
+        await prisma.profile.update({
+          where: { userId: recruiter.id },
+          data: { companyId: linkedCompanyId },
+        });
+      }
+      continue;
+    }
+
+    const fallbackCompanyId = companyIds[companyCursor % companyIds.length];
+    companyCursor += 1;
+
+    await prisma.profile.updateMany({
+      where: { userId: recruiter.id },
+      data: { companyId: fallbackCompanyId },
+    });
+  }
+}
+
+async function main() {
+  await ensureAdmin();
+  await ensureCandidate();
+
+  const companyIds = await ensureCompanyOwnersAndCompanies();
+  await assignCompanyToEveryRecruiter(companyIds);
+
+  console.log('Seed termine: companies catalogue cree et recruteurs assignes.');
 }
 
 main()

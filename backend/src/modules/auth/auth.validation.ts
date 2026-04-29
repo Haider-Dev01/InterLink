@@ -4,7 +4,7 @@ import { Role } from '../../generated/prisma';
 export const registerSchema = z.object({
   email: z.string().email('Email invalide'),
   password: z.string().min(8, 'Le mot de passe doit faire au moins 8 caractères'),
-  role: z.nativeEnum(Role),
+  role: z.enum(['candidate', 'recruiter']),
   firstName: z.string().min(2, 'Le prénom est requis'),
   lastName: z.string().min(2, 'Le nom est requis'),
 });

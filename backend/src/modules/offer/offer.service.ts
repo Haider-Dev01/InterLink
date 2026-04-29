@@ -8,12 +8,40 @@ const AI_SERVICE_URL = process.env.AI_SERVICE_URL || 'http://localhost:8002'
 
 export const offerService = {
   async createOffer(recruiterId: string, data: CreateOfferInput) {
-    const company = await offerRepository.getRecruiterCompany(recruiterId)
-    if (!company) {
-      throw { statusCode: 403, message: "Vous devez d'abord enregistrer une entreprise" } as AppError
+    const recruiter = await offerRepository.getUserById(recruiterId)
+    if (!recruiter || recruiter.role !== 'recruiter') {
+      throw new AppError('Accès refusé: profil recruteur requis', 403)
     }
 
-    const offer = await offerRepository.createOffer(company.id, recruiterId, data)
+    const requestedCompany = data.companyId
+      ? await offerRepository.getCompanyById(data.companyId)
+      : null
+
+    let company = requestedCompany
+    if (!company) {
+      company = await offerRepository.getRecruiterCompany(recruiterId)
+    }
+
+    if (!company) {
+      throw new AppError("Aucune entreprise associée au recruteur", 400)
+    }
+
+    if (company.userId !== recruiterId) {
+      throw new AppError("companyId invalide pour ce recruteur", 400)
+    }
+
+    if (company.deletedAt) {
+      throw new AppError("L'entreprise associée est supprimée", 400)
+    }
+
+    const { companyId: _companyId, type, ...offerInput } = data
+    const normalizedPayload: CreateOfferInput = {
+      ...offerInput,
+      remote: offerInput.remote || type === 'remote',
+      skills: offerInput.skills ?? [],
+    }
+
+    const offer = await offerRepository.createOffer(company.id, recruiterId, normalizedPayload)
     return { offer }
   },
 
@@ -81,6 +109,18 @@ export const offerService = {
     const offer = await offerRepository.getOfferById(offerId)
     if (!offer) {
       throw { statusCode: 404, message: 'Offre introuvable' } as AppError
+    }
+    await offerRepository.softDeleteOffer(offerId)
+    return { message: 'Offre supprimée' }
+  },
+
+  async softDeleteOfferByRecruiter(offerId: string, recruiterId: string) {
+    const offer = await offerRepository.getOfferById(offerId)
+    if (!offer) {
+      throw { statusCode: 404, message: 'Offre introuvable' } as AppError
+    }
+    if (offer.recruiterId !== recruiterId) {
+      throw { statusCode: 403, message: 'Accès refusé' } as AppError
     }
     await offerRepository.softDeleteOffer(offerId)
     return { message: 'Offre supprimée' }

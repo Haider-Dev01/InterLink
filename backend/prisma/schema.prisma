@@ -17,18 +17,22 @@ model User {
   role               Role
   isVerified         Boolean        @default(false)
   isBanned           Boolean        @default(false)
+  companyId          String?
   location           String?
   availabilityMonths Int?
   createdAt          DateTime       @default(now()) @db.Timestamptz(6)
   deletedAt          DateTime?      @db.Timestamptz(6)
   applications       Application[]  @relation("CandidateApplications")
   auditLogs          AuditLog[]
-  company            Company?
+  company            Company?       @relation("CompanyRecruiters", fields: [companyId], references: [id], onUpdate: NoAction)
+  ownedCompany       Company?       @relation("CompanyOwner")
   cvDocuments        CvDocument[]
   jobOffers          JobOffer[]
   match_scores       MatchScore[]
   receivedMessages   Message[]      @relation("ReceivedMessages")
   sentMessages       Message[]      @relation("SentMessages")
+  sentConnections    Connection[]   @relation("ConnectionRequester")
+  receivedConnections Connection[]  @relation("ConnectionReceiver")
   notifications      Notification[]
   profile            Profile?
   refreshTokens      RefreshToken[]
@@ -57,6 +61,8 @@ model Profile {
   firstName      String
   lastName       String
   bio            String?
+  avatarUrl      String?  @map("avatar_url")
+  viewsCount     Int      @default(0) @map("views_count")
   linkedinUrl    String?
   githubUsername String?
   githubData     Json?
@@ -81,7 +87,8 @@ model Company {
   validatedAt    DateTime?  @db.Timestamptz(6)
   createdAt      DateTime   @default(now()) @db.Timestamptz(6)
   deletedAt      DateTime?  @db.Timestamptz(6)
-  user           User       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user           User       @relation("CompanyOwner", fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  recruiters     User[]     @relation("CompanyRecruiters")
   jobOffers      JobOffer[]
   profiles       Profile[]
 
@@ -231,6 +238,23 @@ model Message {
   @@map("messages")
 }
 
+model Connection {
+  id          String           @id @default(dbgenerated("(gen_random_uuid())::text"))
+  requesterId String
+  receiverId  String
+  status      ConnectionStatus @default(pending)
+  respondedAt DateTime?        @db.Timestamptz(6)
+  createdAt   DateTime         @default(now()) @db.Timestamptz(6)
+  updatedAt   DateTime         @default(now()) @updatedAt @db.Timestamptz(6)
+  requester   User             @relation("ConnectionRequester", fields: [requesterId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  receiver    User             @relation("ConnectionReceiver", fields: [receiverId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([requesterId, receiverId], map: "connections_requester_receiver_unique")
+  @@index([requesterId, status], map: "idx_connections_requester_status")
+  @@index([receiverId, status], map: "idx_connections_receiver_status")
+  @@map("connections")
+}
+
 model Notification {
   id        String   @id @default(dbgenerated("(gen_random_uuid())::text"))
   userId    String
@@ -288,6 +312,12 @@ enum ImportedFrom {
   upload
   json
   github
+}
+
+enum ConnectionStatus {
+  pending
+  accepted
+  rejected
 }
 
 model ChatMessage {

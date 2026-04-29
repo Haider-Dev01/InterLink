@@ -45,5 +45,7 @@ router.post(
 
 // GET /api/cv/my-cv
 router.get('/my-cv', authenticate, authorize(['candidate']), cvController.getMyCV)
+router.get('/me', authenticate, authorize(['candidate']), cvController.getMyCV)
+router.get('/skills', authenticate, authorize(['candidate']), cvController.getMySkills)
 
 export default router

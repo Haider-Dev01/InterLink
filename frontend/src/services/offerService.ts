@@ -6,6 +6,15 @@ export const offerService = {
     return response.data;
   },
 
+  createJob: async (data: any) => {
+    const response = await api.post('/jobs', data, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  },
+
   getOffers: async (params?: any) => {
     const response = await api.get('/offers', { params });
     return response.data;
@@ -16,13 +25,28 @@ export const offerService = {
     return response.data;
   },
 
+  getMyJobs: async () => {
+    const response = await api.get('/jobs/my');
+    return response.data;
+  },
+
   getOfferById: async (id: string) => {
     const response = await api.get(`/offers/${id}`);
     return response.data;
   },
 
+  getJobById: async (id: string) => {
+    const response = await api.get(`/jobs/${id}`);
+    return response.data;
+  },
+
   updateOffer: async (id: string, data: any) => {
     const response = await api.put(`/offers/${id}`, data);
+    return response.data;
+  },
+
+  updateJob: async (id: string, data: any) => {
+    const response = await api.put(`/jobs/${id}`, data);
     return response.data;
   },
 
@@ -33,6 +57,11 @@ export const offerService = {
 
   archiveOffer: async (id: string) => {
     const response = await api.patch(`/offers/${id}/archive`);
+    return response.data;
+  },
+
+  deleteJob: async (id: string) => {
+    const response = await api.delete(`/jobs/${id}`);
     return response.data;
   },
 

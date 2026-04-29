@@ -23,4 +23,13 @@ export class ProfileService {
     const updatedProfile = await profileRepository.updateProfile(userId, data);
     return updatedProfile;
   }
+
+  async updateMyAvatar(userId: string, avatarUrl: string) {
+    const profile = await profileRepository.getProfileByUserId(userId);
+    if (!profile) {
+      throw { statusCode: 404, message: 'Profil introuvable' } as AppError;
+    }
+
+    return profileRepository.updateAvatar(userId, avatarUrl);
+  }
 }

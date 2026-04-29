@@ -196,6 +196,11 @@ async function main() {
     }
   });
 
+  await prisma.profile.updateMany({
+    where: { userId: recruiterUser.id },
+    data: { companyId: company.id },
+  });
+
   const offersData = [
     {
       title: 'Développeur Fullstack Junior',

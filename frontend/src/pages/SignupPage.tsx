@@ -9,12 +9,14 @@ export default function SignupPage() {
   const navigate = useNavigate();
   const setAccessToken = useAuthStore((s) => s.setAccessToken);
   const setUser = useAuthStore((s) => s.setUser);
+  const checkAuth = useAuthStore((s) => s.checkAuth);
 
   const handleRegister = async (data: any) => {
     const res = await authService.register(data);
     if (res.success && res.data) {
       setAccessToken(res.data.accessToken);
       setUser(res.data.user);
+      await checkAuth();
 
       // Redirect based on role returned by API
       const role: string = res.data.user?.role?.toLowerCase() ?? '';

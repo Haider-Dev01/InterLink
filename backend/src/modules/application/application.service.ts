@@ -19,6 +19,10 @@ export class ApplicationService {
     return applicationRepository.findByOffer(offerId);
   }
 
+  async getRecruiterApplications(recruiterId: string, offerId?: string) {
+    return applicationRepository.findByRecruiter(recruiterId, offerId);
+  }
+
   async updateStatus(id: string, status: string) {
     return applicationRepository.updateStatus(id, status as any);
   }

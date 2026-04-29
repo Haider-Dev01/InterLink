@@ -1,46 +1,40 @@
-import { useRef, type ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { recruiterNavItems } from '../lib/data/dashboardData';
+import { useUserSearch } from '../lib/useUserSearch';
 import { useAuthStore } from '../store/authStore';
 import { DashboardShell } from './dashboard/DashboardShell';
-import { profileService } from '../services/profileService';
 
 export function RecruiterLayout({ children }: { children: ReactNode }) {
-  const { user, setUser } = useAuthStore();
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { user } = useAuthStore();
+  const navigate = useNavigate();
+  const { searchResults, setSearchInput, clearSearch } = useUserSearch();
+  const fullName = `${user?.firstName || user?.profile?.firstName || ''} ${user?.lastName || user?.profile?.lastName || ''}`.trim();
+  const avatarSrc =
+    user?.avatar ||
+    user?.profile?.avatar ||
+    `https://ui-avatars.com/api/?name=${encodeURIComponent(fullName || 'Recruteur')}&background=00288e&color=fff&rounded=true`;
 
   const handleAvatarClick = () => {
-    fileInputRef.current?.click();
+    navigate('/profile/me');
   };
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file && user) {
-      try {
-        const data = await profileService.uploadAvatar(file);
-        // Assuming data.user contains the updated user with the new avatar
-        setUser({ ...user, avatar: data.user?.avatar || data.avatar });
-      } catch (error) {
-        console.error('Failed to upload avatar', error);
+  const profile = user
+    ? {
+        name: fullName || user.email || 'Recruteur',
+        role:
+          user.company?.name
+          || user.profile?.company?.name
+          || 'Entreprise non assignée',
+        image: avatarSrc,
       }
-    }
-  };
-
-  const profile = user ? {
-    name: `${user.firstName || 'Recruteur'} ${user.lastName || ''}`.trim(),
-    role: user.jobTitle || 'RH Manager',
-    image: user.avatar || 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
-  } : undefined;
-
-  const navItems = [
-    { label: 'Vue d\'ensemble', icon: 'dashboard', to: '/recruiter/dashboard' },
-    { label: 'Mes Offres', icon: 'work', to: '/recruiter/offers' },
-    { label: 'Candidats', icon: 'group', to: '/recruiter/candidates' },
-    { label: 'Rapports IA', icon: 'analytics', to: '/recruiter/reports' },
-  ];
+    : undefined;
 
   const action = {
     label: 'Nouvelle Offre',
     icon: 'add_circle',
-    to: '/recruiter/offers/new'
+    to: '/recruiter/jobs/new',
   };
 
   return (
@@ -48,22 +42,23 @@ export function RecruiterLayout({ children }: { children: ReactNode }) {
       <DashboardShell
         variant="glass"
         sectionLabel="Espace Recruteur"
-        title={`Bonjour, ${user?.firstName || 'Recruteur'}`}
+        title={`Bonjour, ${fullName || user?.email || 'Recruteur'}`}
         searchPlaceholder="Chercher un talent, un CV..."
-        navItems={navItems}
+        onSearchChange={setSearchInput}
+        onSearchResultClick={(result) => {
+          clearSearch();
+          if (result.to) {
+            navigate(result.to);
+          }
+        }}
+        navItems={recruiterNavItems}
         profile={profile}
+        searchResults={searchResults}
         onAvatarClick={handleAvatarClick}
         action={action}
       >
         {children}
       </DashboardShell>
-      <input
-        type="file"
-        ref={fileInputRef}
-        onChange={handleFileChange}
-        accept="image/*"
-        className="hidden"
-      />
     </>
   );
 }

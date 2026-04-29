@@ -159,4 +159,17 @@ export const offerRepository = {
     })
     return profile?.company ?? null
   },
+
+  async getCompanyById(companyId: string) {
+    return prisma.company.findUnique({
+      where: { id: companyId },
+    })
+  },
+
+  async getUserById(userId: string) {
+    return prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true, role: true },
+    })
+  },
 }

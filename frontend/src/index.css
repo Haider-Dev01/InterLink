@@ -47,3 +47,31 @@ select {
 #main-header {
   display: none !important;
 }
+
+@keyframes progress-shimmer {
+  0% { transform: translateX(-60%); opacity: 0.0; }
+  10% { opacity: 0.7; }
+  60% { opacity: 0.35; }
+  100% { transform: translateX(160%); opacity: 0.0; }
+}
+
+.progress-bar-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  filter: blur(0.5px);
+  animation: progress-shimmer 1.35s linear infinite;
+}
+
+.progress-bar-glow {
+  box-shadow: 0 10px 26px rgba(255, 255, 255, 0.10), 0 6px 18px rgba(0, 40, 142, 0.18);
+}

@@ -29,7 +29,7 @@ export default function CandidatesPage() {
           },
         ]}
         primaryCta={{ label: 'Créer mon profil', to: '/signup' }}
-        secondaryCta={{ label: 'Voir le dashboard', to: '/dashboard-candidat' }}
+        secondaryCta={{ label: 'Voir le dashboard', to: '/candidate/dashboard' }}
         subtitle="InternLink aide les étudiants à trouver des stages plus pertinents grâce au matching, au coaching et à la clarté de leur profil."
         title="Trouve un stage qui te ressemble vraiment."
       />

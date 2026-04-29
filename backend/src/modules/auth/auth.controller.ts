@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { AuthService } from './auth.service';
 import { registerSchema, loginSchema } from './auth.validation';
 import { env } from '../../shared/config/env';
+import { toPublicAssetUrl } from '../../shared/utils/assetUrl';
 
 const authService = new AuthService();
 
@@ -15,7 +16,7 @@ export class AuthController {
 
       res.status(201).json({
         success: true,
-        data: { accessToken, user: this.sanitizeUser(user) },
+        data: { accessToken, user: this.sanitizeUser(req, user) },
         message: 'Compte créé avec succès'
       });
     } catch (error) {
@@ -32,7 +33,7 @@ export class AuthController {
 
       res.status(200).json({
         success: true,
-        data: { accessToken, user: this.sanitizeUser(user) },
+        data: { accessToken, user: this.sanitizeUser(req, user) },
         message: 'Connexion réussie'
       });
     } catch (error) {
@@ -83,7 +84,7 @@ export class AuthController {
 
       res.status(200).json({
         success: true,
-        data: { user: this.sanitizeUser(user) }
+        data: { user: this.sanitizeUser(req, user) }
       });
     } catch (error) {
       next(error);
@@ -94,13 +95,27 @@ export class AuthController {
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: env.NODE_ENV === 'production', // false en dev comme demandé
-      sameSite: 'strict',
+      sameSite: 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 jours
     });
   }
 
-  private sanitizeUser(user: any) {
+  private sanitizeUser(req: Request, user: any) {
     const { passwordHash, ...rest } = user;
-    return rest;
+    const resolvedCompany = rest.company ?? rest.profile?.company ?? null;
+    const profile = rest.profile
+      ? {
+          ...rest.profile,
+          avatarUrl: toPublicAssetUrl(req, rest.profile.avatarUrl),
+          company: resolvedCompany,
+        }
+      : null;
+
+    return {
+      ...rest,
+      company: resolvedCompany,
+      profile,
+      avatar: profile?.avatarUrl ?? null,
+    };
   }
 }

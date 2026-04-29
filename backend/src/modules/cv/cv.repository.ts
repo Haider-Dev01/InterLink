@@ -53,6 +53,34 @@ export const cvRepository = {
     `
   },
 
+  async saveParsingMetadata(cvId: string, actorId: string, score: number, sections: Record<string, string>) {
+    await prisma.auditLog.create({
+      data: {
+        actorId,
+        action: 'CV_PARSED',
+        entityType: 'CV_DOCUMENT',
+        entityId: cvId,
+        metadata: {
+          score,
+          sections,
+        },
+      },
+    })
+  },
+
+  async getLatestParsingMetadata(cvId: string) {
+    const log = await prisma.auditLog.findFirst({
+      where: {
+        entityType: 'CV_DOCUMENT',
+        entityId: cvId,
+        action: 'CV_PARSED',
+      },
+      orderBy: { createdAt: 'desc' },
+      select: { metadata: true },
+    })
+    return log?.metadata as { score?: number; sections?: Record<string, string> } | undefined
+  },
+
   async updateCvFailed(cvId: string) {
     await prisma.$executeRaw`
       UPDATE cv_documents

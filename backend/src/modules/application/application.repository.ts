@@ -55,6 +55,34 @@ export class ApplicationRepository {
     });
   }
 
+  async findByRecruiter(recruiterId: string, offerId?: string) {
+    return prisma.application.findMany({
+      where: {
+        ...(offerId ? { offerId } : {}),
+        offer: {
+          recruiterId,
+          deletedAt: null,
+        },
+      },
+      include: {
+        candidate: {
+          include: {
+            profile: true,
+            match_scores: true,
+          },
+        },
+        offer: {
+          include: {
+            company: true,
+          },
+        },
+      },
+      orderBy: {
+        appliedAt: 'desc',
+      },
+    });
+  }
+
   async updateStatus(id: string, status: any) {
     return prisma.application.update({
       where: { id },

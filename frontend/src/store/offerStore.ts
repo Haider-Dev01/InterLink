@@ -16,9 +16,9 @@ export const useOfferStore = create<OfferState>((set) => ({
   fetchMyOffers: async () => {
     set({ isLoading: true, error: null });
     try {
-      const response = await offerService.getMyOffers();
+      const response = await offerService.getMyJobs();
       if (response.success) {
-        set({ myOffers: response.data, isLoading: false });
+        set({ myOffers: response.data?.offers ?? [], isLoading: false });
       } else {
         set({ error: 'Erreur lors du chargement des offres', isLoading: false });
       }

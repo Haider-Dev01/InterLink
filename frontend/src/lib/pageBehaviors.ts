@@ -206,6 +206,60 @@ function setupDashboardAnimations(
   const tools = createPageTools(root);
   const { q, all, get, on, timeout, cleanup } = tools;
   const setMatchScore = useAppStore.getState().setMatchScore;
+
+  const applyUserDataToDashboard = (authUser: any) => {
+    if (!authUser) return;
+
+    const firstName = authUser.firstName || authUser.profile?.firstName || '';
+    const lastName = authUser.lastName || authUser.profile?.lastName || '';
+    const fullName = `${firstName} ${lastName}`.trim();
+    const avatar = authUser.avatar
+      || authUser.profile?.avatar
+      || `https://ui-avatars.com/api/?name=${encodeURIComponent(fullName || 'Utilisateur')}&background=00288e&color=fff&rounded=true`;
+
+    if (fullName) {
+      root.querySelectorAll('*').forEach((el) => {
+        if (el.textContent?.trim() === 'Thomas Dubois') {
+          el.textContent = fullName;
+        }
+      });
+    }
+
+    if (firstName) {
+      root.querySelectorAll('*').forEach((el) => {
+        const text = el.textContent?.trim() || '';
+        if (/^Bonjour,\s*.+$/i.test(text)) {
+          el.textContent = `Bonjour, ${firstName}`;
+          const element = el as HTMLElement;
+          element.style.fontWeight = '900';
+          element.style.fontSize = '1.5rem';
+          element.style.lineHeight = '1.2';
+          element.style.color = '#00288e';
+          element.style.display = 'inline-block';
+          element.style.paddingBottom = '0';
+        }
+      });
+    }
+
+    const knownDefaultProfileUrls = [
+      'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80',
+      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
+      'https://ui-avatars.com/api/?name=Admin+Nexus&background=00288e&color=fff&rounded=true',
+    ];
+
+    root.querySelectorAll('img').forEach((img) => {
+      const image = img as HTMLImageElement;
+      if (knownDefaultProfileUrls.includes(image.src) || /Profil/i.test(image.alt)) {
+        image.src = avatar;
+      }
+    });
+  };
+
+  applyUserDataToDashboard(useAuthStore.getState().user);
+  const unsubscribeAuthUser = useAuthStore.subscribe((state) => {
+    applyUserDataToDashboard(state.user);
+  });
+
   const ctx = gsap.context(() => {
     animateProgressBarsOnLoad(all, timeout, progressDelay);
     animateFloatingParticles(particleIds, q, 0.7);
@@ -279,6 +333,7 @@ function setupDashboardAnimations(
   timeout(() => ScrollTrigger.refresh(), 0);
 
   return () => {
+    unsubscribeAuthUser();
     cleanup();
     ctx.revert();
   };
@@ -641,7 +696,7 @@ export function setupLandingPage({
   };
 }
 
-export function setupLoginPage({ root, onLogin, navigate }: { root: HTMLElement; onLogin?: (data: any) => Promise<any>; navigate?: any }): CleanupFn {
+export function setupLoginPage({ root, onLogin }: { root: HTMLElement; onLogin?: (data: any) => Promise<any>; navigate?: any }): CleanupFn {
   stripInlineHandlers(root);
   const tools = createPageTools(root);
   const { q, get, all, on, cleanup } = tools;
@@ -654,7 +709,7 @@ export function setupLoginPage({ root, onLogin, navigate }: { root: HTMLElement;
       const passwordInput = form.querySelector('input[type="password"]') as HTMLInputElement;
       const roleSelect = form.querySelector('select[name="role"]') as HTMLSelectElement | null;
       const selectedRole = roleSelect?.value;
-      const fallbackRole = useAppStore.getState().userType === 'student' ? 'candidate' : useAppStore.getState().userType;
+      const fallbackRole = useAppStore.getState().userType === 'recruiter' ? 'recruiter' : 'candidate';
       const role = selectedRole || fallbackRole;
 
       if (emailInput && passwordInput && onLogin) {
@@ -664,12 +719,7 @@ export function setupLoginPage({ root, onLogin, navigate }: { root: HTMLElement;
             password: passwordInput.value,
             role
           });
-          if (res.success && navigate) {
-            const role = useAppStore.getState().userType;
-            if (role === 'recruiter') navigate('/dashboard-recruteur');
-            else if (role === 'admin') navigate('/dashboard-administrateur');
-            else navigate('/dashboard-candidat');
-          } else if (res.message) {
+          if (!res.success && res.message) {
             // Optionnel : injecter l'erreur dans l'UI si un conteneur d'erreur existe
             console.error(res.message);
           }
@@ -747,17 +797,15 @@ export function setupLoginPage({ root, onLogin, navigate }: { root: HTMLElement;
 
   const roleSelect = get('select[name="role"]') as HTMLSelectElement | null;
   if (roleSelect) {
-    roleSelect.value = useAppStore.getState().userType === 'student' ? 'candidate' : useAppStore.getState().userType;
+    roleSelect.value = useAppStore.getState().userType === 'recruiter' ? 'recruiter' : 'candidate';
     on(roleSelect, 'change', (event) => {
       const value = (event.target as HTMLSelectElement).value;
       if (value === 'candidate') {
         switchUser('student');
-      } else if (value === 'recruiter') {
-        switchUser('recruiter');
-      } else {
-        useAppStore.getState().setUserType('admin');
-        useAppStore.getState().setUser({ role: 'Administrateur' });
+        return;
       }
+
+      switchUser('recruiter');
     });
   }
 
@@ -851,15 +899,32 @@ export function setupRegisterPage({ root, onRegister, navigate }: { root: HTMLEl
   if (form) {
     on(form, 'submit', async (e: Event) => {
       e.preventDefault();
-      const inputs = form.querySelectorAll('input');
-      const data: any = {};
-      inputs.forEach((input: HTMLInputElement) => {
-        if (input.name) data[input.name] = input.value;
-        else if (input.type === 'email') data.email = input.value;
-        else if (input.id === 'password-input') data.password = input.value;
-        else if (input.placeholder.includes('Prénom')) data.firstName = input.value;
-        else if (input.placeholder.includes('Nom')) data.lastName = input.value;
-      });
+      const firstNameInput =
+        (form.querySelector('input[name="firstName"]') as HTMLInputElement | null) ||
+        (form.querySelector('#input-firstname') as HTMLInputElement | null) ||
+        (form.querySelector('input[placeholder*="Prénom"], input[placeholder*="Thomas"]') as HTMLInputElement | null) ||
+        (form.querySelectorAll('input[type="text"]')[0] as HTMLInputElement | undefined) ||
+        null;
+
+      const lastNameInput =
+        (form.querySelector('input[name="lastName"]') as HTMLInputElement | null) ||
+        (form.querySelector('#input-lastname') as HTMLInputElement | null) ||
+        (form.querySelector('input[placeholder*="Nom"], input[placeholder*="Dubois"]') as HTMLInputElement | null) ||
+        (form.querySelectorAll('input[type="text"]')[1] as HTMLInputElement | undefined) ||
+        null;
+
+      const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement | null;
+      const passwordField =
+        (form.querySelector('#password-input') as HTMLInputElement | null) ||
+        (form.querySelector('input[type="password"]') as HTMLInputElement | null);
+
+      const data: any = {
+        firstName: firstNameInput?.value?.trim(),
+        lastName: lastNameInput?.value?.trim(),
+        email: emailInput?.value?.trim(),
+        password: passwordField?.value,
+      };
+
       data.role = useAppStore.getState().userType === 'recruiter' ? 'recruiter' : 'candidate';
 
       if (onRegister) {
@@ -940,11 +1005,15 @@ export function setupRegisterPage({ root, onRegister, navigate }: { root: HTMLEl
       submitBtn.innerHTML = "<span class='material-symbols-outlined'>check_circle</span> Compte créé";
       gsap.to(submitBtn, { scale: 1, duration: 0.3 });
       submitBtn.classList.remove('success-pulse');
-      useAppStore.getState().setUser({
-        firstName: 'Thomas',
-        lastName: 'Dubois',
-        email: 'nom@exemple.com',
-      });
+      const authUser = useAuthStore.getState().user;
+      if (authUser) {
+        useAppStore.getState().setUser({
+          firstName: authUser.firstName || authUser.profile?.firstName || '',
+          lastName: authUser.lastName || authUser.profile?.lastName || '',
+          email: authUser.email || '',
+          role: authUser.role || '',
+        });
+      }
     }, 2000);
   });
 
@@ -1300,12 +1369,11 @@ export function setupRecruiterDashboardPage({
       // Populate candidates if provided
       if (candidates && candidates.length > 0) {
         // Update "Nexus Actif" card (the top candidate)
-        const nexusActifCard = q('.bg-gradient-to-br.from-primary.to-secondary');
+        const nexusActifCard = q('.bg-gradient-to-br.from-primary.to-secondary')[0] as HTMLElement | undefined;
         if (nexusActifCard) {
           const topApp = candidates[0];
           const candidateName = nexusActifCard.querySelector('.font-bold.leading-none');
           const matchPercent = nexusActifCard.querySelector('.text-\\[10px\\].font-bold.text-white\\/70');
-          const profileImg = nexusActifCard.querySelector('img');
           const bioText = nexusActifCard.querySelector('.text-sm.font-medium.text-white\\/90');
 
           if (candidateName) candidateName.textContent = `${topApp.candidate.profile.firstName} ${topApp.candidate.profile.lastName}`;

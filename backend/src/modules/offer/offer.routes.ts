@@ -20,6 +20,6 @@ router.get('/:id', offerController.getOfferById)
 router.put('/:id', authenticate, authorize(['recruiter']), offerController.updateOffer)
 router.patch('/:id/publish', authenticate, authorize(['recruiter']), offerController.publishOffer)
 router.patch('/:id/archive', authenticate, authorize(['recruiter']), offerController.archiveOffer)
-router.delete('/:id', authenticate, authorize(['admin']), offerController.softDeleteOffer)
+router.delete('/:id', authenticate, authorize(['recruiter', 'admin']), offerController.softDeleteOffer)
 
 export default router
