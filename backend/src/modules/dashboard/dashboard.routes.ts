@@ -32,7 +32,10 @@ async function getRecommendedJobsForRole(userId: string, role: Role) {
         offerStatus: 'published',
         deletedAt: null,
       },
-      include: {
+      select: {
+        id: true, title: true, description: true, location: true,
+        durationMonths: true, remote: true, offerStatus: true,
+        publishedAt: true, createdAt: true, updatedAt: true,
         company: true,
       },
       orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }],
@@ -52,7 +55,10 @@ async function getRecommendedJobsForRole(userId: string, role: Role) {
     },
     include: {
       offer: {
-        include: {
+        select: {
+          id: true, title: true, description: true, location: true,
+          durationMonths: true, remote: true, offerStatus: true,
+          publishedAt: true, createdAt: true, updatedAt: true,
           company: true,
           offerSkills: {
             include: {
@@ -115,7 +121,10 @@ async function getRecommendedJobsForRole(userId: string, role: Role) {
       offerStatus: 'published',
       deletedAt: null,
     },
-    include: {
+    select: {
+      id: true, title: true, description: true, location: true,
+      durationMonths: true, remote: true, offerStatus: true,
+      publishedAt: true, createdAt: true, updatedAt: true,
       company: true,
       offerSkills: {
         include: {
@@ -198,7 +207,10 @@ router.get('/applications/active', authenticate, authorize(['candidate']), async
       },
       include: {
         offer: {
-          include: { company: true },
+          select: {
+            id: true, title: true, location: true, remote: true,
+            offerStatus: true, company: true
+          },
         },
       },
       orderBy: { appliedAt: 'desc' },
@@ -221,8 +233,9 @@ router.get('/interviews/upcoming', authenticate, authorize(['candidate']), async
       },
       include: {
         offer: {
-          include: {
-            company: true,
+          select: {
+            id: true, title: true, location: true, remote: true,
+            offerStatus: true, company: true
           },
         },
       },

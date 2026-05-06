@@ -74,6 +74,27 @@ export default function RecruiterOverviewPage() {
 
   return (
     <RecruiterLayout>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <div className="bg-white p-4 rounded-2xl border border-surface-variant shadow-sm">
+          <p className="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Total Offres</p>
+          <p className="text-2xl font-black text-on-surface">{overview?.jobPerformance.length ?? 0}</p>
+        </div>
+        <div className="bg-white p-4 rounded-2xl border border-surface-variant shadow-sm">
+          <p className="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Candidats</p>
+          <p className="text-2xl font-black text-on-surface">
+            {overview?.jobPerformance.reduce((acc, curr) => acc + curr.applications, 0) ?? 0}
+          </p>
+        </div>
+        <div className="bg-white p-4 rounded-2xl border border-surface-variant shadow-sm">
+          <p className="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Entretiens</p>
+          <p className="text-2xl font-black text-on-surface">{overview?.candidateEngagement.interview ?? 0}</p>
+        </div>
+        <div className="bg-white p-4 rounded-2xl border border-surface-variant shadow-sm">
+          <p className="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Acceptés</p>
+          <p className="text-2xl font-black text-on-surface">{overview?.candidateEngagement.accepted ?? 0}</p>
+        </div>
+      </div>
+
       <div className="grid gap-6 xl:grid-cols-2">
         <ChartCard title="Tendance des candidatures" subtitle="14 derniers jours">
           <ApplicationsAreaChart data={trends} />

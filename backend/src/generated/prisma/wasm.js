@@ -129,10 +129,18 @@ exports.Prisma.UserScalarFieldEnum = {
   role: 'role',
   isVerified: 'isVerified',
   isBanned: 'isBanned',
+  companyId: 'companyId',
   location: 'location',
   availabilityMonths: 'availabilityMonths',
   createdAt: 'createdAt',
   deletedAt: 'deletedAt'
+};
+
+exports.Prisma.BookmarkScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  offerId: 'offerId',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.RefreshTokenScalarFieldEnum = {
@@ -223,6 +231,7 @@ exports.Prisma.JobOfferScalarFieldEnum = {
   viewCount: 'viewCount',
   publishedAt: 'publishedAt',
   expiresAt: 'expiresAt',
+  isFeatured: 'isFeatured',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -374,6 +383,7 @@ exports.ConnectionStatus = exports.$Enums.ConnectionStatus = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Bookmark: 'Bookmark',
   RefreshToken: 'RefreshToken',
   Profile: 'Profile',
   Company: 'Company',

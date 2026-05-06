@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 import { DashboardShell } from '../components/dashboard/DashboardShell';
 import { SurfaceCard } from '../components/dashboard/DashboardPrimitives';
@@ -8,6 +9,7 @@ import { buildDashboardProfile } from '../lib/userProfile';
 import { useReactPageAnimations } from '../lib/reactPageAnimations';
 import { applicationService } from '../services/applicationService';
 import { dashboardCandidateService } from '../services/dashboardCandidateService';
+import { bookmarkService } from '../services/bookmarkService';
 import { useAuthStore } from '../store/authStore';
 
 export default function CandidateSavedOffersPage() {
@@ -17,24 +19,39 @@ export default function CandidateSavedOffersPage() {
   const authUser = useAuthStore((state) => state.user);
   const [offers, setOffers] = useState<any[]>([]);
   const [applying, setApplying] = useState<Record<string, boolean>>({});
+  const [appliedIds, setAppliedIds] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    dashboardCandidateService
-      .getRecommendedJobs()
-      .then((res) => {
-        setOffers(res.data?.offers ?? []);
-      })
-      .catch((error) => {
-        console.error('Failed to load offers', error);
-      });
+    const loadData = async () => {
+      try {
+        const [bookmarksRes, appsRes] = await Promise.all([
+          bookmarkService.getBookmarks(),
+          applicationService.getMyApplications()
+        ]);
+
+        if (bookmarksRes.success) {
+          setOffers(bookmarksRes.data.bookmarks);
+        }
+
+        if (appsRes.success && Array.isArray(appsRes.data)) {
+          setAppliedIds(new Set(appsRes.data.map((app: any) => app.offerId)));
+        }
+      } catch (error) {
+        console.error('Failed to load data', error);
+      }
+    };
+    loadData();
   }, []);
 
   const handleApply = async (offerId: string) => {
+    if (applying[offerId] || appliedIds.has(offerId)) return;
     try {
       setApplying((prev) => ({ ...prev, [offerId]: true }));
       await applicationService.apply({ offerId });
-    } catch (error) {
-      console.error('Failed to apply', error);
+      setAppliedIds((prev) => new Set(prev).add(offerId));
+      toast.success('Candidature envoyée !');
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Erreur lors de la candidature');
     } finally {
       setApplying((prev) => ({ ...prev, [offerId]: false }));
     }
@@ -81,11 +98,16 @@ export default function CandidateSavedOffersPage() {
               </div>
 
               <div className="mt-8 flex gap-3">
-                <button className="interactive-scale flex-1 rounded-xl bg-primary px-4 py-3 text-sm font-bold text-white shadow-lg shadow-primary/20" disabled={Boolean(applying[offer.id])} onClick={() => handleApply(offer.id)} type="button">
-                  {applying[offer.id] ? 'Envoi...' : 'Postuler'}
+                <button 
+                  className={`interactive-scale flex-1 rounded-xl px-4 py-3 text-sm font-bold shadow-lg transition-all ${appliedIds.has(offer.id) ? 'bg-gray-400 text-white cursor-not-allowed' : applying[offer.id] ? 'bg-surface-variant text-on-surface-variant' : 'bg-primary text-white shadow-primary/20'}`} 
+                  disabled={Boolean(applying[offer.id] || appliedIds.has(offer.id))} 
+                  onClick={() => handleApply(offer.id)} 
+                  type="button"
+                >
+                  {appliedIds.has(offer.id) ? 'Postulé' : applying[offer.id] ? 'Envoi...' : 'Postuler'}
                 </button>
                 <button className="interactive-scale rounded-xl border border-surface-variant px-4 py-3 text-sm font-bold text-on-surface" onClick={() => navigate(`/job/${offer.id}`)} type="button">
-                  Details
+                  Détails
                 </button>
               </div>
             </SurfaceCard>

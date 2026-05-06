@@ -18,6 +18,7 @@ from routers.embed import router as embed_router
 from routers.rag import router as rag_router
 from routers.career import router as career_router
 from routers.chat import router as chat_router
+from routers import match
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
@@ -34,6 +35,7 @@ app.include_router(embed_router)
 app.include_router(rag_router)
 app.include_router(career_router)
 app.include_router(chat_router)
+app.include_router(match.router)
 
 @app.get("/health")
 async def health_check():

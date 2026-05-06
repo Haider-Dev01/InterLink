@@ -17,38 +17,40 @@ function toSafeUserResponse(req: any, user: any) {
       }
     : null;
 
+  const activeCv = safeUser.cvDocuments?.[0] || null;
+  const cvUrl = activeCv ? toPublicAssetUrl(req, activeCv.fileUrl) : null;
+  const skills = activeCv?.extractedSkills?.map((es: any) => ({
+    id: es.skill.id,
+    name: es.skill.name,
+    category: es.skill.category,
+    confidence: es.confidence
+  })) || [];
+
   return {
     ...safeUser,
     company: resolvedCompany,
     profile,
     avatar: profile?.avatarUrl ?? null,
+    cvUrl,
+    skills,
   };
 }
 
 const optionalTrimmedString = z.preprocess((value) => {
-  if (typeof value !== 'string') {
-    return value;
-  }
-
+  if (value === null || value === '') return undefined;
+  if (typeof value !== 'string') return value;
   const trimmed = value.trim();
   return trimmed === '' ? undefined : trimmed;
 }, z.string().optional());
 
 const updateMeSchema = z.object({
-  firstName: optionalTrimmedString.pipe(z.string().min(2).optional()),
-  lastName: optionalTrimmedString.pipe(z.string().min(2).optional()),
-  bio: optionalTrimmedString.pipe(z.string().max(500).optional()),
-  linkedinUrl: z.preprocess((value) => {
-    if (typeof value !== 'string') {
-      return value;
-    }
-
-    const trimmed = value.trim();
-    return trimmed === '' ? undefined : trimmed;
-  }, z.string().url().optional()),
-  githubUsername: optionalTrimmedString,
-  location: optionalTrimmedString,
-  availabilityMonths: z.number().int().positive().optional(),
+  firstName: z.preprocess((val) => val === '' || val === null ? undefined : val, z.string().min(1).max(100).optional()),
+  lastName: z.preprocess((val) => val === '' || val === null ? undefined : val, z.string().min(1).max(100).optional()),
+  bio: z.preprocess((val) => val === '' || val === null ? undefined : val, z.string().max(2000).optional()),
+  linkedinUrl: z.preprocess((val) => val === '' || val === null ? undefined : val, z.string().max(500).optional()),
+  githubUsername: optionalTrimmedString.pipe(z.string().max(100).optional()),
+  location: optionalTrimmedString.pipe(z.string().max(200).optional()),
+  availabilityMonths: z.union([z.number(), z.string().transform(Number)]).pipe(z.number().int().positive()).optional(),
 });
 
 router.get('/me', authenticate, async (req, res, next) => {
@@ -63,6 +65,17 @@ router.get('/me', authenticate, async (req, res, next) => {
             school: true,
             company: true,
           },
+        },
+        cvDocuments: {
+          where: { isActive: true },
+          include: {
+            extractedSkills: {
+              include: {
+                skill: true,
+              },
+            },
+          },
+          take: 1,
         },
       },
     });
@@ -85,13 +98,20 @@ router.get('/me', authenticate, async (req, res, next) => {
 router.put('/me', authenticate, async (req, res, next) => {
   try {
     const userId = req.user!.id;
+    
     const parsed = updateMeSchema.parse(req.body);
     const { location, availabilityMonths, ...profileData } = parsed;
 
     await prisma.$transaction([
-      prisma.profile.update({
+      prisma.profile.upsert({
         where: { userId },
-        data: profileData,
+        update: profileData,
+        create: {
+          userId,
+          firstName: profileData.firstName || 'User',
+          lastName: profileData.lastName || 'Name',
+          ...profileData
+        }
       }),
       prisma.user.update({
         where: { id: userId },
@@ -112,6 +132,17 @@ router.put('/me', authenticate, async (req, res, next) => {
             company: true,
           },
         },
+        cvDocuments: {
+          where: { isActive: true },
+          include: {
+            extractedSkills: {
+              include: {
+                skill: true,
+              },
+            },
+          },
+          take: 1,
+        },
       },
     });
 
@@ -126,6 +157,16 @@ router.put('/me', authenticate, async (req, res, next) => {
       },
     });
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      console.error('[UpdateMe] Validation error details:', JSON.stringify(error.issues, null, 2));
+      console.error('[UpdateMe] Received body:', JSON.stringify(req.body, null, 2));
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Données de profil invalides', 
+        errors: error.issues 
+      });
+    }
+    console.error('[UpdateMe] Unexpected error:', error);
     next(error);
   }
 });
@@ -197,6 +238,17 @@ router.get('/:id', optionalAuthenticate, async (req, res, next) => {
             company: true,
           },
         },
+        cvDocuments: {
+          where: { isActive: true },
+          include: {
+            extractedSkills: {
+              include: {
+                skill: true,
+              },
+            },
+          },
+          take: 1,
+        },
       },
     });
 
@@ -244,6 +296,17 @@ router.get('/:id/profile', optionalAuthenticate, async (req, res, next) => {
             school: true,
             company: true,
           },
+        },
+        cvDocuments: {
+          where: { isActive: true },
+          include: {
+            extractedSkills: {
+              include: {
+                skill: true,
+              },
+            },
+          },
+          take: 1,
         },
       },
     });

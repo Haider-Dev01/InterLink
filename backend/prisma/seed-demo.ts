@@ -1,34 +1,58 @@
 import { PrismaClient } from '@prisma/client';
 import { triggerMatchingForOffer } from '../src/modules/offer/matching.service';
+import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
+
+async function hashPassword(password: string) {
+  return bcrypt.hash(password, 12);
+}
 
 const AI_SERVICE_URL = process.env.AI_SERVICE_URL || 'http://localhost:8002';
 
 async function fetchCandidateEmbedding(skills: string[], speciality: string, bio: string, school: string): Promise<number[]> {
-  const res = await fetch(`${AI_SERVICE_URL}/embed/candidate`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ skills, speciality, bio, school })
-  });
-  if (!res.ok) {
-    throw new Error(`AI Service error: ${res.status} ${res.statusText}`);
+  const text = `Skills: ${skills.join(', ')} | Speciality: ${speciality} | Bio: ${bio} | School: ${school}`;
+  try {
+    const res = await fetch(`${AI_SERVICE_URL}/embed/candidate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text, skills, speciality, bio, school })
+    });
+    if (!res.ok) {
+      console.warn(`[Seed] ⚠️ AI Service error ${res.status} for candidate. Using fallback zeros.`);
+      return new Array(384).fill(0);
+    }
+    const data = (await res.json()) as { embedding: number[] };
+    return data.embedding;
+  } catch (error) {
+    console.error(`[Seed] ❌ AI Service connection error for candidate. Using fallback zeros.`);
+    return new Array(384).fill(0);
   }
-  const data = (await res.json()) as { embedding: number[] };
-  return data.embedding;
 }
 
-async function fetchOfferEmbedding(title: string, description: string, skills: string[]): Promise<number[]> {
-  const res = await fetch(`${AI_SERVICE_URL}/embed/offer`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ title, description, skills })
-  });
-  if (!res.ok) {
-    throw new Error(`AI Service error: ${res.status} ${res.statusText}`);
+async function fetchOfferEmbedding(title: string, description: string, skills: string[], location?: string, durationMonths?: number): Promise<number[]> {
+  try {
+    const res = await fetch(`${AI_SERVICE_URL}/embed/offer`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        title, 
+        description, 
+        skills,
+        location,
+        duration_months: durationMonths
+      })
+    });
+    if (!res.ok) {
+      console.warn(`[Seed] ⚠️ AI Service error ${res.status} for offer. Using fallback zeros.`);
+      return new Array(384).fill(0);
+    }
+    const data = (await res.json()) as { embedding: number[] };
+    return data.embedding;
+  } catch (error) {
+    console.error(`[Seed] ❌ AI Service connection error for offer. Using fallback zeros.`);
+    return new Array(384).fill(0);
   }
-  const data = (await res.json()) as { embedding: number[] };
-  return data.embedding;
 }
 
 async function main() {
@@ -107,7 +131,7 @@ async function main() {
       update: {},
       create: {
         email: cand.email,
-        passwordHash: 'hashed_password_demo', // valeur par défaut
+        passwordHash: await hashPassword('Candidat1234!'),
         role: 'candidate',
         isVerified: true,
         profile: {
@@ -172,7 +196,7 @@ async function main() {
     update: {},
     create: {
       email: 'recruteur@techcorp.com',
-      passwordHash: 'hashed_password_demo',
+      passwordHash: await hashPassword('Recruteur1234!'),
       role: 'recruiter',
       isVerified: true,
       profile: {
@@ -260,7 +284,7 @@ async function main() {
     }
 
     // 2. Obtenir l'embedding
-    const embedding = await fetchOfferEmbedding(offerData.title, offerData.description, offerData.skills);
+    const embedding = await fetchOfferEmbedding(offerData.title, offerData.description, offerData.skills, offerData.location, offerData.durationMonths);
 
     // 3. Créer l'offre
     const offer = await prisma.jobOffer.create({

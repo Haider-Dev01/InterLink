@@ -15,7 +15,8 @@ const sendMessageSchema = z.object({
     .max(5000, 'Le message est trop long'),
 });
 
-async function hasAcceptedConnection(userAId: string, userBId: string) {
+async function canChat(userAId: string, userBId: string) {
+  // 1. Support legacy Connections
   const connection = await prisma.connection.findFirst({
     where: {
       status: 'accepted',
@@ -27,7 +28,27 @@ async function hasAcceptedConnection(userAId: string, userBId: string) {
     select: { id: true },
   });
 
-  return Boolean(connection);
+  if (connection) return true;
+
+  // 2. Logic Workflow : Une candidature acceptée débloque le chat
+  const application = await prisma.application.findFirst({
+    where: {
+      applicationStatus: 'accepted',
+      OR: [
+        {
+          candidateId: userAId,
+          offer: { recruiterId: userBId }
+        },
+        {
+          candidateId: userBId,
+          offer: { recruiterId: userAId }
+        }
+      ]
+    },
+    select: { id: true }
+  });
+
+  return Boolean(application);
 }
 
 function toSafePeer(req: any, user: any) {
@@ -63,7 +84,7 @@ router.post('/send', async (req, res, next) => {
       return res.status(404).json({ success: false, message: 'Destinataire introuvable.' });
     }
 
-    const connected = await hasAcceptedConnection(senderId, receiverId);
+    const connected = await canChat(senderId, receiverId);
     if (!connected) {
       return res.status(403).json({ success: false, message: 'Vous devez etre connectes pour discuter.' });
     }
@@ -110,7 +131,7 @@ router.get('/:userId', async (req, res, next) => {
       return res.status(404).json({ success: false, message: 'Utilisateur introuvable.' });
     }
 
-    const connected = await hasAcceptedConnection(currentUserId, peerUserId);
+    const connected = await canChat(currentUserId, peerUserId);
     if (!connected) {
       return res.status(403).json({ success: false, message: 'Vous devez etre connectes pour discuter.' });
     }

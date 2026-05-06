@@ -8,6 +8,7 @@ import { useAuthStore } from './store/authStore';
 import { PublicLayout } from './components/PublicLayout';
 
 // Pages
+import { Toaster } from 'sonner';
 const LandingPage = lazy(() => import('./pages/LandingPage'));
 const LoginPage = lazy(() => import('./pages/LoginPage'));
 const SignupPage = lazy(() => import('./pages/SignupPage'));
@@ -67,6 +68,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
+        <Toaster position="top-right" richColors closeButton />
         <RouteStateSync />
         <Suspense fallback={<AppFallback />}>
           <Routes>
@@ -97,14 +99,14 @@ export default function App() {
             {/* Espace Candidat (Protégé) */}
             <Route element={<ProtectedRoute allowedRoles={['candidate']} />}>
               <Route path="/candidate/dashboard" element={<DashboardCandidatPage />} />
-              <Route path="/candidate/dashboard/candidatures" element={<CandidateApplicationsPage />} />
+              <Route path="/candidate/dashboard/candidatures" element={<DashboardCandidatPage />} />
               <Route path="/candidate/dashboard/offres-sauvegardees" element={<CandidateSavedOffersPage />} />
               <Route path="/candidate/dashboard/cv-nexus" element={<CandidateCvNexusPage />} />
               <Route path="/candidate/dashboard/coaching-ia" element={<CandidateCoachingPage />} />
               <Route path="/coaching-ia/session" element={<CandidateCoachingPage />} />
               <Route path="/candidate/dashboard/analyse-cv" element={<AnalyseCvPage />} />
               <Route path="/candidate/dashboard/trouver-stage" element={<CandidateFindInternshipPage />} />
-              <Route path="/candidatures" element={<CandidateApplicationsPage />} />
+              <Route path="/candidatures" element={<DashboardCandidatPage />} />
               <Route path="/cv-nexus" element={<CandidateCvNexusPage />} />
               <Route path="/offres-sauvegardees" element={<CandidateSavedOffersPage />} />
               <Route path="/coaching-ia" element={<CandidateCoachingPage />} />

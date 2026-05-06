@@ -1,6 +1,7 @@
 import { CompanyRepository } from './company.repository';
 import { RegisterCompanyDto, RejectCompanyDto } from './company.validation';
 import { AppError } from '../../shared/errors/AppError';
+import { notificationService } from '../notification/notification.service';
 
 const companyRepository = new CompanyRepository();
 
@@ -38,6 +39,14 @@ export class CompanyService {
     }
 
     await companyRepository.verifyCompany(adminId, companyId);
+    
+    await notificationService.notify(
+      company.userId,
+      'COMPANY_VERIFIED',
+      '✅ Entreprise validée',
+      { companyName: company.name }
+    );
+    
     return;
   }
 
@@ -51,6 +60,14 @@ export class CompanyService {
     }
 
     await companyRepository.rejectCompany(adminId, companyId, data.reason);
+
+    await notificationService.notify(
+      company.userId,
+      'COMPANY_REJECTED',
+      'Entreprise non validée',
+      { companyName: company.name, reason: data.reason }
+    );
+
     return;
   }
 }

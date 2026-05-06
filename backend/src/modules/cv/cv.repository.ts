@@ -11,6 +11,10 @@ export const cvRepository = {
         parseStatus: 'pending',
         isActive: false,
       },
+      select: {
+        id: true, userId: true, fileUrl: true, importedFrom: true, 
+        parseStatus: true, isActive: true, createdAt: true, updatedAt: true
+      }
     })
   },
 
@@ -84,9 +88,9 @@ export const cvRepository = {
   async updateCvFailed(cvId: string) {
     await prisma.$executeRaw`
       UPDATE cv_documents
-      SET parse_status = 'failed',
-          retry_count = retry_count + 1,
-          last_attempt_at = NOW()
+      SET "parseStatus" = 'failed',
+          "retryCount" = "retryCount" + 1,
+          "lastAttemptAt" = NOW()
       WHERE id = ${cvId}
     `
   },
@@ -94,7 +98,10 @@ export const cvRepository = {
   async getActiveCv(userId: string) {
     return prisma.cvDocument.findFirst({
       where: { userId, isActive: true },
-      include: {
+      select: {
+        id: true, userId: true, fileUrl: true, importedFrom: true, 
+        parseStatus: true, isActive: true, parsedText: true,
+        createdAt: true, updatedAt: true,
         extractedSkills: {
           include: { skill: true },
         },
@@ -108,6 +115,11 @@ export const cvRepository = {
         parseStatus: 'pending',
         retryCount: { lt: 3 },
       },
+      select: {
+        id: true, userId: true, fileUrl: true, importedFrom: true, 
+        parseStatus: true, isActive: true, retryCount: true, lastAttemptAt: true,
+        createdAt: true, updatedAt: true
+      }
     })
   },
 
@@ -134,4 +146,19 @@ export const cvRepository = {
       })
     }
   },
+
+  async updateUserProfileBio(userId: string, bio: string) {
+    await prisma.profile.upsert({
+      where: { userId },
+      update: { bio },
+      create: { userId, bio, firstName: '', lastName: '' }
+    })
+  },
+
+  async getUserById(userId: string) {
+    return prisma.user.findUnique({
+      where: { id: userId },
+      include: { profile: true }
+    })
+  }
 }

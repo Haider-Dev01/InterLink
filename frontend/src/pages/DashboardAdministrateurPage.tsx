@@ -10,7 +10,7 @@ export default function DashboardAdministrateurPage() {
   useEffect(() => {
     adminService.getStats().then(res => {
       if (res.success && res.data) {
-        setStats(res.data);
+        setStats(res.data.stats);
       }
     });
   }, []);

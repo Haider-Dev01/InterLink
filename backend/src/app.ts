@@ -20,13 +20,14 @@ import jobsRoutes from './modules/jobs/jobs.routes';
 import chatRoutes from './modules/chat/chat.routes';
 import applicationRoutes from './modules/application/application.routes';
 import usersRoutes from './modules/users/users.routes';
-import notificationsRoutes from './modules/notifications/notifications.routes';
+import notificationRoutes from './modules/notification/notification.routes';
 import dashboardRoutes from './modules/dashboard/dashboard.routes';
 import searchRoutes from './modules/search/search.routes';
 import aiRoutes from './modules/ai/ai.routes';
 import connectionsRoutes from './modules/connections/connections.routes';
 import messagesRoutes from './modules/messages/messages.routes';
 import recruiterRoutes from './modules/recruiter/recruiter.routes';
+import bookmarksRoutes from './modules/bookmarks/bookmarks.routes';
 
 export const app = express();
 
@@ -63,12 +64,13 @@ app.use('/api/offers', offerRoutes);
 app.use('/api/jobs', jobsRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/users', usersRoutes);
-app.use('/api/notifications', notificationsRoutes);
+app.use('/api/notifications', notificationRoutes);
 app.use('/api/search', searchRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/connections', connectionsRoutes);
 app.use('/api/messages', messagesRoutes);
 app.use('/api/recruiter', recruiterRoutes);
+app.use('/api/bookmarks', bookmarksRoutes);
 app.use('/api', dashboardRoutes);
 app.use('/api/applications', applicationRoutes);
 app.use('/uploads', express.static(path.resolve(process.cwd(), 'uploads')));
@@ -163,3 +165,4 @@ app.use((_req: Request, res: Response) => {
 // ────────────────────────────────────────────────────────────────
 app.use(errorHandler);
 
+export { io } from './server';

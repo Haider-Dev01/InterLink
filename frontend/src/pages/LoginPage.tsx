@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TemplatePage } from '../components/TemplatePage';
 import { setupLoginPage } from '../lib/pageBehaviors';
@@ -9,7 +10,12 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const setAccessToken = useAuthStore((s) => s.setAccessToken);
   const setUser = useAuthStore((s) => s.setUser);
+  const [error, setError] = useState<string | null>(null);
   const checkAuth = useAuthStore((s) => s.checkAuth);
+
+  useEffect(() => {
+    // Component mounted
+  }, []);
 
   const getDashboardPath = (role: string | undefined) => {
     const normalizedRole = (role || '').toLowerCase();
@@ -19,21 +25,22 @@ export default function LoginPage() {
   };
 
   const handleLogin = async (credentials: any) => {
+    setError(null);
     const res = await authService.login(credentials);
     if (res.success && res.data) {
       const { user, accessToken } = res.data;
       
       // Cas spécifique recruteur non validé
       if (user.role?.toLowerCase() === 'recruiter' && user.isVerified === false) {
-        // Optionnel : afficher un message spécifique ou rediriger vers une page d'attente
         console.warn("Compte recruteur en attente de validation");
       }
 
       setAccessToken(accessToken);
       setUser(user);
-      await checkAuth();
 
       navigate(getDashboardPath(user.role), { replace: true });
+    } else {
+      setError(res.error || 'Identifiants invalides');
     }
     return res;
   };
@@ -42,7 +49,7 @@ export default function LoginPage() {
     <TemplatePage
       pageKey="login"
       rawHtml={loginHtml}
-      setup={(args) => setupLoginPage({ ...args, onLogin: handleLogin })}
+      setup={(args) => setupLoginPage({ ...args, onLogin: handleLogin, error })}
     />
   );
 }

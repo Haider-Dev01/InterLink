@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useMemo } from 'react';
 
 import { DashboardShell } from '../components/dashboard/DashboardShell';
 import { KpiCard, SurfaceCard } from '../components/dashboard/DashboardPrimitives';
@@ -6,6 +6,7 @@ import { candidateNavItems } from '../lib/data/dashboardData';
 import { buildDashboardProfile } from '../lib/userProfile';
 import { useReactPageAnimations } from '../lib/reactPageAnimations';
 import { applicationService } from '../services/applicationService';
+import { dashboardCandidateService } from '../services/dashboardCandidateService';
 import { useAuthStore } from '../store/authStore';
 
 function statusClasses(tone: string) {
@@ -27,14 +28,31 @@ export default function CandidateApplicationsPage() {
 
   const authUser = useAuthStore((state) => state.user);
   const [applications, setApplications] = useState<any[]>([]);
+  const [stats, setStats] = useState<any>(null);
 
   useEffect(() => {
-    applicationService.getMyApplications().then((res) => {
-      if (res.success && res.data) {
-        setApplications(res.data);
+    Promise.all([
+      applicationService.getMyApplications(),
+      dashboardCandidateService.getUserStats()
+    ]).then(([appsRes, statsRes]) => {
+      if (appsRes.success && appsRes.data) {
+        setApplications(appsRes.data);
+      }
+      if (statsRes.success && statsRes.data?.stats) {
+        setStats(statsRes.data.stats);
       }
     });
   }, []);
+
+  const avgMatch = useMemo(() => {
+    if (!applications.length) return 0;
+    const scores = applications.map(app => {
+      const match = app.candidate?.match_scores?.find((m: any) => m.offerId === app.offerId);
+      return match ? (match.scoreFinal * 100) : 0;
+    }).filter(s => s > 0);
+    if (!scores.length) return 0;
+    return Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
+  }, [applications]);
 
   return (
     <div ref={rootRef}>
@@ -47,10 +65,10 @@ export default function CandidateApplicationsPage() {
         title="Mes candidatures"
       >
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-          <KpiCard icon="description" label="Candidatures actives" value={applications.length.toString()} />
-          <KpiCard icon="forum" label="Entretiens planifies" tone="secondary" trend="2 cette semaine" value="2" />
-          <KpiCard icon="psychology" label="Score moyen IA" tone="emerald" value="84%" />
-          <KpiCard icon="schedule" label="Relances suggerees" tone="amber" value="3" />
+          <KpiCard icon="description" label="Candidatures actives" value={String(stats?.activeApplications ?? applications.length)} />
+          <KpiCard icon="forum" label="Entretiens planifies" tone="secondary" value={String(stats?.upcomingInterviews ?? 0)} />
+          <KpiCard icon="psychology" label="Match moyen" tone="emerald" value={`${avgMatch}%`} />
+          <KpiCard icon="visibility" label="Vues de profil" tone="amber" value={String(stats?.profileViews ?? 0)} />
         </div>
 
         <SurfaceCard className="p-8" data-animate="card">

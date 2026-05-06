@@ -93,7 +93,7 @@ export default function CandidateCvNexusPage() {
 
             <div className="space-y-6">
               <div>
-                <ProgressMetric label="Parsing CV" value={cv?.parseStatus === 'done' ? 100 : cv?.parseStatus === 'processing' ? 60 : 20} />
+                <ProgressMetric label="Parsing CV" value={cv ? (cv.parseStatus === 'done' ? 100 : cv.parseStatus === 'processing' ? 60 : 20) : 0} />
                 <p className="mt-2 text-sm text-on-surface-variant">Statut: {cv?.parseStatus || 'Aucun CV actif'} {isRefreshingParse ? '(analyse en cours...)' : ''}</p>
               </div>
               <div>

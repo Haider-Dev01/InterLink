@@ -134,7 +134,10 @@ export const searchController = {
                   { company: { name: { contains: query, mode: 'insensitive' } } },
                 ],
               },
-              include: {
+              select: {
+                id: true, title: true, description: true, location: true,
+                durationMonths: true, remote: true, offerStatus: true,
+                publishedAt: true, createdAt: true, updatedAt: true,
                 company: {
                   select: {
                     id: true,

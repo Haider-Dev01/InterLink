@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { prisma } from '../../shared/config/prismaClient';
 import { authenticate } from '../../shared/middleware/authenticate';
 import { toPublicAssetUrl } from '../../shared/utils/assetUrl';
+import { notificationService } from '../notification/notification.service';
 
 const router = Router();
 
@@ -140,6 +141,18 @@ router.post('/request', async (req, res, next) => {
       },
     });
 
+    // Envoyer notification au receveur
+    const senderName = created.requester.profile?.firstName 
+      ? `${created.requester.profile.firstName} ${created.requester.profile.lastName}`
+      : 'Un utilisateur';
+
+    await notificationService.notify(
+      receiverId,
+      'CONNECTION_REQUEST',
+      'Nouvelle invitation reçue',
+      { requesterId, senderName }
+    );
+
     return res.status(201).json({
       success: true,
       message: 'Invitation envoyee.',
@@ -192,6 +205,18 @@ router.post('/accept', async (req, res, next) => {
     });
 
     const peer = accepted.requesterId === userId ? accepted.receiver : accepted.requester;
+
+    // Notification à celui qui a envoyé la requête
+    const acceptorName = accepted.receiver.profile?.firstName 
+      ? `${accepted.receiver.profile.firstName} ${accepted.receiver.profile.lastName}`
+      : 'Un utilisateur';
+
+    await notificationService.notify(
+      accepted.requesterId,
+      'CONNECTION_ACCEPTED',
+      'Invitation acceptée',
+      { receiverId: userId, acceptorName }
+    );
 
     return res.status(200).json({
       success: true,

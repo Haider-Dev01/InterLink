@@ -17,6 +17,14 @@ export class AuthRepository {
             school: true,
           },
         },
+        cvDocuments: {
+          where: { isActive: true },
+          include: {
+            extractedSkills: {
+              include: { skill: true }
+            }
+          }
+        }
       }
     });
   };
@@ -30,6 +38,14 @@ export class AuthRepository {
           include: {
             company: true,
             school: true
+          }
+        },
+        cvDocuments: {
+          where: { isActive: true },
+          include: {
+            extractedSkills: {
+              include: { skill: true }
+            }
           }
         } 
       }

@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { DashboardShell } from '../components/dashboard/DashboardShell';
 import { SurfaceCard } from '../components/dashboard/DashboardPrimitives';
-import { candidateNavItems } from '../lib/data/dashboardData';
+import { candidateNavItems, recruiterNavItems } from '../lib/data/dashboardData';
 import { useReactPageAnimations } from '../lib/reactPageAnimations';
 import { notificationsService } from '../services/notificationsService';
+import { connectionService } from '../services/connectionService';
 import { useAuthStore } from '../store/authStore';
 
 export default function NotificationsPage() {
@@ -16,17 +17,20 @@ export default function NotificationsPage() {
 
   const [notifications, setNotifications] = useState<any[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
+  const [isActionLoading, setIsActionLoading] = useState<string | null>(null);
 
   const load = async () => {
-    const res = await notificationsService.list();
-    setNotifications(res.data?.notifications ?? []);
-    setUnreadCount(res.data?.unreadCount ?? 0);
+    try {
+      const res = await notificationsService.list();
+      setNotifications(res.data?.notifications ?? []);
+      setUnreadCount(res.data?.unreadCount ?? 0);
+    } catch (err) {
+      console.error('Failed to load notifications', err);
+    }
   };
 
   useEffect(() => {
-    load().catch((error) => {
-      console.error('Failed to load notifications', error);
-    });
+    load();
 
     const interval = setInterval(() => {
       load().catch(() => undefined);
@@ -42,11 +46,15 @@ export default function NotificationsPage() {
 
     return {
       name: fullName,
-      role: authUser?.role || 'Candidat',
+      role: authUser?.role === 'recruiter' ? 'Recruteur' : 'Candidat',
       image:
         authUser?.avatar ||
         `https://ui-avatars.com/api/?name=${encodeURIComponent(fullName)}&background=00288e&color=fff&rounded=true`,
     };
+  }, [authUser]);
+
+  const navItems = useMemo(() => {
+    return authUser?.role === 'recruiter' ? recruiterNavItems : candidateNavItems;
   }, [authUser]);
 
   const handleRead = async (id: string) => {
@@ -59,15 +67,43 @@ export default function NotificationsPage() {
     await load();
   };
 
+  const handleAcceptConnection = async (notificationId: string, requesterId: string) => {
+    setIsActionLoading(notificationId);
+    try {
+      await connectionService.acceptConnection(requesterId);
+      await notificationsService.markRead(notificationId);
+      await load();
+      window.alert('Invitation acceptee ! Vous pouvez maintenant discuter.');
+      navigate('/messages');
+    } catch (err) {
+      console.error('Failed to accept connection', err);
+    } finally {
+      setIsActionLoading(null);
+    }
+  };
+
+  const handleRejectConnection = async (notificationId: string, requesterId: string) => {
+    setIsActionLoading(notificationId);
+    try {
+      await connectionService.rejectConnection(requesterId);
+      await notificationsService.markRead(notificationId);
+      await load();
+    } catch (err) {
+      console.error('Failed to reject connection', err);
+    } finally {
+      setIsActionLoading(null);
+    }
+  };
+
   return (
     <div ref={rootRef}>
       <DashboardShell
-        action={{ icon: 'home', label: 'Retour dashboard', to: '/candidate/dashboard' }}
-        navItems={candidateNavItems}
+        action={authUser?.role === 'candidate' ? { icon: 'home', label: 'Retour dashboard', to: '/candidate/dashboard' } : undefined}
+        navItems={navItems}
         onAvatarClick={() => navigate('/profile/me')}
         onNotificationsClick={() => navigate('/notifications')}
         profile={profile}
-        sectionLabel="Espace Candidat"
+        sectionLabel={authUser?.role === 'recruiter' ? 'Espace Recruteur' : 'Espace Candidat'}
         title="Notifications"
       >
         <SurfaceCard className="p-8" data-animate="card">
@@ -81,26 +117,65 @@ export default function NotificationsPage() {
             </div>
           </div>
 
-          <div className="space-y-3">
-            {notifications.map((notification) => (
-              <div className={`rounded-xl border p-4 ${notification.isRead ? 'border-surface-variant bg-surface' : 'border-primary/30 bg-primary/5'}`} key={notification.id}>
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-sm font-bold text-on-surface">{notification.title}</p>
-                    <p className="mt-1 text-xs text-on-surface-variant">{new Date(notification.createdAt).toLocaleString()}</p>
-                    <p className="mt-2 text-sm text-on-surface-variant">{String(notification.type)}</p>
+          <div className="space-y-4">
+            {notifications.map((notification) => {
+              const isConnectionRequest = notification.type === 'CONNECTION_REQUEST';
+              const requesterId = notification.payload?.requesterId;
+
+              return (
+                <div className={`rounded-xl border p-5 ${notification.isRead ? 'border-surface-variant bg-surface' : 'border-primary/30 bg-primary/5 shadow-sm'}`} key={notification.id}>
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="material-symbols-outlined text-primary text-sm">
+                          {isConnectionRequest ? 'person_add' : 'notifications'}
+                        </span>
+                        <p className="text-sm font-bold text-on-surface">{notification.title}</p>
+                      </div>
+                      <p className="text-xs text-on-surface-variant mb-2">{new Date(notification.createdAt).toLocaleString()}</p>
+                      
+                      {isConnectionRequest ? (
+                        <div className="mt-4">
+                          <p className="text-sm text-on-surface-variant mb-4">
+                            <strong>{notification.payload?.senderName || 'Un utilisateur'}</strong> souhaite se connecter avec vous.
+                          </p>
+                          <div className="flex gap-3">
+                            <button
+                              disabled={isActionLoading === notification.id}
+                              onClick={() => handleAcceptConnection(notification.id, requesterId)}
+                              className="interactive-scale bg-primary text-white px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest shadow-md hover:bg-primary/90 transition-all disabled:opacity-50"
+                            >
+                              Accepter
+                            </button>
+                            <button
+                              disabled={isActionLoading === notification.id}
+                              onClick={() => handleRejectConnection(notification.id, requesterId)}
+                              className="interactive-scale border border-surface-variant bg-white text-on-surface-variant px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-surface transition-all disabled:opacity-50"
+                            >
+                              Refuser
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <p className="text-sm text-on-surface-variant">{notification.payload?.message || notification.payload?.offerTitle || ''}</p>
+                      )}
+                    </div>
+                    
+                    {!notification.isRead && !isConnectionRequest ? (
+                      <button className="interactive-scale rounded-lg bg-primary/10 text-primary px-3 py-1.5 text-xs font-black" onClick={() => handleRead(notification.id)} type="button">
+                        Lu
+                      </button>
+                    ) : null}
                   </div>
-                  {!notification.isRead ? (
-                    <button className="interactive-scale rounded-lg bg-primary px-3 py-2 text-xs font-black text-white" onClick={() => handleRead(notification.id)} type="button">
-                      Marquer lu
-                    </button>
-                  ) : null}
                 </div>
-              </div>
-            ))}
+              );
+            })}
 
             {!notifications.length ? (
-              <p className="py-6 text-center text-sm text-on-surface-variant">Aucune notification pour le moment.</p>
+              <div className="py-12 text-center">
+                <span className="material-symbols-outlined text-4xl text-on-surface-variant/30 mb-2">notifications_off</span>
+                <p className="text-sm text-on-surface-variant">Aucune notification pour le moment.</p>
+              </div>
             ) : null}
           </div>
         </SurfaceCard>

@@ -137,7 +137,7 @@
     <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[120px] animate-pulse pointer-events-none"></div>
     <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 rounded-full blur-[120px] animate-pulse pointer-events-none" style="animation-delay: 2s;"></div>
 
-    <div class="w-full max-w-[520px] z-10 py-8">
+    <div class="w-full max-w-[360px] z-10 py-8">
         
         <div class="text-center mb-8 reveal-card" style="animation-delay: 0.1s;">
             <div class="flex items-center justify-center gap-3 mb-2">
@@ -147,15 +147,15 @@
             <p class="text-on-surface-variant font-medium">Rejoignez la nouvelle ère du recrutement</p>
         </div>
 
-        <div class="glass-effect rounded-[2.5rem] p-8 md:p-10 shadow-2xl shadow-primary/10 reveal-card" style="animation-delay: 0.2s;">
+        <div class="glass-effect rounded-[2.5rem] p-6 shadow-2xl shadow-primary/10 reveal-card" style="animation-delay: 0.2s;">
             
             <div class="relative flex bg-surface p-1 rounded-2xl mb-8 user-type-toggle border border-surface-variant/50">
-                <button id="tab-student" type="button" onclick="switchUser('student')" class="relative z-10 flex-1 flex items-center justify-center gap-2 py-3 text-sm font-bold text-primary transition-colors duration-300">
-                    <span class="material-symbols-outlined text-[18px]">school</span>
+                <button id="tab-student" type="button" onclick="switchUser('student')" class="relative z-10 flex-1 flex items-center justify-center gap-2 py-3 text-[11px] font-bold text-primary transition-colors duration-300">
+                    <span class="material-symbols-outlined text-[14px]">school</span>
                     Étudiant
                 </button>
-                <button id="tab-recruiter" type="button" onclick="switchUser('recruiter')" class="relative z-10 flex-1 flex items-center justify-center gap-2 py-3 text-sm font-bold text-on-surface-variant transition-colors duration-300">
-                    <span class="material-symbols-outlined text-[18px]">business_center</span>
+                <button id="tab-recruiter" type="button" onclick="switchUser('recruiter')" class="relative z-10 flex-1 flex items-center justify-center gap-2 py-3 text-[11px] font-bold text-on-surface-variant transition-colors duration-300">
+                    <span class="material-symbols-outlined text-[14px]">business_center</span>
                     Recruteur
                 </button>
                 <div id="user-slider" class="absolute top-1 left-1 w-[calc(50%-4px)] h-[calc(100%-8px)] bg-white rounded-xl shadow-sm transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]"></div>
@@ -163,35 +163,37 @@
 
             <form action="#" class="space-y-5">
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div class="space-y-2">
-                        <label class="text-xs font-black uppercase tracking-widest text-on-surface-variant ml-1">Prénom</label>
-                        <div class="relative group">
-                            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">person</span>
-                            <input type="text" name="firstName" placeholder="Thomas" class="w-full pl-12 pr-4 py-3.5 bg-white/50 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium placeholder:text-on-surface-variant/40" required>
-                        </div>
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-xs font-black uppercase tracking-widest text-on-surface-variant ml-1">Nom</label>
-                        <input type="text" name="lastName" placeholder="Dubois" class="w-full px-4 py-3.5 bg-white/50 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium placeholder:text-on-surface-variant/40" required>
+                <div class="space-y-1.5">
+                    <label class="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant ml-1">PRÉNOM</label>
+                    <div class="relative group">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors text-[18px]">person</span>
+                        <input type="text" name="firstName" placeholder="Thomas" class="w-full pl-11 pr-4 py-2.5 bg-white border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all text-[13px] font-medium placeholder:text-on-surface-variant/40" required>
                     </div>
                 </div>
 
-                <div class="space-y-2">
-                    <label class="text-xs font-black uppercase tracking-widest text-on-surface-variant ml-1">Adresse Email</label>
+                <div class="space-y-1.5">
+                    <label class="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant ml-1">NOM</label>
                     <div class="relative group">
-                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">mail</span>
-                        <input type="email" name="email" placeholder="nom@exemple.com" class="w-full pl-12 pr-4 py-3.5 bg-white/50 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium placeholder:text-on-surface-variant/40" required>
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors text-[18px]">person</span>
+                        <input type="text" name="lastName" placeholder="Dubois" class="w-full pl-11 pr-4 py-2.5 bg-white border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all text-[13px] font-medium placeholder:text-on-surface-variant/40" required>
                     </div>
                 </div>
 
-                <div class="space-y-2">
-                    <label class="text-xs font-black uppercase tracking-widest text-on-surface-variant ml-1">Mot de passe</label>
+                <div class="space-y-1.5">
+                    <label class="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant ml-1">ADRESSE EMAIL</label>
                     <div class="relative group">
-                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">lock</span>
-                        <input id="password-input" name="password" type="password" placeholder="••••••••" class="w-full pl-12 pr-12 py-3.5 bg-white/50 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium placeholder:text-on-surface-variant/40" required>
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors text-[18px]">mail</span>
+                        <input type="email" name="email" placeholder="nom@exemple.com" class="w-full pl-11 pr-4 py-2.5 bg-white border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all text-[13px] font-medium placeholder:text-on-surface-variant/40" required>
+                    </div>
+                </div>
+
+                <div class="space-y-1.5">
+                    <label class="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant ml-1">MOT DE PASSE</label>
+                    <div class="relative group">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors text-[18px]">lock</span>
+                        <input id="password-input" name="password" type="password" placeholder="••••••••" class="w-full pl-11 pr-12 py-2.5 bg-white border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all text-[13px] font-medium placeholder:text-on-surface-variant/40" required>
                         <button id="toggle-password" type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors">
-                            <span class="material-symbols-outlined text-[20px]">visibility</span>
+                            <span class="material-symbols-outlined text-[18px]">visibility</span>
                         </button>
                     </div>
                     <div style="height: 4px; background: #e0e3e5; border-radius: 10px; overflow: hidden; margin-top: 8px;">
@@ -200,41 +202,41 @@
                     <p class="text-[10px] text-on-surface-variant/80 font-medium ml-1 mt-1">Au moins 8 caractères, dont un chiffre et un symbole.</p>
                 </div>
 
-                <div class="flex items-start gap-3 ml-1 mt-6">
-                    <input type="checkbox" id="terms" class="w-5 h-5 mt-0.5 border-surface-variant rounded-lg text-primary focus:ring-primary cursor-pointer" required>
-                    <label for="terms" class="text-sm font-medium text-on-surface-variant leading-tight select-none cursor-pointer">
+                <div class="flex items-start gap-2 ml-1 py-1">
+                    <input type="checkbox" id="terms" class="w-4 h-4 mt-0.5 border-surface-variant rounded text-primary focus:ring-primary cursor-pointer" required>
+                    <label for="terms" class="text-[12px] font-medium text-on-surface-variant leading-tight select-none cursor-pointer">
                         J'accepte les <a href="#" class="text-primary font-bold hover:underline">Conditions d'utilisation</a> et la <a href="#" class="text-primary font-bold hover:underline">Politique de confidentialité</a> d'InternLink.
                     </label>
                 </div>
 
-                <button type="submit" class="w-full mt-2 bg-primary text-white font-black py-4 rounded-2xl shadow-xl shadow-primary/20 hover:shadow-2xl hover:bg-primary-container hover:-translate-y-1 active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 group">
-                    <span>Créer mon compte</span>
-                    <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                <button type="submit" class="w-full bg-primary text-white font-black py-3 rounded-2xl shadow-xl shadow-primary/20 hover:bg-secondary active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 group">
+                    <span class="text-sm">Créer mon compte</span>
+                    <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
                 </button>
             </form>
 
             <div class="mt-8">
                 <div class="relative flex items-center justify-center mb-6">
                     <div class="absolute w-full border-t border-surface-variant/50"></div>
-                    <span class="relative bg-white/80 px-4 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/60 rounded-full">Ou s'inscrire avec</span>
+                    <span class="relative bg-white px-3 text-[9px] font-black uppercase tracking-[0.2em] text-on-surface-variant/60">OU S'INSCRIRE AVEC</span>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
-                    <button type="button" class="relative flex items-center justify-center gap-3 py-3 bg-white/50 border border-surface-variant rounded-2xl hover:bg-surface hover:border-primary hover:shadow-lg hover:-translate-y-1 transition-all font-bold text-sm shadow-sm group">
-                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5 group-hover:scale-110 transition-transform" alt="Google">
+                <div class="grid grid-cols-2 gap-3">
+                    <button type="button" class="flex items-center justify-center gap-2 py-2.5 bg-white border border-surface-variant rounded-2xl hover:bg-surface transition-all font-bold text-[12px] shadow-sm group">
+                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-4 h-4 group-hover:scale-110 transition-transform" alt="Google">
                         <span>Google</span>
                     </button>
-                    <button type="button" class="relative flex items-center justify-center gap-3 py-3 bg-white/50 border border-surface-variant rounded-2xl hover:bg-surface hover:border-primary hover:shadow-lg hover:-translate-y-1 transition-all font-bold text-sm shadow-sm group">
-                        <img src="https://www.svgrepo.com/show/512317/github-142.svg" class="w-5 h-5 group-hover:scale-110 transition-transform" alt="Github">
+                    <button type="button" class="flex items-center justify-center gap-2 py-2.5 bg-white border border-surface-variant rounded-2xl hover:bg-surface transition-all font-bold text-[12px] shadow-sm group">
+                        <img src="https://www.svgrepo.com/show/512317/github-142.svg" class="w-4 h-4 group-hover:scale-110 transition-transform" alt="Github">
                         <span>Github</span>
                     </button>
                 </div>
             </div>
         </div>
 
-        <p class="text-center mt-8 reveal-card" style="animation-delay: 0.3s;">
-            <span class="text-on-surface-variant font-medium text-sm">Vous avez déjà un compte ?</span>
-            <a href="login.html" class="text-primary font-black text-sm hover:underline ml-1">Connectez-vous</a>
+        <p class="text-center mt-6 reveal-card" style="animation-delay: 0.3s;">
+            <span class="text-on-surface-variant font-medium text-[12px]">Vous avez déjà un compte ?</span>
+            <a href="/login" class="text-primary font-black text-[12px] hover:underline ml-1">Connectez-vous</a>
         </p>
     </div>
 

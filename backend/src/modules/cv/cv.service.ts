@@ -8,7 +8,8 @@ const AI_SERVICE_URL = process.env.AI_SERVICE_URL || 'http://localhost:8002'
 
 export const cvService = {
   async uploadCV(userId: string, file: Express.Multer.File) {
-    const fileUrl = file.path.replace(/\\/g, '/')
+    const absolutePath = path.resolve(process.cwd(), file.path)
+    const fileUrl = absolutePath.replace(/\\/g, '/')
 
     // 1. Créer le document en BDD
     const cvDoc = await cvRepository.createCvDocument(userId, fileUrl, 'upload')
@@ -29,6 +30,31 @@ export const cvService = {
     }
 
     const metadata = await cvRepository.getLatestParsingMetadata(cv.id)
+    
+    // Auto-sync bio if missing for the user
+    const user = await cvRepository.getUserById(userId)
+    const currentBio = user?.profile?.bio
+    
+    if (!currentBio && metadata?.sections) {
+      const sections = metadata.sections as Record<string, string>
+      const bioKeys = [
+        'summary', 'professional summary', 'objective', 'about me', 'profile', 'biography', 'about',
+        'résumé', 'résumé professionnel', 'profil', 'à propos', 'biographie', 'objectif'
+      ]
+      let extractedBio = ''
+      for (const key of Object.keys(sections)) {
+        if (bioKeys.some(bk => key.toLowerCase().includes(bk))) {
+          extractedBio = sections[key]
+          break
+        }
+      }
+      
+      if (extractedBio) {
+        await cvRepository.updateUserProfileBio(userId, extractedBio)
+        console.log(`[CV] 🔄 Auto-sync bio for user ${userId} from existing CV metadata`)
+      }
+    }
+
     return {
       cv: {
         ...cv,
@@ -54,7 +80,12 @@ async function parseInBackground(cvId: string, fileUrl: string, userId: string) 
     const controller = new AbortController()
     const timeout = setTimeout(() => controller.abort(), 30000)
 
-    const absoluteFilePath = path.resolve(process.cwd(), fileUrl)
+    // fileUrl est déjà absolu d'après uploadCV, mais path.resolve sur un chemin absolu reste correct
+    const absoluteFilePath = path.resolve(fileUrl)
+
+    if (!fs.existsSync(absoluteFilePath)) {
+      throw new Error(`Fichier introuvable: ${absoluteFilePath}`)
+    }
 
     const fileBuffer = await fs.promises.readFile(absoluteFilePath)
     const formData = new FormData()
@@ -83,6 +114,27 @@ async function parseInBackground(cvId: string, fileUrl: string, userId: string) 
     await cvRepository.updateCvParsed(cvId, data.text, data.skills, data.embedding)
     await cvRepository.upsertExtractedSkills(cvId, data.skills)
     await cvRepository.saveParsingMetadata(cvId, userId, data.score ?? 0, data.sections ?? {})
+
+    // Extract Bio/Summary from sections
+    const sections = data.sections || {}
+    const bioKeys = [
+      'summary', 'professional summary', 'objective', 'about me', 'profile', 'biography', 'about',
+      'résumé', 'résumé professionnel', 'profil', 'à propos', 'biographie', 'objectif'
+    ]
+    let extractedBio = ''
+    
+    for (const key of Object.keys(sections)) {
+      if (bioKeys.some(bk => key.toLowerCase().includes(bk))) {
+        extractedBio = sections[key]
+        break
+      }
+    }
+
+    if (extractedBio) {
+      await cvRepository.updateUserProfileBio(userId, extractedBio)
+      console.log(`[CV] 📝 Bio extraite et mise à jour pour l'utilisateur : ${userId}`)
+    }
+
     console.log(`[CV] ✅ CV parsé avec succès : ${cvId}`)
 
     // Déclencher le matching en arrière-plan (sans await)

@@ -57,7 +57,7 @@ const initialCandidateSearchDraft: CandidateSearchDraft = {
   keywords: 'React, UX, produit',
   location: 'Tunis',
   format: 'Hybride',
-  duration: '4 à 6 mois',
+  duration: '2 a 3 mois',
   startDate: '2026-06',
 };
 

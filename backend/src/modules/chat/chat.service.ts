@@ -5,7 +5,7 @@ import { prisma } from '../../shared/config/prismaClient';
 interface RAGDocument {
   id: string;
   content: string;
-  source?: string;
+  title?: string;
   score?: number;
 }
 
@@ -112,7 +112,7 @@ export class ChatService {
 
         return offers.map(offer => ({
           id: offer.id,
-          source: `${offer.title} @ ${offer.company.name}`,
+          title: `${offer.title} @ ${offer.company.name}`,
           content: `Titre: ${offer.title}. Description: ${offer.description}. ` +
                    `Compétences requises: ${offer.offerSkills.map(os => os.skill.name).join(', ')}. ` +
                    `Localisation: ${offer.location || 'N/A'}. Durée: ${offer.durationMonths || '?'} mois.`
@@ -135,7 +135,7 @@ export class ChatService {
           const name = profile ? `${profile.firstName} ${profile.lastName}` : 'Candidat';
           return {
             id: cv.id,
-            source: `CV de ${name}`,
+            title: `CV de ${name}`,
             content: `Candidat: ${name}. Bio: ${profile?.bio || 'N/A'}. ` +
                      `Compétences: ${cv.extractedSkills.map(es => es.skill.name).join(', ')}. ` +
                      `Expériences/Texte: ${cv.parsedText?.slice(0, 1000) || ''}`

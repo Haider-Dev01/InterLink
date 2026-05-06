@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model Bookmark
+ * 
+ */
+export type Bookmark = $Result.DefaultSelection<Prisma.$BookmarkPayload>
+/**
  * Model RefreshToken
  * 
  */
@@ -317,6 +322,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs>;
+
+  /**
+   * `prisma.bookmark`: Exposes CRUD operations for the **Bookmark** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Bookmarks
+    * const bookmarks = await prisma.bookmark.findMany()
+    * ```
+    */
+  get bookmark(): Prisma.BookmarkDelegate<ExtArgs>;
 
   /**
    * `prisma.refreshToken`: Exposes CRUD operations for the **RefreshToken** model.
@@ -919,6 +934,7 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    Bookmark: 'Bookmark',
     RefreshToken: 'RefreshToken',
     Profile: 'Profile',
     Company: 'Company',
@@ -950,7 +966,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "refreshToken" | "profile" | "company" | "school" | "skill" | "cvDocument" | "extractedSkill" | "jobOffer" | "offerSkill" | "matchScore" | "application" | "message" | "connection" | "notification" | "auditLog" | "chatMessage"
+      modelProps: "user" | "bookmark" | "refreshToken" | "profile" | "company" | "school" | "skill" | "cvDocument" | "extractedSkill" | "jobOffer" | "offerSkill" | "matchScore" | "application" | "message" | "connection" | "notification" | "auditLog" | "chatMessage"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1021,6 +1037,76 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Bookmark: {
+        payload: Prisma.$BookmarkPayload<ExtArgs>
+        fields: Prisma.BookmarkFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BookmarkFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookmarkPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BookmarkFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookmarkPayload>
+          }
+          findFirst: {
+            args: Prisma.BookmarkFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookmarkPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BookmarkFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookmarkPayload>
+          }
+          findMany: {
+            args: Prisma.BookmarkFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookmarkPayload>[]
+          }
+          create: {
+            args: Prisma.BookmarkCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookmarkPayload>
+          }
+          createMany: {
+            args: Prisma.BookmarkCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BookmarkCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookmarkPayload>[]
+          }
+          delete: {
+            args: Prisma.BookmarkDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookmarkPayload>
+          }
+          update: {
+            args: Prisma.BookmarkUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookmarkPayload>
+          }
+          deleteMany: {
+            args: Prisma.BookmarkDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BookmarkUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.BookmarkUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookmarkPayload>
+          }
+          aggregate: {
+            args: Prisma.BookmarkAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBookmark>
+          }
+          groupBy: {
+            args: Prisma.BookmarkGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BookmarkGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BookmarkCountArgs<ExtArgs>
+            result: $Utils.Optional<BookmarkCountAggregateOutputType> | number
           }
         }
       }
@@ -2317,6 +2403,7 @@ export namespace Prisma {
     notifications: number
     refreshTokens: number
     chatMessages: number
+    bookmarks: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2332,6 +2419,7 @@ export namespace Prisma {
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
     refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
     chatMessages?: boolean | UserCountOutputTypeCountChatMessagesArgs
+    bookmarks?: boolean | UserCountOutputTypeCountBookmarksArgs
   }
 
   // Custom InputTypes
@@ -2429,17 +2517,26 @@ export namespace Prisma {
     where?: ChatMessageWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountBookmarksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BookmarkWhereInput
+  }
+
 
   /**
    * Count Type CompanyCountOutputType
    */
 
   export type CompanyCountOutputType = {
+    recruiters: number
     jobOffers: number
     profiles: number
   }
 
   export type CompanyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    recruiters?: boolean | CompanyCountOutputTypeCountRecruitersArgs
     jobOffers?: boolean | CompanyCountOutputTypeCountJobOffersArgs
     profiles?: boolean | CompanyCountOutputTypeCountProfilesArgs
   }
@@ -2453,6 +2550,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the CompanyCountOutputType
      */
     select?: CompanyCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CompanyCountOutputType without action
+   */
+  export type CompanyCountOutputTypeCountRecruitersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
   }
 
   /**
@@ -2587,12 +2691,14 @@ export namespace Prisma {
 
   export type JobOfferCountOutputType = {
     applications: number
+    bookmarks: number
     matchScores: number
     offerSkills: number
   }
 
   export type JobOfferCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     applications?: boolean | JobOfferCountOutputTypeCountApplicationsArgs
+    bookmarks?: boolean | JobOfferCountOutputTypeCountBookmarksArgs
     matchScores?: boolean | JobOfferCountOutputTypeCountMatchScoresArgs
     offerSkills?: boolean | JobOfferCountOutputTypeCountOfferSkillsArgs
   }
@@ -2613,6 +2719,13 @@ export namespace Prisma {
    */
   export type JobOfferCountOutputTypeCountApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ApplicationWhereInput
+  }
+
+  /**
+   * JobOfferCountOutputType without action
+   */
+  export type JobOfferCountOutputTypeCountBookmarksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BookmarkWhereInput
   }
 
   /**
@@ -2692,6 +2805,7 @@ export namespace Prisma {
     role: $Enums.Role | null
     isVerified: boolean | null
     isBanned: boolean | null
+    companyId: string | null
     location: string | null
     availabilityMonths: number | null
     createdAt: Date | null
@@ -2705,6 +2819,7 @@ export namespace Prisma {
     role: $Enums.Role | null
     isVerified: boolean | null
     isBanned: boolean | null
+    companyId: string | null
     location: string | null
     availabilityMonths: number | null
     createdAt: Date | null
@@ -2718,6 +2833,7 @@ export namespace Prisma {
     role: number
     isVerified: number
     isBanned: number
+    companyId: number
     location: number
     availabilityMonths: number
     createdAt: number
@@ -2741,6 +2857,7 @@ export namespace Prisma {
     role?: true
     isVerified?: true
     isBanned?: true
+    companyId?: true
     location?: true
     availabilityMonths?: true
     createdAt?: true
@@ -2754,6 +2871,7 @@ export namespace Prisma {
     role?: true
     isVerified?: true
     isBanned?: true
+    companyId?: true
     location?: true
     availabilityMonths?: true
     createdAt?: true
@@ -2767,6 +2885,7 @@ export namespace Prisma {
     role?: true
     isVerified?: true
     isBanned?: true
+    companyId?: true
     location?: true
     availabilityMonths?: true
     createdAt?: true
@@ -2867,6 +2986,7 @@ export namespace Prisma {
     role: $Enums.Role
     isVerified: boolean
     isBanned: boolean
+    companyId: string | null
     location: string | null
     availabilityMonths: number | null
     createdAt: Date
@@ -2899,6 +3019,7 @@ export namespace Prisma {
     role?: boolean
     isVerified?: boolean
     isBanned?: boolean
+    companyId?: boolean
     location?: boolean
     availabilityMonths?: boolean
     createdAt?: boolean
@@ -2906,6 +3027,7 @@ export namespace Prisma {
     applications?: boolean | User$applicationsArgs<ExtArgs>
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
     company?: boolean | User$companyArgs<ExtArgs>
+    ownedCompany?: boolean | User$ownedCompanyArgs<ExtArgs>
     cvDocuments?: boolean | User$cvDocumentsArgs<ExtArgs>
     jobOffers?: boolean | User$jobOffersArgs<ExtArgs>
     match_scores?: boolean | User$match_scoresArgs<ExtArgs>
@@ -2917,6 +3039,7 @@ export namespace Prisma {
     profile?: boolean | User$profileArgs<ExtArgs>
     refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
     chatMessages?: boolean | User$chatMessagesArgs<ExtArgs>
+    bookmarks?: boolean | User$bookmarksArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2927,10 +3050,12 @@ export namespace Prisma {
     role?: boolean
     isVerified?: boolean
     isBanned?: boolean
+    companyId?: boolean
     location?: boolean
     availabilityMonths?: boolean
     createdAt?: boolean
     deletedAt?: boolean
+    company?: boolean | User$companyArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -2940,6 +3065,7 @@ export namespace Prisma {
     role?: boolean
     isVerified?: boolean
     isBanned?: boolean
+    companyId?: boolean
     location?: boolean
     availabilityMonths?: boolean
     createdAt?: boolean
@@ -2950,6 +3076,7 @@ export namespace Prisma {
     applications?: boolean | User$applicationsArgs<ExtArgs>
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
     company?: boolean | User$companyArgs<ExtArgs>
+    ownedCompany?: boolean | User$ownedCompanyArgs<ExtArgs>
     cvDocuments?: boolean | User$cvDocumentsArgs<ExtArgs>
     jobOffers?: boolean | User$jobOffersArgs<ExtArgs>
     match_scores?: boolean | User$match_scoresArgs<ExtArgs>
@@ -2961,9 +3088,12 @@ export namespace Prisma {
     profile?: boolean | User$profileArgs<ExtArgs>
     refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
     chatMessages?: boolean | User$chatMessagesArgs<ExtArgs>
+    bookmarks?: boolean | User$bookmarksArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    company?: boolean | User$companyArgs<ExtArgs>
+  }
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
@@ -2971,6 +3101,7 @@ export namespace Prisma {
       applications: Prisma.$ApplicationPayload<ExtArgs>[]
       auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
       company: Prisma.$CompanyPayload<ExtArgs> | null
+      ownedCompany: Prisma.$CompanyPayload<ExtArgs> | null
       cvDocuments: Prisma.$CvDocumentPayload<ExtArgs>[]
       jobOffers: Prisma.$JobOfferPayload<ExtArgs>[]
       match_scores: Prisma.$MatchScorePayload<ExtArgs>[]
@@ -2982,6 +3113,7 @@ export namespace Prisma {
       profile: Prisma.$ProfilePayload<ExtArgs> | null
       refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
       chatMessages: Prisma.$ChatMessagePayload<ExtArgs>[]
+      bookmarks: Prisma.$BookmarkPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2990,6 +3122,7 @@ export namespace Prisma {
       role: $Enums.Role
       isVerified: boolean
       isBanned: boolean
+      companyId: string | null
       location: string | null
       availabilityMonths: number | null
       createdAt: Date
@@ -3361,6 +3494,7 @@ export namespace Prisma {
     applications<T extends User$applicationsArgs<ExtArgs> = {}>(args?: Subset<T, User$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findMany"> | Null>
     auditLogs<T extends User$auditLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany"> | Null>
     company<T extends User$companyArgs<ExtArgs> = {}>(args?: Subset<T, User$companyArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    ownedCompany<T extends User$ownedCompanyArgs<ExtArgs> = {}>(args?: Subset<T, User$ownedCompanyArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     cvDocuments<T extends User$cvDocumentsArgs<ExtArgs> = {}>(args?: Subset<T, User$cvDocumentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CvDocumentPayload<ExtArgs>, T, "findMany"> | Null>
     jobOffers<T extends User$jobOffersArgs<ExtArgs> = {}>(args?: Subset<T, User$jobOffersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobOfferPayload<ExtArgs>, T, "findMany"> | Null>
     match_scores<T extends User$match_scoresArgs<ExtArgs> = {}>(args?: Subset<T, User$match_scoresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MatchScorePayload<ExtArgs>, T, "findMany"> | Null>
@@ -3372,6 +3506,7 @@ export namespace Prisma {
     profile<T extends User$profileArgs<ExtArgs> = {}>(args?: Subset<T, User$profileArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     refreshTokens<T extends User$refreshTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany"> | Null>
     chatMessages<T extends User$chatMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$chatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany"> | Null>
+    bookmarks<T extends User$bookmarksArgs<ExtArgs> = {}>(args?: Subset<T, User$bookmarksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookmarkPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3407,6 +3542,7 @@ export namespace Prisma {
     readonly role: FieldRef<"User", 'Role'>
     readonly isVerified: FieldRef<"User", 'Boolean'>
     readonly isBanned: FieldRef<"User", 'Boolean'>
+    readonly companyId: FieldRef<"User", 'String'>
     readonly location: FieldRef<"User", 'String'>
     readonly availabilityMonths: FieldRef<"User", 'Int'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
@@ -3632,6 +3768,10 @@ export namespace Prisma {
      */
     data: UserCreateManyInput | UserCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3768,6 +3908,21 @@ export namespace Prisma {
    * User.company
    */
   export type User$companyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    where?: CompanyWhereInput
+  }
+
+  /**
+   * User.ownedCompany
+   */
+  export type User$ownedCompanyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Company
      */
@@ -3995,6 +4150,26 @@ export namespace Prisma {
   }
 
   /**
+   * User.bookmarks
+   */
+  export type User$bookmarksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bookmark
+     */
+    select?: BookmarkSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
+    where?: BookmarkWhereInput
+    orderBy?: BookmarkOrderByWithRelationInput | BookmarkOrderByWithRelationInput[]
+    cursor?: BookmarkWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BookmarkScalarFieldEnum | BookmarkScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4006,6 +4181,933 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Bookmark
+   */
+
+  export type AggregateBookmark = {
+    _count: BookmarkCountAggregateOutputType | null
+    _min: BookmarkMinAggregateOutputType | null
+    _max: BookmarkMaxAggregateOutputType | null
+  }
+
+  export type BookmarkMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    offerId: string | null
+    createdAt: Date | null
+  }
+
+  export type BookmarkMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    offerId: string | null
+    createdAt: Date | null
+  }
+
+  export type BookmarkCountAggregateOutputType = {
+    id: number
+    userId: number
+    offerId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type BookmarkMinAggregateInputType = {
+    id?: true
+    userId?: true
+    offerId?: true
+    createdAt?: true
+  }
+
+  export type BookmarkMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    offerId?: true
+    createdAt?: true
+  }
+
+  export type BookmarkCountAggregateInputType = {
+    id?: true
+    userId?: true
+    offerId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type BookmarkAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Bookmark to aggregate.
+     */
+    where?: BookmarkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Bookmarks to fetch.
+     */
+    orderBy?: BookmarkOrderByWithRelationInput | BookmarkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BookmarkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Bookmarks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Bookmarks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Bookmarks
+    **/
+    _count?: true | BookmarkCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BookmarkMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BookmarkMaxAggregateInputType
+  }
+
+  export type GetBookmarkAggregateType<T extends BookmarkAggregateArgs> = {
+        [P in keyof T & keyof AggregateBookmark]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBookmark[P]>
+      : GetScalarType<T[P], AggregateBookmark[P]>
+  }
+
+
+
+
+  export type BookmarkGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BookmarkWhereInput
+    orderBy?: BookmarkOrderByWithAggregationInput | BookmarkOrderByWithAggregationInput[]
+    by: BookmarkScalarFieldEnum[] | BookmarkScalarFieldEnum
+    having?: BookmarkScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BookmarkCountAggregateInputType | true
+    _min?: BookmarkMinAggregateInputType
+    _max?: BookmarkMaxAggregateInputType
+  }
+
+  export type BookmarkGroupByOutputType = {
+    id: string
+    userId: string
+    offerId: string
+    createdAt: Date
+    _count: BookmarkCountAggregateOutputType | null
+    _min: BookmarkMinAggregateOutputType | null
+    _max: BookmarkMaxAggregateOutputType | null
+  }
+
+  type GetBookmarkGroupByPayload<T extends BookmarkGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BookmarkGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BookmarkGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BookmarkGroupByOutputType[P]>
+            : GetScalarType<T[P], BookmarkGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BookmarkSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    offerId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    offer?: boolean | JobOfferDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bookmark"]>
+
+  export type BookmarkSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    offerId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    offer?: boolean | JobOfferDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bookmark"]>
+
+  export type BookmarkSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    offerId?: boolean
+    createdAt?: boolean
+  }
+
+  export type BookmarkInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    offer?: boolean | JobOfferDefaultArgs<ExtArgs>
+  }
+  export type BookmarkIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    offer?: boolean | JobOfferDefaultArgs<ExtArgs>
+  }
+
+  export type $BookmarkPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Bookmark"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      offer: Prisma.$JobOfferPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      offerId: string
+      createdAt: Date
+    }, ExtArgs["result"]["bookmark"]>
+    composites: {}
+  }
+
+  type BookmarkGetPayload<S extends boolean | null | undefined | BookmarkDefaultArgs> = $Result.GetResult<Prisma.$BookmarkPayload, S>
+
+  type BookmarkCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<BookmarkFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: BookmarkCountAggregateInputType | true
+    }
+
+  export interface BookmarkDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Bookmark'], meta: { name: 'Bookmark' } }
+    /**
+     * Find zero or one Bookmark that matches the filter.
+     * @param {BookmarkFindUniqueArgs} args - Arguments to find a Bookmark
+     * @example
+     * // Get one Bookmark
+     * const bookmark = await prisma.bookmark.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BookmarkFindUniqueArgs>(args: SelectSubset<T, BookmarkFindUniqueArgs<ExtArgs>>): Prisma__BookmarkClient<$Result.GetResult<Prisma.$BookmarkPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Bookmark that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {BookmarkFindUniqueOrThrowArgs} args - Arguments to find a Bookmark
+     * @example
+     * // Get one Bookmark
+     * const bookmark = await prisma.bookmark.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BookmarkFindUniqueOrThrowArgs>(args: SelectSubset<T, BookmarkFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BookmarkClient<$Result.GetResult<Prisma.$BookmarkPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Bookmark that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookmarkFindFirstArgs} args - Arguments to find a Bookmark
+     * @example
+     * // Get one Bookmark
+     * const bookmark = await prisma.bookmark.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BookmarkFindFirstArgs>(args?: SelectSubset<T, BookmarkFindFirstArgs<ExtArgs>>): Prisma__BookmarkClient<$Result.GetResult<Prisma.$BookmarkPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Bookmark that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookmarkFindFirstOrThrowArgs} args - Arguments to find a Bookmark
+     * @example
+     * // Get one Bookmark
+     * const bookmark = await prisma.bookmark.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BookmarkFindFirstOrThrowArgs>(args?: SelectSubset<T, BookmarkFindFirstOrThrowArgs<ExtArgs>>): Prisma__BookmarkClient<$Result.GetResult<Prisma.$BookmarkPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Bookmarks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookmarkFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Bookmarks
+     * const bookmarks = await prisma.bookmark.findMany()
+     * 
+     * // Get first 10 Bookmarks
+     * const bookmarks = await prisma.bookmark.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bookmarkWithIdOnly = await prisma.bookmark.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BookmarkFindManyArgs>(args?: SelectSubset<T, BookmarkFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookmarkPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Bookmark.
+     * @param {BookmarkCreateArgs} args - Arguments to create a Bookmark.
+     * @example
+     * // Create one Bookmark
+     * const Bookmark = await prisma.bookmark.create({
+     *   data: {
+     *     // ... data to create a Bookmark
+     *   }
+     * })
+     * 
+     */
+    create<T extends BookmarkCreateArgs>(args: SelectSubset<T, BookmarkCreateArgs<ExtArgs>>): Prisma__BookmarkClient<$Result.GetResult<Prisma.$BookmarkPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Bookmarks.
+     * @param {BookmarkCreateManyArgs} args - Arguments to create many Bookmarks.
+     * @example
+     * // Create many Bookmarks
+     * const bookmark = await prisma.bookmark.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BookmarkCreateManyArgs>(args?: SelectSubset<T, BookmarkCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Bookmarks and returns the data saved in the database.
+     * @param {BookmarkCreateManyAndReturnArgs} args - Arguments to create many Bookmarks.
+     * @example
+     * // Create many Bookmarks
+     * const bookmark = await prisma.bookmark.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Bookmarks and only return the `id`
+     * const bookmarkWithIdOnly = await prisma.bookmark.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BookmarkCreateManyAndReturnArgs>(args?: SelectSubset<T, BookmarkCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookmarkPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Bookmark.
+     * @param {BookmarkDeleteArgs} args - Arguments to delete one Bookmark.
+     * @example
+     * // Delete one Bookmark
+     * const Bookmark = await prisma.bookmark.delete({
+     *   where: {
+     *     // ... filter to delete one Bookmark
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BookmarkDeleteArgs>(args: SelectSubset<T, BookmarkDeleteArgs<ExtArgs>>): Prisma__BookmarkClient<$Result.GetResult<Prisma.$BookmarkPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Bookmark.
+     * @param {BookmarkUpdateArgs} args - Arguments to update one Bookmark.
+     * @example
+     * // Update one Bookmark
+     * const bookmark = await prisma.bookmark.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BookmarkUpdateArgs>(args: SelectSubset<T, BookmarkUpdateArgs<ExtArgs>>): Prisma__BookmarkClient<$Result.GetResult<Prisma.$BookmarkPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Bookmarks.
+     * @param {BookmarkDeleteManyArgs} args - Arguments to filter Bookmarks to delete.
+     * @example
+     * // Delete a few Bookmarks
+     * const { count } = await prisma.bookmark.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BookmarkDeleteManyArgs>(args?: SelectSubset<T, BookmarkDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Bookmarks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookmarkUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Bookmarks
+     * const bookmark = await prisma.bookmark.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BookmarkUpdateManyArgs>(args: SelectSubset<T, BookmarkUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Bookmark.
+     * @param {BookmarkUpsertArgs} args - Arguments to update or create a Bookmark.
+     * @example
+     * // Update or create a Bookmark
+     * const bookmark = await prisma.bookmark.upsert({
+     *   create: {
+     *     // ... data to create a Bookmark
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Bookmark we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BookmarkUpsertArgs>(args: SelectSubset<T, BookmarkUpsertArgs<ExtArgs>>): Prisma__BookmarkClient<$Result.GetResult<Prisma.$BookmarkPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Bookmarks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookmarkCountArgs} args - Arguments to filter Bookmarks to count.
+     * @example
+     * // Count the number of Bookmarks
+     * const count = await prisma.bookmark.count({
+     *   where: {
+     *     // ... the filter for the Bookmarks we want to count
+     *   }
+     * })
+    **/
+    count<T extends BookmarkCountArgs>(
+      args?: Subset<T, BookmarkCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BookmarkCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Bookmark.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookmarkAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BookmarkAggregateArgs>(args: Subset<T, BookmarkAggregateArgs>): Prisma.PrismaPromise<GetBookmarkAggregateType<T>>
+
+    /**
+     * Group by Bookmark.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookmarkGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BookmarkGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BookmarkGroupByArgs['orderBy'] }
+        : { orderBy?: BookmarkGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BookmarkGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBookmarkGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Bookmark model
+   */
+  readonly fields: BookmarkFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Bookmark.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BookmarkClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    offer<T extends JobOfferDefaultArgs<ExtArgs> = {}>(args?: Subset<T, JobOfferDefaultArgs<ExtArgs>>): Prisma__JobOfferClient<$Result.GetResult<Prisma.$JobOfferPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Bookmark model
+   */ 
+  interface BookmarkFieldRefs {
+    readonly id: FieldRef<"Bookmark", 'String'>
+    readonly userId: FieldRef<"Bookmark", 'String'>
+    readonly offerId: FieldRef<"Bookmark", 'String'>
+    readonly createdAt: FieldRef<"Bookmark", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Bookmark findUnique
+   */
+  export type BookmarkFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bookmark
+     */
+    select?: BookmarkSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
+    /**
+     * Filter, which Bookmark to fetch.
+     */
+    where: BookmarkWhereUniqueInput
+  }
+
+  /**
+   * Bookmark findUniqueOrThrow
+   */
+  export type BookmarkFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bookmark
+     */
+    select?: BookmarkSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
+    /**
+     * Filter, which Bookmark to fetch.
+     */
+    where: BookmarkWhereUniqueInput
+  }
+
+  /**
+   * Bookmark findFirst
+   */
+  export type BookmarkFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bookmark
+     */
+    select?: BookmarkSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
+    /**
+     * Filter, which Bookmark to fetch.
+     */
+    where?: BookmarkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Bookmarks to fetch.
+     */
+    orderBy?: BookmarkOrderByWithRelationInput | BookmarkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Bookmarks.
+     */
+    cursor?: BookmarkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Bookmarks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Bookmarks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Bookmarks.
+     */
+    distinct?: BookmarkScalarFieldEnum | BookmarkScalarFieldEnum[]
+  }
+
+  /**
+   * Bookmark findFirstOrThrow
+   */
+  export type BookmarkFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bookmark
+     */
+    select?: BookmarkSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
+    /**
+     * Filter, which Bookmark to fetch.
+     */
+    where?: BookmarkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Bookmarks to fetch.
+     */
+    orderBy?: BookmarkOrderByWithRelationInput | BookmarkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Bookmarks.
+     */
+    cursor?: BookmarkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Bookmarks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Bookmarks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Bookmarks.
+     */
+    distinct?: BookmarkScalarFieldEnum | BookmarkScalarFieldEnum[]
+  }
+
+  /**
+   * Bookmark findMany
+   */
+  export type BookmarkFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bookmark
+     */
+    select?: BookmarkSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
+    /**
+     * Filter, which Bookmarks to fetch.
+     */
+    where?: BookmarkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Bookmarks to fetch.
+     */
+    orderBy?: BookmarkOrderByWithRelationInput | BookmarkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Bookmarks.
+     */
+    cursor?: BookmarkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Bookmarks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Bookmarks.
+     */
+    skip?: number
+    distinct?: BookmarkScalarFieldEnum | BookmarkScalarFieldEnum[]
+  }
+
+  /**
+   * Bookmark create
+   */
+  export type BookmarkCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bookmark
+     */
+    select?: BookmarkSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Bookmark.
+     */
+    data: XOR<BookmarkCreateInput, BookmarkUncheckedCreateInput>
+  }
+
+  /**
+   * Bookmark createMany
+   */
+  export type BookmarkCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Bookmarks.
+     */
+    data: BookmarkCreateManyInput | BookmarkCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Bookmark createManyAndReturn
+   */
+  export type BookmarkCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bookmark
+     */
+    select?: BookmarkSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Bookmarks.
+     */
+    data: BookmarkCreateManyInput | BookmarkCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Bookmark update
+   */
+  export type BookmarkUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bookmark
+     */
+    select?: BookmarkSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Bookmark.
+     */
+    data: XOR<BookmarkUpdateInput, BookmarkUncheckedUpdateInput>
+    /**
+     * Choose, which Bookmark to update.
+     */
+    where: BookmarkWhereUniqueInput
+  }
+
+  /**
+   * Bookmark updateMany
+   */
+  export type BookmarkUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Bookmarks.
+     */
+    data: XOR<BookmarkUpdateManyMutationInput, BookmarkUncheckedUpdateManyInput>
+    /**
+     * Filter which Bookmarks to update
+     */
+    where?: BookmarkWhereInput
+  }
+
+  /**
+   * Bookmark upsert
+   */
+  export type BookmarkUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bookmark
+     */
+    select?: BookmarkSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Bookmark to update in case it exists.
+     */
+    where: BookmarkWhereUniqueInput
+    /**
+     * In case the Bookmark found by the `where` argument doesn't exist, create a new Bookmark with this data.
+     */
+    create: XOR<BookmarkCreateInput, BookmarkUncheckedCreateInput>
+    /**
+     * In case the Bookmark was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BookmarkUpdateInput, BookmarkUncheckedUpdateInput>
+  }
+
+  /**
+   * Bookmark delete
+   */
+  export type BookmarkDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bookmark
+     */
+    select?: BookmarkSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
+    /**
+     * Filter which Bookmark to delete.
+     */
+    where: BookmarkWhereUniqueInput
+  }
+
+  /**
+   * Bookmark deleteMany
+   */
+  export type BookmarkDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Bookmarks to delete
+     */
+    where?: BookmarkWhereInput
+  }
+
+  /**
+   * Bookmark without action
+   */
+  export type BookmarkDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bookmark
+     */
+    select?: BookmarkSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
   }
 
 
@@ -6280,6 +7382,7 @@ export namespace Prisma {
     createdAt?: boolean
     deletedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    recruiters?: boolean | Company$recruitersArgs<ExtArgs>
     jobOffers?: boolean | Company$jobOffersArgs<ExtArgs>
     profiles?: boolean | Company$profilesArgs<ExtArgs>
     _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
@@ -6316,6 +7419,7 @@ export namespace Prisma {
 
   export type CompanyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    recruiters?: boolean | Company$recruitersArgs<ExtArgs>
     jobOffers?: boolean | Company$jobOffersArgs<ExtArgs>
     profiles?: boolean | Company$profilesArgs<ExtArgs>
     _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
@@ -6328,6 +7432,7 @@ export namespace Prisma {
     name: "Company"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
+      recruiters: Prisma.$UserPayload<ExtArgs>[]
       jobOffers: Prisma.$JobOfferPayload<ExtArgs>[]
       profiles: Prisma.$ProfilePayload<ExtArgs>[]
     }
@@ -6708,6 +7813,7 @@ export namespace Prisma {
   export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    recruiters<T extends Company$recruitersArgs<ExtArgs> = {}>(args?: Subset<T, Company$recruitersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany"> | Null>
     jobOffers<T extends Company$jobOffersArgs<ExtArgs> = {}>(args?: Subset<T, Company$jobOffersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobOfferPayload<ExtArgs>, T, "findMany"> | Null>
     profiles<T extends Company$profilesArgs<ExtArgs> = {}>(args?: Subset<T, Company$profilesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findMany"> | Null>
     /**
@@ -7065,6 +8171,26 @@ export namespace Prisma {
      * Filter which Companies to delete
      */
     where?: CompanyWhereInput
+  }
+
+  /**
+   * Company.recruiters
+   */
+  export type Company$recruitersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
   /**
@@ -11103,6 +12229,7 @@ export namespace Prisma {
     viewCount: number | null
     publishedAt: Date | null
     expiresAt: Date | null
+    isFeatured: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -11121,6 +12248,7 @@ export namespace Prisma {
     viewCount: number | null
     publishedAt: Date | null
     expiresAt: Date | null
+    isFeatured: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -11139,6 +12267,7 @@ export namespace Prisma {
     viewCount: number
     publishedAt: number
     expiresAt: number
+    isFeatured: number
     createdAt: number
     updatedAt: number
     deletedAt: number
@@ -11169,6 +12298,7 @@ export namespace Prisma {
     viewCount?: true
     publishedAt?: true
     expiresAt?: true
+    isFeatured?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -11187,6 +12317,7 @@ export namespace Prisma {
     viewCount?: true
     publishedAt?: true
     expiresAt?: true
+    isFeatured?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -11205,6 +12336,7 @@ export namespace Prisma {
     viewCount?: true
     publishedAt?: true
     expiresAt?: true
+    isFeatured?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -11310,6 +12442,7 @@ export namespace Prisma {
     viewCount: number
     publishedAt: Date | null
     expiresAt: Date | null
+    isFeatured: boolean
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -11347,10 +12480,12 @@ export namespace Prisma {
     viewCount?: boolean
     publishedAt?: boolean
     expiresAt?: boolean
+    isFeatured?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
     applications?: boolean | JobOffer$applicationsArgs<ExtArgs>
+    bookmarks?: boolean | JobOffer$bookmarksArgs<ExtArgs>
     company?: boolean | CompanyDefaultArgs<ExtArgs>
     recruiter?: boolean | UserDefaultArgs<ExtArgs>
     matchScores?: boolean | JobOffer$matchScoresArgs<ExtArgs>
@@ -11371,6 +12506,7 @@ export namespace Prisma {
     viewCount?: boolean
     publishedAt?: boolean
     expiresAt?: boolean
+    isFeatured?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -11391,6 +12527,7 @@ export namespace Prisma {
     viewCount?: boolean
     publishedAt?: boolean
     expiresAt?: boolean
+    isFeatured?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -11398,6 +12535,7 @@ export namespace Prisma {
 
   export type JobOfferInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     applications?: boolean | JobOffer$applicationsArgs<ExtArgs>
+    bookmarks?: boolean | JobOffer$bookmarksArgs<ExtArgs>
     company?: boolean | CompanyDefaultArgs<ExtArgs>
     recruiter?: boolean | UserDefaultArgs<ExtArgs>
     matchScores?: boolean | JobOffer$matchScoresArgs<ExtArgs>
@@ -11413,6 +12551,7 @@ export namespace Prisma {
     name: "JobOffer"
     objects: {
       applications: Prisma.$ApplicationPayload<ExtArgs>[]
+      bookmarks: Prisma.$BookmarkPayload<ExtArgs>[]
       company: Prisma.$CompanyPayload<ExtArgs>
       recruiter: Prisma.$UserPayload<ExtArgs>
       matchScores: Prisma.$MatchScorePayload<ExtArgs>[]
@@ -11431,6 +12570,7 @@ export namespace Prisma {
       viewCount: number
       publishedAt: Date | null
       expiresAt: Date | null
+      isFeatured: boolean
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
@@ -11799,6 +12939,7 @@ export namespace Prisma {
   export interface Prisma__JobOfferClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     applications<T extends JobOffer$applicationsArgs<ExtArgs> = {}>(args?: Subset<T, JobOffer$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findMany"> | Null>
+    bookmarks<T extends JobOffer$bookmarksArgs<ExtArgs> = {}>(args?: Subset<T, JobOffer$bookmarksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookmarkPayload<ExtArgs>, T, "findMany"> | Null>
     company<T extends CompanyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyDefaultArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     recruiter<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     matchScores<T extends JobOffer$matchScoresArgs<ExtArgs> = {}>(args?: Subset<T, JobOffer$matchScoresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MatchScorePayload<ExtArgs>, T, "findMany"> | Null>
@@ -11844,6 +12985,7 @@ export namespace Prisma {
     readonly viewCount: FieldRef<"JobOffer", 'Int'>
     readonly publishedAt: FieldRef<"JobOffer", 'DateTime'>
     readonly expiresAt: FieldRef<"JobOffer", 'DateTime'>
+    readonly isFeatured: FieldRef<"JobOffer", 'Boolean'>
     readonly createdAt: FieldRef<"JobOffer", 'DateTime'>
     readonly updatedAt: FieldRef<"JobOffer", 'DateTime'>
     readonly deletedAt: FieldRef<"JobOffer", 'DateTime'>
@@ -12182,6 +13324,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ApplicationScalarFieldEnum | ApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * JobOffer.bookmarks
+   */
+  export type JobOffer$bookmarksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bookmark
+     */
+    select?: BookmarkSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
+    where?: BookmarkWhereInput
+    orderBy?: BookmarkOrderByWithRelationInput | BookmarkOrderByWithRelationInput[]
+    cursor?: BookmarkWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BookmarkScalarFieldEnum | BookmarkScalarFieldEnum[]
   }
 
   /**
@@ -19988,6 +21150,7 @@ export namespace Prisma {
     role: 'role',
     isVerified: 'isVerified',
     isBanned: 'isBanned',
+    companyId: 'companyId',
     location: 'location',
     availabilityMonths: 'availabilityMonths',
     createdAt: 'createdAt',
@@ -19995,6 +21158,16 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const BookmarkScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    offerId: 'offerId',
+    createdAt: 'createdAt'
+  };
+
+  export type BookmarkScalarFieldEnum = (typeof BookmarkScalarFieldEnum)[keyof typeof BookmarkScalarFieldEnum]
 
 
   export const RefreshTokenScalarFieldEnum: {
@@ -20106,6 +21279,7 @@ export namespace Prisma {
     viewCount: 'viewCount',
     publishedAt: 'publishedAt',
     expiresAt: 'expiresAt',
+    isFeatured: 'isFeatured',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     deletedAt: 'deletedAt'
@@ -20434,6 +21608,7 @@ export namespace Prisma {
     role?: EnumRoleFilter<"User"> | $Enums.Role
     isVerified?: BoolFilter<"User"> | boolean
     isBanned?: BoolFilter<"User"> | boolean
+    companyId?: StringNullableFilter<"User"> | string | null
     location?: StringNullableFilter<"User"> | string | null
     availabilityMonths?: IntNullableFilter<"User"> | number | null
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -20441,6 +21616,7 @@ export namespace Prisma {
     applications?: ApplicationListRelationFilter
     auditLogs?: AuditLogListRelationFilter
     company?: XOR<CompanyNullableRelationFilter, CompanyWhereInput> | null
+    ownedCompany?: XOR<CompanyNullableRelationFilter, CompanyWhereInput> | null
     cvDocuments?: CvDocumentListRelationFilter
     jobOffers?: JobOfferListRelationFilter
     match_scores?: MatchScoreListRelationFilter
@@ -20452,6 +21628,7 @@ export namespace Prisma {
     profile?: XOR<ProfileNullableRelationFilter, ProfileWhereInput> | null
     refreshTokens?: RefreshTokenListRelationFilter
     chatMessages?: ChatMessageListRelationFilter
+    bookmarks?: BookmarkListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -20461,6 +21638,7 @@ export namespace Prisma {
     role?: SortOrder
     isVerified?: SortOrder
     isBanned?: SortOrder
+    companyId?: SortOrderInput | SortOrder
     location?: SortOrderInput | SortOrder
     availabilityMonths?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -20468,6 +21646,7 @@ export namespace Prisma {
     applications?: ApplicationOrderByRelationAggregateInput
     auditLogs?: AuditLogOrderByRelationAggregateInput
     company?: CompanyOrderByWithRelationInput
+    ownedCompany?: CompanyOrderByWithRelationInput
     cvDocuments?: CvDocumentOrderByRelationAggregateInput
     jobOffers?: JobOfferOrderByRelationAggregateInput
     match_scores?: MatchScoreOrderByRelationAggregateInput
@@ -20479,6 +21658,7 @@ export namespace Prisma {
     profile?: ProfileOrderByWithRelationInput
     refreshTokens?: RefreshTokenOrderByRelationAggregateInput
     chatMessages?: ChatMessageOrderByRelationAggregateInput
+    bookmarks?: BookmarkOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -20491,6 +21671,7 @@ export namespace Prisma {
     role?: EnumRoleFilter<"User"> | $Enums.Role
     isVerified?: BoolFilter<"User"> | boolean
     isBanned?: BoolFilter<"User"> | boolean
+    companyId?: StringNullableFilter<"User"> | string | null
     location?: StringNullableFilter<"User"> | string | null
     availabilityMonths?: IntNullableFilter<"User"> | number | null
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -20498,6 +21679,7 @@ export namespace Prisma {
     applications?: ApplicationListRelationFilter
     auditLogs?: AuditLogListRelationFilter
     company?: XOR<CompanyNullableRelationFilter, CompanyWhereInput> | null
+    ownedCompany?: XOR<CompanyNullableRelationFilter, CompanyWhereInput> | null
     cvDocuments?: CvDocumentListRelationFilter
     jobOffers?: JobOfferListRelationFilter
     match_scores?: MatchScoreListRelationFilter
@@ -20509,6 +21691,7 @@ export namespace Prisma {
     profile?: XOR<ProfileNullableRelationFilter, ProfileWhereInput> | null
     refreshTokens?: RefreshTokenListRelationFilter
     chatMessages?: ChatMessageListRelationFilter
+    bookmarks?: BookmarkListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -20518,6 +21701,7 @@ export namespace Prisma {
     role?: SortOrder
     isVerified?: SortOrder
     isBanned?: SortOrder
+    companyId?: SortOrderInput | SortOrder
     location?: SortOrderInput | SortOrder
     availabilityMonths?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -20539,10 +21723,65 @@ export namespace Prisma {
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     isVerified?: BoolWithAggregatesFilter<"User"> | boolean
     isBanned?: BoolWithAggregatesFilter<"User"> | boolean
+    companyId?: StringNullableWithAggregatesFilter<"User"> | string | null
     location?: StringNullableWithAggregatesFilter<"User"> | string | null
     availabilityMonths?: IntNullableWithAggregatesFilter<"User"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  }
+
+  export type BookmarkWhereInput = {
+    AND?: BookmarkWhereInput | BookmarkWhereInput[]
+    OR?: BookmarkWhereInput[]
+    NOT?: BookmarkWhereInput | BookmarkWhereInput[]
+    id?: StringFilter<"Bookmark"> | string
+    userId?: StringFilter<"Bookmark"> | string
+    offerId?: StringFilter<"Bookmark"> | string
+    createdAt?: DateTimeFilter<"Bookmark"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    offer?: XOR<JobOfferRelationFilter, JobOfferWhereInput>
+  }
+
+  export type BookmarkOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    offerId?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    offer?: JobOfferOrderByWithRelationInput
+  }
+
+  export type BookmarkWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_offerId?: BookmarkUserIdOfferIdCompoundUniqueInput
+    AND?: BookmarkWhereInput | BookmarkWhereInput[]
+    OR?: BookmarkWhereInput[]
+    NOT?: BookmarkWhereInput | BookmarkWhereInput[]
+    userId?: StringFilter<"Bookmark"> | string
+    offerId?: StringFilter<"Bookmark"> | string
+    createdAt?: DateTimeFilter<"Bookmark"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    offer?: XOR<JobOfferRelationFilter, JobOfferWhereInput>
+  }, "id" | "userId_offerId">
+
+  export type BookmarkOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    offerId?: SortOrder
+    createdAt?: SortOrder
+    _count?: BookmarkCountOrderByAggregateInput
+    _max?: BookmarkMaxOrderByAggregateInput
+    _min?: BookmarkMinOrderByAggregateInput
+  }
+
+  export type BookmarkScalarWhereWithAggregatesInput = {
+    AND?: BookmarkScalarWhereWithAggregatesInput | BookmarkScalarWhereWithAggregatesInput[]
+    OR?: BookmarkScalarWhereWithAggregatesInput[]
+    NOT?: BookmarkScalarWhereWithAggregatesInput | BookmarkScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Bookmark"> | string
+    userId?: StringWithAggregatesFilter<"Bookmark"> | string
+    offerId?: StringWithAggregatesFilter<"Bookmark"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Bookmark"> | Date | string
   }
 
   export type RefreshTokenWhereInput = {
@@ -20729,6 +21968,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Company"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Company"> | Date | string | null
     user?: XOR<UserRelationFilter, UserWhereInput>
+    recruiters?: UserListRelationFilter
     jobOffers?: JobOfferListRelationFilter
     profiles?: ProfileListRelationFilter
   }
@@ -20746,6 +21986,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
+    recruiters?: UserOrderByRelationAggregateInput
     jobOffers?: JobOfferOrderByRelationAggregateInput
     profiles?: ProfileOrderByRelationAggregateInput
   }
@@ -20766,6 +22007,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Company"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Company"> | Date | string | null
     user?: XOR<UserRelationFilter, UserWhereInput>
+    recruiters?: UserListRelationFilter
     jobOffers?: JobOfferListRelationFilter
     profiles?: ProfileListRelationFilter
   }, "id" | "userId">
@@ -21072,10 +22314,12 @@ export namespace Prisma {
     viewCount?: IntFilter<"JobOffer"> | number
     publishedAt?: DateTimeNullableFilter<"JobOffer"> | Date | string | null
     expiresAt?: DateTimeNullableFilter<"JobOffer"> | Date | string | null
+    isFeatured?: BoolFilter<"JobOffer"> | boolean
     createdAt?: DateTimeFilter<"JobOffer"> | Date | string
     updatedAt?: DateTimeFilter<"JobOffer"> | Date | string
     deletedAt?: DateTimeNullableFilter<"JobOffer"> | Date | string | null
     applications?: ApplicationListRelationFilter
+    bookmarks?: BookmarkListRelationFilter
     company?: XOR<CompanyRelationFilter, CompanyWhereInput>
     recruiter?: XOR<UserRelationFilter, UserWhereInput>
     matchScores?: MatchScoreListRelationFilter
@@ -21095,10 +22339,12 @@ export namespace Prisma {
     viewCount?: SortOrder
     publishedAt?: SortOrderInput | SortOrder
     expiresAt?: SortOrderInput | SortOrder
+    isFeatured?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
     applications?: ApplicationOrderByRelationAggregateInput
+    bookmarks?: BookmarkOrderByRelationAggregateInput
     company?: CompanyOrderByWithRelationInput
     recruiter?: UserOrderByWithRelationInput
     matchScores?: MatchScoreOrderByRelationAggregateInput
@@ -21121,10 +22367,12 @@ export namespace Prisma {
     viewCount?: IntFilter<"JobOffer"> | number
     publishedAt?: DateTimeNullableFilter<"JobOffer"> | Date | string | null
     expiresAt?: DateTimeNullableFilter<"JobOffer"> | Date | string | null
+    isFeatured?: BoolFilter<"JobOffer"> | boolean
     createdAt?: DateTimeFilter<"JobOffer"> | Date | string
     updatedAt?: DateTimeFilter<"JobOffer"> | Date | string
     deletedAt?: DateTimeNullableFilter<"JobOffer"> | Date | string | null
     applications?: ApplicationListRelationFilter
+    bookmarks?: BookmarkListRelationFilter
     company?: XOR<CompanyRelationFilter, CompanyWhereInput>
     recruiter?: XOR<UserRelationFilter, UserWhereInput>
     matchScores?: MatchScoreListRelationFilter
@@ -21144,6 +22392,7 @@ export namespace Prisma {
     viewCount?: SortOrder
     publishedAt?: SortOrderInput | SortOrder
     expiresAt?: SortOrderInput | SortOrder
+    isFeatured?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
@@ -21170,6 +22419,7 @@ export namespace Prisma {
     viewCount?: IntWithAggregatesFilter<"JobOffer"> | number
     publishedAt?: DateTimeNullableWithAggregatesFilter<"JobOffer"> | Date | string | null
     expiresAt?: DateTimeNullableWithAggregatesFilter<"JobOffer"> | Date | string | null
+    isFeatured?: BoolWithAggregatesFilter<"JobOffer"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"JobOffer"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"JobOffer"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"JobOffer"> | Date | string | null
@@ -21718,7 +22968,8 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     applications?: ApplicationCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
-    company?: CompanyCreateNestedOneWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutRecruitersInput
+    ownedCompany?: CompanyCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
@@ -21730,6 +22981,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -21739,13 +22991,14 @@ export namespace Prisma {
     role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
+    companyId?: string | null
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    ownedCompany?: CompanyUncheckedCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
@@ -21757,6 +23010,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -21772,7 +23026,8 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutRecruitersNestedInput
+    ownedCompany?: CompanyUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
@@ -21784,6 +23039,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -21793,13 +23049,14 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     isBanned?: BoolFieldUpdateOperationsInput | boolean
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    ownedCompany?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
@@ -21811,6 +23068,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -21820,6 +23078,7 @@ export namespace Prisma {
     role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
+    companyId?: string | null
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
@@ -21846,10 +23105,58 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     isBanned?: BoolFieldUpdateOperationsInput | boolean
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type BookmarkCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutBookmarksInput
+    offer: JobOfferCreateNestedOneWithoutBookmarksInput
+  }
+
+  export type BookmarkUncheckedCreateInput = {
+    id?: string
+    userId: string
+    offerId: string
+    createdAt?: Date | string
+  }
+
+  export type BookmarkUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutBookmarksNestedInput
+    offer?: JobOfferUpdateOneRequiredWithoutBookmarksNestedInput
+  }
+
+  export type BookmarkUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    offerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookmarkCreateManyInput = {
+    id?: string
+    userId: string
+    offerId: string
+    createdAt?: Date | string
+  }
+
+  export type BookmarkUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookmarkUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    offerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RefreshTokenCreateInput = {
@@ -22041,7 +23348,8 @@ export namespace Prisma {
     validatedAt?: Date | string | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
-    user: UserCreateNestedOneWithoutCompanyInput
+    user: UserCreateNestedOneWithoutOwnedCompanyInput
+    recruiters?: UserCreateNestedManyWithoutCompanyInput
     jobOffers?: JobOfferCreateNestedManyWithoutCompanyInput
     profiles?: ProfileCreateNestedManyWithoutCompanyInput
   }
@@ -22058,6 +23366,7 @@ export namespace Prisma {
     validatedAt?: Date | string | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
+    recruiters?: UserUncheckedCreateNestedManyWithoutCompanyInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutCompanyInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutCompanyInput
   }
@@ -22073,7 +23382,8 @@ export namespace Prisma {
     validatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    user?: UserUpdateOneRequiredWithoutCompanyNestedInput
+    user?: UserUpdateOneRequiredWithoutOwnedCompanyNestedInput
+    recruiters?: UserUpdateManyWithoutCompanyNestedInput
     jobOffers?: JobOfferUpdateManyWithoutCompanyNestedInput
     profiles?: ProfileUpdateManyWithoutCompanyNestedInput
   }
@@ -22090,6 +23400,7 @@ export namespace Prisma {
     validatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    recruiters?: UserUncheckedUpdateManyWithoutCompanyNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutCompanyNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutCompanyNestedInput
   }
@@ -22408,10 +23719,12 @@ export namespace Prisma {
     viewCount?: number
     publishedAt?: Date | string | null
     expiresAt?: Date | string | null
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationCreateNestedManyWithoutOfferInput
+    bookmarks?: BookmarkCreateNestedManyWithoutOfferInput
     company: CompanyCreateNestedOneWithoutJobOffersInput
     recruiter: UserCreateNestedOneWithoutJobOffersInput
     matchScores?: MatchScoreCreateNestedManyWithoutOfferInput
@@ -22431,10 +23744,12 @@ export namespace Prisma {
     viewCount?: number
     publishedAt?: Date | string | null
     expiresAt?: Date | string | null
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationUncheckedCreateNestedManyWithoutOfferInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutOfferInput
     matchScores?: MatchScoreUncheckedCreateNestedManyWithoutOfferInput
     offerSkills?: OfferSkillUncheckedCreateNestedManyWithoutOfferInput
   }
@@ -22450,10 +23765,12 @@ export namespace Prisma {
     viewCount?: IntFieldUpdateOperationsInput | number
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUpdateManyWithoutOfferNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutOfferNestedInput
     company?: CompanyUpdateOneRequiredWithoutJobOffersNestedInput
     recruiter?: UserUpdateOneRequiredWithoutJobOffersNestedInput
     matchScores?: MatchScoreUpdateManyWithoutOfferNestedInput
@@ -22473,10 +23790,12 @@ export namespace Prisma {
     viewCount?: IntFieldUpdateOperationsInput | number
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUncheckedUpdateManyWithoutOfferNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutOfferNestedInput
     matchScores?: MatchScoreUncheckedUpdateManyWithoutOfferNestedInput
     offerSkills?: OfferSkillUncheckedUpdateManyWithoutOfferNestedInput
   }
@@ -22494,6 +23813,7 @@ export namespace Prisma {
     viewCount?: number
     publishedAt?: Date | string | null
     expiresAt?: Date | string | null
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -22510,6 +23830,7 @@ export namespace Prisma {
     viewCount?: IntFieldUpdateOperationsInput | number
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22528,6 +23849,7 @@ export namespace Prisma {
     viewCount?: IntFieldUpdateOperationsInput | number
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -23199,6 +24521,12 @@ export namespace Prisma {
     none?: ChatMessageWhereInput
   }
 
+  export type BookmarkListRelationFilter = {
+    every?: BookmarkWhereInput
+    some?: BookmarkWhereInput
+    none?: BookmarkWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -23244,6 +24572,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type BookmarkOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
@@ -23251,6 +24583,7 @@ export namespace Prisma {
     role?: SortOrder
     isVerified?: SortOrder
     isBanned?: SortOrder
+    companyId?: SortOrder
     location?: SortOrder
     availabilityMonths?: SortOrder
     createdAt?: SortOrder
@@ -23268,6 +24601,7 @@ export namespace Prisma {
     role?: SortOrder
     isVerified?: SortOrder
     isBanned?: SortOrder
+    companyId?: SortOrder
     location?: SortOrder
     availabilityMonths?: SortOrder
     createdAt?: SortOrder
@@ -23281,6 +24615,7 @@ export namespace Prisma {
     role?: SortOrder
     isVerified?: SortOrder
     isBanned?: SortOrder
+    companyId?: SortOrder
     location?: SortOrder
     availabilityMonths?: SortOrder
     createdAt?: SortOrder
@@ -23392,6 +24727,37 @@ export namespace Prisma {
   export type UserRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
+  }
+
+  export type JobOfferRelationFilter = {
+    is?: JobOfferWhereInput
+    isNot?: JobOfferWhereInput
+  }
+
+  export type BookmarkUserIdOfferIdCompoundUniqueInput = {
+    userId: string
+    offerId: string
+  }
+
+  export type BookmarkCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    offerId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BookmarkMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    offerId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BookmarkMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    offerId?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type RefreshTokenCountOrderByAggregateInput = {
@@ -23557,10 +24923,20 @@ export namespace Prisma {
     _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
+  export type UserListRelationFilter = {
+    every?: UserWhereInput
+    some?: UserWhereInput
+    none?: UserWhereInput
+  }
+
   export type ProfileListRelationFilter = {
     every?: ProfileWhereInput
     some?: ProfileWhereInput
     none?: ProfileWhereInput
+  }
+
+  export type UserOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type ProfileOrderByRelationAggregateInput = {
@@ -23851,6 +25227,7 @@ export namespace Prisma {
     viewCount?: SortOrder
     publishedAt?: SortOrder
     expiresAt?: SortOrder
+    isFeatured?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -23874,6 +25251,7 @@ export namespace Prisma {
     viewCount?: SortOrder
     publishedAt?: SortOrder
     expiresAt?: SortOrder
+    isFeatured?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -23892,6 +25270,7 @@ export namespace Prisma {
     viewCount?: SortOrder
     publishedAt?: SortOrder
     expiresAt?: SortOrder
+    isFeatured?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -23910,11 +25289,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumOfferStatusFilter<$PrismaModel>
     _max?: NestedEnumOfferStatusFilter<$PrismaModel>
-  }
-
-  export type JobOfferRelationFilter = {
-    is?: JobOfferWhereInput
-    isNot?: JobOfferWhereInput
   }
 
   export type OfferSkillOfferIdSkillIdCompoundUniqueInput = {
@@ -24299,6 +25673,12 @@ export namespace Prisma {
     connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
   }
 
+  export type CompanyCreateNestedOneWithoutRecruitersInput = {
+    create?: XOR<CompanyCreateWithoutRecruitersInput, CompanyUncheckedCreateWithoutRecruitersInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutRecruitersInput
+    connect?: CompanyWhereUniqueInput
+  }
+
   export type CompanyCreateNestedOneWithoutUserInput = {
     create?: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
     connectOrCreate?: CompanyCreateOrConnectWithoutUserInput
@@ -24379,6 +25759,13 @@ export namespace Prisma {
     connectOrCreate?: ChatMessageCreateOrConnectWithoutUserInput | ChatMessageCreateOrConnectWithoutUserInput[]
     createMany?: ChatMessageCreateManyUserInputEnvelope
     connect?: ChatMessageWhereUniqueInput | ChatMessageWhereUniqueInput[]
+  }
+
+  export type BookmarkCreateNestedManyWithoutUserInput = {
+    create?: XOR<BookmarkCreateWithoutUserInput, BookmarkUncheckedCreateWithoutUserInput> | BookmarkCreateWithoutUserInput[] | BookmarkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BookmarkCreateOrConnectWithoutUserInput | BookmarkCreateOrConnectWithoutUserInput[]
+    createMany?: BookmarkCreateManyUserInputEnvelope
+    connect?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
   }
 
   export type ApplicationUncheckedCreateNestedManyWithoutCandidateInput = {
@@ -24477,6 +25864,13 @@ export namespace Prisma {
     connect?: ChatMessageWhereUniqueInput | ChatMessageWhereUniqueInput[]
   }
 
+  export type BookmarkUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<BookmarkCreateWithoutUserInput, BookmarkUncheckedCreateWithoutUserInput> | BookmarkCreateWithoutUserInput[] | BookmarkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BookmarkCreateOrConnectWithoutUserInput | BookmarkCreateOrConnectWithoutUserInput[]
+    createMany?: BookmarkCreateManyUserInputEnvelope
+    connect?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -24535,6 +25929,16 @@ export namespace Prisma {
     update?: AuditLogUpdateWithWhereUniqueWithoutActorInput | AuditLogUpdateWithWhereUniqueWithoutActorInput[]
     updateMany?: AuditLogUpdateManyWithWhereWithoutActorInput | AuditLogUpdateManyWithWhereWithoutActorInput[]
     deleteMany?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
+  }
+
+  export type CompanyUpdateOneWithoutRecruitersNestedInput = {
+    create?: XOR<CompanyCreateWithoutRecruitersInput, CompanyUncheckedCreateWithoutRecruitersInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutRecruitersInput
+    upsert?: CompanyUpsertWithoutRecruitersInput
+    disconnect?: CompanyWhereInput | boolean
+    delete?: CompanyWhereInput | boolean
+    connect?: CompanyWhereUniqueInput
+    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutRecruitersInput, CompanyUpdateWithoutRecruitersInput>, CompanyUncheckedUpdateWithoutRecruitersInput>
   }
 
   export type CompanyUpdateOneWithoutUserNestedInput = {
@@ -24695,6 +26099,20 @@ export namespace Prisma {
     update?: ChatMessageUpdateWithWhereUniqueWithoutUserInput | ChatMessageUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ChatMessageUpdateManyWithWhereWithoutUserInput | ChatMessageUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ChatMessageScalarWhereInput | ChatMessageScalarWhereInput[]
+  }
+
+  export type BookmarkUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BookmarkCreateWithoutUserInput, BookmarkUncheckedCreateWithoutUserInput> | BookmarkCreateWithoutUserInput[] | BookmarkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BookmarkCreateOrConnectWithoutUserInput | BookmarkCreateOrConnectWithoutUserInput[]
+    upsert?: BookmarkUpsertWithWhereUniqueWithoutUserInput | BookmarkUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BookmarkCreateManyUserInputEnvelope
+    set?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    disconnect?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    delete?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    connect?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    update?: BookmarkUpdateWithWhereUniqueWithoutUserInput | BookmarkUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BookmarkUpdateManyWithWhereWithoutUserInput | BookmarkUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BookmarkScalarWhereInput | BookmarkScalarWhereInput[]
   }
 
   export type ApplicationUncheckedUpdateManyWithoutCandidateNestedInput = {
@@ -24885,6 +26303,48 @@ export namespace Prisma {
     deleteMany?: ChatMessageScalarWhereInput | ChatMessageScalarWhereInput[]
   }
 
+  export type BookmarkUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BookmarkCreateWithoutUserInput, BookmarkUncheckedCreateWithoutUserInput> | BookmarkCreateWithoutUserInput[] | BookmarkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BookmarkCreateOrConnectWithoutUserInput | BookmarkCreateOrConnectWithoutUserInput[]
+    upsert?: BookmarkUpsertWithWhereUniqueWithoutUserInput | BookmarkUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BookmarkCreateManyUserInputEnvelope
+    set?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    disconnect?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    delete?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    connect?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    update?: BookmarkUpdateWithWhereUniqueWithoutUserInput | BookmarkUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BookmarkUpdateManyWithWhereWithoutUserInput | BookmarkUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BookmarkScalarWhereInput | BookmarkScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutBookmarksInput = {
+    create?: XOR<UserCreateWithoutBookmarksInput, UserUncheckedCreateWithoutBookmarksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBookmarksInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type JobOfferCreateNestedOneWithoutBookmarksInput = {
+    create?: XOR<JobOfferCreateWithoutBookmarksInput, JobOfferUncheckedCreateWithoutBookmarksInput>
+    connectOrCreate?: JobOfferCreateOrConnectWithoutBookmarksInput
+    connect?: JobOfferWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutBookmarksNestedInput = {
+    create?: XOR<UserCreateWithoutBookmarksInput, UserUncheckedCreateWithoutBookmarksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBookmarksInput
+    upsert?: UserUpsertWithoutBookmarksInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBookmarksInput, UserUpdateWithoutBookmarksInput>, UserUncheckedUpdateWithoutBookmarksInput>
+  }
+
+  export type JobOfferUpdateOneRequiredWithoutBookmarksNestedInput = {
+    create?: XOR<JobOfferCreateWithoutBookmarksInput, JobOfferUncheckedCreateWithoutBookmarksInput>
+    connectOrCreate?: JobOfferCreateOrConnectWithoutBookmarksInput
+    upsert?: JobOfferUpsertWithoutBookmarksInput
+    connect?: JobOfferWhereUniqueInput
+    update?: XOR<XOR<JobOfferUpdateToOneWithWhereWithoutBookmarksInput, JobOfferUpdateWithoutBookmarksInput>, JobOfferUncheckedUpdateWithoutBookmarksInput>
+  }
+
   export type UserCreateNestedOneWithoutRefreshTokensInput = {
     create?: XOR<UserCreateWithoutRefreshTokensInput, UserUncheckedCreateWithoutRefreshTokensInput>
     connectOrCreate?: UserCreateOrConnectWithoutRefreshTokensInput
@@ -24953,10 +26413,17 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProfileInput, UserUpdateWithoutProfileInput>, UserUncheckedUpdateWithoutProfileInput>
   }
 
-  export type UserCreateNestedOneWithoutCompanyInput = {
-    create?: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput>
-    connectOrCreate?: UserCreateOrConnectWithoutCompanyInput
+  export type UserCreateNestedOneWithoutOwnedCompanyInput = {
+    create?: XOR<UserCreateWithoutOwnedCompanyInput, UserUncheckedCreateWithoutOwnedCompanyInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOwnedCompanyInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput> | UserCreateWithoutCompanyInput[] | UserUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCompanyInput | UserCreateOrConnectWithoutCompanyInput[]
+    createMany?: UserCreateManyCompanyInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
   export type JobOfferCreateNestedManyWithoutCompanyInput = {
@@ -24973,6 +26440,13 @@ export namespace Prisma {
     connect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
   }
 
+  export type UserUncheckedCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput> | UserCreateWithoutCompanyInput[] | UserUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCompanyInput | UserCreateOrConnectWithoutCompanyInput[]
+    createMany?: UserCreateManyCompanyInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
   export type JobOfferUncheckedCreateNestedManyWithoutCompanyInput = {
     create?: XOR<JobOfferCreateWithoutCompanyInput, JobOfferUncheckedCreateWithoutCompanyInput> | JobOfferCreateWithoutCompanyInput[] | JobOfferUncheckedCreateWithoutCompanyInput[]
     connectOrCreate?: JobOfferCreateOrConnectWithoutCompanyInput | JobOfferCreateOrConnectWithoutCompanyInput[]
@@ -24987,12 +26461,26 @@ export namespace Prisma {
     connect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
   }
 
-  export type UserUpdateOneRequiredWithoutCompanyNestedInput = {
-    create?: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput>
-    connectOrCreate?: UserCreateOrConnectWithoutCompanyInput
-    upsert?: UserUpsertWithoutCompanyInput
+  export type UserUpdateOneRequiredWithoutOwnedCompanyNestedInput = {
+    create?: XOR<UserCreateWithoutOwnedCompanyInput, UserUncheckedCreateWithoutOwnedCompanyInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOwnedCompanyInput
+    upsert?: UserUpsertWithoutOwnedCompanyInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCompanyInput, UserUpdateWithoutCompanyInput>, UserUncheckedUpdateWithoutCompanyInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOwnedCompanyInput, UserUpdateWithoutOwnedCompanyInput>, UserUncheckedUpdateWithoutOwnedCompanyInput>
+  }
+
+  export type UserUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput> | UserCreateWithoutCompanyInput[] | UserUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCompanyInput | UserCreateOrConnectWithoutCompanyInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutCompanyInput | UserUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: UserCreateManyCompanyInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutCompanyInput | UserUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutCompanyInput | UserUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type JobOfferUpdateManyWithoutCompanyNestedInput = {
@@ -25021,6 +26509,20 @@ export namespace Prisma {
     update?: ProfileUpdateWithWhereUniqueWithoutCompanyInput | ProfileUpdateWithWhereUniqueWithoutCompanyInput[]
     updateMany?: ProfileUpdateManyWithWhereWithoutCompanyInput | ProfileUpdateManyWithWhereWithoutCompanyInput[]
     deleteMany?: ProfileScalarWhereInput | ProfileScalarWhereInput[]
+  }
+
+  export type UserUncheckedUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput> | UserCreateWithoutCompanyInput[] | UserUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutCompanyInput | UserCreateOrConnectWithoutCompanyInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutCompanyInput | UserUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: UserCreateManyCompanyInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutCompanyInput | UserUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutCompanyInput | UserUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type JobOfferUncheckedUpdateManyWithoutCompanyNestedInput = {
@@ -25326,6 +26828,13 @@ export namespace Prisma {
     connect?: ApplicationWhereUniqueInput | ApplicationWhereUniqueInput[]
   }
 
+  export type BookmarkCreateNestedManyWithoutOfferInput = {
+    create?: XOR<BookmarkCreateWithoutOfferInput, BookmarkUncheckedCreateWithoutOfferInput> | BookmarkCreateWithoutOfferInput[] | BookmarkUncheckedCreateWithoutOfferInput[]
+    connectOrCreate?: BookmarkCreateOrConnectWithoutOfferInput | BookmarkCreateOrConnectWithoutOfferInput[]
+    createMany?: BookmarkCreateManyOfferInputEnvelope
+    connect?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+  }
+
   export type CompanyCreateNestedOneWithoutJobOffersInput = {
     create?: XOR<CompanyCreateWithoutJobOffersInput, CompanyUncheckedCreateWithoutJobOffersInput>
     connectOrCreate?: CompanyCreateOrConnectWithoutJobOffersInput
@@ -25359,6 +26868,13 @@ export namespace Prisma {
     connect?: ApplicationWhereUniqueInput | ApplicationWhereUniqueInput[]
   }
 
+  export type BookmarkUncheckedCreateNestedManyWithoutOfferInput = {
+    create?: XOR<BookmarkCreateWithoutOfferInput, BookmarkUncheckedCreateWithoutOfferInput> | BookmarkCreateWithoutOfferInput[] | BookmarkUncheckedCreateWithoutOfferInput[]
+    connectOrCreate?: BookmarkCreateOrConnectWithoutOfferInput | BookmarkCreateOrConnectWithoutOfferInput[]
+    createMany?: BookmarkCreateManyOfferInputEnvelope
+    connect?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+  }
+
   export type MatchScoreUncheckedCreateNestedManyWithoutOfferInput = {
     create?: XOR<MatchScoreCreateWithoutOfferInput, MatchScoreUncheckedCreateWithoutOfferInput> | MatchScoreCreateWithoutOfferInput[] | MatchScoreUncheckedCreateWithoutOfferInput[]
     connectOrCreate?: MatchScoreCreateOrConnectWithoutOfferInput | MatchScoreCreateOrConnectWithoutOfferInput[]
@@ -25389,6 +26905,20 @@ export namespace Prisma {
     update?: ApplicationUpdateWithWhereUniqueWithoutOfferInput | ApplicationUpdateWithWhereUniqueWithoutOfferInput[]
     updateMany?: ApplicationUpdateManyWithWhereWithoutOfferInput | ApplicationUpdateManyWithWhereWithoutOfferInput[]
     deleteMany?: ApplicationScalarWhereInput | ApplicationScalarWhereInput[]
+  }
+
+  export type BookmarkUpdateManyWithoutOfferNestedInput = {
+    create?: XOR<BookmarkCreateWithoutOfferInput, BookmarkUncheckedCreateWithoutOfferInput> | BookmarkCreateWithoutOfferInput[] | BookmarkUncheckedCreateWithoutOfferInput[]
+    connectOrCreate?: BookmarkCreateOrConnectWithoutOfferInput | BookmarkCreateOrConnectWithoutOfferInput[]
+    upsert?: BookmarkUpsertWithWhereUniqueWithoutOfferInput | BookmarkUpsertWithWhereUniqueWithoutOfferInput[]
+    createMany?: BookmarkCreateManyOfferInputEnvelope
+    set?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    disconnect?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    delete?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    connect?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    update?: BookmarkUpdateWithWhereUniqueWithoutOfferInput | BookmarkUpdateWithWhereUniqueWithoutOfferInput[]
+    updateMany?: BookmarkUpdateManyWithWhereWithoutOfferInput | BookmarkUpdateManyWithWhereWithoutOfferInput[]
+    deleteMany?: BookmarkScalarWhereInput | BookmarkScalarWhereInput[]
   }
 
   export type CompanyUpdateOneRequiredWithoutJobOffersNestedInput = {
@@ -25447,6 +26977,20 @@ export namespace Prisma {
     update?: ApplicationUpdateWithWhereUniqueWithoutOfferInput | ApplicationUpdateWithWhereUniqueWithoutOfferInput[]
     updateMany?: ApplicationUpdateManyWithWhereWithoutOfferInput | ApplicationUpdateManyWithWhereWithoutOfferInput[]
     deleteMany?: ApplicationScalarWhereInput | ApplicationScalarWhereInput[]
+  }
+
+  export type BookmarkUncheckedUpdateManyWithoutOfferNestedInput = {
+    create?: XOR<BookmarkCreateWithoutOfferInput, BookmarkUncheckedCreateWithoutOfferInput> | BookmarkCreateWithoutOfferInput[] | BookmarkUncheckedCreateWithoutOfferInput[]
+    connectOrCreate?: BookmarkCreateOrConnectWithoutOfferInput | BookmarkCreateOrConnectWithoutOfferInput[]
+    upsert?: BookmarkUpsertWithWhereUniqueWithoutOfferInput | BookmarkUpsertWithWhereUniqueWithoutOfferInput[]
+    createMany?: BookmarkCreateManyOfferInputEnvelope
+    set?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    disconnect?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    delete?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    connect?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    update?: BookmarkUpdateWithWhereUniqueWithoutOfferInput | BookmarkUpdateWithWhereUniqueWithoutOfferInput[]
+    updateMany?: BookmarkUpdateManyWithWhereWithoutOfferInput | BookmarkUpdateManyWithWhereWithoutOfferInput[]
+    deleteMany?: BookmarkScalarWhereInput | BookmarkScalarWhereInput[]
   }
 
   export type MatchScoreUncheckedUpdateManyWithoutOfferNestedInput = {
@@ -26186,6 +27730,43 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type CompanyCreateWithoutRecruitersInput = {
+    id?: string
+    name: string
+    industry?: string | null
+    siteWeb?: string | null
+    isVerified?: boolean
+    isRejected?: boolean
+    rejectedReason?: string | null
+    validatedAt?: Date | string | null
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    user: UserCreateNestedOneWithoutOwnedCompanyInput
+    jobOffers?: JobOfferCreateNestedManyWithoutCompanyInput
+    profiles?: ProfileCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyUncheckedCreateWithoutRecruitersInput = {
+    id?: string
+    userId: string
+    name: string
+    industry?: string | null
+    siteWeb?: string | null
+    isVerified?: boolean
+    isRejected?: boolean
+    rejectedReason?: string | null
+    validatedAt?: Date | string | null
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    jobOffers?: JobOfferUncheckedCreateNestedManyWithoutCompanyInput
+    profiles?: ProfileUncheckedCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyCreateOrConnectWithoutRecruitersInput = {
+    where: CompanyWhereUniqueInput
+    create: XOR<CompanyCreateWithoutRecruitersInput, CompanyUncheckedCreateWithoutRecruitersInput>
+  }
+
   export type CompanyCreateWithoutUserInput = {
     id?: string
     name: string
@@ -26197,6 +27778,7 @@ export namespace Prisma {
     validatedAt?: Date | string | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
+    recruiters?: UserCreateNestedManyWithoutCompanyInput
     jobOffers?: JobOfferCreateNestedManyWithoutCompanyInput
     profiles?: ProfileCreateNestedManyWithoutCompanyInput
   }
@@ -26212,6 +27794,7 @@ export namespace Prisma {
     validatedAt?: Date | string | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
+    recruiters?: UserUncheckedCreateNestedManyWithoutCompanyInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutCompanyInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutCompanyInput
   }
@@ -26272,10 +27855,12 @@ export namespace Prisma {
     viewCount?: number
     publishedAt?: Date | string | null
     expiresAt?: Date | string | null
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationCreateNestedManyWithoutOfferInput
+    bookmarks?: BookmarkCreateNestedManyWithoutOfferInput
     company: CompanyCreateNestedOneWithoutJobOffersInput
     matchScores?: MatchScoreCreateNestedManyWithoutOfferInput
     offerSkills?: OfferSkillCreateNestedManyWithoutOfferInput
@@ -26293,10 +27878,12 @@ export namespace Prisma {
     viewCount?: number
     publishedAt?: Date | string | null
     expiresAt?: Date | string | null
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationUncheckedCreateNestedManyWithoutOfferInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutOfferInput
     matchScores?: MatchScoreUncheckedCreateNestedManyWithoutOfferInput
     offerSkills?: OfferSkillUncheckedCreateNestedManyWithoutOfferInput
   }
@@ -26570,6 +28157,28 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type BookmarkCreateWithoutUserInput = {
+    id?: string
+    createdAt?: Date | string
+    offer: JobOfferCreateNestedOneWithoutBookmarksInput
+  }
+
+  export type BookmarkUncheckedCreateWithoutUserInput = {
+    id?: string
+    offerId: string
+    createdAt?: Date | string
+  }
+
+  export type BookmarkCreateOrConnectWithoutUserInput = {
+    where: BookmarkWhereUniqueInput
+    create: XOR<BookmarkCreateWithoutUserInput, BookmarkUncheckedCreateWithoutUserInput>
+  }
+
+  export type BookmarkCreateManyUserInputEnvelope = {
+    data: BookmarkCreateManyUserInput | BookmarkCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ApplicationUpsertWithWhereUniqueWithoutCandidateInput = {
     where: ApplicationWhereUniqueInput
     update: XOR<ApplicationUpdateWithoutCandidateInput, ApplicationUncheckedUpdateWithoutCandidateInput>
@@ -26628,6 +28237,49 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"AuditLog"> | Date | string
   }
 
+  export type CompanyUpsertWithoutRecruitersInput = {
+    update: XOR<CompanyUpdateWithoutRecruitersInput, CompanyUncheckedUpdateWithoutRecruitersInput>
+    create: XOR<CompanyCreateWithoutRecruitersInput, CompanyUncheckedCreateWithoutRecruitersInput>
+    where?: CompanyWhereInput
+  }
+
+  export type CompanyUpdateToOneWithWhereWithoutRecruitersInput = {
+    where?: CompanyWhereInput
+    data: XOR<CompanyUpdateWithoutRecruitersInput, CompanyUncheckedUpdateWithoutRecruitersInput>
+  }
+
+  export type CompanyUpdateWithoutRecruitersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    siteWeb?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isRejected?: BoolFieldUpdateOperationsInput | boolean
+    rejectedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    validatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user?: UserUpdateOneRequiredWithoutOwnedCompanyNestedInput
+    jobOffers?: JobOfferUpdateManyWithoutCompanyNestedInput
+    profiles?: ProfileUpdateManyWithoutCompanyNestedInput
+  }
+
+  export type CompanyUncheckedUpdateWithoutRecruitersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    siteWeb?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isRejected?: BoolFieldUpdateOperationsInput | boolean
+    rejectedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    validatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jobOffers?: JobOfferUncheckedUpdateManyWithoutCompanyNestedInput
+    profiles?: ProfileUncheckedUpdateManyWithoutCompanyNestedInput
+  }
+
   export type CompanyUpsertWithoutUserInput = {
     update: XOR<CompanyUpdateWithoutUserInput, CompanyUncheckedUpdateWithoutUserInput>
     create: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
@@ -26650,6 +28302,7 @@ export namespace Prisma {
     validatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    recruiters?: UserUpdateManyWithoutCompanyNestedInput
     jobOffers?: JobOfferUpdateManyWithoutCompanyNestedInput
     profiles?: ProfileUpdateManyWithoutCompanyNestedInput
   }
@@ -26665,6 +28318,7 @@ export namespace Prisma {
     validatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    recruiters?: UserUncheckedUpdateManyWithoutCompanyNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutCompanyNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutCompanyNestedInput
   }
@@ -26734,6 +28388,7 @@ export namespace Prisma {
     viewCount?: IntFilter<"JobOffer"> | number
     publishedAt?: DateTimeNullableFilter<"JobOffer"> | Date | string | null
     expiresAt?: DateTimeNullableFilter<"JobOffer"> | Date | string | null
+    isFeatured?: BoolFilter<"JobOffer"> | boolean
     createdAt?: DateTimeFilter<"JobOffer"> | Date | string
     updatedAt?: DateTimeFilter<"JobOffer"> | Date | string
     deletedAt?: DateTimeNullableFilter<"JobOffer"> | Date | string | null
@@ -26987,6 +28642,264 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"ChatMessage"> | Date | string
   }
 
+  export type BookmarkUpsertWithWhereUniqueWithoutUserInput = {
+    where: BookmarkWhereUniqueInput
+    update: XOR<BookmarkUpdateWithoutUserInput, BookmarkUncheckedUpdateWithoutUserInput>
+    create: XOR<BookmarkCreateWithoutUserInput, BookmarkUncheckedCreateWithoutUserInput>
+  }
+
+  export type BookmarkUpdateWithWhereUniqueWithoutUserInput = {
+    where: BookmarkWhereUniqueInput
+    data: XOR<BookmarkUpdateWithoutUserInput, BookmarkUncheckedUpdateWithoutUserInput>
+  }
+
+  export type BookmarkUpdateManyWithWhereWithoutUserInput = {
+    where: BookmarkScalarWhereInput
+    data: XOR<BookmarkUpdateManyMutationInput, BookmarkUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type BookmarkScalarWhereInput = {
+    AND?: BookmarkScalarWhereInput | BookmarkScalarWhereInput[]
+    OR?: BookmarkScalarWhereInput[]
+    NOT?: BookmarkScalarWhereInput | BookmarkScalarWhereInput[]
+    id?: StringFilter<"Bookmark"> | string
+    userId?: StringFilter<"Bookmark"> | string
+    offerId?: StringFilter<"Bookmark"> | string
+    createdAt?: DateTimeFilter<"Bookmark"> | Date | string
+  }
+
+  export type UserCreateWithoutBookmarksInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role: $Enums.Role
+    isVerified?: boolean
+    isBanned?: boolean
+    location?: string | null
+    availabilityMonths?: number | null
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    applications?: ApplicationCreateNestedManyWithoutCandidateInput
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    company?: CompanyCreateNestedOneWithoutRecruitersInput
+    ownedCompany?: CompanyCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
+    jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionCreateNestedManyWithoutReceiverInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutBookmarksInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role: $Enums.Role
+    isVerified?: boolean
+    isBanned?: boolean
+    companyId?: string | null
+    location?: string | null
+    availabilityMonths?: number | null
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    ownedCompany?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
+    jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionUncheckedCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionUncheckedCreateNestedManyWithoutReceiverInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutBookmarksInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutBookmarksInput, UserUncheckedCreateWithoutBookmarksInput>
+  }
+
+  export type JobOfferCreateWithoutBookmarksInput = {
+    id?: string
+    title: string
+    description: string
+    location?: string | null
+    durationMonths?: number | null
+    remote?: boolean
+    offerStatus?: $Enums.OfferStatus
+    viewCount?: number
+    publishedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    isFeatured?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    applications?: ApplicationCreateNestedManyWithoutOfferInput
+    company: CompanyCreateNestedOneWithoutJobOffersInput
+    recruiter: UserCreateNestedOneWithoutJobOffersInput
+    matchScores?: MatchScoreCreateNestedManyWithoutOfferInput
+    offerSkills?: OfferSkillCreateNestedManyWithoutOfferInput
+  }
+
+  export type JobOfferUncheckedCreateWithoutBookmarksInput = {
+    id?: string
+    companyId: string
+    recruiterId: string
+    title: string
+    description: string
+    location?: string | null
+    durationMonths?: number | null
+    remote?: boolean
+    offerStatus?: $Enums.OfferStatus
+    viewCount?: number
+    publishedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    isFeatured?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    applications?: ApplicationUncheckedCreateNestedManyWithoutOfferInput
+    matchScores?: MatchScoreUncheckedCreateNestedManyWithoutOfferInput
+    offerSkills?: OfferSkillUncheckedCreateNestedManyWithoutOfferInput
+  }
+
+  export type JobOfferCreateOrConnectWithoutBookmarksInput = {
+    where: JobOfferWhereUniqueInput
+    create: XOR<JobOfferCreateWithoutBookmarksInput, JobOfferUncheckedCreateWithoutBookmarksInput>
+  }
+
+  export type UserUpsertWithoutBookmarksInput = {
+    update: XOR<UserUpdateWithoutBookmarksInput, UserUncheckedUpdateWithoutBookmarksInput>
+    create: XOR<UserCreateWithoutBookmarksInput, UserUncheckedCreateWithoutBookmarksInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutBookmarksInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutBookmarksInput, UserUncheckedUpdateWithoutBookmarksInput>
+  }
+
+  export type UserUpdateWithoutBookmarksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUpdateManyWithoutCandidateNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    company?: CompanyUpdateOneWithoutRecruitersNestedInput
+    ownedCompany?: CompanyUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
+    jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUpdateManyWithoutReceiverNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutBookmarksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    ownedCompany?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
+    jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUncheckedUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type JobOfferUpsertWithoutBookmarksInput = {
+    update: XOR<JobOfferUpdateWithoutBookmarksInput, JobOfferUncheckedUpdateWithoutBookmarksInput>
+    create: XOR<JobOfferCreateWithoutBookmarksInput, JobOfferUncheckedCreateWithoutBookmarksInput>
+    where?: JobOfferWhereInput
+  }
+
+  export type JobOfferUpdateToOneWithWhereWithoutBookmarksInput = {
+    where?: JobOfferWhereInput
+    data: XOR<JobOfferUpdateWithoutBookmarksInput, JobOfferUncheckedUpdateWithoutBookmarksInput>
+  }
+
+  export type JobOfferUpdateWithoutBookmarksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    remote?: BoolFieldUpdateOperationsInput | boolean
+    offerStatus?: EnumOfferStatusFieldUpdateOperationsInput | $Enums.OfferStatus
+    viewCount?: IntFieldUpdateOperationsInput | number
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUpdateManyWithoutOfferNestedInput
+    company?: CompanyUpdateOneRequiredWithoutJobOffersNestedInput
+    recruiter?: UserUpdateOneRequiredWithoutJobOffersNestedInput
+    matchScores?: MatchScoreUpdateManyWithoutOfferNestedInput
+    offerSkills?: OfferSkillUpdateManyWithoutOfferNestedInput
+  }
+
+  export type JobOfferUncheckedUpdateWithoutBookmarksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyId?: StringFieldUpdateOperationsInput | string
+    recruiterId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    remote?: BoolFieldUpdateOperationsInput | boolean
+    offerStatus?: EnumOfferStatusFieldUpdateOperationsInput | $Enums.OfferStatus
+    viewCount?: IntFieldUpdateOperationsInput | number
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUncheckedUpdateManyWithoutOfferNestedInput
+    matchScores?: MatchScoreUncheckedUpdateManyWithoutOfferNestedInput
+    offerSkills?: OfferSkillUncheckedUpdateManyWithoutOfferNestedInput
+  }
+
   export type UserCreateWithoutRefreshTokensInput = {
     id?: string
     email: string
@@ -27000,7 +28913,8 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     applications?: ApplicationCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
-    company?: CompanyCreateNestedOneWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutRecruitersInput
+    ownedCompany?: CompanyCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
@@ -27011,6 +28925,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -27020,13 +28935,14 @@ export namespace Prisma {
     role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
+    companyId?: string | null
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    ownedCompany?: CompanyUncheckedCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
@@ -27037,6 +28953,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -27068,7 +28985,8 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutRecruitersNestedInput
+    ownedCompany?: CompanyUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
@@ -27079,6 +28997,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -27088,13 +29007,14 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     isBanned?: BoolFieldUpdateOperationsInput | boolean
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    ownedCompany?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
@@ -27105,6 +29025,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CompanyCreateWithoutProfilesInput = {
@@ -27118,7 +29039,8 @@ export namespace Prisma {
     validatedAt?: Date | string | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
-    user: UserCreateNestedOneWithoutCompanyInput
+    user: UserCreateNestedOneWithoutOwnedCompanyInput
+    recruiters?: UserCreateNestedManyWithoutCompanyInput
     jobOffers?: JobOfferCreateNestedManyWithoutCompanyInput
   }
 
@@ -27134,6 +29056,7 @@ export namespace Prisma {
     validatedAt?: Date | string | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
+    recruiters?: UserUncheckedCreateNestedManyWithoutCompanyInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutCompanyInput
   }
 
@@ -27174,7 +29097,8 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     applications?: ApplicationCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
-    company?: CompanyCreateNestedOneWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutRecruitersInput
+    ownedCompany?: CompanyCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
@@ -27185,6 +29109,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProfileInput = {
@@ -27194,13 +29119,14 @@ export namespace Prisma {
     role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
+    companyId?: string | null
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    ownedCompany?: CompanyUncheckedCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
@@ -27211,6 +29137,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProfileInput = {
@@ -27240,7 +29167,8 @@ export namespace Prisma {
     validatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    user?: UserUpdateOneRequiredWithoutCompanyNestedInput
+    user?: UserUpdateOneRequiredWithoutOwnedCompanyNestedInput
+    recruiters?: UserUpdateManyWithoutCompanyNestedInput
     jobOffers?: JobOfferUpdateManyWithoutCompanyNestedInput
   }
 
@@ -27256,6 +29184,7 @@ export namespace Prisma {
     validatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    recruiters?: UserUncheckedUpdateManyWithoutCompanyNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
@@ -27308,7 +29237,8 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutRecruitersNestedInput
+    ownedCompany?: CompanyUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
@@ -27319,6 +29249,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProfileInput = {
@@ -27328,13 +29259,14 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     isBanned?: BoolFieldUpdateOperationsInput | boolean
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    ownedCompany?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
@@ -27345,9 +29277,10 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type UserCreateWithoutCompanyInput = {
+  export type UserCreateWithoutOwnedCompanyInput = {
     id?: string
     email: string
     passwordHash: string
@@ -27360,6 +29293,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     applications?: ApplicationCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    company?: CompanyCreateNestedOneWithoutRecruitersInput
     cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
@@ -27371,15 +29305,17 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkCreateNestedManyWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutCompanyInput = {
+  export type UserUncheckedCreateWithoutOwnedCompanyInput = {
     id?: string
     email: string
     passwordHash: string
     role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
+    companyId?: string | null
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
@@ -27397,11 +29333,78 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutOwnedCompanyInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutOwnedCompanyInput, UserUncheckedCreateWithoutOwnedCompanyInput>
+  }
+
+  export type UserCreateWithoutCompanyInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role: $Enums.Role
+    isVerified?: boolean
+    isBanned?: boolean
+    location?: string | null
+    availabilityMonths?: number | null
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    applications?: ApplicationCreateNestedManyWithoutCandidateInput
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    ownedCompany?: CompanyCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
+    jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionCreateNestedManyWithoutReceiverInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCompanyInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role: $Enums.Role
+    isVerified?: boolean
+    isBanned?: boolean
+    location?: string | null
+    availabilityMonths?: number | null
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    ownedCompany?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
+    jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
+    match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    sentConnections?: ConnectionUncheckedCreateNestedManyWithoutRequesterInput
+    receivedConnections?: ConnectionUncheckedCreateNestedManyWithoutReceiverInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCompanyInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type UserCreateManyCompanyInputEnvelope = {
+    data: UserCreateManyCompanyInput | UserCreateManyCompanyInput[]
+    skipDuplicates?: boolean
   }
 
   export type JobOfferCreateWithoutCompanyInput = {
@@ -27415,10 +29418,12 @@ export namespace Prisma {
     viewCount?: number
     publishedAt?: Date | string | null
     expiresAt?: Date | string | null
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationCreateNestedManyWithoutOfferInput
+    bookmarks?: BookmarkCreateNestedManyWithoutOfferInput
     recruiter: UserCreateNestedOneWithoutJobOffersInput
     matchScores?: MatchScoreCreateNestedManyWithoutOfferInput
     offerSkills?: OfferSkillCreateNestedManyWithoutOfferInput
@@ -27436,10 +29441,12 @@ export namespace Prisma {
     viewCount?: number
     publishedAt?: Date | string | null
     expiresAt?: Date | string | null
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationUncheckedCreateNestedManyWithoutOfferInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutOfferInput
     matchScores?: MatchScoreUncheckedCreateNestedManyWithoutOfferInput
     offerSkills?: OfferSkillUncheckedCreateNestedManyWithoutOfferInput
   }
@@ -27496,18 +29503,18 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UserUpsertWithoutCompanyInput = {
-    update: XOR<UserUpdateWithoutCompanyInput, UserUncheckedUpdateWithoutCompanyInput>
-    create: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput>
+  export type UserUpsertWithoutOwnedCompanyInput = {
+    update: XOR<UserUpdateWithoutOwnedCompanyInput, UserUncheckedUpdateWithoutOwnedCompanyInput>
+    create: XOR<UserCreateWithoutOwnedCompanyInput, UserUncheckedCreateWithoutOwnedCompanyInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutCompanyInput = {
+  export type UserUpdateToOneWithWhereWithoutOwnedCompanyInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutCompanyInput, UserUncheckedUpdateWithoutCompanyInput>
+    data: XOR<UserUpdateWithoutOwnedCompanyInput, UserUncheckedUpdateWithoutOwnedCompanyInput>
   }
 
-  export type UserUpdateWithoutCompanyInput = {
+  export type UserUpdateWithoutOwnedCompanyInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
@@ -27520,6 +29527,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    company?: CompanyUpdateOneWithoutRecruitersNestedInput
     cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
@@ -27531,15 +29539,17 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutCompanyInput = {
+  export type UserUncheckedUpdateWithoutOwnedCompanyInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     isBanned?: BoolFieldUpdateOperationsInput | boolean
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27557,6 +29567,40 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUpsertWithWhereUniqueWithoutCompanyInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutCompanyInput, UserUncheckedUpdateWithoutCompanyInput>
+    create: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type UserUpdateWithWhereUniqueWithoutCompanyInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutCompanyInput, UserUncheckedUpdateWithoutCompanyInput>
+  }
+
+  export type UserUpdateManyWithWhereWithoutCompanyInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutCompanyInput>
+  }
+
+  export type UserScalarWhereInput = {
+    AND?: UserScalarWhereInput | UserScalarWhereInput[]
+    OR?: UserScalarWhereInput[]
+    NOT?: UserScalarWhereInput | UserScalarWhereInput[]
+    id?: StringFilter<"User"> | string
+    email?: StringFilter<"User"> | string
+    passwordHash?: StringFilter<"User"> | string
+    role?: EnumRoleFilter<"User"> | $Enums.Role
+    isVerified?: BoolFilter<"User"> | boolean
+    isBanned?: BoolFilter<"User"> | boolean
+    companyId?: StringNullableFilter<"User"> | string | null
+    location?: StringNullableFilter<"User"> | string | null
+    availabilityMonths?: IntNullableFilter<"User"> | number | null
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
   }
 
   export type JobOfferUpsertWithWhereUniqueWithoutCompanyInput = {
@@ -27775,7 +29819,8 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     applications?: ApplicationCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
-    company?: CompanyCreateNestedOneWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutRecruitersInput
+    ownedCompany?: CompanyCreateNestedOneWithoutUserInput
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
@@ -27786,6 +29831,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCvDocumentsInput = {
@@ -27795,13 +29841,14 @@ export namespace Prisma {
     role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
+    companyId?: string | null
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    ownedCompany?: CompanyUncheckedCreateNestedOneWithoutUserInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
@@ -27812,6 +29859,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCvDocumentsInput = {
@@ -27895,7 +29943,8 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutRecruitersNestedInput
+    ownedCompany?: CompanyUpdateOneWithoutUserNestedInput
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
@@ -27906,6 +29955,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCvDocumentsInput = {
@@ -27915,13 +29965,14 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     isBanned?: BoolFieldUpdateOperationsInput | boolean
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    ownedCompany?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
@@ -27932,6 +29983,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ExtractedSkillUpsertWithWhereUniqueWithoutCvDocumentInput = {
@@ -28120,6 +30172,28 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type BookmarkCreateWithoutOfferInput = {
+    id?: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutBookmarksInput
+  }
+
+  export type BookmarkUncheckedCreateWithoutOfferInput = {
+    id?: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type BookmarkCreateOrConnectWithoutOfferInput = {
+    where: BookmarkWhereUniqueInput
+    create: XOR<BookmarkCreateWithoutOfferInput, BookmarkUncheckedCreateWithoutOfferInput>
+  }
+
+  export type BookmarkCreateManyOfferInputEnvelope = {
+    data: BookmarkCreateManyOfferInput | BookmarkCreateManyOfferInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CompanyCreateWithoutJobOffersInput = {
     id?: string
     name: string
@@ -28131,7 +30205,8 @@ export namespace Prisma {
     validatedAt?: Date | string | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
-    user: UserCreateNestedOneWithoutCompanyInput
+    user: UserCreateNestedOneWithoutOwnedCompanyInput
+    recruiters?: UserCreateNestedManyWithoutCompanyInput
     profiles?: ProfileCreateNestedManyWithoutCompanyInput
   }
 
@@ -28147,6 +30222,7 @@ export namespace Prisma {
     validatedAt?: Date | string | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
+    recruiters?: UserUncheckedCreateNestedManyWithoutCompanyInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutCompanyInput
   }
 
@@ -28168,7 +30244,8 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     applications?: ApplicationCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
-    company?: CompanyCreateNestedOneWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutRecruitersInput
+    ownedCompany?: CompanyCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
@@ -28179,6 +30256,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutJobOffersInput = {
@@ -28188,13 +30266,14 @@ export namespace Prisma {
     role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
+    companyId?: string | null
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    ownedCompany?: CompanyUncheckedCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
@@ -28205,6 +30284,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutJobOffersInput = {
@@ -28278,6 +30358,22 @@ export namespace Prisma {
     data: XOR<ApplicationUpdateManyMutationInput, ApplicationUncheckedUpdateManyWithoutOfferInput>
   }
 
+  export type BookmarkUpsertWithWhereUniqueWithoutOfferInput = {
+    where: BookmarkWhereUniqueInput
+    update: XOR<BookmarkUpdateWithoutOfferInput, BookmarkUncheckedUpdateWithoutOfferInput>
+    create: XOR<BookmarkCreateWithoutOfferInput, BookmarkUncheckedCreateWithoutOfferInput>
+  }
+
+  export type BookmarkUpdateWithWhereUniqueWithoutOfferInput = {
+    where: BookmarkWhereUniqueInput
+    data: XOR<BookmarkUpdateWithoutOfferInput, BookmarkUncheckedUpdateWithoutOfferInput>
+  }
+
+  export type BookmarkUpdateManyWithWhereWithoutOfferInput = {
+    where: BookmarkScalarWhereInput
+    data: XOR<BookmarkUpdateManyMutationInput, BookmarkUncheckedUpdateManyWithoutOfferInput>
+  }
+
   export type CompanyUpsertWithoutJobOffersInput = {
     update: XOR<CompanyUpdateWithoutJobOffersInput, CompanyUncheckedUpdateWithoutJobOffersInput>
     create: XOR<CompanyCreateWithoutJobOffersInput, CompanyUncheckedCreateWithoutJobOffersInput>
@@ -28300,7 +30396,8 @@ export namespace Prisma {
     validatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    user?: UserUpdateOneRequiredWithoutCompanyNestedInput
+    user?: UserUpdateOneRequiredWithoutOwnedCompanyNestedInput
+    recruiters?: UserUpdateManyWithoutCompanyNestedInput
     profiles?: ProfileUpdateManyWithoutCompanyNestedInput
   }
 
@@ -28316,6 +30413,7 @@ export namespace Prisma {
     validatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    recruiters?: UserUncheckedUpdateManyWithoutCompanyNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
@@ -28343,7 +30441,8 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutRecruitersNestedInput
+    ownedCompany?: CompanyUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
@@ -28354,6 +30453,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutJobOffersInput = {
@@ -28363,13 +30463,14 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     isBanned?: BoolFieldUpdateOperationsInput | boolean
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    ownedCompany?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
@@ -28380,6 +30481,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MatchScoreUpsertWithWhereUniqueWithoutOfferInput = {
@@ -28425,10 +30527,12 @@ export namespace Prisma {
     viewCount?: number
     publishedAt?: Date | string | null
     expiresAt?: Date | string | null
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationCreateNestedManyWithoutOfferInput
+    bookmarks?: BookmarkCreateNestedManyWithoutOfferInput
     company: CompanyCreateNestedOneWithoutJobOffersInput
     recruiter: UserCreateNestedOneWithoutJobOffersInput
     matchScores?: MatchScoreCreateNestedManyWithoutOfferInput
@@ -28447,10 +30551,12 @@ export namespace Prisma {
     viewCount?: number
     publishedAt?: Date | string | null
     expiresAt?: Date | string | null
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationUncheckedCreateNestedManyWithoutOfferInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutOfferInput
     matchScores?: MatchScoreUncheckedCreateNestedManyWithoutOfferInput
   }
 
@@ -28502,10 +30608,12 @@ export namespace Prisma {
     viewCount?: IntFieldUpdateOperationsInput | number
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUpdateManyWithoutOfferNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutOfferNestedInput
     company?: CompanyUpdateOneRequiredWithoutJobOffersNestedInput
     recruiter?: UserUpdateOneRequiredWithoutJobOffersNestedInput
     matchScores?: MatchScoreUpdateManyWithoutOfferNestedInput
@@ -28524,10 +30632,12 @@ export namespace Prisma {
     viewCount?: IntFieldUpdateOperationsInput | number
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUncheckedUpdateManyWithoutOfferNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutOfferNestedInput
     matchScores?: MatchScoreUncheckedUpdateManyWithoutOfferNestedInput
   }
 
@@ -28571,7 +30681,8 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     applications?: ApplicationCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
-    company?: CompanyCreateNestedOneWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutRecruitersInput
+    ownedCompany?: CompanyCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
@@ -28582,6 +30693,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMatch_scoresInput = {
@@ -28591,13 +30703,14 @@ export namespace Prisma {
     role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
+    companyId?: string | null
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    ownedCompany?: CompanyUncheckedCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
@@ -28608,6 +30721,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMatch_scoresInput = {
@@ -28661,10 +30775,12 @@ export namespace Prisma {
     viewCount?: number
     publishedAt?: Date | string | null
     expiresAt?: Date | string | null
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationCreateNestedManyWithoutOfferInput
+    bookmarks?: BookmarkCreateNestedManyWithoutOfferInput
     company: CompanyCreateNestedOneWithoutJobOffersInput
     recruiter: UserCreateNestedOneWithoutJobOffersInput
     offerSkills?: OfferSkillCreateNestedManyWithoutOfferInput
@@ -28683,10 +30799,12 @@ export namespace Prisma {
     viewCount?: number
     publishedAt?: Date | string | null
     expiresAt?: Date | string | null
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationUncheckedCreateNestedManyWithoutOfferInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutOfferInput
     offerSkills?: OfferSkillUncheckedCreateNestedManyWithoutOfferInput
   }
 
@@ -28719,7 +30837,8 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutRecruitersNestedInput
+    ownedCompany?: CompanyUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
@@ -28730,6 +30849,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMatch_scoresInput = {
@@ -28739,13 +30859,14 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     isBanned?: BoolFieldUpdateOperationsInput | boolean
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    ownedCompany?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
@@ -28756,6 +30877,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CvDocumentUpsertWithoutMatchScoresInput = {
@@ -28821,10 +30943,12 @@ export namespace Prisma {
     viewCount?: IntFieldUpdateOperationsInput | number
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUpdateManyWithoutOfferNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutOfferNestedInput
     company?: CompanyUpdateOneRequiredWithoutJobOffersNestedInput
     recruiter?: UserUpdateOneRequiredWithoutJobOffersNestedInput
     offerSkills?: OfferSkillUpdateManyWithoutOfferNestedInput
@@ -28843,10 +30967,12 @@ export namespace Prisma {
     viewCount?: IntFieldUpdateOperationsInput | number
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUncheckedUpdateManyWithoutOfferNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutOfferNestedInput
     offerSkills?: OfferSkillUncheckedUpdateManyWithoutOfferNestedInput
   }
 
@@ -28862,7 +30988,8 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
-    company?: CompanyCreateNestedOneWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutRecruitersInput
+    ownedCompany?: CompanyCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
@@ -28874,6 +31001,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApplicationsInput = {
@@ -28883,12 +31011,13 @@ export namespace Prisma {
     role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
+    companyId?: string | null
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    ownedCompany?: CompanyUncheckedCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
@@ -28900,6 +31029,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApplicationsInput = {
@@ -28918,9 +31048,11 @@ export namespace Prisma {
     viewCount?: number
     publishedAt?: Date | string | null
     expiresAt?: Date | string | null
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    bookmarks?: BookmarkCreateNestedManyWithoutOfferInput
     company: CompanyCreateNestedOneWithoutJobOffersInput
     recruiter: UserCreateNestedOneWithoutJobOffersInput
     matchScores?: MatchScoreCreateNestedManyWithoutOfferInput
@@ -28940,9 +31072,11 @@ export namespace Prisma {
     viewCount?: number
     publishedAt?: Date | string | null
     expiresAt?: Date | string | null
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutOfferInput
     matchScores?: MatchScoreUncheckedCreateNestedManyWithoutOfferInput
     offerSkills?: OfferSkillUncheckedCreateNestedManyWithoutOfferInput
   }
@@ -29003,7 +31137,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutRecruitersNestedInput
+    ownedCompany?: CompanyUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
@@ -29015,6 +31150,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApplicationsInput = {
@@ -29024,12 +31160,13 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     isBanned?: BoolFieldUpdateOperationsInput | boolean
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    ownedCompany?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
@@ -29041,6 +31178,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type JobOfferUpsertWithoutApplicationsInput = {
@@ -29065,9 +31203,11 @@ export namespace Prisma {
     viewCount?: IntFieldUpdateOperationsInput | number
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bookmarks?: BookmarkUpdateManyWithoutOfferNestedInput
     company?: CompanyUpdateOneRequiredWithoutJobOffersNestedInput
     recruiter?: UserUpdateOneRequiredWithoutJobOffersNestedInput
     matchScores?: MatchScoreUpdateManyWithoutOfferNestedInput
@@ -29087,9 +31227,11 @@ export namespace Prisma {
     viewCount?: IntFieldUpdateOperationsInput | number
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutOfferNestedInput
     matchScores?: MatchScoreUncheckedUpdateManyWithoutOfferNestedInput
     offerSkills?: OfferSkillUncheckedUpdateManyWithoutOfferNestedInput
   }
@@ -29148,7 +31290,8 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     applications?: ApplicationCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
-    company?: CompanyCreateNestedOneWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutRecruitersInput
+    ownedCompany?: CompanyCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
@@ -29159,6 +31302,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReceivedMessagesInput = {
@@ -29168,13 +31312,14 @@ export namespace Prisma {
     role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
+    companyId?: string | null
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    ownedCompany?: CompanyUncheckedCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
@@ -29185,6 +31330,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReceivedMessagesInput = {
@@ -29205,7 +31351,8 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     applications?: ApplicationCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
-    company?: CompanyCreateNestedOneWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutRecruitersInput
+    ownedCompany?: CompanyCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
@@ -29216,6 +31363,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -29225,13 +31373,14 @@ export namespace Prisma {
     role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
+    companyId?: string | null
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    ownedCompany?: CompanyUncheckedCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
@@ -29242,6 +31391,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -29304,7 +31454,8 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutRecruitersNestedInput
+    ownedCompany?: CompanyUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
@@ -29315,6 +31466,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReceivedMessagesInput = {
@@ -29324,13 +31476,14 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     isBanned?: BoolFieldUpdateOperationsInput | boolean
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    ownedCompany?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
@@ -29341,6 +31494,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutSentMessagesInput = {
@@ -29367,7 +31521,8 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutRecruitersNestedInput
+    ownedCompany?: CompanyUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
@@ -29378,6 +31533,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -29387,13 +31543,14 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     isBanned?: BoolFieldUpdateOperationsInput | boolean
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    ownedCompany?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
@@ -29404,6 +31561,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSentConnectionsInput = {
@@ -29419,7 +31577,8 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     applications?: ApplicationCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
-    company?: CompanyCreateNestedOneWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutRecruitersInput
+    ownedCompany?: CompanyCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
@@ -29430,6 +31589,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSentConnectionsInput = {
@@ -29439,13 +31599,14 @@ export namespace Prisma {
     role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
+    companyId?: string | null
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    ownedCompany?: CompanyUncheckedCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
@@ -29456,6 +31617,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSentConnectionsInput = {
@@ -29476,7 +31638,8 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     applications?: ApplicationCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
-    company?: CompanyCreateNestedOneWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutRecruitersInput
+    ownedCompany?: CompanyCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
@@ -29487,6 +31650,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReceivedConnectionsInput = {
@@ -29496,13 +31660,14 @@ export namespace Prisma {
     role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
+    companyId?: string | null
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    ownedCompany?: CompanyUncheckedCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
@@ -29513,6 +31678,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReceivedConnectionsInput = {
@@ -29544,7 +31710,8 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutRecruitersNestedInput
+    ownedCompany?: CompanyUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
@@ -29555,6 +31722,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentConnectionsInput = {
@@ -29564,13 +31732,14 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     isBanned?: BoolFieldUpdateOperationsInput | boolean
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    ownedCompany?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
@@ -29581,6 +31750,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutReceivedConnectionsInput = {
@@ -29607,7 +31777,8 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutRecruitersNestedInput
+    ownedCompany?: CompanyUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
@@ -29618,6 +31789,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReceivedConnectionsInput = {
@@ -29627,13 +31799,14 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     isBanned?: BoolFieldUpdateOperationsInput | boolean
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    ownedCompany?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
@@ -29644,6 +31817,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -29659,7 +31833,8 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     applications?: ApplicationCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
-    company?: CompanyCreateNestedOneWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutRecruitersInput
+    ownedCompany?: CompanyCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
@@ -29670,6 +31845,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -29679,13 +31855,14 @@ export namespace Prisma {
     role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
+    companyId?: string | null
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    ownedCompany?: CompanyUncheckedCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
@@ -29696,6 +31873,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -29727,7 +31905,8 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutRecruitersNestedInput
+    ownedCompany?: CompanyUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
@@ -29738,6 +31917,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -29747,13 +31927,14 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     isBanned?: BoolFieldUpdateOperationsInput | boolean
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    ownedCompany?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
@@ -29764,6 +31945,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAuditLogsInput = {
@@ -29778,7 +31960,8 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationCreateNestedManyWithoutCandidateInput
-    company?: CompanyCreateNestedOneWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutRecruitersInput
+    ownedCompany?: CompanyCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
@@ -29790,6 +31973,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -29799,12 +31983,13 @@ export namespace Prisma {
     role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
+    companyId?: string | null
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    ownedCompany?: CompanyUncheckedCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
@@ -29816,6 +32001,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -29846,7 +32032,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUpdateManyWithoutCandidateNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutRecruitersNestedInput
+    ownedCompany?: CompanyUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
@@ -29858,6 +32045,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -29867,12 +32055,13 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     isBanned?: BoolFieldUpdateOperationsInput | boolean
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    ownedCompany?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
@@ -29884,6 +32073,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutChatMessagesInput = {
@@ -29899,7 +32089,8 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     applications?: ApplicationCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
-    company?: CompanyCreateNestedOneWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutRecruitersInput
+    ownedCompany?: CompanyCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreCreateNestedManyWithoutUsersInput
@@ -29910,6 +32101,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutChatMessagesInput = {
@@ -29919,13 +32111,14 @@ export namespace Prisma {
     role: $Enums.Role
     isVerified?: boolean
     isBanned?: boolean
+    companyId?: string | null
     location?: string | null
     availabilityMonths?: number | null
     createdAt?: Date | string
     deletedAt?: Date | string | null
     applications?: ApplicationUncheckedCreateNestedManyWithoutCandidateInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
-    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    ownedCompany?: CompanyUncheckedCreateNestedOneWithoutUserInput
     cvDocuments?: CvDocumentUncheckedCreateNestedManyWithoutUserInput
     jobOffers?: JobOfferUncheckedCreateNestedManyWithoutRecruiterInput
     match_scores?: MatchScoreUncheckedCreateNestedManyWithoutUsersInput
@@ -29936,6 +32129,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutChatMessagesInput = {
@@ -29967,7 +32161,8 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
-    company?: CompanyUpdateOneWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutRecruitersNestedInput
+    ownedCompany?: CompanyUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
@@ -29978,6 +32173,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutChatMessagesInput = {
@@ -29987,13 +32183,14 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     isBanned?: BoolFieldUpdateOperationsInput | boolean
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
-    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    ownedCompany?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
     jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
     match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
@@ -30004,6 +32201,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ApplicationCreateManyCandidateInput = {
@@ -30049,6 +32247,7 @@ export namespace Prisma {
     viewCount?: number
     publishedAt?: Date | string | null
     expiresAt?: Date | string | null
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -30122,6 +32321,12 @@ export namespace Prisma {
     role: string
     content: string
     context?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type BookmarkCreateManyUserInput = {
+    id?: string
+    offerId: string
     createdAt?: Date | string
   }
 
@@ -30235,10 +32440,12 @@ export namespace Prisma {
     viewCount?: IntFieldUpdateOperationsInput | number
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUpdateManyWithoutOfferNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutOfferNestedInput
     company?: CompanyUpdateOneRequiredWithoutJobOffersNestedInput
     matchScores?: MatchScoreUpdateManyWithoutOfferNestedInput
     offerSkills?: OfferSkillUpdateManyWithoutOfferNestedInput
@@ -30256,10 +32463,12 @@ export namespace Prisma {
     viewCount?: IntFieldUpdateOperationsInput | number
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUncheckedUpdateManyWithoutOfferNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutOfferNestedInput
     matchScores?: MatchScoreUncheckedUpdateManyWithoutOfferNestedInput
     offerSkills?: OfferSkillUncheckedUpdateManyWithoutOfferNestedInput
   }
@@ -30276,6 +32485,7 @@ export namespace Prisma {
     viewCount?: IntFieldUpdateOperationsInput | number
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -30494,6 +32704,37 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BookmarkUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    offer?: JobOfferUpdateOneRequiredWithoutBookmarksNestedInput
+  }
+
+  export type BookmarkUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookmarkUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCreateManyCompanyInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role: $Enums.Role
+    isVerified?: boolean
+    isBanned?: boolean
+    location?: string | null
+    availabilityMonths?: number | null
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+  }
+
   export type JobOfferCreateManyCompanyInput = {
     id?: string
     recruiterId: string
@@ -30506,6 +32747,7 @@ export namespace Prisma {
     viewCount?: number
     publishedAt?: Date | string | null
     expiresAt?: Date | string | null
+    isFeatured?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -30527,6 +32769,75 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type UserUpdateWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUpdateManyWithoutCandidateNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    ownedCompany?: CompanyUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUpdateManyWithoutUserNestedInput
+    jobOffers?: JobOfferUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUpdateManyWithoutReceiverNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applications?: ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    ownedCompany?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    cvDocuments?: CvDocumentUncheckedUpdateManyWithoutUserNestedInput
+    jobOffers?: JobOfferUncheckedUpdateManyWithoutRecruiterNestedInput
+    match_scores?: MatchScoreUncheckedUpdateManyWithoutUsersNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    sentConnections?: ConnectionUncheckedUpdateManyWithoutRequesterNestedInput
+    receivedConnections?: ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availabilityMonths?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type JobOfferUpdateWithoutCompanyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -30538,10 +32849,12 @@ export namespace Prisma {
     viewCount?: IntFieldUpdateOperationsInput | number
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUpdateManyWithoutOfferNestedInput
+    bookmarks?: BookmarkUpdateManyWithoutOfferNestedInput
     recruiter?: UserUpdateOneRequiredWithoutJobOffersNestedInput
     matchScores?: MatchScoreUpdateManyWithoutOfferNestedInput
     offerSkills?: OfferSkillUpdateManyWithoutOfferNestedInput
@@ -30559,10 +32872,12 @@ export namespace Prisma {
     viewCount?: IntFieldUpdateOperationsInput | number
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applications?: ApplicationUncheckedUpdateManyWithoutOfferNestedInput
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutOfferNestedInput
     matchScores?: MatchScoreUncheckedUpdateManyWithoutOfferNestedInput
     offerSkills?: OfferSkillUncheckedUpdateManyWithoutOfferNestedInput
   }
@@ -30579,6 +32894,7 @@ export namespace Prisma {
     viewCount?: IntFieldUpdateOperationsInput | number
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -30813,6 +33129,12 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type BookmarkCreateManyOfferInput = {
+    id?: string
+    userId: string
+    createdAt?: Date | string
+  }
+
   export type MatchScoreCreateManyOfferInput = {
     id?: string
     candidateId: string
@@ -30855,6 +33177,24 @@ export namespace Prisma {
     coverLetter?: NullableStringFieldUpdateOperationsInput | string | null
     appliedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookmarkUpdateWithoutOfferInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutBookmarksNestedInput
+  }
+
+  export type BookmarkUncheckedUpdateWithoutOfferInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookmarkUncheckedUpdateManyWithoutOfferInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MatchScoreUpdateWithoutOfferInput = {
@@ -30975,6 +33315,10 @@ export namespace Prisma {
      * @deprecated Use UserDefaultArgs instead
      */
     export type UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use BookmarkDefaultArgs instead
+     */
+    export type BookmarkArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BookmarkDefaultArgs<ExtArgs>
     /**
      * @deprecated Use RefreshTokenDefaultArgs instead
      */

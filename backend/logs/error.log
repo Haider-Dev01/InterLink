@@ -1509,3 +1509,1688 @@
 [31m  271 [39m
 [31m→ 272 const rows = await prisma.connection.findMany([39m
 [31mThe table `public.connections` does not exist in the current database.[39m
+2026-04-29 02:07:10:710 [31merror[39m: [31m[GET] /api/users/me >> 500 - [39m
+[31mInvalid `prisma.user.findUnique()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\users\users.routes.ts:57:36[39m
+
+[31m  54 router.get('/me', authenticate, async (req, res, next) => {[39m
+[31m  55   try {[39m
+[31m  56     const userId = req.user!.id;[39m
+[31m→ 57     const user = await prisma.user.findUnique([39m
+[31mThe column `profiles.avatar_url` does not exist in the current database. [39m
+[31mInvalid `prisma.user.findUnique()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\users\users.routes.ts:57:36[39m
+
+[31m  54 router.get('/me', authenticate, async (req, res, next) => {[39m
+[31m  55   try {[39m
+[31m  56     const userId = req.user!.id;[39m
+[31m→ 57     const user = await prisma.user.findUnique([39m
+[31mThe column `profiles.avatar_url` does not exist in the current database.[39m
+2026-04-29 02:07:10:710 [31merror[39m: [31m[GET] /api/users/me >> 500 - [39m
+[31mInvalid `prisma.user.findUnique()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\users\users.routes.ts:57:36[39m
+
+[31m  54 router.get('/me', authenticate, async (req, res, next) => {[39m
+[31m  55   try {[39m
+[31m  56     const userId = req.user!.id;[39m
+[31m→ 57     const user = await prisma.user.findUnique([39m
+[31mThe column `profiles.avatar_url` does not exist in the current database. [39m
+[31mInvalid `prisma.user.findUnique()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\users\users.routes.ts:57:36[39m
+
+[31m  54 router.get('/me', authenticate, async (req, res, next) => {[39m
+[31m  55   try {[39m
+[31m  56     const userId = req.user!.id;[39m
+[31m→ 57     const user = await prisma.user.findUnique([39m
+[31mThe column `profiles.avatar_url` does not exist in the current database.[39m
+2026-04-29 02:09:03:93 [31merror[39m: [31m[POST] /api/auth/register >> 400 - Erreur de validation [[39m
+[31m  {[39m
+[31m    "origin": "string",[39m
+[31m    "code": "too_small",[39m
+[31m    "minimum": 8,[39m
+[31m    "inclusive": true,[39m
+[31m    "path": [[39m
+[31m      "password"[39m
+[31m    ],[39m
+[31m    "message": "Le mot de passe doit faire au moins 8 caractères"[39m
+[31m  }[39m
+[31m][39m
+2026-04-29 02:09:17:917 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-29 02:09:17:917 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-29 02:09:21:921 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-29 02:09:21:921 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-29 02:09:44:944 [31merror[39m: [31m[POST] /api/auth/login >> 500 - [39m
+[31mInvalid `prisma.user.findFirst()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\auth\auth.repository.ts:7:24[39m
+
+[31m  4 [39m
+[31m  5 export class AuthRepository {[39m
+[31m  6   findUserByEmail = async (email: string, role?: Role) => {[39m
+[31m→ 7     return prisma.user.findFirst([39m
+[31mThe column `profiles.avatar_url` does not exist in the current database. [39m
+[31mInvalid `prisma.user.findFirst()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\auth\auth.repository.ts:7:24[39m
+
+[31m  4 [39m
+[31m  5 export class AuthRepository {[39m
+[31m  6   findUserByEmail = async (email: string, role?: Role) => {[39m
+[31m→ 7     return prisma.user.findFirst([39m
+[31mThe column `profiles.avatar_url` does not exist in the current database.[39m
+2026-04-29 02:09:45:945 [31merror[39m: [31m[POST] /api/auth/login >> 500 - [39m
+[31mInvalid `prisma.user.findFirst()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\auth\auth.repository.ts:7:24[39m
+
+[31m  4 [39m
+[31m  5 export class AuthRepository {[39m
+[31m  6   findUserByEmail = async (email: string, role?: Role) => {[39m
+[31m→ 7     return prisma.user.findFirst([39m
+[31mThe column `profiles.avatar_url` does not exist in the current database. [39m
+[31mInvalid `prisma.user.findFirst()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\auth\auth.repository.ts:7:24[39m
+
+[31m  4 [39m
+[31m  5 export class AuthRepository {[39m
+[31m  6   findUserByEmail = async (email: string, role?: Role) => {[39m
+[31m→ 7     return prisma.user.findFirst([39m
+[31mThe column `profiles.avatar_url` does not exist in the current database.[39m
+2026-04-29 02:10:21:1021 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-29 02:10:21:1021 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-29 02:10:24:1024 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-29 02:10:24:1024 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-29 02:10:26:1026 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-29 02:10:26:1026 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-29 02:24:09:249 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-29 02:24:09:249 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-29 02:24:20:2420 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-29 02:24:20:2420 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-29 02:24:23:2423 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-29 02:24:23:2423 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-29 02:24:24:2424 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-29 02:24:24:2424 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-29 02:24:24:2424 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-29 02:24:24:2424 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-29 02:24:24:2424 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-29 02:24:24:2424 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-29 02:24:30:2430 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-29 02:24:30:2430 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-29 02:24:31:2431 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-29 02:24:31:2431 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-29 02:24:31:2431 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-29 02:24:31:2431 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-29 02:24:31:2431 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-29 02:24:31:2431 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-29 02:24:31:2431 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-04-29 02:24:31:2431 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-04-29 02:47:24:4724 [31merror[39m: [31m[POST] /api/auth/login >> 400 - Erreur de validation [[39m
+[31m  {[39m
+[31m    "code": "invalid_value",[39m
+[31m    "values": [[39m
+[31m      "candidate",[39m
+[31m      "recruiter",[39m
+[31m      "admin"[39m
+[31m    ],[39m
+[31m    "path": [[39m
+[31m      "role"[39m
+[31m    ],[39m
+[31m    "message": "Invalid option: expected one of \"candidate\"|\"recruiter\"|\"admin\""[39m
+[31m  }[39m
+[31m][39m
+2026-04-29 02:47:25:4725 [31merror[39m: [31m[POST] /api/auth/login >> 400 - Erreur de validation [[39m
+[31m  {[39m
+[31m    "code": "invalid_value",[39m
+[31m    "values": [[39m
+[31m      "candidate",[39m
+[31m      "recruiter",[39m
+[31m      "admin"[39m
+[31m    ],[39m
+[31m    "path": [[39m
+[31m      "role"[39m
+[31m    ],[39m
+[31m    "message": "Invalid option: expected one of \"candidate\"|\"recruiter\"|\"admin\""[39m
+[31m  }[39m
+[31m][39m
+2026-05-02 11:30:55:3055 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 11:30:55:3055 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 11:32:46:3246 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 11:32:46:3246 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 11:32:47:3247 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 11:32:47:3247 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 11:32:48:3248 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 11:32:48:3248 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 11:32:50:3250 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 11:32:50:3250 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 11:32:50:3250 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 11:32:50:3250 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 11:33:25:3325 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 11:33:25:3325 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 11:33:26:3326 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 11:33:26:3326 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 11:33:26:3326 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 11:33:26:3326 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 11:33:26:3326 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 11:33:26:3326 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 11:33:44:3344 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 11:33:45:3345 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 11:33:45:3345 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 11:33:45:3345 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 11:33:45:3345 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 11:33:45:3345 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 11:35:00:350 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 11:35:00:350 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 11:35:12:3512 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 11:35:12:3512 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 13:29:11:2911 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 13:29:11:2911 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 13:30:29:3029 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 13:30:29:3029 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 13:30:30:3030 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 13:30:30:3030 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 13:30:34:3034 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 13:30:34:3034 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 13:30:35:3035 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 13:30:35:3035 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 13:30:35:3035 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 13:30:35:3035 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 13:31:20:3120 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 13:31:20:3120 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 13:31:21:3121 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 13:31:21:3121 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 13:31:21:3121 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 13:31:21:3121 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 13:31:21:3121 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 13:31:21:3121 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 13:31:22:3122 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 13:31:22:3122 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 13:37:51:3751 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 13:37:51:3751 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 13:49:14:4914 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 13:49:14:4914 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 14:00:13:013 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 14:00:13:013 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 14:00:41:041 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 14:00:41:041 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 14:00:41:041 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 14:00:41:041 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 14:00:42:042 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 14:00:42:042 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 14:00:42:042 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 14:00:42:042 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 14:00:43:043 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 14:00:43:043 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 14:24:07:247 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 14:24:07:247 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 14:26:17:2617 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 14:26:17:2617 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 14:27:29:2729 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 14:27:29:2729 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 14:28:12:2812 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 14:28:12:2812 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 14:41:57:4157 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 14:41:57:4157 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 14:42:52:4252 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 14:42:52:4252 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 14:44:28:4428 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 14:44:28:4428 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 15:06:31:631 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 15:06:31:631 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 15:07:12:712 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 15:07:12:712 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 15:08:05:85 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 15:08:05:85 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 15:08:09:89 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 15:08:09:89 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 15:08:09:89 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 15:08:09:89 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 15:08:10:810 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 15:08:10:810 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 15:08:15:815 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 15:08:15:815 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 15:08:45:845 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 15:08:45:845 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 15:08:57:857 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 15:08:57:857 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 15:09:04:94 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 15:09:04:94 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 15:09:09:99 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 15:09:09:99 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 15:09:13:913 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 15:09:13:913 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 15:09:16:916 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 15:09:16:916 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 15:09:24:924 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 15:09:24:924 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 15:12:24:1224 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 15:12:24:1224 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 15:12:34:1234 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 15:12:34:1234 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 15:12:43:1243 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 15:12:43:1243 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 21:43:18:4318 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 21:43:18:4318 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 21:43:25:4325 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 21:43:25:4325 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 22:28:28:2828 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 22:28:28:2828 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 22:28:59:2859 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 22:28:59:2859 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 22:29:02:292 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 22:29:02:292 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 22:29:03:293 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 22:29:03:293 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 22:29:03:293 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 22:29:03:293 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 22:29:03:293 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 22:29:03:293 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 22:30:16:3016 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 22:30:16:3016 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 22:30:26:3026 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 22:30:26:3026 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 22:53:22:5322 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 22:53:22:5322 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 22:53:32:5332 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 22:53:32:5332 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 22:54:40:5440 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 22:54:40:5440 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 22:54:52:5452 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 22:54:52:5452 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 22:54:53:5453 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 22:54:53:5453 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 22:55:18:5518 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 22:55:18:5518 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 22:55:19:5519 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 22:55:19:5519 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 22:55:32:5532 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 22:55:32:5532 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-02 22:55:48:5548 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-02 22:55:48:5548 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-02 22:58:46:5846 [31merror[39m: [31m[POST] /api/ai/analyze-cv >> 500 - fetch failed fetch failed[39m
+2026-05-03 00:03:58:358 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 00:03:58:358 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 00:04:22:422 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 00:04:22:422 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 00:05:54:554 [31merror[39m: [31m[POST] /api/jobs >> 400 - companyId invalide pour ce recruteur companyId invalide pour ce recruteur[39m
+2026-05-03 00:06:35:635 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 00:06:35:635 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 00:07:18:718 [31merror[39m: [31m[POST] /api/jobs >> 400 - companyId invalide pour ce recruteur companyId invalide pour ce recruteur[39m
+2026-05-03 00:09:57:957 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 00:09:57:957 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 00:10:02:102 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 00:10:02:102 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 00:11:53:1153 [31merror[39m: [31m[POST] /api/jobs >> 400 - companyId invalide pour ce recruteur companyId invalide pour ce recruteur[39m
+2026-05-03 00:14:54:1454 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 00:14:54:1454 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 00:16:31:1631 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 00:16:31:1631 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 00:17:25:1725 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 00:17:25:1725 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 00:31:58:3158 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 00:31:58:3158 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 00:31:58:3158 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 00:31:58:3158 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 00:37:27:3727 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 00:37:28:3728 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 16:11:56:1156 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 16:11:57:1157 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 16:20:31:2031 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 16:20:31:2031 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 16:22:42:2242 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 16:22:42:2242 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 16:22:54:2254 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 16:22:54:2254 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 16:22:57:2257 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 16:22:57:2257 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 16:23:11:2311 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 16:23:11:2311 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 16:31:03:313 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 16:31:03:313 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 16:31:05:315 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 16:31:05:315 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 16:31:13:3113 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 16:31:13:3113 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 16:36:03:363 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 16:36:03:363 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 16:36:08:368 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 16:36:08:368 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 16:36:35:3635 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 16:36:35:3635 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 16:36:43:3643 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 16:36:43:3643 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 16:36:53:3653 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 16:36:53:3653 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 16:58:11:5811 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 16:58:11:5811 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 16:58:14:5814 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 16:58:14:5814 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 16:58:28:5828 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 16:58:28:5828 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 16:58:29:5829 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 16:58:29:5829 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 16:58:31:5831 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 16:58:31:5831 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 16:58:47:5847 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 16:58:47:5847 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 16:58:48:5848 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 16:58:48:5848 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 16:58:50:5850 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 16:58:50:5850 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 16:58:51:5851 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 16:58:51:5851 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 16:58:52:5852 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 16:58:52:5852 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 17:00:54:054 [31merror[39m: [31m[POST] /api/jobs >> 400 - companyId invalide pour ce recruteur companyId invalide pour ce recruteur[39m
+2026-05-03 17:01:03:13 [31merror[39m: [31m[POST] /api/jobs >> 400 - companyId invalide pour ce recruteur companyId invalide pour ce recruteur[39m
+2026-05-03 19:13:30:1330 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 19:13:30:1330 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 19:13:38:1338 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 19:13:38:1338 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 19:23:16:2316 [31merror[39m: [31m[POST] /api/jobs >> 400 - companyId invalide pour ce recruteur companyId invalide pour ce recruteur[39m
+2026-05-03 19:34:13:3413 [31merror[39m: [31m[POST] /api/jobs >> 400 - companyId invalide pour ce recruteur companyId invalide pour ce recruteur[39m
+2026-05-03 20:39:18:3918 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 20:39:19:3919 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 20:39:30:3930 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 20:39:30:3930 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 21:26:09:269 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 21:26:09:269 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 21:26:59:2659 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 21:26:59:2659 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 21:33:10:3310 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 21:33:10:3310 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 21:35:27:3527 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 21:35:27:3527 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 21:35:29:3529 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 21:35:29:3529 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 21:37:04:374 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 21:37:04:374 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 21:37:15:3715 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 21:37:15:3715 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 21:37:23:3723 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 21:37:23:3723 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 21:38:06:386 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 21:38:06:386 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 21:44:28:4428 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 21:44:28:4428 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 21:44:37:4437 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 21:44:37:4437 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 21:44:50:4450 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 21:44:50:4450 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 21:55:53:5553 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 21:55:53:5553 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 21:55:58:5558 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 21:55:58:5558 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:04:43:443 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 22:04:43:443 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 22:04:51:451 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 22:04:51:451 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 22:04:54:454 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 22:04:54:454 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 22:05:14:514 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 22:05:14:514 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 22:05:25:525 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 22:05:25:525 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 22:05:30:530 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:05:30:530 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:08:36:836 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:08:36:836 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:09:04:94 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:09:04:94 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:16:16:1616 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Token de rafraîchissement invalide ou expiré Token de rafraîchissement invalide ou expiré[39m
+2026-05-03 22:16:16:1616 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Token de rafraîchissement invalide ou expiré Token de rafraîchissement invalide ou expiré[39m
+2026-05-03 22:16:16:1616 [31merror[39m: [31m[POST] /api/auth/logout >> 500 - [39m
+[31mInvalid `prisma.refreshToken.update()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\auth\auth.repository.ts:82:32[39m
+
+[31m  79 };[39m
+[31m  80 [39m
+[31m  81 revokeRefreshToken = async (tokenHash: string) => {[39m
+[31m→ 82   return prisma.refreshToken.update([39m
+[31mAn operation failed because it depends on one or more records that were required but not found. Record to update not found. [39m
+[31mInvalid `prisma.refreshToken.update()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\auth\auth.repository.ts:82:32[39m
+
+[31m  79 };[39m
+[31m  80 [39m
+[31m  81 revokeRefreshToken = async (tokenHash: string) => {[39m
+[31m→ 82   return prisma.refreshToken.update([39m
+[31mAn operation failed because it depends on one or more records that were required but not found. Record to update not found.[39m
+2026-05-03 22:16:16:1616 [31merror[39m: [31m[POST] /api/auth/logout >> 500 - [39m
+[31mInvalid `prisma.refreshToken.update()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\auth\auth.repository.ts:82:32[39m
+
+[31m  79 };[39m
+[31m  80 [39m
+[31m  81 revokeRefreshToken = async (tokenHash: string) => {[39m
+[31m→ 82   return prisma.refreshToken.update([39m
+[31mAn operation failed because it depends on one or more records that were required but not found. Record to update not found. [39m
+[31mInvalid `prisma.refreshToken.update()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\auth\auth.repository.ts:82:32[39m
+
+[31m  79 };[39m
+[31m  80 [39m
+[31m  81 revokeRefreshToken = async (tokenHash: string) => {[39m
+[31m→ 82   return prisma.refreshToken.update([39m
+[31mAn operation failed because it depends on one or more records that were required but not found. Record to update not found.[39m
+2026-05-03 22:16:18:1618 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:16:19:1619 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:18:48:1848 [31merror[39m: [31m[POST] /api/applications >> 400 - Vous avez déjà postulé à cette offre. Vous avez déjà postulé à cette offre.[39m
+2026-05-03 22:18:50:1850 [31merror[39m: [31m[POST] /api/applications >> 400 - Vous avez déjà postulé à cette offre. Vous avez déjà postulé à cette offre.[39m
+2026-05-03 22:22:37:2237 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:22:37:2237 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:22:54:2254 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:22:54:2254 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:23:02:232 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:23:02:232 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:23:09:239 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:23:09:239 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:23:12:2312 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:23:12:2312 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:23:51:2351 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:23:51:2351 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:29:47:2947 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 22:29:47:2947 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 22:29:55:2955 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 22:29:55:2955 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 22:30:15:3015 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 22:30:15:3015 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 22:31:09:319 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 22:31:09:319 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 22:31:40:3140 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:31:40:3140 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:31:57:3157 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:31:57:3157 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:32:01:321 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:32:01:321 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:32:02:322 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:32:02:322 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:32:14:3214 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 22:32:14:3214 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 22:32:23:3223 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:32:23:3223 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:32:30:3230 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:32:30:3230 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:33:02:332 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 22:33:02:332 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 22:33:48:3348 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:33:48:3348 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-03 22:35:11:3511 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 22:35:11:3511 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 22:35:22:3522 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 22:35:22:3522 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 22:35:23:3523 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 22:35:23:3523 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 22:35:28:3528 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-03 22:35:28:3528 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 23:35:49:3549 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 23:35:49:3549 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 23:37:23:3723 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-03 23:37:23:3723 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-04 16:17:57:1757 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-04 16:17:57:1757 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-04 16:28:18:2818 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 16:28:18:2818 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 16:29:23:2923 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 16:29:23:2923 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 16:50:45:5045 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 16:50:46:5046 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:04:34:434 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-04 17:04:34:434 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-04 17:04:38:438 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-04 17:04:38:438 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-04 17:04:55:455 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:04:55:455 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:08:30:830 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:08:30:830 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:08:34:834 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:08:35:835 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:09:10:910 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:09:10:910 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:09:23:923 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:09:23:923 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:32:27:3227 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-04 17:32:27:3227 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-04 17:33:00:330 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:33:00:330 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:35:59:3559 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:35:59:3559 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:37:27:3727 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:37:27:3727 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:38:32:3832 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:38:32:3832 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:38:55:3855 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:38:55:3855 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:46:33:4633 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:46:33:4633 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:47:53:4753 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:47:53:4753 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:48:06:486 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:48:06:486 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:51:15:5115 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:51:15:5115 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:51:39:5139 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:51:39:5139 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:51:49:5149 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:51:49:5149 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:51:56:5156 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:51:56:5156 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:53:37:5337 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:53:37:5337 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:53:45:5345 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:53:45:5345 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:54:06:546 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:54:06:546 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:54:07:547 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:54:07:547 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:57:54:5754 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:57:54:5754 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:58:22:5822 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:58:22:5822 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:58:31:5831 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:58:31:5831 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:58:42:5842 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:58:42:5842 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:58:42:5842 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 17:58:48:5848 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 18:03:05:35 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 18:03:15:315 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 18:03:15:315 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 18:04:26:426 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 18:04:41:441 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 18:04:51:451 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 18:04:57:457 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 18:04:58:458 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 18:04:58:458 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 18:05:09:59 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 18:05:43:543 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 18:05:43:543 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 18:53:08:538 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 18:53:08:538 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 19:39:29:3929 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 19:39:29:3929 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 19:40:18:4018 [31merror[39m: [31m[PUT] /api/users/me >> 400 - Erreur de validation [[39m
+[31m  {[39m
+[31m    "origin": "string",[39m
+[31m    "code": "too_big",[39m
+[31m    "maximum": 500,[39m
+[31m    "inclusive": true,[39m
+[31m    "path": [[39m
+[31m      "bio"[39m
+[31m    ],[39m
+[31m    "message": "Too big: expected string to have <=500 characters"[39m
+[31m  }[39m
+[31m][39m
+2026-05-04 19:40:20:4020 [31merror[39m: [31m[PUT] /api/users/me >> 400 - Erreur de validation [[39m
+[31m  {[39m
+[31m    "origin": "string",[39m
+[31m    "code": "too_big",[39m
+[31m    "maximum": 500,[39m
+[31m    "inclusive": true,[39m
+[31m    "path": [[39m
+[31m      "bio"[39m
+[31m    ],[39m
+[31m    "message": "Too big: expected string to have <=500 characters"[39m
+[31m  }[39m
+[31m][39m
+2026-05-04 19:40:23:4023 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 19:40:23:4023 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 19:41:28:4128 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 19:41:28:4128 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 19:54:57:5457 [31merror[39m: [31m[POST] /api/profile/avatar >> 500 - File too large File too large[39m
+2026-05-04 19:55:06:556 [31merror[39m: [31m[PUT] /api/users/me >> 400 - Erreur de validation [[39m
+[31m  {[39m
+[31m    "origin": "string",[39m
+[31m    "code": "too_big",[39m
+[31m    "maximum": 500,[39m
+[31m    "inclusive": true,[39m
+[31m    "path": [[39m
+[31m      "bio"[39m
+[31m    ],[39m
+[31m    "message": "Too big: expected string to have <=500 characters"[39m
+[31m  }[39m
+[31m][39m
+2026-05-04 19:56:02:562 [31merror[39m: [31m[PUT] /api/users/me >> 400 - Erreur de validation [[39m
+[31m  {[39m
+[31m    "origin": "string",[39m
+[31m    "code": "too_big",[39m
+[31m    "maximum": 500,[39m
+[31m    "inclusive": true,[39m
+[31m    "path": [[39m
+[31m      "bio"[39m
+[31m    ],[39m
+[31m    "message": "Too big: expected string to have <=500 characters"[39m
+[31m  }[39m
+[31m][39m
+2026-05-04 20:00:16:016 [31merror[39m: [31m[PUT] /api/users/me >> 400 - Erreur de validation [[39m
+[31m  {[39m
+[31m    "origin": "string",[39m
+[31m    "code": "too_big",[39m
+[31m    "maximum": 500,[39m
+[31m    "inclusive": true,[39m
+[31m    "path": [[39m
+[31m      "bio"[39m
+[31m    ],[39m
+[31m    "message": "Too big: expected string to have <=500 characters"[39m
+[31m  }[39m
+[31m][39m
+2026-05-04 20:21:35:2135 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 20:21:36:2136 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:38:34:3834 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:38:34:3834 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:39:09:399 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-04 23:39:09:399 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-04 23:40:12:4012 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:40:12:4012 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:41:30:4130 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:41:30:4130 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:41:43:4143 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:41:43:4143 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:41:47:4147 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:41:47:4147 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:42:11:4211 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:42:11:4211 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:42:16:4216 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:42:16:4216 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:42:26:4226 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:42:26:4226 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:42:32:4232 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:42:32:4232 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:42:46:4246 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:42:46:4246 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:42:51:4251 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:42:51:4251 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:43:08:438 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:43:08:438 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:43:22:4322 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-04 23:43:22:4322 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-04 23:43:26:4326 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-04 23:43:26:4326 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-04 23:43:43:4343 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-04 23:43:43:4343 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-04 23:43:54:4354 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:43:54:4354 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:43:58:4358 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:43:58:4358 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:44:10:4410 [31merror[39m: [31m[POST] /api/applications >> 400 - Vous avez déjà postulé à cette offre. Vous avez déjà postulé à cette offre.[39m
+2026-05-04 23:44:18:4418 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:44:18:4418 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:44:36:4436 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-04 23:44:36:4436 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-04 23:44:39:4439 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-04 23:44:39:4439 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-04 23:44:41:4441 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-04 23:44:41:4441 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-04 23:44:42:4442 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-04 23:44:42:4442 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-04 23:44:42:4442 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-04 23:44:42:4442 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-04 23:46:21:4621 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:46:21:4621 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:46:27:4627 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:46:27:4627 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:46:36:4636 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:46:36:4636 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:46:38:4638 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-04 23:46:38:4638 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-05 00:11:24:1124 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-05 00:11:24:1124 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-05 00:11:41:1141 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-05 00:11:41:1141 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-05 00:11:54:1154 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-05 00:11:54:1154 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-05 00:13:25:1325 [31merror[39m: [31m[POST] /api/applications >> 400 - Vous avez déjà postulé à cette offre. Vous avez déjà postulé à cette offre.[39m
+2026-05-05 00:13:31:1331 [31merror[39m: [31m[POST] /api/applications >> 400 - Vous avez déjà postulé à cette offre. Vous avez déjà postulé à cette offre.[39m
+2026-05-05 00:16:39:1639 [31merror[39m: [31m[POST] /api/applications >> 400 - Vous avez déjà postulé à cette offre. Vous avez déjà postulé à cette offre.[39m
+2026-05-05 19:52:53:5253 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-05 19:52:53:5253 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-05 19:53:08:538 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 19:53:08:538 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 20:13:42:1342 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 20:13:42:1342 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 20:19:00:190 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 20:19:00:190 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 21:03:14:314 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 21:03:14:314 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 21:32:54:3254 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 21:32:54:3254 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 21:34:03:343 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-05 21:34:03:343 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 21:46:53:4653 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-05 21:46:53:4653 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 21:47:45:4745 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-05 21:47:45:4745 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 21:48:01:481 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-05 21:48:01:481 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 21:48:09:489 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-05 21:48:09:489 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 21:52:32:5232 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 21:52:32:5232 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 21:52:49:5249 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 21:52:49:5249 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 21:54:21:5421 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 21:54:21:5421 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 21:56:29:5629 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 21:56:29:5629 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 22:00:53:053 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 22:00:54:054 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 22:01:45:145 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 22:01:45:145 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 22:01:52:152 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 22:01:52:152 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 22:01:54:154 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 22:01:54:154 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 22:02:06:26 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 22:02:06:26 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 22:02:54:254 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 22:02:54:254 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 22:03:19:319 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 22:03:22:322 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 22:04:11:411 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-05 22:04:11:411 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-05 22:05:37:537 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-05 22:05:37:537 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 22:05:49:549 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-05 22:05:49:549 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-05 23:14:28:1428 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-05 23:14:28:1428 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-05 23:15:41:1541 [31merror[39m: [31m[GET] /api/admin/analytics >> 500 - Do not know how to serialize a BigInt Do not know how to serialize a BigInt[39m
+2026-05-05 23:15:41:1541 [31merror[39m: [31m[GET] /api/admin/analytics >> 500 - Do not know how to serialize a BigInt Do not know how to serialize a BigInt[39m
+2026-05-06 00:22:47:2247 [31merror[39m: [31m[GET] /api/admin/offers >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\admin\admin.repository.ts:66:23[39m
+
+[31m  63 async getOffers(page: number, limit: number) {[39m
+[31m  64   const skip = (page - 1) * limit;[39m
+[31m  65   const [offers, total] = await Promise.all([[39m
+[31m→ 66     prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\admin\admin.repository.ts:66:23[39m
+
+[31m  63 async getOffers(page: number, limit: number) {[39m
+[31m  64   const skip = (page - 1) * limit;[39m
+[31m  65   const [offers, total] = await Promise.all([[39m
+[31m→ 66     prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:22:47:2247 [31merror[39m: [31m[GET] /api/admin/offers >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\admin\admin.repository.ts:66:23[39m
+
+[31m  63 async getOffers(page: number, limit: number) {[39m
+[31m  64   const skip = (page - 1) * limit;[39m
+[31m  65   const [offers, total] = await Promise.all([[39m
+[31m→ 66     prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\admin\admin.repository.ts:66:23[39m
+
+[31m  63 async getOffers(page: number, limit: number) {[39m
+[31m  64   const skip = (page - 1) * limit;[39m
+[31m  65   const [offers, total] = await Promise.all([[39m
+[31m→ 66     prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:23:16:2316 [31merror[39m: [31m[GET] /api/admin/analytics >> 500 - Do not know how to serialize a BigInt Do not know how to serialize a BigInt[39m
+2026-05-06 00:23:16:2316 [31merror[39m: [31m[GET] /api/admin/analytics >> 500 - Do not know how to serialize a BigInt Do not know how to serialize a BigInt[39m
+2026-05-06 00:30:44:3044 [31merror[39m: [31m[GET] /api/admin/analytics >> 500 - Do not know how to serialize a BigInt Do not know how to serialize a BigInt[39m
+2026-05-06 00:30:44:3044 [31merror[39m: [31m[GET] /api/admin/analytics >> 500 - Do not know how to serialize a BigInt Do not know how to serialize a BigInt[39m
+2026-05-06 00:31:10:3110 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-06 00:31:10:3110 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-06 00:31:27:3127 [31merror[39m: [31m[GET] /api/recruiter/dashboard >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:31:27:3127 [31merror[39m: [31m[GET] /api/recruiter/overview >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:31:27:3127 [31merror[39m: [31m[GET] /api/recruiter/dashboard >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:31:27:3127 [31merror[39m: [31m[GET] /api/recruiter/overview >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:31:31:3131 [31merror[39m: [31m[GET] /api/recruiter/overview >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:31:31:3131 [31merror[39m: [31m[GET] /api/recruiter/overview >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:31:33:3133 [31merror[39m: [31m[GET] /api/jobs/my >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:31:33:3133 [31merror[39m: [31m[GET] /api/jobs/my >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:31:35:3135 [31merror[39m: [31m[GET] /api/jobs/my >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:31:35:3135 [31merror[39m: [31m[GET] /api/jobs/my >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:31:35:3135 [31merror[39m: [31m[GET] /api/applications/recruiter >> 500 - [39m
+[31mInvalid `prisma.application.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\application\application.repository.ts:64:31[39m
+
+[31m  61 }[39m
+[31m  62 [39m
+[31m  63 async findByRecruiter(recruiterId: string, offerId?: string) {[39m
+[31m→ 64   return prisma.application.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.application.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\application\application.repository.ts:64:31[39m
+
+[31m  61 }[39m
+[31m  62 [39m
+[31m  63 async findByRecruiter(recruiterId: string, offerId?: string) {[39m
+[31m→ 64   return prisma.application.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:31:35:3135 [31merror[39m: [31m[GET] /api/applications/recruiter >> 500 - [39m
+[31mInvalid `prisma.application.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\application\application.repository.ts:64:31[39m
+
+[31m  61 }[39m
+[31m  62 [39m
+[31m  63 async findByRecruiter(recruiterId: string, offerId?: string) {[39m
+[31m→ 64   return prisma.application.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.application.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\application\application.repository.ts:64:31[39m
+
+[31m  61 }[39m
+[31m  62 [39m
+[31m  63 async findByRecruiter(recruiterId: string, offerId?: string) {[39m
+[31m→ 64   return prisma.application.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:31:36:3136 [31merror[39m: [31m[GET] /api/jobs/my >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:31:36:3136 [31merror[39m: [31m[GET] /api/jobs/my >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:31:56:3156 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-06 00:31:56:3156 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-06 00:32:00:320 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-06 00:32:00:320 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-06 00:32:13:3213 [31merror[39m: [31m[GET] /api/recruiter/dashboard >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:32:13:3213 [31merror[39m: [31m[GET] /api/recruiter/overview >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:32:13:3213 [31merror[39m: [31m[GET] /api/recruiter/dashboard >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:32:13:3213 [31merror[39m: [31m[GET] /api/recruiter/overview >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:32:17:3217 [31merror[39m: [31m[GET] /api/recruiter/overview >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:32:17:3217 [31merror[39m: [31m[GET] /api/recruiter/overview >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:32:38:3238 [31merror[39m: [31m[GET] /api/recruiter/dashboard >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:32:38:3238 [31merror[39m: [31m[GET] /api/recruiter/overview >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:32:38:3238 [31merror[39m: [31m[GET] /api/recruiter/dashboard >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:32:38:3238 [31merror[39m: [31m[GET] /api/recruiter/overview >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:35:14:3514 [31merror[39m: [31m[GET] /api/recruiter/dashboard >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:35:14:3514 [31merror[39m: [31m[GET] /api/recruiter/dashboard >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:35:14:3514 [31merror[39m: [31m[GET] /api/recruiter/overview >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:35:14:3514 [31merror[39m: [31m[GET] /api/recruiter/overview >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:36:30:3630 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-06 00:36:30:3630 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-06 00:36:34:3634 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-06 00:36:34:3634 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-06 00:36:40:3640 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-06 00:36:40:3640 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-06 00:38:59:3859 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-06 00:38:59:3859 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-06 00:40:22:4022 [31merror[39m: [31m[GET] /api/recruiter/dashboard >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:40:22:4022 [31merror[39m: [31m[GET] /api/recruiter/overview >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:40:22:4022 [31merror[39m: [31m[GET] /api/recruiter/dashboard >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:40:22:4022 [31merror[39m: [31m[GET] /api/recruiter/overview >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:40:28:4028 [31merror[39m: [31m[GET] /api/jobs/my >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:40:28:4028 [31merror[39m: [31m[GET] /api/jobs/my >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:42:05:425 [31merror[39m: [31m[GET] /api/jobs/my >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:42:05:425 [31merror[39m: [31m[GET] /api/jobs/my >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:42:21:4221 [31merror[39m: [31m[GET] /api/recruiter/overview >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:42:21:4221 [31merror[39m: [31m[GET] /api/recruiter/overview >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:42:23:4223 [31merror[39m: [31m[GET] /api/jobs/my >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:42:23:4223 [31merror[39m: [31m[GET] /api/jobs/my >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:42:24:4224 [31merror[39m: [31m[GET] /api/jobs/my >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:42:24:4224 [31merror[39m: [31m[GET] /api/jobs/my >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:44:18:4418 [31merror[39m: [31m[GET] /api/jobs/my >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:44:18:4418 [31merror[39m: [31m[GET] /api/jobs/my >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\offer\offer.repository.ts:43:28[39m
+
+[31m  40 },[39m
+[31m  41 [39m
+[31m  42 async getOffersByRecruiter(recruiterId: string) {[39m
+[31m→ 43   return prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:46:23:4623 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-06 00:46:24:4624 [31merror[39m: [31m[POST] /api/auth/login >> 401 - Identifiants invalides Identifiants invalides[39m
+2026-05-06 00:46:27:4627 [31merror[39m: [31m[GET] /api/recruiter/dashboard >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:46:27:4627 [31merror[39m: [31m[GET] /api/recruiter/overview >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:46:27:4627 [31merror[39m: [31m[GET] /api/recruiter/overview >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:102:23[39m
+
+[31m   99 fromDate.setHours(0, 0, 0, 0);[39m
+[31m  100 [39m
+[31m  101 const [offers, applications] = await Promise.all([[39m
+[31m→ 102   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 00:46:27:4627 [31merror[39m: [31m[GET] /api/recruiter/dashboard >> 500 - [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database. [39m
+[31mInvalid `prisma.jobOffer.findMany()` invocation in[39m
+[31mC:\Users\haide\OneDrive\Desktop\prjets\InternLink\backend\src\modules\recruiter\recruiter.routes.ts:17:23[39m
+
+[31m  14 const recruiterId = req.user!.id;[39m
+[31m  15 [39m
+[31m  16 const [offers, applications] = await Promise.all([[39m
+[31m→ 17   prisma.jobOffer.findMany([39m
+[31mThe column `job_offers.isFeatured` does not exist in the current database.[39m
+2026-05-06 01:25:06:256 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-06 01:25:06:256 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-06 01:37:00:370 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-06 01:37:00:370 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-06 01:38:42:3842 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-06 01:38:42:3842 [31merror[39m: [31m[POST] /api/auth/refresh >> 401 - Refresh token manquant Refresh token manquant[39m
+2026-05-06 01:40:19:4019 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 01:40:21:4021 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 01:41:23:4123 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 01:41:23:4123 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 01:42:29:4229 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 01:42:30:4230 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 01:42:55:4255 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 01:42:56:4256 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 01:43:14:4314 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 01:43:15:4315 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 01:44:38:4438 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 01:44:39:4439 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 01:49:45:4945 [31merror[39m: [31m[GET] /api/admin/analytics >> 500 - Do not know how to serialize a BigInt Do not know how to serialize a BigInt[39m
+2026-05-06 01:49:45:4945 [31merror[39m: [31m[GET] /api/admin/analytics >> 500 - Do not know how to serialize a BigInt Do not know how to serialize a BigInt[39m
+2026-05-06 02:05:27:527 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 02:05:28:528 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 02:08:01:81 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 02:08:02:82 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 02:08:49:849 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 02:08:50:850 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 02:23:47:2347 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 02:23:48:2348 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 08:57:22:5722 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 08:57:23:5723 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 09:21:52:2152 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 09:21:53:2153 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m

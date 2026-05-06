@@ -33,27 +33,39 @@ export default function AnalyseCvPage() {
 
   const handleAnalyze = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (!file) {
-      return;
-    }
+    if (!file) return;
+    await performAnalysis(file);
+    event.target.value = '';
+  };
 
+  const handleAnalyzeCurrent = async () => {
+    if (!cv) return;
+    await performAnalysis();
+  };
+
+  const performAnalysis = async (file?: File) => {
     try {
       setIsAnalyzing(true);
-      const uploadResponse = await cvService.uploadCv(file);
+      let uploadedCvId = cv?.id;
+      
+      if (file) {
+        const uploadResponse = await cvService.uploadCv(file);
+        uploadedCvId = uploadResponse.data?.cvId;
+      }
+
       const analyzeResponse = await aiService.analyzeCv(file);
       const currentCvResponse = await cvService.getMe();
 
       setCv(currentCvResponse.data?.cv ?? null);
       setAnalysis({
         ...analyzeResponse.data,
-        uploadedCvId: uploadResponse.data?.cvId,
+        uploadedCvId,
       });
       setOptimized(null);
     } catch (error) {
       console.error('Failed to analyze CV', error);
     } finally {
       setIsAnalyzing(false);
-      event.target.value = '';
     }
   };
 
@@ -92,20 +104,31 @@ export default function AnalyseCvPage() {
                 <p className="mt-2 text-sm text-on-surface-variant">Le bouton ouvre le file picker, stocke le CV via le backend puis envoie le fichier au service FastAPI pour une analyse structuree.</p>
               </div>
 
-              <label className="inline-flex cursor-pointer items-center gap-3 rounded-xl bg-primary px-4 py-3 text-sm font-bold text-white">
-                <span className="material-symbols-outlined text-[18px]">analytics</span>
-                <span>{isAnalyzing ? "Analyse en cours..." : "Lancer l'analyse Nexus"}</span>
-                <input accept=".pdf,.doc,.docx" className="hidden" disabled={isAnalyzing} onChange={handleAnalyze} type="file" />
-              </label>
+              <div className="flex flex-col gap-3">
+                {cv ? (
+                  <button 
+                    onClick={handleAnalyzeCurrent}
+                    disabled={isAnalyzing}
+                    className="inline-flex items-center justify-center gap-3 rounded-xl bg-primary px-4 py-3 text-sm font-bold text-white interactive-scale disabled:opacity-50"
+                  >
+                    <span className="material-symbols-outlined text-[18px]">analytics</span>
+                    <span>{isAnalyzing ? "Analyse en cours..." : "Relancer l'analyse du CV actuel"}</span>
+                  </button>
+                ) : null}
 
-              {cv?.fileUrl ? (
-                <a className="inline-flex items-center gap-2 rounded-xl border border-surface-variant px-4 py-3 text-sm font-bold text-on-surface" href={cv.fileUrl} rel="noreferrer" target="_blank">
-                  <span className="material-symbols-outlined text-[18px]">download</span>
-                  <span>Ouvrir le CV courant</span>
-                </a>
-              ) : (
-                <p className="text-sm text-on-surface-variant">Aucun CV actif pour le moment.</p>
-              )}
+                <label className="inline-flex cursor-pointer items-center justify-center gap-3 rounded-xl border border-primary/20 bg-primary/5 px-4 py-3 text-sm font-bold text-primary hover:bg-primary/10 transition-colors">
+                  <span className="material-symbols-outlined text-[18px]">cloud_upload</span>
+                  <span>{cv ? "Analyser un nouveau CV" : "Lancer l'analyse Nexus (Upload)"}</span>
+                  <input accept=".pdf,.doc,.docx" className="hidden" disabled={isAnalyzing} onChange={handleAnalyze} type="file" />
+                </label>
+
+                {cv?.fileUrl && (
+                  <a className="inline-flex items-center justify-center gap-2 rounded-xl border border-surface-variant px-4 py-3 text-sm font-bold text-on-surface hover:bg-surface-variant/10 transition-colors" href={cv.fileUrl} rel="noreferrer" target="_blank">
+                    <span className="material-symbols-outlined text-[18px]">visibility</span>
+                    <span>Consulter le CV actuel</span>
+                  </a>
+                )}
+              </div>
 
               {analysis ? (
                 <div className="rounded-2xl bg-surface p-5">

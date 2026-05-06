@@ -135,8 +135,8 @@ export async function triggerMatchingForCandidate(cvDocumentId: string, userId: 
 
     const cvEmbedding: number[] = JSON.parse(cvRows[0].embedding)
 
-    // Profil candidat
-    const profile = await prisma.profile.findUnique({ where: { userId } })
+    // Données candidat (User pour location/availability + Profile pour skills si besoin)
+    const user = await prisma.user.findUnique({ where: { id: userId } })
 
     // Skills extraits du CV
     const extractedSkills = await prisma.extractedSkill.findMany({
@@ -160,10 +160,10 @@ export async function triggerMatchingForCandidate(cvDocumentId: string, userId: 
         Number(offerRow.cosine_score),
         cvSkills,
         offerSkills,
-        null, // Profile n'a pas de champ location
+        user?.location ?? null,
         offerRow.location,
         offerRow.remote,
-        null, // Profile n'a pas de champ availabilityMonths
+        user?.availabilityMonths ?? null,
         offerRow.durationMonths
       )
 
@@ -199,7 +199,10 @@ export async function triggerMatchingForOffer(offerId: string) {
     // Détails offre avec skills
     const offer = await prisma.jobOffer.findUnique({
       where: { id: offerId },
-      include: { offerSkills: { include: { skill: true } } },
+      select: {
+        id: true, location: true, remote: true, durationMonths: true,
+        offerSkills: { include: { skill: true } }
+      },
     })
     if (!offer) return
 
@@ -209,9 +212,9 @@ export async function triggerMatchingForOffer(offerId: string) {
     const topCandidates = await getTopCandidatesForOffer(offerEmbedding, 50)
 
     for (const candRow of topCandidates) {
-      // Profil candidat
-      const profile = await prisma.profile.findUnique({
-        where: { userId: candRow.candidate_id },
+      // Données candidat (User)
+      const user = await prisma.user.findUnique({
+        where: { id: candRow.candidate_id },
       })
 
       // Skills du CV actif
@@ -225,10 +228,10 @@ export async function triggerMatchingForOffer(offerId: string) {
         Number(candRow.cosine_score),
         cvSkills,
         offerSkills,
-        null, // Profile n'a pas de champ location
+        user?.location ?? null,
         offer.location,
         offer.remote,
-        null, // Profile n'a pas de champ availabilityMonths
+        user?.availabilityMonths ?? null,
         offer.durationMonths
       )
 
@@ -245,6 +248,67 @@ export async function triggerMatchingForOffer(offerId: string) {
     console.log(`[Matching] ✅ Matching offre terminé : ${topCandidates.length} scores calculés`)
   } catch (error) {
     console.error(`[Matching] ❌ Matching offre échoué pour ${offerId}:`, error)
+  }
+}
+
+/**
+ * Calcule et sauvegarde le score de matching pour un couple candidat/offre spécifique.
+ * Utile lors d'une candidature directe.
+ */
+export async function recalculateMatch(candidateId: string, offerId: string) {
+  try {
+    const cv = await prisma.cvDocument.findFirst({
+      where: { userId: candidateId, isActive: true, parseStatus: 'done' },
+      select: {
+        id: true,
+        extractedSkills: { include: { skill: true } }
+      }
+    });
+    if (!cv) return;
+
+    const cvRows: any[] = await prisma.$queryRaw`SELECT embedding::text FROM cv_documents WHERE id = ${cv.id}`;
+    if (!cvRows.length || !cvRows[0].embedding) return;
+    const cvEmbedding = JSON.parse(cvRows[0].embedding);
+
+    const offer = await prisma.jobOffer.findUnique({
+      where: { id: offerId },
+      select: {
+        id: true, location: true, remote: true, durationMonths: true,
+        offerSkills: { include: { skill: true } }
+      }
+    });
+    if (!offer) return;
+
+    const offerRows: any[] = await prisma.$queryRaw`SELECT embedding::text FROM job_offers WHERE id = ${offer.id}`;
+    if (!offerRows.length || !offerRows[0].embedding) return;
+    const offerEmbedding = JSON.parse(offerRows[0].embedding);
+
+    const embeddingStr = '[' + cvEmbedding.join(',') + ']';
+    const cosineResult: any[] = await prisma.$queryRaw`
+      SELECT 1 - (embedding <=> ${embeddingStr}::vector(384)) as score 
+      FROM job_offers WHERE id = ${offerId}
+    `;
+    const cosine = Number(cosineResult[0].score);
+
+    const user = await prisma.user.findUnique({ where: { id: candidateId } });
+    const cvSkills = cv.extractedSkills.map(es => es.skill.name);
+    const offerSkills = offer.offerSkills.map(os => os.skill.name);
+
+    const { scoreFinal, breakdown } = calculateFinalScore(
+      cosine,
+      cvSkills,
+      offerSkills,
+      user?.location ?? null,
+      offer.location,
+      offer.remote,
+      user?.availabilityMonths ?? null,
+      offer.durationMonths
+    );
+
+    await upsertMatchScore(candidateId, offerId, cv.id, cosine, scoreFinal, breakdown);
+    console.log(`[Matching] ✅ Score recalculé pour ${candidateId} sur offre ${offerId} : ${Math.round(scoreFinal * 100)}%`);
+  } catch (error) {
+    console.error(`[Matching] ❌ Erreur recalcul match:`, error);
   }
 }
 
@@ -267,7 +331,8 @@ export async function getMatchesForOffer(offerId: string, minScore?: number) {
         },
       },
       cvDocument: {
-        include: {
+        select: {
+          id: true, fileUrl: true, isActive: true, parseStatus: true,
           extractedSkills: { include: { skill: true } },
         },
       },
@@ -293,7 +358,10 @@ export async function getMatchesForCandidate(userId: string) {
     orderBy: { scoreFinal: 'desc' },
     include: {
       offer: {
-        include: { company: true },
+        select: {
+          id: true, title: true, location: true, remote: true,
+          offerStatus: true, company: { select: { id: true, name: true } }
+        },
       },
     },
   })

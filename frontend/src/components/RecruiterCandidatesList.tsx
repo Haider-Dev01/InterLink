@@ -1,8 +1,9 @@
-﻿import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RecruiterLayout } from './RecruiterLayout';
 import { useOfferStore } from '../store/offerStore';
 import { recruiterService } from '../services/recruiterService';
+import { connectionService } from '../services/connectionService';
 
 export default function RecruiterCandidatesList() {
   const navigate = useNavigate();
@@ -10,6 +11,20 @@ export default function RecruiterCandidatesList() {
   const [selectedOfferId, setSelectedOfferId] = useState<string>('');
   const [applications, setApplications] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isActionLoading, setIsActionLoading] = useState<string | null>(null);
+
+  const loadApplications = async () => {
+    setIsLoading(true);
+    try {
+      const response = await recruiterService.getApplications(selectedOfferId || undefined);
+      setApplications(response.data?.applications ?? []);
+    } catch (error) {
+      console.error('Failed to load recruiter applications', error);
+      setApplications([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchMyOffers();
@@ -22,21 +37,20 @@ export default function RecruiterCandidatesList() {
   }, [myOffers, selectedOfferId]);
 
   useEffect(() => {
-    const load = async () => {
-      setIsLoading(true);
-      try {
-        const response = await recruiterService.getApplications(selectedOfferId || undefined);
-        setApplications(response.data?.applications ?? []);
-      } catch (error) {
-        console.error('Failed to load recruiter applications', error);
-        setApplications([]);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    load();
+    loadApplications();
   }, [selectedOfferId]);
+
+  const handleConnect = async (candidateId: string) => {
+    setIsActionLoading(candidateId);
+    try {
+      await connectionService.requestConnection(candidateId);
+      await loadApplications(); // Refresh to see "pending"
+    } catch (error) {
+      console.error('Connection request failed', error);
+    } finally {
+      setIsActionLoading(null);
+    }
+  };
 
   const normalized = useMemo(() => {
     return applications.map((application) => {
@@ -52,6 +66,8 @@ export default function RecruiterCandidatesList() {
         status: application.applicationStatus,
         offerTitle: application.offer?.title || 'Offre',
         score,
+        cvUrl: application.cvUrl,
+        connectionStatus: application.connectionStatus || 'none',
       };
     });
   }, [applications]);
@@ -104,13 +120,63 @@ export default function RecruiterCandidatesList() {
                 </span>
               </div>
 
-              <button
-                onClick={() => navigate(`/profile/${candidate.candidateId}`)}
-                className="w-full border border-surface-variant py-2 rounded-xl text-sm font-bold text-on-surface-variant hover:border-primary hover:text-primary transition-colors"
-                type="button"
-              >
-                Voir profil
-              </button>
+              <div className="flex flex-col gap-2 mt-4">
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    onClick={() => navigate(`/profile/${candidate.candidateId}`)}
+                    className="w-full border border-surface-variant py-2 rounded-xl text-xs font-bold text-on-surface-variant hover:border-primary hover:text-primary transition-colors"
+                    type="button"
+                  >
+                    Voir profil
+                  </button>
+                  {candidate.cvUrl && (
+                    <button
+                      onClick={() => window.open(candidate.cvUrl, '_blank')}
+                      className="w-full border border-primary/20 bg-primary/5 py-2 rounded-xl text-xs font-bold text-primary hover:bg-primary/10 transition-colors flex items-center justify-center gap-1"
+                      type="button"
+                    >
+                      <span className="material-symbols-outlined text-[16px]">description</span>
+                      Voir CV
+                    </button>
+                  )}
+                </div>
+
+                {candidate.connectionStatus === 'accepted' ? (
+                  <button
+                    onClick={() => navigate('/messages')}
+                    className="w-full bg-secondary text-white py-2 rounded-xl text-sm font-bold shadow-sm hover:bg-secondary/90 transition-colors flex items-center justify-center gap-2"
+                    type="button"
+                  >
+                    <span className="material-symbols-outlined text-sm">chat</span>
+                    Discuter
+                  </button>
+                ) : candidate.connectionStatus === 'pending' ? (
+                  <button
+                    disabled
+                    className="w-full bg-surface-variant text-on-surface-variant py-2 rounded-xl text-sm font-bold opacity-70 flex items-center justify-center gap-2"
+                    type="button"
+                  >
+                    <span className="material-symbols-outlined text-sm">schedule</span>
+                    Invitation envoyee
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleConnect(candidate.candidateId)}
+                    disabled={isActionLoading === candidate.candidateId}
+                    className="w-full bg-primary text-white py-2 rounded-xl text-sm font-bold shadow-sm hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
+                    type="button"
+                  >
+                    {isActionLoading === candidate.candidateId ? (
+                      <span className="animate-spin h-4 w-4 border-2 border-white/20 border-t-white rounded-full"></span>
+                    ) : (
+                      <>
+                        <span className="material-symbols-outlined text-sm">person_add</span>
+                        Se connecter
+                      </>
+                    )}
+                  </button>
+                )}
+              </div>
             </div>
           ))}
         </div>

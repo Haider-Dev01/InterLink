@@ -2,6 +2,7 @@ import { offerRepository } from './offer.repository'
 import { CreateOfferInput, UpdateOfferInput } from './offer.validation'
 import { AppError } from '../../shared/errors/AppError';
 import { triggerMatchingForOffer } from './matching.service'
+import { notificationService } from '../notification/notification.service'
 import { prisma } from '../../shared/config/prismaClient'
 
 const AI_SERVICE_URL = process.env.AI_SERVICE_URL || 'http://localhost:8002'
@@ -11,6 +12,10 @@ export const offerService = {
     const recruiter = await offerRepository.getUserById(recruiterId)
     if (!recruiter || recruiter.role !== 'recruiter') {
       throw new AppError('Accès refusé: profil recruteur requis', 403)
+    }
+
+    if (recruiter.isBanned) {
+      throw new AppError('Votre compte a été suspendu par un administrateur. Vous ne pouvez plus créer d\'offres.', 403);
     }
 
     const requestedCompany = data.companyId
@@ -26,7 +31,11 @@ export const offerService = {
       throw new AppError("Aucune entreprise associée au recruteur", 400)
     }
 
-    if (company.userId !== recruiterId) {
+    // Vérifier appartenance : soit le recruteur appartient à l'entreprise (user.companyId),
+    // soit il en est le propriétaire (company.userId)
+    const isMember = recruiter.companyId === company.id
+    const isOwner  = company.userId === recruiterId
+    if (!isMember && !isOwner) {
       throw new AppError("companyId invalide pour ce recruteur", 400)
     }
 
@@ -64,10 +73,25 @@ export const offerService = {
 
     await offerRepository.publishOffer(offerId)
 
+    // Notifier tous les candidats
+    const candidates = await prisma.user.findMany({
+      where: { role: 'candidate', deletedAt: null },
+      select: { id: true }
+    });
+
+    for (const candidate of candidates) {
+      notificationService.notify(
+        candidate.id,
+        'NEW_OFFER_PUBLISHED',
+        `Nouvelle offre chez ${company.name}`,
+        { offerId, title: offer.title, companyName: company.name }
+      ).catch(err => console.error(`[Notification] Error notifying candidate ${candidate.id}:`, err));
+    }
+
     // Générer embedding en arrière-plan (sans await)
     generateEmbeddingBackground(offerId)
 
-    return { message: 'Offre publiée, matching en cours' }
+    return { message: 'Offre publiée, matching en cours et candidats notifiés' }
   },
 
   async updateOffer(offerId: string, recruiterId: string, data: UpdateOfferInput) {
@@ -199,13 +223,18 @@ async function generateEmbeddingBackground(offerId: string) {
     })
     clearTimeout(timeout)
 
+    let embedding: number[];
+
     if (!response.ok) {
-      throw new Error(`AI Service error: ${response.status}`)
+      console.warn(`[Offer] ⚠️ AI Service error ${response.status} for offer ${offerId}. Using fallback zeros.`);
+      embedding = new Array(384).fill(0);
+    } else {
+      const data = await response.json() as { embedding: number[] }
+      embedding = data.embedding;
     }
 
-    const data = await response.json() as { embedding: number[] }
-    await offerRepository.updateOfferEmbedding(offerId, data.embedding)
-    console.log(`[Offer] ✅ Embedding offre généré : ${offerId}`)
+    await offerRepository.updateOfferEmbedding(offerId, embedding)
+    console.log(`[Offer] ✅ Embedding offre traité (success/fallback) : ${offerId}`)
 
     // Déclencher le matching en arrière-plan (sans await)
     triggerMatchingForOffer(offerId).catch((err) =>

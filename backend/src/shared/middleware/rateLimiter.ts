@@ -4,7 +4,7 @@ import { prisma } from '../config/prismaClient';
 
 export const authRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // 5 tentatives
+  max: 100, // Augmenté pour la phase de test (auparavant 5)
   standardHeaders: true,
   legacyHeaders: false,
   handler: (req, res, _next, options) => {

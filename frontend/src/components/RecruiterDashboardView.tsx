@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { recruiterService } from '../services/recruiterService';
 import { RecruiterLayout } from './RecruiterLayout';
@@ -61,10 +61,15 @@ export default function RecruiterDashboardView() {
 
   return (
     <RecruiterLayout>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6" id="stat-cards">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6" id="stat-cards">
+        <div className="bg-white p-6 rounded-[2rem] border border-surface-variant shadow-sm card-hover-scale">
+          <p className="text-sm font-bold text-on-surface-variant">Total des offres</p>
+          <h3 className="text-3xl font-black mt-2 text-on-surface">{dashboard?.totalOffers ?? 0}</h3>
+        </div>
+
         <div className="bg-white p-6 rounded-[2rem] border border-surface-variant shadow-sm card-hover-scale">
           <p className="text-sm font-bold text-on-surface-variant">Offres publiees</p>
-          <h3 className="text-3xl font-black mt-2 text-on-surface">{dashboard?.totalOffers ?? 0}</h3>
+          <h3 className="text-3xl font-black mt-2 text-on-surface">{(dashboard as any)?.publishedOffers ?? 0}</h3>
         </div>
 
         <div className="bg-white p-6 rounded-[2rem] border border-surface-variant shadow-sm card-hover-scale">

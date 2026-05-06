@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html class="light" lang="fr">
 <head>
 <meta charset="utf-8">
@@ -369,8 +369,8 @@
   <div class="particle" id="p3" style="width:16px;height:16px;background:#6ffbbe;opacity:0.5;top:80%;left:20%"></div>
   <div class="particle" id="p4" style="width:6px;height:6px;background:#4648d4;opacity:0.3;top:30%;left:85%"></div>
  
-  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-    <div class="lg:col-span-6 space-y-8">
+  <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
+    <div class="w-full md:w-1/2 space-y-8">
  
       <div class="reveal-left inline-flex items-center gap-2 px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-xs font-bold tracking-wider uppercase">
         <span class="material-symbols-outlined text-base">auto_awesome</span>
@@ -409,7 +409,7 @@
       </div>
     </div>
  
-    <div class="lg:col-span-6 relative reveal-right">
+    <div class="w-full md:w-1/2 relative reveal-right">
       <div class="relative z-10 p-4 bg-surface-container-lowest rounded-3xl shadow-2xl shadow-primary/10 overflow-hidden">
         <img alt="Matching IA" class="rounded-2xl w-full" src="./Gemini_Generated_Image_uyj3q6uyj3q6uyj3.png">
         <div class="absolute bottom-8 right-8 glass-panel p-6 rounded-2xl border border-white/20 shadow-xl max-w-xs">
@@ -759,20 +759,20 @@
 <!-- ══ STATS SECTION (AFTER FEEDBACK) ══ -->
 <section class="relative bg-white py-16">
   <div class="max-w-7xl mx-auto px-6 relative z-10">
-    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-5">
-      <div class="bg-surface rounded-[1.75rem] border border-surface-variant p-6 reveal-up">
+    <div class="flex flex-col md:flex-row gap-5">
+      <div class="flex-1 bg-surface rounded-[1.75rem] border border-surface-variant p-6 reveal-up">
         <p class="text-[11px] font-black uppercase tracking-[0.24em] text-on-surface-variant">Placements réussis</p>
         <h3 class="mt-3 text-4xl font-black text-on-surface"><span class="premium-counter-value" data-target="320" data-suffix="+">0</span></h3>
       </div>
-      <div class="bg-surface rounded-[1.75rem] border border-surface-variant p-6 reveal-up">
+      <div class="flex-1 bg-surface rounded-[1.75rem] border border-surface-variant p-6 reveal-up">
         <p class="text-[11px] font-black uppercase tracking-[0.24em] text-on-surface-variant">Temps moyen shortlist</p>
         <h3 class="mt-3 text-4xl font-black text-on-surface"><span class="premium-counter-value" data-target="48" data-suffix="h">0</span></h3>
       </div>
-      <div class="bg-surface rounded-[1.75rem] border border-surface-variant p-6 reveal-up">
+      <div class="flex-1 bg-surface rounded-[1.75rem] border border-surface-variant p-6 reveal-up">
         <p class="text-[11px] font-black uppercase tracking-[0.24em] text-on-surface-variant">Matching moyen</p>
         <h3 class="mt-3 text-4xl font-black text-on-surface"><span class="premium-counter-value" data-target="96" data-suffix="%">0</span></h3>
       </div>
-      <div class="bg-surface rounded-[1.75rem] border border-surface-variant p-6 reveal-up">
+      <div class="flex-1 bg-surface rounded-[1.75rem] border border-surface-variant p-6 reveal-up">
         <p class="text-[11px] font-black uppercase tracking-[0.24em] text-on-surface-variant">Satisfaction</p>
         <h3 class="mt-3 text-4xl font-black text-on-surface"><span class="premium-counter-value" data-target="9" data-prefix="4." data-suffix="/5">0</span></h3>
       </div>
@@ -781,7 +781,7 @@
 </section>
 
 <!-- ══ PERFORMANCE FUNNEL SECTION ══ -->
-<section class="relative overflow-hidden bg-white py-20">
+<section class="relative bg-white py-20">
   <div class="max-w-7xl mx-auto px-6 relative z-10">
     <div class="bg-gradient-to-br from-primary to-secondary rounded-[2rem] p-12 text-white shadow-2xl shadow-primary/20 reveal-right">
       <div class="flex items-center justify-between gap-4 mb-8">
@@ -828,10 +828,10 @@
 </section>
 
  <!-- ══ CTA FINAL ══ -->
-<section class="relative py-32 bg-gradient-to-br from-primary to-secondary text-white overflow-hidden">
+<section class="relative mt-20 py-32 bg-gradient-to-br from-primary to-secondary text-white overflow-hidden" style="isolation: isolate;">
 
   <!-- Glow SVG -->
-  <svg width="600" height="600" viewBox="0 0 600 600" class="absolute -top-40 -left-40 opacity-20">
+  <svg width="600" height="600" viewBox="0 0 600 600" class="absolute top-0 -left-40 opacity-20">
     <circle cx="300" cy="300" r="300" fill="url(#grad1)"/>
     <defs>
       <radialGradient id="grad1">

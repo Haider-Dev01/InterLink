@@ -11,8 +11,9 @@ export class ApplicationRepository {
       },
       include: {
         offer: {
-          include: {
-            company: true
+          select: {
+            id: true, title: true, location: true, remote: true,
+            offerStatus: true, company: true
           }
         }
       }
@@ -29,8 +30,9 @@ export class ApplicationRepository {
           }
         },
         offer: {
-          include: {
-            company: true
+          select: {
+            id: true, title: true, location: true, remote: true,
+            offerStatus: true, company: true
           }
         }
       },
@@ -45,6 +47,15 @@ export class ApplicationRepository {
         candidate: {
           include: {
             profile: true,
+            cvDocuments: {
+              where: { isActive: true },
+              select: {
+                id: true, fileUrl: true, isActive: true, parseStatus: true,
+                extractedSkills: { include: { skill: true } }
+              },
+              orderBy: { createdAt: 'desc' },
+              take: 1
+            },
             match_scores: {
               where: { offerId }
             }
@@ -68,13 +79,23 @@ export class ApplicationRepository {
         candidate: {
           include: {
             profile: true,
+            cvDocuments: {
+              where: { isActive: true },
+              select: {
+                id: true, fileUrl: true, isActive: true, parseStatus: true,
+                extractedSkills: { include: { skill: true } }
+              },
+              orderBy: { createdAt: 'desc' },
+              take: 1,
+            },
             match_scores: true,
           },
         },
         offer: {
-          include: {
-            company: true,
-          },
+          select: {
+            id: true, title: true, location: true, remote: true,
+            offerStatus: true, company: true
+          }
         },
       },
       orderBy: {
@@ -99,7 +120,12 @@ export class ApplicationRepository {
             profile: true
           }
         },
-        offer: true
+        offer: {
+          select: {
+            id: true, title: true, location: true, remote: true,
+            offerStatus: true, recruiterId: true, companyId: true, company: true
+          }
+        }
       }
     });
   }

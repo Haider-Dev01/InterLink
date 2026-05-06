@@ -29,7 +29,43 @@ export class AdminService {
     await adminRepository.setUserBanStatus(adminId, userId, false);
   }
 
+  async getOffers(page: number, limit: number) {
+    return adminRepository.getOffers(page, limit);
+  }
+
   async getStats() {
     return adminRepository.getStats();
+  }
+
+  async getDetailedAnalytics() {
+    return adminRepository.getDetailedAnalytics();
+  }
+
+  async getPendingCompanies() {
+    return adminRepository.getPendingCompanies();
+  }
+
+  async verifyCompany(companyId: string, adminId: string) {
+    return adminRepository.verifyCompany(companyId, adminId);
+  }
+
+  async rejectCompany(companyId: string, reason: string, adminId: string) {
+    return adminRepository.rejectCompany(companyId, reason, adminId);
+  }
+
+  async toggleOfferFeatured(offerId: string, isFeatured: boolean) {
+    return adminRepository.toggleOfferFeatured(offerId, isFeatured);
+  }
+
+  async updateOfferStatus(offerId: string, status: any) {
+    return adminRepository.updateOfferStatus(offerId, status);
+  }
+
+  async deleteOffer(offerId: string) {
+    return adminRepository.deleteOffer(offerId);
+  }
+
+  async getUserAuditLogs(userId: string) {
+    return adminRepository.getUserAuditLogs(userId);
   }
 }

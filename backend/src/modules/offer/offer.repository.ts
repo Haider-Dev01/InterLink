@@ -35,14 +35,27 @@ export const offerRepository = {
   async getOfferById(offerId: string) {
     return prisma.jobOffer.findUnique({
       where: { id: offerId },
-      include: { offerSkills: { include: { skill: true } }, company: true },
+      select: {
+        id: true, companyId: true, recruiterId: true, title: true, 
+        description: true, location: true, durationMonths: true, 
+        remote: true, offerStatus: true, publishedAt: true, 
+        isFeatured: true, createdAt: true, updatedAt: true, deletedAt: true,
+        offerSkills: { include: { skill: true } },
+        company: true
+      }
     })
   },
 
   async getOffersByRecruiter(recruiterId: string) {
     return prisma.jobOffer.findMany({
       where: { recruiterId, deletedAt: null },
-      include: { offerSkills: { include: { skill: true } } },
+      select: {
+        id: true, companyId: true, recruiterId: true, title: true, 
+        description: true, location: true, durationMonths: true, 
+        remote: true, offerStatus: true, publishedAt: true, 
+        isFeatured: true, createdAt: true, updatedAt: true, deletedAt: true,
+        offerSkills: { include: { skill: true } }
+      },
       orderBy: { createdAt: 'desc' },
     })
   },
@@ -82,7 +95,14 @@ export const offerRepository = {
     const [offers, total] = await Promise.all([
       prisma.jobOffer.findMany({
         where,
-        include: { offerSkills: { include: { skill: true } }, company: true },
+        select: {
+          id: true, companyId: true, recruiterId: true, title: true, 
+          description: true, location: true, durationMonths: true, 
+          remote: true, offerStatus: true, publishedAt: true, 
+          isFeatured: true, createdAt: true, updatedAt: true, deletedAt: true,
+          offerSkills: { include: { skill: true } },
+          company: true
+        },
         skip,
         take: filters.limit,
         orderBy: { publishedAt: 'desc' },
@@ -153,11 +173,18 @@ export const offerRepository = {
   },
 
   async getRecruiterCompany(recruiterId: string) {
-    const profile = await prisma.profile.findUnique({
+    // 1. Chercher si le user est propriétaire d'une entreprise
+    const ownedCompany = await prisma.company.findUnique({
       where: { userId: recruiterId },
+    })
+    if (ownedCompany) return ownedCompany
+
+    // 2. Sinon chercher via le companyId du User/Profile
+    const user = await prisma.user.findUnique({
+      where: { id: recruiterId },
       include: { company: true },
     })
-    return profile?.company ?? null
+    return user?.company ?? null
   },
 
   async getCompanyById(companyId: string) {
@@ -169,7 +196,7 @@ export const offerRepository = {
   async getUserById(userId: string) {
     return prisma.user.findUnique({
       where: { id: userId },
-      select: { id: true, role: true },
+      select: { id: true, role: true, companyId: true, isBanned: true },
     })
   },
 }

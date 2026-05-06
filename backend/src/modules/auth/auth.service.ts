@@ -23,38 +23,46 @@ export class AuthService {
 
       // Utilisation d'une transaction pour garantir l'atomicité
       const result = await prisma.$transaction(async (tx: any) => {
+        let companyId: string | undefined;
+
+        if ((data.role as any) === 'admin') {
+          throw new AppError('La création de compte administrateur est interdite via ce formulaire', 403);
+        }
+
+        if (data.role === 'recruiter') {
+          const domain = data.email.split('@')[1];
+          if (!domain) throw new AppError('Email invalide', 400);
+
+          const companySearchName = domain.split('.')[0]; // ex: techgo
+          const company = await tx.company.findFirst({
+            where: {
+              name: { equals: companySearchName, mode: 'insensitive' }
+            }
+          });
+
+          if (!company) {
+            throw new AppError(`Accès refusé : L'entreprise correspondant au domaine @${domain} n'est pas enregistrée sur InternLink.`, 400);
+          }
+          companyId = company.id;
+        }
+
         // 1. Création de l'utilisateur et de son profil
         const user = await tx.user.create({
           data: {
             email: data.email,
             passwordHash,
             role: data.role,
+            companyId: companyId,
             profile: {
               create: {
                 firstName: data.firstName,
                 lastName: data.lastName,
+                companyId: companyId
               }
             }
           },
           include: { profile: true }
         });
-
-        if (data.role === 'recruiter') {
-          const defaultCompanyName = `Entreprise de ${data.firstName} ${data.lastName}`.trim();
-          const company = await tx.company.create({
-            data: {
-              userId: user.id,
-              name: defaultCompanyName,
-              industry: 'General',
-              isVerified: false,
-            },
-          });
-
-          await tx.profile.update({
-            where: { userId: user.id },
-            data: { companyId: company.id },
-          });
-        }
 
         // 2. Génération des tokens (avec sauvegarde du refresh token dans la transaction)
         const tokens = await this.generateTokens(user.id, user.email, user.role as any, tx);
@@ -83,7 +91,7 @@ export class AuthService {
           }
         });
 
-        return { user: hydratedUser ?? user, ...tokens };
+        return { user: this.transformUser(hydratedUser ?? user), ...tokens };
       });
 
       return result;
@@ -126,7 +134,7 @@ export class AuthService {
 
       await authRepository.createAuditLog(user.id, 'USER_LOGGED_IN');
 
-      return { user, ...tokens };
+      return { user: this.transformUser(user), ...tokens };
     } catch (error) {
       if (error instanceof AppError) {
         throw error;
@@ -189,16 +197,31 @@ export class AuthService {
       if (!user) {
         throw new AppError('Utilisateur introuvable', 404);
       }
-      return user;
+      return this.transformUser(user);
     } catch (error) {
-      if (error instanceof AppError) {
-        throw error;
-      }
+      if (error instanceof AppError) throw error;
       throw new AppError(
         error instanceof Error ? error.message : 'Erreur lors de la récupération de l\'utilisateur',
         500
       );
     }
+  }
+
+  private transformUser(user: any) {
+    if (!user) return null;
+    
+    // Extraire les skills du CV actif
+    const activeCv = user.cvDocuments?.[0];
+    const skills = activeCv?.extractedSkills?.map((es: any) => ({
+      id: es.skill.id,
+      name: es.skill.name
+    })) || [];
+
+    const { cvDocuments, ...userWithoutCvs } = user;
+    return {
+      ...userWithoutCvs,
+      skills
+    };
   }
 
   private hashToken(token: string): string {

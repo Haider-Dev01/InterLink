@@ -107,58 +107,68 @@
     <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[120px] animate-pulse pointer-events-none"></div>
     <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 rounded-full blur-[120px] animate-pulse pointer-events-none" style="animation-delay: 2s;"></div>
 
-    <div class="w-full max-w-[480px] z-10">
+    <div class="w-full max-w-[380px] z-10">
         
         <div class="text-center mb-8 reveal-card" style="animation-delay: 0.1s;">
             <div class="flex items-center justify-center gap-3 mb-2">
                 <span class="material-symbols-outlined text-primary text-4xl" data-icon="hub">hub</span>
                 <span class="text-3xl font-black text-primary tracking-tight">InternLink</span>
             </div>
-            <p class="text-on-surface-variant font-medium">Connectez-vous au futur du recrutement IA</p>
+            <p class="text-on-surface-variant font-medium text-lg">Connectez-vous au futur du recrutement IA</p>
         </div>
 
-        <div class="glass-effect rounded-[2.5rem] p-8 md:p-10 shadow-2xl shadow-primary/10 reveal-card" style="animation-delay: 0.2s;">
+        <div class="glass-effect rounded-[2.5rem] p-7 shadow-2xl shadow-primary/10 reveal-card" style="animation-delay: 0.2s;">
             
             <div class="relative flex bg-surface p-1 rounded-2xl mb-8 user-type-toggle border border-surface-variant/50">
-                <button id="tab-student" type="button" onclick="switchUser('student')" class="relative z-10 flex-1 flex items-center justify-center gap-2 py-3 text-sm font-bold text-primary transition-colors duration-300">
-                    <span class="material-symbols-outlined text-[18px]">school</span>
+                <button id="tab-student" type="button" class="relative z-10 flex-1 flex items-center justify-center gap-1 py-3 text-[12px] font-bold text-primary transition-colors duration-300">
+                    <span class="material-symbols-outlined text-[16px]">school</span>
                     Étudiant
                 </button>
-                <button id="tab-recruiter" type="button" onclick="switchUser('recruiter')" class="relative z-10 flex-1 flex items-center justify-center gap-2 py-3 text-sm font-bold text-on-surface-variant transition-colors duration-300">
-                    <span class="material-symbols-outlined text-[18px]">business_center</span>
+                <button id="tab-recruiter" type="button" class="relative z-10 flex-1 flex items-center justify-center gap-1 py-3 text-[12px] font-bold text-on-surface-variant transition-colors duration-300">
+                    <span class="material-symbols-outlined text-[16px]">business_center</span>
                     Recruteur
                 </button>
-                <div id="user-slider" class="absolute top-1 left-1 w-[calc(50%-4px)] h-[calc(100%-8px)] bg-white rounded-xl shadow-sm transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]"></div>
+                <button id="tab-admin" type="button" class="relative z-10 flex-1 flex items-center justify-center gap-1 py-3 text-[12px] font-bold text-on-surface-variant transition-colors duration-300">
+                    <span class="material-symbols-outlined text-[16px]">admin_panel_settings</span>
+                    Admin
+                </button>
+                <div id="user-slider" class="absolute top-1 left-1 w-[calc(33.33%-4px)] h-[calc(100%-8px)] bg-white rounded-xl shadow-sm transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]"></div>
+            </div>
+            
+            <div id="error-message" class="hidden p-4 bg-red-50 border border-red-200 text-red-600 text-sm font-bold rounded-xl flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">error</span>
+                <span id="error-text"></span>
             </div>
 
             <form id="login-form" class="space-y-6">
                 <div class="space-y-2">
-                    <label class="text-xs font-black uppercase tracking-widest text-on-surface-variant ml-1">Rôle</label>
+                    <label class="text-xs font-black uppercase tracking-[0.2em] text-on-surface-variant ml-1">RÔLE</label>
                     <div class="relative group">
                         <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">person</span>
-                        <select name="role" class="w-full appearance-none pl-12 pr-12 py-4 bg-white/70 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-semibold shadow-sm">
-                            <option value="candidate">Etudiant</option>
+                        <select name="role" class="w-full appearance-none pl-12 pr-12 py-3 bg-white/70 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all text-sm font-semibold shadow-sm">
+                            <option value="candidate">Étudiant</option>
                             <option value="recruiter">Recruteur</option>
+                            <option value="admin">Administrateur</option>
                         </select>
                         <span class="material-symbols-outlined pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant">expand_more</span>
                     </div>
                 </div>
                 <div class="space-y-2">
-                    <label class="text-xs font-black uppercase tracking-widest text-on-surface-variant ml-1">Adresse Email</label>
+                    <label class="text-xs font-black uppercase tracking-[0.2em] text-on-surface-variant ml-1">ADRESSE EMAIL</label>
                     <div class="relative group">
                         <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">mail</span>
-                        <input type="email" placeholder="nom@exemple.com" class="w-full pl-12 pr-4 py-4 bg-white/50 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium placeholder:text-on-surface-variant/40" required>
+                        <input type="email" name="email" placeholder="nom@exemple.com" class="w-full pl-12 pr-4 py-3 bg-white/50 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all text-sm font-medium placeholder:text-on-surface-variant/40" required>
                     </div>
                 </div>
 
                 <div class="space-y-2">
                     <div class="flex justify-between items-center">
-                        <label class="text-xs font-black uppercase tracking-widest text-on-surface-variant ml-1">Mot de passe</label>
+                        <label class="text-xs font-black uppercase tracking-[0.2em] text-on-surface-variant ml-1">MOT DE PASSE</label>
                         <a href="#" class="text-[11px] font-bold text-primary hover:underline">Oublié ?</a>
                     </div>
                     <div class="relative group">
                         <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">lock</span>
-                        <input type="password" placeholder="••••••••" class="w-full pl-12 pr-4 py-4 bg-white/50 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium placeholder:text-on-surface-variant/40" required>
+                        <input type="password" name="password" placeholder="••••••••" class="w-full pl-12 pr-4 py-3 bg-white/50 border border-surface-variant rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all text-sm font-medium placeholder:text-on-surface-variant/40" required>
                         <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors">
                             <span class="material-symbols-outlined text-[20px]">visibility</span>
                         </button>
@@ -170,7 +180,7 @@
                     <label for="remember" class="text-sm font-medium text-on-surface-variant select-none">Rester connecté</label>
                 </div>
 
-                <button type="submit" class="w-full bg-primary text-white font-black py-4 rounded-2xl shadow-xl shadow-primary/20 hover:shadow-2xl hover:bg-primary-container hover:-translate-y-1 active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 group">
+                <button type="submit" class="w-full bg-primary text-white font-black py-3.5 rounded-2xl shadow-xl shadow-primary/20 hover:shadow-2xl hover:bg-primary-container hover:-translate-y-1 active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 group">
                     <span>Accéder à InterLink</span>
                     <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
                 </button>
@@ -179,7 +189,7 @@
             <div class="mt-10">
                 <div class="relative flex items-center justify-center mb-8">
                     <div class="absolute w-full border-t border-surface-variant/50"></div>
-                    <span class="relative bg-white px-4 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/60">Ou continuer avec</span>
+                    <span class="relative bg-white px-4 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/60">OU CONTINUER AVEC</span>
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
@@ -198,166 +208,10 @@
         <p class="text-center mt-8 reveal-card" style="animation-delay: 0.3s;">
             <span class="text-on-surface-variant font-medium text-sm">Pas encore de compte ?</span>
             <a href="inscription.html" class="text-primary font-black text-sm hover:underline ml-1">Rejoignez-nous gratuitement</a>
-        </p>
-    </div>
+        </body>
+</html>
 
-    <script>
-        /* =========================================
-           PAGE LOAD ANIMATION
-        ========================================= */
-        const tl = gsap.timeline();
-        tl.from(".reveal-card", {
-            y: 40,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.15,
-            ease: "power3.out"
-        });
 
-        /* =========================================
-           FLOATING PARTICLES
-        ========================================= */
-        ['#p1','#p2','#p3','#p4'].forEach((id, i) => {
-            gsap.to(id, {
-                y: gsap.utils.random(-30, 30),
-                x: gsap.utils.random(-20, 20),
-                duration: gsap.utils.random(3, 5),
-                repeat: -1,
-                yoyo: true,
-                ease: 'sine.inOut',
-                delay: i * 0.5
-            });
-        });
-
-        /* =========================================
-           PASSWORD VISIBILITY TOGGLE
-        ========================================= */
-        document.querySelectorAll("button[type='button']").forEach(btn => {
-            const visibilityIcon = btn.querySelector('.material-symbols-outlined[style*="20px"]');
-            if (visibilityIcon && btn.parentElement.querySelector('input[type="password"]')) {
-                const passwordInput = btn.parentElement.querySelector('input');
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const type = passwordInput.type === 'password' ? 'text' : 'password';
-                    passwordInput.type = type;
-                    
-                    gsap.to(btn, {
-                        scale: 1.2,
-                        duration: 0.2,
-                        yoyo: true,
-                        repeat: 1
-                    });
-                });
-            }
-        });
-
-        /* =========================================
-           USER TYPE SWITCHING
-        ========================================= */
-        function switchUser(type) {
-            const slider = document.getElementById('user-slider');
-            const btnStudent = document.getElementById('tab-student');
-            const btnRecruiter = document.getElementById('tab-recruiter');
-
-            if (type === 'student') {
-                gsap.to(slider, { x: 0, duration: 0.5, ease: 'elastic.out(1, 0.6)' });
-                btnStudent.classList.replace('text-on-surface-variant', 'text-primary');
-                btnRecruiter.classList.replace('text-primary', 'text-on-surface-variant');
-            } else {
-                gsap.to(slider, { x: '100%', duration: 0.5, ease: 'elastic.out(1, 0.6)' });
-                btnRecruiter.classList.replace('text-on-surface-variant', 'text-primary');
-                btnStudent.classList.replace('text-primary', 'text-on-surface-variant');
-            }
-        }
-
-        /* =========================================
-           BUTTON RIPPLE EFFECT & HOVER
-        ========================================= */
-        document.querySelectorAll("button").forEach(btn => {
-            btn.addEventListener("click", function(e) {
-                if (!e.target.closest('input')) {
-                    const ripple = document.createElement("span");
-                    ripple.classList.add("ripple");
-                    this.appendChild(ripple);
-
-                    const x = e.clientX - this.offsetLeft;
-                    const y = e.clientY - this.offsetTop;
-
-                    ripple.style.left = x + "px";
-                    ripple.style.top = y + "px";
-
-                    setTimeout(() => ripple.remove(), 600);
-                }
-            });
-
-            btn.addEventListener("mouseenter", function() {
-                if (this.id !== 'tab-student' && this.id !== 'tab-recruiter') {
-                    gsap.to(this, { scale: 1.02, duration: 0.2 });
-                }
-            });
-
-            btn.addEventListener("mouseleave", function() {
-                if (this.id !== 'tab-student' && this.id !== 'tab-recruiter') {
-                    gsap.to(this, { scale: 1, duration: 0.2 });
-                }
-            });
-        });
-    </script>
-<!-- Code injected by live-server -->
-<script>
-	// <![CDATA[  <-- For SVG support
-	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}
-	// ]]>
-</script>
-<script>
-window.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("login-form");
-
-    form.addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        const email = document.querySelector('input[type="email"]').value;
-        const password = document.querySelector('input[type="password"]').value;
-        const role = document.querySelector('select[name="role"]').value;
-
-        if (window.onLogin) {
-            window.onLogin({ email, password, role });
-        }
-    });
-});
-</script>
 </body>
 </html>
 

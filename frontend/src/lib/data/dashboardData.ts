@@ -1,6 +1,5 @@
 export const candidateNavItems = [
   { label: 'Tableau de bord', icon: 'dashboard', to: '/candidate/dashboard' },
-  { label: 'Candidatures', icon: 'description', to: '/candidate/dashboard/candidatures', badge: '4' },
   { label: 'Mon CV Nexus', icon: 'assignment_ind', to: '/candidate/dashboard/cv-nexus' },
   { label: 'Offres Sauvegardees', icon: 'bookmark', to: '/candidate/dashboard/offres-sauvegardees' },
   { label: 'Coaching IA', icon: 'forum', to: '/candidate/dashboard/coaching-ia' },
@@ -16,11 +15,11 @@ export const recruiterNavItems = [
 ];
 
 export const adminNavItems = [
-  { label: 'Dashboard', icon: 'grid_view', to: '/dashboard-administrateur' },
-  { label: 'Utilisateurs', icon: 'group', to: '/admin-utilisateurs' },
-  { label: 'Offres & Stages', icon: 'work', to: '/admin-offres', badge: '12' },
-  { label: 'Analytique IA', icon: 'insert_chart', to: '/dashboard-administrateur/analytique-ia' },
-  { label: 'Paramètres', icon: 'settings', to: '/dashboard-administrateur/parametres' },
+  { label: 'Dashboard', icon: 'grid_view', to: '/admin/dashboard' },
+  { label: 'Utilisateurs', icon: 'group', to: '/admin/dashboard/utilisateurs' },
+  { label: 'Offres & Stages', icon: 'work', to: '/admin/dashboard/offres' },
+  { label: 'Analytique IA', icon: 'insert_chart', to: '/admin/dashboard/analytique-ia' },
+  { label: 'Paramètres', icon: 'settings', to: '/admin/dashboard/parametres' },
 ];
 
 export const candidateApplications = [

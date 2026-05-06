@@ -12,40 +12,31 @@ function formatDay(date: Date) {
 router.get('/dashboard', authenticate, authorize(['recruiter']), async (req, res, next) => {
   try {
     const recruiterId = req.user!.id;
+    console.log('[DEBUG] Recruiter Dashboard - ID:', recruiterId);
 
-    const [offers, applications] = await Promise.all([
+    const [offersCount, publishedCount, offers, applications] = await Promise.all([
+      prisma.jobOffer.count({ where: { recruiterId, deletedAt: null } }),
+      prisma.jobOffer.count({ where: { recruiterId, deletedAt: null, offerStatus: 'published' } }),
       prisma.jobOffer.findMany({
         where: { recruiterId, deletedAt: null },
-        include: {
-          applications: {
-            select: {
-              applicationStatus: true,
-            },
-          },
+        select: {
+          id: true, title: true, offerStatus: true,
+          applications: { select: { applicationStatus: true } },
         },
       }),
       prisma.application.findMany({
-        where: {
-          offer: {
-            recruiterId,
-            deletedAt: null,
-          },
-        },
-        include: {
-          offer: {
-            select: {
-              id: true,
-              title: true,
-            },
-          },
-        },
+        where: { offer: { recruiterId, deletedAt: null } },
+        include: { offer: { select: { id: true, title: true } } },
       }),
     ]);
 
-    const totalOffers = offers.length;
+    const totalOffers = offersCount;
+    const publishedOffers = publishedCount;
+    console.log(`[DEBUG] Recruiter Dashboard - ID: ${recruiterId}, Total: ${totalOffers}, Published: ${publishedOffers}`);
+    
     const totalCandidatesReceived = applications.length;
     const activeApplications = applications.filter((item) =>
-      item.applicationStatus === 'pending' || item.applicationStatus === 'interview',
+      ['pending', 'interview'].includes(item.applicationStatus),
     ).length;
 
     const offersById = new Map(
@@ -61,28 +52,30 @@ router.get('/dashboard', authenticate, authorize(['recruiter']), async (req, res
 
     for (const application of applications) {
       const bucket = offersById.get(application.offerId);
-      if (!bucket) {
-        continue;
-      }
-      bucket.applications += 1;
-      if (application.applicationStatus === 'accepted') {
-        bucket.accepted += 1;
+      if (bucket) {
+        bucket.applications += 1;
+        if (application.applicationStatus === 'accepted') {
+          bucket.accepted += 1;
+        }
       }
     }
 
-    const topOffer = [...offersById.values()].sort((a, b) => b.applications - a.applications)[0] ?? null;
+    const sortedOffers = [...offersById.values()].sort((a, b) => b.applications - a.applications);
+    const topOffer = sortedOffers[0] ?? null;
 
     const aiInsightsSummary = topOffer
-      ? `${topOffer.title} attire le plus de candidats (${topOffer.applications}). Focus sur la conversion des profils interview en acceptes.`
-      : "Publiez votre premiere offre pour debloquer des insights IA sur la performance du recrutement.";
+      ? `${topOffer.title} attire le plus de candidats (${topOffer.applications}). Optimisez vos délais de réponse pour convertir plus de talents.`
+      : "Publiez votre première offre pour débloquer les analyses de performance IA.";
 
     return res.status(200).json({
       success: true,
       data: {
         totalOffers,
+        publishedOffers,
         totalCandidatesReceived,
         activeApplications,
         aiInsightsSummary,
+        topOffers: sortedOffers.slice(0, 3)
       },
     });
   } catch (error) {
@@ -101,7 +94,8 @@ router.get('/overview', authenticate, authorize(['recruiter']), async (req, res,
     const [offers, applications] = await Promise.all([
       prisma.jobOffer.findMany({
         where: { recruiterId, deletedAt: null },
-        include: {
+        select: {
+          id: true, title: true, offerStatus: true,
           applications: {
             select: {
               id: true,

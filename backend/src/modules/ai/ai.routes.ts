@@ -63,7 +63,8 @@ async function buildCoachingContextDocuments(userId: string): Promise<CoachingCo
   const [activeCv, profile, user, topMatches, applications] = await Promise.all([
     prisma.cvDocument.findFirst({
       where: { userId, isActive: true },
-      include: {
+      select: {
+        id: true, parsedText: true,
         extractedSkills: { include: { skill: true } },
       },
     }),
@@ -82,9 +83,9 @@ async function buildCoachingContextDocuments(userId: string): Promise<CoachingCo
       where: { candidateId: userId },
       include: {
         offer: {
-          include: {
-            company: true,
-            offerSkills: { include: { skill: true } },
+          select: {
+            id: true, title: true, description: true, location: true,
+            company: true, offerSkills: { include: { skill: true } },
           },
         },
       },
@@ -95,7 +96,7 @@ async function buildCoachingContextDocuments(userId: string): Promise<CoachingCo
       where: { candidateId: userId },
       include: {
         offer: {
-          include: { company: true },
+          select: { id: true, title: true, company: true },
         },
       },
       orderBy: { updatedAt: 'desc' },
@@ -185,6 +186,7 @@ router.get('/daily-advice', authenticate, async (req, res, next) => {
     const [activeCv, activeApplications, recentInterviews, profile, user] = await Promise.all([
       prisma.cvDocument.findFirst({
         where: { userId, isActive: true },
+        select: { id: true }
       }),
       prisma.application.count({
         where: { candidateId: userId, applicationStatus: { in: ['pending', 'interview'] } },
@@ -259,6 +261,7 @@ router.post('/analyze-cv', authenticate, memoryUpload.single('file'), async (req
     if (!fileBuffer) {
       const activeCv = await prisma.cvDocument.findFirst({
         where: { userId: req.user!.id, isActive: true },
+        select: { fileUrl: true }
       });
 
       if (!activeCv) {
@@ -292,7 +295,8 @@ router.post('/optimize-cv', authenticate, async (req, res, next) => {
   try {
     const activeCv = await prisma.cvDocument.findFirst({
       where: { userId: req.user!.id, isActive: true },
-      include: {
+      select: {
+        parsedText: true,
         extractedSkills: {
           include: {
             skill: true,
@@ -509,7 +513,8 @@ router.get('/cv/me', authenticate, async (req, res, next) => {
   try {
     const cv = await prisma.cvDocument.findFirst({
       where: { userId: req.user!.id, isActive: true },
-      include: {
+      select: {
+        id: true, fileUrl: true, isActive: true, parseStatus: true,
         extractedSkills: {
           include: { skill: true },
         },
@@ -539,7 +544,8 @@ router.post('/recruiter-report', authenticate, authorize(['recruiter']), async (
     const [offers, applications] = await Promise.all([
       prisma.jobOffer.findMany({
         where: { recruiterId, deletedAt: null },
-        include: {
+        select: {
+          id: true, title: true, offerStatus: true, description: true,
           company: true,
           applications: true,
           offerSkills: {

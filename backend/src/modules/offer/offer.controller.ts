@@ -3,6 +3,7 @@ import { offerService } from './offer.service'
 import { createOfferSchema, updateOfferSchema } from './offer.validation'
 import { getMatchesForOffer } from './matching.service'
 import { AppError } from '../../shared/errors/AppError'
+import { prisma } from '../../shared/config/prismaClient'
 
 export const offerController = {
   async createOffer(req: Request, res: Response, next: NextFunction) {
@@ -83,11 +84,7 @@ export const offerController = {
   async softDeleteOffer(req: Request, res: Response, next: NextFunction) {
     try {
       const offerId = req.params.id as string
-      const userId = req.user!.id
-      const role = req.user!.role
-      const result = role === 'admin'
-        ? await offerService.softDeleteOffer(offerId)
-        : await offerService.softDeleteOfferByRecruiter(offerId, userId)
+      const result = await offerService.softDeleteOffer(offerId)
 
       return res.status(200).json({
         success: true,
@@ -175,6 +172,50 @@ export const offerController = {
       })
     } catch (error) {
       next(error)
+    }
+  },
+
+  async getOfferApplications(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+      const applications = await prisma.application.findMany({
+        where: { offerId: id },
+        include: {
+          candidate: {
+            include: {
+              profile: true,
+              cvDocuments: {
+                where: { isActive: true },
+                select: {
+                  id: true, fileUrl: true, isActive: true, parseStatus: true,
+                  extractedSkills: { include: { skill: true } }
+                }
+              }
+            }
+          }
+        },
+        orderBy: { appliedAt: 'desc' }
+      });
+
+      // Ajouter matchScore si disponible
+      const withScores = await Promise.all(applications.map(async (app: any) => {
+        const score = await prisma.matchScore.findUnique({
+          where: {
+            candidateId_offerId: {
+              candidateId: app.candidateId as string,
+              offerId: id as string
+            }
+          }
+        });
+        return {
+          ...app,
+          matchScore: score ? Math.round(score.scoreFinal * 100) : null
+        };
+      }));
+
+      res.json({ success: true, data: { applications: withScores } });
+    } catch (err) {
+      next(err);
     }
   },
 }

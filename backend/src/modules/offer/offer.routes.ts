@@ -14,12 +14,13 @@ router.post('/', authenticate, authorize(['recruiter']), offerController.createO
 
 // ── Routes avec sous-chemins AVANT /:id générique ────────────
 router.get('/:id/matches', authenticate, authorize(['recruiter']), offerController.getOfferMatches)
+router.get('/:id/applications', authenticate, authorize(['recruiter']), offerController.getOfferApplications)
 
 // ── Routes avec paramètres EN DERNIER ────────────────────────
 router.get('/:id', offerController.getOfferById)
 router.put('/:id', authenticate, authorize(['recruiter']), offerController.updateOffer)
 router.patch('/:id/publish', authenticate, authorize(['recruiter']), offerController.publishOffer)
 router.patch('/:id/archive', authenticate, authorize(['recruiter']), offerController.archiveOffer)
-router.delete('/:id', authenticate, authorize(['recruiter', 'admin']), offerController.softDeleteOffer)
+router.delete('/:id', authenticate, authorize(['admin']), offerController.softDeleteOffer)
 
 export default router
