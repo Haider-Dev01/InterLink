@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+  postgres:
+    image: pgvector/pgvector:pg15
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: internlink_prod
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/01_init.sql:ro
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis_prod_data:/data
+
+  backend:
+    build: ../backend
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=${REDIS_URL}
+      - JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}
+      - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}
+      - AI_SERVICE_URL=http://ai-service:8001
+      - FRONTEND_URL=${FRONTEND_URL}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+      - redis
+
+  ai-service:
+    build: ../ai-service
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY}
+    ports:
+      - "8001:8001"
+
+volumes:
+  postgres_prod_data:
+  redis_prod_data:

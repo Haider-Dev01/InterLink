@@ -3194,3 +3194,7 @@
 2026-05-06 08:57:23:5723 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
 2026-05-06 09:21:52:2152 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
 2026-05-06 09:21:53:2153 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 09:23:05:235 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 09:23:05:235 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 09:28:33:2833 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
+2026-05-06 09:28:35:2835 [31merror[39m: [31m[GET] /api/jobs/recommended >> 500 - Internal Server Error {"statusCode":404,"message":"Offre introuvable"}[39m
